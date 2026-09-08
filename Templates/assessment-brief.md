@@ -16,4 +16,4 @@ Complete and freeze before evaluation. Preserve a dated copy.
 - Planned record retention and publication permissions:
 
 ## Evaluator packet
-Give the evaluator this brief, requirements and recovery expectations, artifact, and pages 1-2 of Scorecard.pdf. Retain reference results and page 3 for adjudication.
+This is an administrative brief. Remove the reference-location field before evaluator delivery. Follow evaluator-packet.md and distribute the separate Evaluator-Scorecard.pdf with outcome-free requirement and recovery briefs. Keep the completed outcome matrices and Part C separate.

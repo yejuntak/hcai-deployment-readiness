@@ -1,30 +1,25 @@
 # Human-Centered AI Deployment Readiness Protocol
 
-**Engineering-handoff profile · v0.1 release candidate · Yejun Tak**
+Engineering-handoff profile, v0.1-rc.2. Author attribution: Yejun Tak.
 
-A practical evaluation protocol for examining gaps between a human evaluator's readiness judgment and the requirement, state and recovery evidence in an AI-generated interface prototype.
+A proposed operational synthesis for comparing a human evaluator's engineering-handoff judgment with frozen requirement, state and recovery evidence. This is an unvalidated research-method release with a synthetic instructional case. It does not establish a new measurement theory, production readiness, external adoption or NIST endorsement.
 
-## Use the materials
-- [Read the protocol](Protocol-v0.1.pdf)
-- [Use the evaluator scorecard](Scorecard.pdf)
-- [Download the calculation workbook](Evaluation-Template.xlsx)
-- [Try the synthetic worked example](Worked-Example/README.md)
-- [Prepare an assessment](Templates/assessment-brief.md)
-- [Review the feasibility plan](Pilot-Kit/feasibility-plan.md)
+## Materials
+- Protocol-v0.1.pdf: method, limits and prior-work references.
+- Evaluator-Scorecard.pdf: evaluator-only form; withhold reference records until locked.
+- Scorecard.pdf: full evaluator and adjudicator forms.
+- Evaluation-Template.xlsx: single-session and 20-instance batch calculations.
+- Worked-Example/Evaluator-Packet/: separate outcome-free training materials.
+- Worked-Example/: stipulated reference records and completed synthetic workbook.
+- Templates/evaluator-packet.md: assembly and disclosure instructions.
+- Pilot-Kit/comparative-study-plan.md: proposed strong-checklist comparison.
+- Publication/technical-corrections.md and Verification/: correction and calculation records.
 
-Freeze the brief and criterion, keep the reference key separate, collect and lock findings plus expected recall and judgment, adjudicate, reconcile counts to evidence records, then record the owner's decision. Read the protocol before using the workbook.
+## Contribution boundary
+Individual usability checks and metrics have substantial prior work. The proposed contribution is their stage-specific implementation with a frozen criterion, pre-disclosure judgment and retained evidence. Improvement over existing methods has not been tested. The public example is text based and cannot demonstrate a visual-polish effect.
 
-## What it measures
-Reference-set defect recall; false-ready acceptance; expected-recall gap; recovery coverage; and requirements-omission recognition. Artifact requirements coverage is reported separately. There is no aggregate score. An unresolved critical issue or missing mandatory evidence prevents handoff eligibility.
+## Citation and reuse
+Use CITATION.cff and identify version 0.1-rc.2. No DOI is assigned at package preparation. Original documents and synthetic data use CC BY 4.0; original software uses MIT. Third-party works remain under their own terms. Development and this technical review used OpenAI Codex assistance; this is not an independent peer review.
 
-## Current status
-Proposed method with synthetic example records. No participants, external validation, measured effectiveness or adoption are claimed. The scope is engineering handoff, not production authorization. AI-generated interfaces and runtime-AI systems are distinct populations. NIST references provide context, not endorsement. Author review is required before final archival release. No DOI has been assigned.
-
-## Related implementation resource
-The [Peter Tak Design System](https://github.com/yejuntak/peter-tak-design-system) contains reusable styles, tokens and component specifications. [Read the connection and planned checks](docs/design-system-connection.md), including a documented correction to a keyboard-order inconsistency. This related resource is not evidence of external adoption or validation of the protocol.
-
-## Cite and reuse
-Use CITATION.cff and identify the exact version. Documents and synthetic data: CC BY 4.0. Software: MIT. See LICENSE. Development used OpenAI Codex assistance; attribution and technical review must be confirmed by the proposed author before final publication.
-
-## Feedback
-Identify the version, section or record ID, observed problem, reproduction steps and suggested correction. Do not include private product data or participant identifiers. Pilot-Kit/feedback-log.csv supports a record of actual external review and the resulting changes.
+## Related resource
+The Peter Tak Design System is available at https://github.com/yejuntak/peter-tak-design-system . It can support future consistent study stimuli. Its publication is not evidence that this protocol works. Project page: https://takyejun.com/research/ai-readiness .
