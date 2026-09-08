@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "Cite the exact version used. This is an unvalidated release candidate; no archive DOI is assigned."
+type: dataset
+title: "Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile"
+authors:
+  - family-names: Tak
+    given-names: Yejun
+version: "0.1-rc.1"
+repository-code: "https://github.com/yejuntak/hcai-deployment-readiness"
+url: "https://github.com/yejuntak/hcai-deployment-readiness"
+license: CC-BY-4.0
+abstract: "A proposed engineering-handoff evaluation protocol with forms, calculation workbooks and a synthetic instructional example. No external validation or measured effectiveness is claimed."

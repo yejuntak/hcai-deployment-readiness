@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "title": "Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile (v0.1)",
+    "upload_type": "publication",
+    "publication_type": "technicalnote",
+    "creators": [
+      {
+        "name": "Tak, Yejun"
+      }
+    ],
+    "description": "A proposed engineering-handoff evaluation method with evaluator forms, calculation workbooks and a synthetic instructional example. No empirical validation or NIST endorsement is claimed.",
+    "version": "0.1",
+    "access_right": "open",
+    "license": "cc-by-4.0",
+    "keywords": [
+      "human-AI interaction",
+      "prototype evaluation",
+      "engineering handoff",
+      "evaluation methodology",
+      "readiness calibration"
+    ]
+  }
+}

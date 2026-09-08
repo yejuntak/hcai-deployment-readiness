@@ -1,0 +1,5 @@
+assessment_id,artifact_id,criterion_version,criterion_status,evaluator_judgment
+EX-1,SR-01,Handoff-v0.1,Nonready,Ready
+EX-2,SR-01,Handoff-v0.1,Nonready,Ready
+EX-3,SR-01,Handoff-v0.1,Nonready,Ready
+EX-4,SR-01,Handoff-v0.1,Nonready,Not ready

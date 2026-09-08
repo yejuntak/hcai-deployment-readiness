@@ -1,0 +1,7 @@
+scenario_id,acceptance_check,artifact_evidence,handoff_status
+S01,Empty required field,Field identified; validation shown.,Verified
+S02,Invalid requester,Correction keeps other inputs.,Verified
+S03,Network timeout,No recovery path specified.,Fail
+S04,Server rejection,Message and retry preserve inputs.,Verified
+S05,Repeated click feedback and input preservation,Duplicate prevention is specified; feedback/preservation walkthrough is absent.,Unassessed
+S06,Cancellation during pending submission,Outcome during processing is not assessed.,Unassessed

@@ -1,0 +1,6 @@
+finding_id,requirement_id,raw_observation,reference_id,adjudication,adjudicator,rationale
+F01,R02,Ambiguous Go navigation label,D01,Matched,Synthetic adjudicator,Identify the return/navigation label as ambiguous.
+F02,R04,Unclear validation wording,D02,Matched,Synthetic adjudicator,Identify the nonspecific field-error wording.
+F03,R06,Inconsistent reference formatting,D04,Matched,Synthetic adjudicator,"Identify formatting inconsistency, not absence of a unique ID."
+F04,R07,Omitted network recovery,D05,Matched,Synthetic adjudicator,Identify missing retry/preserved-data behavior after timeout.
+F05,R09,Ambiguous cancellation label,D07,Matched,Synthetic adjudicator,Identify unclear Leave label before submission.
