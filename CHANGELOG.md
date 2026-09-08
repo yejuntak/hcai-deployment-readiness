@@ -1,6 +1,12 @@
 # Changelog
 
-## Unreleased documentation update
+## 0.1-rc.2 - 2026-09-08
+- Corrected three reproduced workbook boundary defects and added complementary judgment measures.
+- Separated evaluator materials from the answer key and documented prior work and contribution limits.
+- Added a controlled-comparison plan. No empirical validation added.
+
+
+## Documentation between rc.1 and rc.2
 - Linked the separate public design system, candidate evaluation checks and an actual documentation consistency correction.
 - Preserved v0.1-rc.1 PDFs, workbooks and release assets. No external validation or full applied evaluation is claimed.
 

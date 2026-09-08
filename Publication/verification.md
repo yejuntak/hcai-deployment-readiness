@@ -1,12 +1,13 @@
-# Verification of v0.1-rc.1
+# Verification of v0.1-rc.2
 
 Prepared September 8, 2026.
 
-- Three PDFs rendered: protocol (8 pages), scorecard (3), worked example (3). Page layouts reviewed.
-- Both workbook sheets rendered in the blank and completed workbooks.
-- Spreadsheet calculations checked in the artifact-tool calculation engine against the synthetic source records.
-- Checked blank versus zero, numerator exceeding denominator, missing judgment, abstention, duplicate batch ID, incomplete evidence and handoff eligibility.
-- Formula-error scans returned no matches after corrections.
-- Source/verify_example.py independently reproduces six example measurements with the Python standard library.
+- Protocol PDF (7 pages), complete scorecard (3), evaluator-only scorecard (2) and calculation notes (1) rendered and visually checked. The preceding 3-page worked-example narrative is retained with a separate correction note.
+- Both worksheets in both blank and completed workbooks rendered and visually checked.
+- Three rc.1 boundary defects reproduced, recorded, and corrected: impossible omission subsets, unassessed-only disposition, and a blank first batch row.
+- Eleven named regression checks passed in the artifact-tool calculation engine; see Verification/rc2-workbook-tests.json. Blank inputs also remain unevaluated.
+- Added checks reconcile verified, failed and unassessed mandatory items. Companion rates expose abstention and false holds rather than interpreting false-ready acceptance alone.
+- Formula-error scans returned no matches in the final blank and completed workbooks.
+- Source/verify_example.py separately reproduces six synthetic CSV measurements using the Python standard library.
 
-The workbook has not been interactively tested in Microsoft Excel. It uses ordinary scalar Excel formulas and validation lists. These checks establish arithmetic and packaging behavior, not empirical validity of the protocol, reference key or severity judgments.
+These are technical checks assisted by OpenAI Codex, not independent review, participant results, validation of the reference key, or evidence of effectiveness. The exported workbooks have not been interactively tested in Microsoft Excel.

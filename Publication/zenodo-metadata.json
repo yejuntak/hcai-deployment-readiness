@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "title": "Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile (v0.1)",
+    "title": "Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile",
     "upload_type": "publication",
     "publication_type": "technicalnote",
     "creators": [
@@ -8,8 +8,8 @@
         "name": "Tak, Yejun"
       }
     ],
-    "description": "A proposed engineering-handoff evaluation method with evaluator forms, calculation workbooks and a synthetic instructional example. No empirical validation or NIST endorsement is claimed.",
-    "version": "0.1",
+    "description": "A proposed, unvalidated engineering-handoff evaluation protocol with separate evaluator and reference materials, calculation workbooks, a synthetic instructional case, technical correction records and a comparative validation plan. The method synthesizes established usability and human-AI evaluation concepts. No empirical effectiveness, independent peer review, organizational adoption or NIST endorsement is claimed. Development and technical review were assisted by OpenAI Codex. Original documents and synthetic data: CC BY 4.0; original software: MIT.",
+    "version": "0.1-rc.2",
     "access_right": "open",
     "license": "cc-by-4.0",
     "keywords": [
@@ -18,6 +18,18 @@
       "engineering handoff",
       "evaluation methodology",
       "readiness calibration"
-    ]
+    ],
+    "related_identifiers": [
+      {
+        "identifier": "https://github.com/yejuntak/hcai-deployment-readiness",
+        "relation": "isSupplementTo"
+      },
+      {
+        "identifier": "https://takyejun.com/research/ai-readiness",
+        "relation": "isDocumentedBy"
+      }
+    ],
+    "publication_date": "2026-09-08",
+    "language": "eng"
   }
 }

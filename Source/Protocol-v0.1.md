@@ -1,16 +1,16 @@
 # Human-Centered AI Deployment Readiness Protocol
 
-Engineering-handoff profile · v0.1 release candidate · Yejun Tak · September 8, 2026
+Engineering-handoff profile · v0.1-rc.2 · Yejun Tak · September 8, 2026
 
 ## Purpose, scope and status
 
-This protocol helps human evaluators examine whether an AI-generated interface prototype contains enough requirement, interaction-state and recovery evidence for engineering handoff. It separates an evaluator's readiness judgment from the evidence supporting that judgment. Version 0.1 is a proposed method for testing and refinement. Its example is synthetic. No external validation, measured effectiveness, production certification or organizational adoption is claimed.
+This protocol helps human evaluators examine whether an AI-generated interface prototype contains enough requirement, interaction-state and recovery evidence for engineering handoff. It separates an evaluator's readiness judgment from the evidence supporting that judgment. Version 0.1-rc.2 is a proposed method for testing and refinement. Its example is synthetic. No external validation, measured effectiveness, production certification or organizational adoption is claimed.
 
 Deployment readiness describes the wider program. This initial engineering-handoff profile covers prototype specifications and walkthroughs. It does not establish production readiness or replace functional, accessibility, security, privacy, model-performance or regulatory testing. Record whether AI generated the interface, operates at runtime, both, or neither. These are different populations. The included fictional case has no runtime AI.
 
 Intended users are UX evaluators, product designers, engineering leads and researchers reviewing a frozen prototype and task brief. A project owner must define the relevant stage and requirements before evaluation. Visual polish is not itself a defect. A difference between perceived readiness and criterion status is an observation to investigate, not proof that visual fidelity caused it.
 
-Start with the evaluator packet in Templates, retain a separate reference key, lock the evaluator's findings and judgment, then use Evaluation-Template.xlsx to calculate results. Worked-Example contains a fictional artifact specification, reference records and completed calculations. Do not show the reference key to evaluators before their records are locked.
+Start with the separate evaluator packet described in Templates/evaluator-packet.md, retain a separate reference key, lock the evaluator's findings and judgment, then use Evaluation-Template.xlsx to calculate results. Worked-Example contains a fictional artifact specification, reference records and completed calculations. Do not show the reference key to evaluators before their records are locked.
 
 ## 1. Freeze the assessment
 
@@ -36,7 +36,7 @@ Use categories such as requirements, system status, recovery and user control. F
 
 ## 3. Run and lock the evaluation
 
-1. Supply the frozen brief, requirements, recovery scenarios and artifact. Withhold reference outcomes, seeded-defect keys and other evaluators' findings. Use the same instructions and time limit within a comparison condition.
+1. Supply only the evaluator-facing brief, requirements-brief.csv, recovery-brief.csv, artifact, and Evaluator-Scorecard.pdf. Do not supply the reference-location field, completed outcome matrices, answer key, completed workbook or entire repository to a blinded evaluator. A public training case cannot serve as an unseen test case for someone who has studied it. Withhold reference outcomes, seeded-defect keys and other evaluators' findings. Use the same instructions and time limit within a comparison condition.
 
 2. Complete assigned tasks, including failure and recovery paths. Record each finding with ID, requirement/state ID, reproduction steps, observed and expected behavior, proposed severity, evidence location and uncertainty. Preserve raw findings. Do not merge or edit an evaluator's words after locking.
 
@@ -62,11 +62,20 @@ Requirements completeness recognition. Correctly identified predefined requireme
 
 No weighted total or universal pass percentage is used. Recall and expectation concern the evaluator. Coverage and critical issues concern the artifact. Strong recall cannot make a deficient artifact eligible. A false-ready rate is not the fraction of Ready judgments that were wrong, which uses a different denominator.
 
+
+### Companion measures and interpretation
+
+False-ready acceptance must be accompanied by abstention, missingness and decision coverage. Decision coverage on criterion-nonready instances is (Ready + Not ready judgments) / all observed judgments on those instances. Decisive false-ready acceptance is Ready / (Ready + Not ready) on criterion-nonready instances. When all judgments abstain, the original false-ready rate is zero, decision coverage is zero, and decisive false-ready acceptance is N/A. This is not evidence of useful discrimination.
+
+Include independently adjudicated criterion-ready control cases when studying effectiveness. Report Not ready judgments / all observed judgments on criterion-ready cases as the false hold rate, alongside the ready-case abstention rate and missing count. These complements are descriptive diagnostics, not new constructs or an aggregate score. Do not claim superiority by reducing acceptance through universal refusal or abstention.
+
+The expected-recall gap is a session-level signed discrepancy. It is not a validated general measure of metacognitive ability or probability calibration. Report absolute discrepancies as an additional descriptive statistic if needed; signed gaps can cancel across sessions. Pre-specify aggregation and retain per-session values. Recall can increase through indiscriminate reporting, so also retain unsupported, duplicate and unresolved finding counts, adjudication burden and elapsed time.
+
 ## 5. Decide, report and reproduce
 
 Hold for remediation: a documented failure or unresolved critical issue prevents the gate from being met. Insufficient evidence: mandatory checks or required records remain incomplete without an established qualifying pass. Eligible for handoff review: all gate conditions are met. The named owner must still record approval or refusal and date. The workbook reports gate eligibility, not automatic handoff approval.
 
-The workbook uses manual, adjudicated counts for one session and a separate batch table for criterion-conditioned judgments. Reconcile every count to CSV records. Blank means missing; zero means assessed and none. Enter 0.80 (80%) for an expected recall of 80%, not 80. Counts must be whole, nonnegative and no numerator may exceed its denominator.
+The workbook uses manual, adjudicated counts for one session and a separate batch table for criterion-conditioned judgments. Reconcile every count to CSV records. Blank means missing; zero means assessed and none. Enter 0.80 (80%) for an expected recall of 80%, not 80. Counts must be whole and nonnegative. Every numerator must fit its denominator. Detected omissions must be a subset of detected reference defects, and detected non-omissions cannot exceed the non-omission reference set. In the gate inputs, verified checks + documented failed checks + unassessed checks must equal all mandatory requirement and applicable recovery rows. Count each row in exactly one status. Requirement and recovery rows are distinct checks even when they share a defect. Open critical defects are a separate count. Workbook B36 records documented failed checks; a missing required count yields Not evaluated.
 
 Retain the frozen brief; requirement/recovery matrix; reference key; raw findings; pre-key judgment; adjudication; decision and revision record. The supplied CSV headers define stable record IDs and evidence locations. Copy the template for each new assessment. The batch workbook supports 20 records; for larger studies use exported records and an explicitly reviewed aggregation script rather than silently exceeding its range.
 
@@ -96,6 +105,39 @@ The TEVV-Athlon initial draft addresses evaluation design and evidence synthesis
 
 [2] Phillips, P. J., et al. The TEVV-Athlon Framework for Evaluating AI Systems. NIST AI 200-2 ipd, August 2026. Section 2.4 and Appendix E, Table 7. https://doi.org/10.6028/NIST.AI.200-2.ipd
 
-Version: 0.1 release candidate, September 8, 2026. Proposed author: Yejun Tak. Development assisted by OpenAI Codex for drafting, packaging and arithmetic checks. Author technical review and external validation remain separate steps. Record the final author review before archival publication. No DOI has been assigned to this package at preparation.
+Version: 0.1-rc.2, September 8, 2026. Author attribution: Yejun Tak. Development assisted by OpenAI Codex for drafting, packaging and arithmetic checks. Author technical review and external validation remain separate steps. This correction release records AI-assisted literature comparison and technical checks, not an independent expert review or empirical validation. No DOI has been assigned at package preparation.
 
 Reuse: original protocol text, forms and synthetic data are offered under CC BY 4.0; original software under MIT. Third-party references remain under their own terms. Attribution does not imply endorsement. See LICENSE and CITATION.cff. Corrections should identify version, section or stable record ID and explain the proposed change.
+
+
+## 8. Prior work and contribution boundary
+
+This release is an operational synthesis for a narrow engineering-handoff assessment. It does not claim to invent usability inspection, coverage, classification error rates, confidence-performance discrepancy or human-centered AI readiness. Its proposed contribution is the combination of a frozen stage criterion, a judgment locked before reference disclosure, separate evaluator and artifact measures, and retained evidence records in one reusable workflow. Whether that combination improves decisions over a strong existing checklist remains untested.
+
+Nielsen's usability heuristics already address system status, user control, error prevention and recovery [3]. Amershi and colleagues provide 18 human-AI interaction guidelines evaluated with design practitioners [4]. Google's People + AI Guidebook also provides practical treatment of failures, uncertainty and fallback paths [5]. These works ground the content of checks; they are not evidence that this protocol's procedure is new or effective.
+
+The ML Test Score supplies a production-readiness rubric for ML systems [6]. HINT operationalizes predeployment evaluation of AI features with human participants [7]. Lee's 2026 readiness taxonomy covers observable human-AI behavior, calibration and harm [8]. The present profile instead focuses on the evaluator's engineering-handoff judgment about a frozen interface specification. This narrower unit of analysis is a proposed distinction, not a priority claim.
+
+Expected-recall discrepancy draws on established metacognition measurement distinctions [9]. Prior prototype-fidelity research includes both effects under particular conditions and null findings for perceived usability [10, 11]. The synthetic text specification in this release does not manipulate visual polish, establish an AI-specific effect or show that fidelity causes false readiness.
+
+Evaluator disagreement is a known problem in usability assessment [12]. Independent reference preparation, documented match rules and agreement analysis are therefore essential validation work. A completed workbook proves only that specified calculations ran, not that reference defects, severity or gate thresholds are valid.
+
+[3] Nielsen, J. 10 Usability Heuristics for User Interface Design. https://www.nngroup.com/articles/ten-usability-heuristics/
+
+[4] Amershi, S., et al. (2019). Guidelines for Human-AI Interaction. CHI. https://www.microsoft.com/en-us/research/wp-content/uploads/2019/01/Guidelines-for-Human-AI-Interaction-camera-ready.pdf
+
+[5] Google PAIR. People + AI Guidebook, Errors + Graceful Failure. https://pair.withgoogle.com/chapter/errors-failing/
+
+[6] Breck, E., et al. (2017). The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction. IEEE Big Data. https://research.google/pubs/the-ml-test-score-a-rubric-for-ml-production-readiness-and-technical-debt-reduction/
+
+[7] Chen, C., Schnabel, T., Nushi, B., and Amershi, S. (2022). HINT: Integration Testing for AI-based Features with Humans in the Loop. IUI. https://www.microsoft.com/en-us/research/publication/hint-integration-testing-for-ai-based-features-with-humans-in-the-loop/
+
+[8] Lee, M. H. (2026). From Accuracy to Readiness: Metrics and Benchmarks for Human-AI Decision-Making. CHI Extended Abstracts. https://arxiv.org/abs/2603.18895
+
+[9] Fleming, S. M., and Lau, H. C. (2014). How to measure metacognition. Frontiers in Human Neuroscience, 8, 443. https://doi.org/10.3389/fnhum.2014.00443
+
+[10] Sauer, J., and Sonderegger, A. (2009). The influence of prototype fidelity and aesthetics of design in usability tests. Applied Ergonomics, 40(4), 670-677. https://pubmed.ncbi.nlm.nih.gov/18691696/
+
+[11] Wiklund, M. E., Thurrott, C., and Dumas, J. S. (1992). Does the Fidelity of Software Prototypes Affect the Perception of Usability? https://doi.org/10.1177/154193129203600429
+
+[12] Hertzum, M., and Jacobsen, N. E. (2001). The Evaluator Effect: A Chilling Fact About Usability Evaluation Methods. International Journal of Human-Computer Interaction, 13(4), 421-443. https://doi.org/10.1207/S15327590IJHC1304_05
