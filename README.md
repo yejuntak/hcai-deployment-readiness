@@ -20,6 +20,9 @@ Reference-set defect recall; false-ready acceptance; expected-recall gap; recove
 ## Current status
 Proposed method with synthetic example records. No participants, external validation, measured effectiveness or adoption are claimed. The scope is engineering handoff, not production authorization. AI-generated interfaces and runtime-AI systems are distinct populations. NIST references provide context, not endorsement. Author review is required before final archival release. No DOI has been assigned.
 
+## Related implementation resource
+The [Peter Tak Design System](https://github.com/yejuntak/peter-tak-design-system) contains reusable styles, tokens and component specifications. [Read the connection and planned checks](docs/design-system-connection.md), including a documented correction to a keyboard-order inconsistency. This related resource is not evidence of external adoption or validation of the protocol.
+
 ## Cite and reuse
 Use CITATION.cff and identify the exact version. Documents and synthetic data: CC BY 4.0. Software: MIT. See LICENSE. Development used OpenAI Codex assistance; attribution and technical review must be confirmed by the proposed author before final publication.
 

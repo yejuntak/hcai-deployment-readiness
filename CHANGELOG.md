@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased documentation update
+- Linked the separate public design system, candidate evaluation checks and an actual documentation consistency correction.
+- Preserved v0.1-rc.1 PDFs, workbooks and release assets. No external validation or full applied evaluation is claimed.
+
 ## 0.1-rc.1 - 2026-09-08
 - Packaged the engineering-handoff profile, evaluator scorecard and spreadsheet calculations.
 - Added traceable synthetic requirements, recovery, reference, findings and batch records.
