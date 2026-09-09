@@ -1,18 +1,18 @@
 # MCP server and agent skill
 
-Use the published engineering-handoff protocol from an MCP-compatible assistant or a file-based agent skill. **Software 0.1.0** implements the descriptive calculations and workflow of **protocol 0.1-rc.3** ([archived method](https://doi.org/10.5281/zenodo.22667623)). The software is a separate release, not part of the earlier Zenodo archive and not evidence of external validation.
+Use the published engineering-handoff protocol from an MCP-compatible assistant or a file-based agent skill. **MCP 0.1.0 and Skill 0.1.1** implement the descriptive calculations and workflow of **protocol 0.1-rc.3** ([archived method](https://doi.org/10.5281/zenodo.22667623)). The software is a separate release, not part of the earlier Zenodo archive and not evidence of external validation.
 
-[Project website](https://takyejun.com/research/ai-readiness#agent-tools) · [Source repository](https://github.com/yejuntak/hcai-deployment-readiness) · [Skill](../skills/hcai-readiness/SKILL.md)
+[Project website](https://takyejun.com/research/ai-readiness#agent-tools) · [Source repository](https://github.com/yejuntak/hcai-deployment-readiness) · [Skill](../skills/ai-ready/SKILL.md)
 
 ## Quick start and when to use
 
 **Before handoff:** install the Skill to prepare the scope, requirements and evidence records. Run this in your project terminal (Node.js required), then choose your agent:
 
 ```sh
-npx skills add yejuntak/hcai-deployment-readiness --skill hcai-readiness
+npx skills add yejuntak/hcai-deployment-readiness --skill ai-ready
 ```
 
-Example: “Use hcai-readiness to prepare a handoff review. Identify missing criteria before judging readiness. Label your own findings as an agent review.”
+Example: “Use ai-ready to prepare a handoff review. Identify missing criteria before judging readiness. Label your own findings as an agent review.”
 
 **After findings are locked and adjudicated:** use MCP to validate counts and calculate results. It does not inspect an interface or validate the truth of submitted evidence. Example: “Use assess_session with these reconciled records, explain each metric and flag missing evidence.” Use summarize_batch for multiple instances with the same criterion and evaluator population.
 
@@ -82,9 +82,11 @@ The server checks arithmetic and structural consistency. It cannot verify the tr
 
 ## Install the skill
 
-Download `hcai-readiness-skill-v0.1.0.zip` from the [agent tools release](https://github.com/yejuntak/hcai-deployment-readiness/releases/tag/agent-tools-v0.1.0), or copy `skills/hcai-readiness/` from this repository into your agent's skills directory. Keep the whole folder, including `references/`. For Codex, a standard personal location is `~/.codex/skills/hcai-readiness/`; other hosts have their own locations and discovery rules. Do not overwrite a customized installed skill without comparing it first.
+The Skill is now named **ai-ready** (previously hcai-readiness). Version 0.1.1 changes the name only; its evaluation workflow and protocol reference are unchanged. Existing installations under the old name still work; install the new name and remove the old copy through your host when ready.
 
-Invoke `hcai-readiness` using your host's skill selector. The skill can guide the workflow without MCP. MCP adds deterministic validation and calculation; it does not turn an agent into a human participant. The skill does not install the server automatically.
+Download `ai-ready-skill-v0.1.1.zip` from the [Skill release](https://github.com/yejuntak/hcai-deployment-readiness/releases/tag/skill-v0.1.1), or copy `skills/ai-ready/` from this repository into your agent's skills directory. Keep the whole folder, including `references/`. For Codex, a standard personal location is `~/.codex/skills/ai-ready/`; other hosts have their own locations and discovery rules. Do not overwrite a customized installed skill without comparing it first.
+
+Invoke `ai-ready` using your host's skill selector. The skill can guide the workflow without MCP. MCP adds deterministic validation and calculation; it does not turn an agent into a human participant. The skill does not install the server automatically.
 
 ## Test and reproduce
 
