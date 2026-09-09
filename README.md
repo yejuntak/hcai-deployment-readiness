@@ -6,6 +6,13 @@ A proposed operational synthesis for comparing a human evaluator's engineering-h
 
 ## Use with an AI assistant
 
+```sh
+npx skills add yejuntak/hcai-deployment-readiness --skill hcai-readiness
+```
+
+[Copy MCP configuration and choose when to use each tool](docs/agent-tools.md#quick-start-and-when-to-use)
+
+
 [Install the MCP server](docs/agent-tools.md#install-the-mcp-server) · [Install the Skill](docs/agent-tools.md#install-the-skill) · [Agent tools v0.1.0](https://github.com/yejuntak/hcai-deployment-readiness/releases/tag/agent-tools-v0.1.0) · [Protocol DOI](https://doi.org/10.5281/zenodo.22667623)
 
 The local MCP server validates supplied assessment counts and calculates descriptive results. The standalone Skill guides evaluation preparation, evidence separation and reporting. Agent reviews remain distinct from human observations. Software v0.1.0 is a separate companion release to archived protocol 0.1-rc.3; the DOI does not archive the new software.
