@@ -1,8 +1,14 @@
 # Human-Centered AI Deployment Readiness Protocol
 
-Engineering-handoff profile, v0.1-rc.2. Author attribution: Yejun Tak.
+Engineering-handoff profile, v0.1-rc.3. Author attribution: Yejun Tak.
 
 A proposed operational synthesis for comparing a human evaluator's engineering-handoff judgment with frozen requirement, state and recovery evidence. This is an unvalidated research-method release with a synthetic instructional case. It does not establish a new measurement theory, production readiness, external adoption or NIST endorsement.
+
+## Use with an AI assistant
+
+[Install the MCP server](docs/agent-tools.md#install-the-mcp-server) · [Install the Skill](docs/agent-tools.md#install-the-skill) · [Agent tools v0.1.0](https://github.com/yejuntak/hcai-deployment-readiness/releases/tag/agent-tools-v0.1.0) · [Protocol DOI](https://doi.org/10.5281/zenodo.22667623)
+
+The local MCP server validates supplied assessment counts and calculates descriptive results. The standalone Skill guides evaluation preparation, evidence separation and reporting. Agent reviews remain distinct from human observations. Software v0.1.0 is a separate companion release to archived protocol 0.1-rc.3; the DOI does not archive the new software.
 
 ## Materials
 - Protocol-v0.1.pdf: method, limits and prior-work references.
@@ -19,7 +25,7 @@ A proposed operational synthesis for comparing a human evaluator's engineering-h
 Individual usability checks and metrics have substantial prior work. The proposed contribution is their stage-specific implementation with a frozen criterion, pre-disclosure judgment and retained evidence. Improvement over existing methods has not been tested. The public example is text based and cannot demonstrate a visual-polish effect.
 
 ## Citation and reuse
-Use CITATION.cff and identify version 0.1-rc.2. No DOI is assigned at package preparation. Original documents and synthetic data use CC BY 4.0; original software uses MIT. Third-party works remain under their own terms. Development and this technical review used OpenAI Codex assistance; this is not an independent peer review.
+Use CITATION.cff and identify protocol version 0.1-rc.3, archived September 9, 2026 at https://doi.org/10.5281/zenodo.22667623 . Original documents and synthetic data use CC BY 4.0; original software uses MIT. Third-party works remain under their own terms. Development and this technical review used OpenAI Codex assistance; this is not an independent peer review.
 
 ## Related resource
 The Peter Tak Design System is available at https://github.com/yejuntak/peter-tak-design-system . It can support future consistent study stimuli. Its publication is not evidence that this protocol works. Project page: https://takyejun.com/research/ai-readiness .

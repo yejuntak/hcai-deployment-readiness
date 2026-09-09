@@ -1,14 +1,13 @@
 {
-  "title": "Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile",
-  "upload_type": "publication",
-  "publication_type": "technicalnote",
+  "title": "HCAI Readiness MCP Server and Agent Skill",
+  "upload_type": "software",
   "creators": [
     {
       "name": "Tak, Yejun"
     }
   ],
-  "description": "A proposed, unvalidated engineering-handoff evaluation protocol with separate evaluator and reference materials, calculation workbooks, a synthetic instructional case, technical correction records and a comparative validation plan. The method synthesizes established usability and human-AI evaluation concepts. No empirical effectiveness, independent peer review, organizational adoption or NIST endorsement is claimed. Development and technical review were assisted by OpenAI Codex. Original documents and synthetic data: CC BY 4.0; original software: MIT.",
-  "version": "0.1-rc.2",
+  "description": "Local MCP server and agent skill implementing descriptive calculations and workflow guidance for the HCAI engineering-handoff protocol 0.1-rc.3. Separate companion software; not empirical validation or NIST endorsement. Original software MIT; bundled protocol and skill text CC BY 4.0. AI-assisted development disclosed.",
+  "version": "0.1.0",
   "access_right": "open",
   "license": "cc-by-4.0",
   "keywords": [
@@ -20,14 +19,16 @@
   ],
   "related_identifiers": [
     {
-      "identifier": "https://github.com/yejuntak/hcai-deployment-readiness",
-      "relation": "isSupplementTo"
+      "identifier": "10.5281/zenodo.22667623",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
     },
     {
-      "identifier": "https://takyejun.com/research/ai-readiness",
-      "relation": "isDocumentedBy"
+      "identifier": "https://takyejun.com/research/ai-readiness#agent-tools",
+      "relation": "isDocumentedBy",
+      "scheme": "url"
     }
   ],
-  "publication_date": "2026-09-08",
+  "publication_date": "2026-09-09",
   "language": "eng"
 }

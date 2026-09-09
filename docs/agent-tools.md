@@ -1,0 +1,69 @@
+# MCP server and agent skill
+
+Use the published engineering-handoff protocol from an MCP-compatible assistant or a file-based agent skill. **Software 0.1.0** implements the descriptive calculations and workflow of **protocol 0.1-rc.3** ([archived method](https://doi.org/10.5281/zenodo.22667623)). The software is a separate release, not part of the earlier Zenodo archive and not evidence of external validation.
+
+[Project website](https://takyejun.com/research/ai-readiness#agent-tools) · [Source repository](https://github.com/yejuntak/hcai-deployment-readiness) · [Skill](../skills/hcai-readiness/SKILL.md)
+
+## Install the MCP server
+
+Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/getting-started/installation/). Clone the tagged release, install the locked dependencies, then use its absolute directory in your client configuration:
+
+```sh
+git clone --branch agent-tools-v0.1.0 https://github.com/yejuntak/hcai-deployment-readiness.git
+cd hcai-deployment-readiness
+uv sync --frozen --no-dev
+```
+
+For clients accepting the common `mcpServers` JSON format:
+
+```json
+{
+  "mcpServers": {
+    "hcai-readiness": {
+      "command": "uv",
+      "args": ["run", "--frozen", "--no-dev", "--directory", "/ABSOLUTE/PATH/hcai-deployment-readiness", "hcai-readiness-mcp"]
+    }
+  }
+}
+```
+
+Replace the absolute path. Some clients use a different settings format; use their local stdio server option with the same command and arguments. Start the command through your MCP client; a terminal alone waits for protocol messages. Installation downloads dependencies. The running server performs no network calls, file writes or telemetry. Inputs and outputs are visible to the host assistant, so use a host appropriate for your data.
+
+The implementation uses the official MCP Python SDK's supported 1.x interface, bounded below 2 and pinned in `uv.lock`. It does not require an API key or run an AI model itself.
+
+## Available operations
+
+| Operation | Purpose |
+|---|---|
+| `assessment_template` | Input JSON schema and preparation checklist; no answer key |
+| `assess_session` | Validate supplied adjudicated counts, calculate five descriptive measures and provisional handoff status |
+| `summarize_batch` | Criterion-conditioned false-ready/false-hold rates with abstention, decision coverage, missing and unknown counts |
+| `hcai://protocol` resource | Full protocol reference, including clearly marked public synthetic training answers |
+| `plan_handoff_review` prompt | Prepare a scoped review while separating evaluator and reference roles |
+
+Example request: “Use assessment_template to prepare an engineering-handoff review of this prototype. Record missing criteria first; label your own findings as an agent review.”
+
+After real human findings have been locked and adjudicated: “Use assess_session with these reconciled counts and retain the input records in the report.” `examples/session.json` is an explicitly synthetic arithmetic fixture. It yields 62.5% recall, +17.5 percentage points expected-recall gap, 50% recovery coverage, 33.333333% omission recognition and 70% requirements coverage, with Hold for remediation.
+
+`null` means missing/N/A, not zero. Whole-number counts must reconcile. Expected recall is a percentage from 0 to 100 (the Excel workbook instead uses a fraction). Unknown gate inputs prevent an established pass; documented missing required evidence makes the artifact nonready. Zero applicable recovery scenarios require a reason. Batch records must share a criterion version and evaluator population. Use artifact/evaluator provenance and stratify different populations even if they use the same criterion label.
+
+The server checks arithmetic and structural consistency. It cannot verify the truth of supplied counts, timestamps, reference quality or evidence completeness. Human decisions and source records remain essential. A full repository or the protocol resource exposes the public training answers; use a separate outcome-free packet and context for blinded work. The server is not an access-control boundary for reference materials.
+
+## Install the skill
+
+Download `hcai-readiness-skill-v0.1.0.zip` from the [agent tools release](https://github.com/yejuntak/hcai-deployment-readiness/releases/tag/agent-tools-v0.1.0), or copy `skills/hcai-readiness/` from this repository into your agent's skills directory. Keep the whole folder, including `references/`. For Codex, a standard personal location is `~/.codex/skills/hcai-readiness/`; other hosts have their own locations and discovery rules. Do not overwrite a customized installed skill without comparing it first.
+
+Invoke `hcai-readiness` using your host's skill selector. The skill can guide the workflow without MCP. MCP adds deterministic validation and calculation; it does not turn an agent into a human participant. The skill does not install the server automatically.
+
+## Test and reproduce
+
+```sh
+uv sync --frozen
+uv run --frozen pytest
+```
+
+Tests cover the archived synthetic arithmetic, invalid counts, missing data, zero denominators, abstention, criterion-ready controls, evaluator populations, and an actual stdio MCP handshake/tool/resource/prompt round trip. These are software checks, not empirical validation of the method.
+
+## Version and attribution
+
+Cite the underlying method as Tak, Y. (2026). *Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile* (0.1-rc.3). Zenodo. https://doi.org/10.5281/zenodo.22667623 . Identify software `agent-tools-v0.1.0` separately when reporting calculations. Original software is MIT; protocol and skill text are CC BY 4.0. See [LICENSE](../LICENSE). Development assisted by OpenAI Codex. No NIST endorsement or autonomous production certification is claimed.

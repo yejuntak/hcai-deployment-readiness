@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hcai-readiness-mcp"
+version = "0.1.0"
+description = "Local MCP tools for the HCAI engineering-handoff research protocol"
+readme = "docs/agent-tools.md"
+requires-python = ">=3.11"
+license = "MIT AND CC-BY-4.0"
+authors = [{name = "Yejun Tak"}]
+dependencies = ["mcp>=1.12,<2", "pydantic>=2.11,<3"]
+
+[project.scripts]
+hcai-readiness-mcp = "hcai_readiness.server:main"
+
+[project.urls]
+Homepage = "https://takyejun.com/research/ai-readiness"
+Repository = "https://github.com/yejuntak/hcai-deployment-readiness"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/hcai_readiness"]
+
+[dependency-groups]
+dev = ["pytest>=8,<10"]
