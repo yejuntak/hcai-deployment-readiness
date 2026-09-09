@@ -4,6 +4,37 @@ Use the published engineering-handoff protocol from an MCP-compatible assistant 
 
 [Project website](https://takyejun.com/research/ai-readiness#agent-tools) · [Source repository](https://github.com/yejuntak/hcai-deployment-readiness) · [Skill](../skills/hcai-readiness/SKILL.md)
 
+## Quick start and when to use
+
+**Before handoff:** install the Skill to prepare the scope, requirements and evidence records. Run this in your project terminal (Node.js required), then choose your agent:
+
+```sh
+npx skills add yejuntak/hcai-deployment-readiness --skill hcai-readiness
+```
+
+Example: “Use hcai-readiness to prepare a handoff review. Identify missing criteria before judging readiness. Label your own findings as an agent review.”
+
+**After findings are locked and adjudicated:** use MCP to validate counts and calculate results. It does not inspect an interface or validate the truth of submitted evidence. Example: “Use assess_session with these reconciled records, explain each metric and flag missing evidence.” Use summarize_batch for multiple instances with the same criterion and evaluator population.
+
+**Together:** the Skill guides the process; MCP performs deterministic checks and arithmetic. The Skill works without MCP. Neither substitutes for human participant records, the decision owner's review, or production testing.
+
+For a checkout-free MCP connection, install uv and Python 3.11+, then add this to a client supporting mcpServers JSON:
+
+```json
+{
+  "mcpServers": {
+    "hcai-readiness": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/yejuntak/hcai-deployment-readiness.git@agent-tools-v0.1.0", "hcai-readiness-mcp"]
+    }
+  }
+}
+```
+
+Reload the client and ask it to call `assessment_template`; expect a checklist and JSON schema. If `uvx` is not found, use its absolute executable path in `command`. Clients with other config formats can use the same stdio command and args. First launch downloads the tagged software and dependencies. For a locked checkout installation, use the steps below.
+
+The shortcut was checked with a fresh project-level Skills CLI installation and actual MCP initialize/template/session/batch calls through uvx using the published tag. The known synthetic case produced 62.5% recall; an all-abstention batch correctly returned N/A for decisive false-ready acceptance. These are installation and software checks, not empirical validation of the Skill's judgment quality.
+
 ## Install the MCP server
 
 Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/getting-started/installation/). Clone the tagged release, install the locked dependencies, then use its absolute directory in your client configuration:
