@@ -9,7 +9,7 @@
       }
     ],
     "description": "A proposed, unvalidated engineering-handoff evaluation protocol with separate evaluator and reference materials, calculation workbooks, a synthetic instructional case, technical correction records and a comparative validation plan. The method synthesizes established usability and human-AI evaluation concepts. No empirical effectiveness, independent peer review, organizational adoption or NIST endorsement is claimed. Development and technical review were assisted by OpenAI Codex. Original documents and synthetic data: CC BY 4.0; original software: MIT.",
-    "version": "0.1-rc.2",
+    "version": "0.1-rc.3",
     "access_right": "open",
     "license": "cc-by-4.0",
     "keywords": [
@@ -29,7 +29,8 @@
         "relation": "isDocumentedBy"
       }
     ],
-    "publication_date": "2026-09-08",
-    "language": "eng"
+    "publication_date": "2026-09-09",
+    "language": "eng",
+    "doi": "10.5281/zenodo.22667623"
   }
 }

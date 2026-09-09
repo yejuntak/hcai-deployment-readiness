@@ -1,3 +1,10 @@
+# Agent tools 0.1.0 — September 9, 2026
+
+- Add a local stdio MCP server with schema, session calculations, batch diagnostics, protocol resource and preparation prompt.
+- Add the portable hcai-readiness skill with evaluator/reference separation and agent provenance.
+- Bring the current protocol reference to archived 0.1-rc.3 and link DOI 10.5281/zenodo.22667623.
+- Software tests do not establish empirical validity. This companion software was not included in the September 9 Zenodo archive.
+
 # Changelog
 
 ## 0.1-rc.2 - 2026-09-08
