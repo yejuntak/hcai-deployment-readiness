@@ -1,3 +1,8 @@
+# Skill 0.1.1 — September 9, 2026
+
+- Rename the Skill to ai-ready; update install paths and invocation examples.
+- Protocol and MCP behavior are unchanged. Earlier tagged releases remain available.
+
 # Agent tools 0.1.0 — September 9, 2026
 
 - Add a local stdio MCP server with schema, session calculations, batch diagnostics, protocol resource and preparation prompt.

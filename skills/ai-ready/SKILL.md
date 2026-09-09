@@ -1,11 +1,11 @@
 ---
-name: hcai-readiness
+name: ai-ready
 description: Prepare and report engineering-handoff reviews of AI-generated interface prototypes using the HCAI Readiness Protocol. Use for explicit readiness assessments, requirement and recovery evidence reviews, and evaluator-versus-artifact comparisons; not routine visual styling or production certification.
 ---
 
 # HCAI engineering-handoff review
 
-Apply Yejun Tak's proposed protocol **0.1-rc.3**, DOI https://doi.org/10.5281/zenodo.22667623. This skill is software release **0.1.0**, not a newly validated method.
+Apply Yejun Tak's proposed protocol **0.1-rc.3**, DOI https://doi.org/10.5281/zenodo.22667623. This skill is release **0.1.1**, not a newly validated method.
 
 ## Choose the role first
 
