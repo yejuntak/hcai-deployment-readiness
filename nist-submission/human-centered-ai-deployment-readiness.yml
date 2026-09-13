@@ -1,0 +1,90 @@
+schema_version: "1.0"
+
+name: Human-Centered AI Deployment Readiness Protocol
+applied_definition: |
+  A human-centered evaluation procedure for AI-generated interface prototypes before
+  engineering handoff. The evaluator first records an overall readiness judgment
+  without access to the reference key. The evaluator then inspects a frozen set of
+  documented requirements, observable interaction states, and recovery paths and
+  records which items can be demonstrated in the artifact. The procedure preserves the
+  initial readiness judgment separately from the evidence record so that apparent
+  readiness can be compared with demonstrated functional coverage.
+
+  The method does not measure model capability directly. It measures a downstream
+  human-and-artifact evaluation process in AI-assisted product development. The current
+  release is a proposed, unvalidated method and does not claim predictive validity,
+  production readiness, or superiority to existing usability and requirements-review
+  practices.
+submitter_organizations:
+  - Independent Researcher, Yejun Tak
+contact_email: takyejun@gmail.com
+
+ai_rmf_characteristics:
+  - Valid & Reliable
+  - Accountable & Transparent
+primary_tevv_application:
+  - Human-Centered Evaluation
+ai_lifecycle_stages:
+  - Plan and Design
+  - Build
+  - Deploy
+object_of_measurement:
+  - system
+  - user
+  - task
+model_specificity: model agnostic
+domain_specificity: domain agnostic
+usage_details: |
+  Intended for pre-handoff review of interface prototypes created or materially shaped
+  with AI-assisted design or coding tools. The method is most useful when prototype
+  polish may create a stronger impression of completeness than the artifact's
+  documented requirements, states, and recovery behavior can support. Evaluators lock
+  their readiness judgment before seeing the reference record, then compare that
+  judgment with artifact-level evidence. The protocol is designed to support research,
+  internal evaluation, and structured discussion, not certification.
+known_failure_modes: |
+  1. Reference-key quality: results are only as sound as the frozen requirements and
+     adjudication record used as the comparison basis.
+  2. Evaluator expertise: unfamiliarity with the product domain can reduce defect
+     detection and distort readiness judgments.
+  3. Artifact sampling: a prototype that omits relevant workflows from the evaluation
+     scope can produce misleadingly favorable results.
+  4. Criterion leakage: showing the reference key or expected defects before the
+     evaluator locks the initial judgment invalidates the intended separation between
+     impression and evidence.
+  5. Construct validity: the current public release has not yet established that the
+     protocol predicts downstream engineering or deployment outcomes.
+modality:
+  - vision
+  - text
+  - structured data
+
+references:
+  - >-
+    National Institute of Standards and Technology. (2023). Artificial Intelligence
+    Risk Management Framework (AI RMF 1.0), NIST AI 100-1. https://doi.org/10.6028/NIST.AI.100-1
+  - >-
+    Amershi, S., Weld, D., Vorvoreanu, M., Fourney, A., Nushi, B., Collisson, P., Suh,
+    J., Iqbal, S., Bennett, P. N., Inkpen, K., Teevan, J., Kikin-Gil, R., & Horvitz,
+    E. (2019). Guidelines for Human-AI Interaction. Proceedings of the 2019 CHI
+    Conference on Human Factors in Computing Systems, Paper 3, 1-13.
+    https://doi.org/10.1145/3290605.3300233
+  - >-
+    Tak, Y. (2026). Human-Centered AI Deployment Readiness Protocol:
+    Engineering-Handoff Profile, v0.1-rc.3. Zenodo.
+    https://doi.org/10.5281/zenodo.22667623
+implementation_resources:
+  - https://www.takyejun.com/research/ai-readiness
+  - https://github.com/yejuntak/hcai-deployment-readiness
+  - https://doi.org/10.5281/zenodo.22667623
+related_metrics:
+  - Requirement coverage
+  - Defect detection count
+  - Readiness judgment calibration
+computational_requirements: >-
+  No specialized hardware is required. The protocol can be completed manually using
+  the supplied scorecards and workbooks. Optional companion software can validate
+  supplied counts and calculate descriptive summaries.
+usage_rights: >-
+  Protocol documents, scorecards, templates, synthetic data, figures, and explanatory
+  website text are licensed CC BY 4.0. Original companion software is licensed MIT.
