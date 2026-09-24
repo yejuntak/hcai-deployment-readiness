@@ -3,16 +3,16 @@
   "status": "candidate",
   "files": {
     "HCAI-v0.1-rc.4-candidate.3.zip": {
-      "sha256": "135549b53f8702f25b07188ecde5b60cf45132ba4c6b207e8b63bbaecdf39d1d",
-      "bytes": 3323287
+      "sha256": "7477ddc0f349086524350dbb40ff8a4765ece78223c943944f45a5cf1ed7f585",
+      "bytes": 3323640
     },
     "ai-ready-0.2.0-rc.3.zip": {
-      "sha256": "95247363c79a1254bd1bbfaf9c6878a05556bf4bfde33dd93d58552b1b42717d",
-      "bytes": 74525
+      "sha256": "ee409adfedc8af1799c801a183476ef2f1af2b6c6d72df4e6e6acb9bde2c8d79",
+      "bytes": 74604
     },
     "hcai_readiness_mcp-0.2.0rc3-py3-none-any.whl": {
-      "sha256": "78462c50f9b7a62b955fb0bc1faacdf5d44853b45366243f1b29e06b39adcd7e",
-      "bytes": 46260
+      "sha256": "d1f0c00c3448685206ee7c7b3c12a818cce3c12e45d0fbe3d1d5a6eda43250a0",
+      "bytes": 46338
     },
     "QUICK-6-v0.1-rc.4-candidate.3.pdf": {
       "sha256": "b2a93da7d6ff7e823d414517aae471a3e3c33d70c0828bbf11f620d88fc00058",

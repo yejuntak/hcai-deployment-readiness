@@ -144,6 +144,7 @@ def test_evidence_quality_needs_accountable_review(mutation):
     r = result(d)
     assert r['decision'] == 'INSUFFICIENT_EVIDENCE'
     assert r['stop_at_gate'] == 'G6_COMMITMENT'
+    assert r['assurance']['human_quality_review'] == 'NOT_ESTABLISHED'
 
 def test_pilot_preserves_routing_and_unassessed_gates():
     d = json.loads((ROOT/'examples/rc4/pilot-synthetic.json').read_text())
@@ -162,6 +163,7 @@ def test_report_distinguishes_rule_checks_from_assurance():
     r = assess(a)
     assert r['assurance']['criterion_conformance'] == 'NOT_CERTIFIED'
     assert r['assurance']['evidence_authenticity'] == 'NOT_INDEPENDENTLY_VERIFIED'
+    assert r['assurance']['human_quality_review'] == 'RECORDED_PASS'
     report = render_report(a,'html')
     assert 'No gate stop' in report and 'People and consequences' in report
     assert 'requirement/context matches: True' in report

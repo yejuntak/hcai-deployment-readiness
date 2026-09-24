@@ -313,8 +313,11 @@ def assess(a: Assessment) -> dict:
         g.check(getattr(h, key), key)
     review = h.evidence_quality_review
     g.check(review, 'evidence_quality_review')
+    allowed_reviewers = {'synthetic'} if a.evaluator_kind == 'synthetic' else {'human', 'ai-assisted-human'}
+    quality_record_complete = (review.status == 'pass' and bool(review.reviewer_role)
+                               and review.reviewer_kind in allowed_reviewers and bool(review.note.strip())
+                               and bool(review.evidence_ids) and all(evidence[r].kind in accepted_kinds for r in review.evidence_ids))
     if review.status == 'pass':
-        allowed_reviewers = {'synthetic'} if a.evaluator_kind == 'synthetic' else {'human', 'ai-assisted-human'}
         g.require(bool(review.reviewer_role) and review.reviewer_kind in allowed_reviewers,
                   'A human evidence-quality reviewer must inspect relevance, coverage, authenticity and test adequacy; agent-only review cannot pass')
         g.require(all(evidence[r].kind in accepted_kinds for r in review.evidence_ids), 'Evidence-quality review needs retained observation records, not estimates or assumptions')
@@ -379,7 +382,9 @@ def assess(a: Assessment) -> dict:
                      "Practitioner correspondence informed refinement; it is not controlled empirical validation.",
                      "Risk thresholds and the <=15-minute target are provisional and unvalidated."],
         routing=routing, attention_items=attention,
-        assurance={"machine_check": "STRUCTURAL_AND_RULE_CHECKS_ONLY", "human_quality_review": review.status,
+        assurance={"machine_check": "STRUCTURAL_AND_RULE_CHECKS_ONLY",
+                   "human_quality_review": "RECORDED_PASS" if quality_record_complete else "NOT_ESTABLISHED",
+                   "supplied_review_status": review.status,
                    "reviewer_role": review.reviewer_role, "reviewer_kind": review.reviewer_kind,
                    "evidence_authenticity": "NOT_INDEPENDENTLY_VERIFIED", "criterion_conformance": "NOT_CERTIFIED",
                    "meaning": "A pass combines deterministic checks with supplied human judgments. Software cannot establish that the evidence is true or adequate, or that the reviewer actually inspected it."})

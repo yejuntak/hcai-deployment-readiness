@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-24T21:29:44.117488+00:00",
+  "recorded_at": "2026-09-24T21:32:51.120032+00:00",
   "versions": {
     "protocol": "0.1-rc.4-candidate.3",
     "mcp": "0.2.0rc3",
@@ -18,7 +18,7 @@
     "src/hcai_readiness/cli.py": "7a5943d2a012cbe1f73247affaf3aec6e8ada8fcbbda46d8bfafa1220e2e34b6",
     "src/hcai_readiness/contracts.py": "55d826bdf64980e9e7c77118f855f5e5d4f03819366f97bd83bb55e170a48f4f",
     "src/hcai_readiness/criteria.json": "4138137de8bbcece62a12861d0465999193c93cb321eee7f8199d903d298e87e",
-    "src/hcai_readiness/engine.py": "bfb6190542da0e8d16a9e7c2555935cf7238bebcb85c683a42a5fa8fd19e74ec",
+    "src/hcai_readiness/engine.py": "e7ba6ad9fc29797f21078a389a534e93cbc27caaf9e071711d95e41ce6c0c769",
     "src/hcai_readiness/guidance.py": "2976142123c75b2399b8955f87a66234d07511ede641c5cb2f209c63303c62f4",
     "src/hcai_readiness/protocol.md": "67a33205fcb6a6bbc7e2976905d296f4d4036e692ba3f16ea950cf39bcd68ccc",
     "src/hcai_readiness/records.py": "366cc3ee731f67c32ff3b0b0a2ec28be5f1cdcd3cae4da29b4de87b42127b70b",
@@ -26,7 +26,7 @@
     "src/hcai_readiness/server.py": "46644cbcbe9b768f81187d9a72eec60e15fa469e8f82ae35446fb38dd1589473",
     "src/hcai_readiness/versions.py": "79dbd9c70ca84e163bbf1f83f90370079442addf66fad7942de0253d26009fd1",
     "tests/test_assessment.py": "a7a3bdb4d29fcd8c9d0e92db44701a2ed0b556dbdef9c7456320c4ff48241b02",
-    "tests/test_deep_audit.py": "5e952306b65cd3b95e137a6ff13d4b7d544ddeabc56d3aae4a41aa2a18327e58",
+    "tests/test_deep_audit.py": "7d3041d470df7b65a19b9e25d1c5351ac3194d276412b12a59a16bd01ef74567",
     "tests/test_experience.py": "bd04a5adee9023c5a150546f00f9970e54198a9c9c509a944212637517e10c56",
     "tests/test_mcp.py": "23ad83b910f3c34e4ade26d4759272edf61f8ad677ac5ce2863ebd401ad4d6e5",
     "tests/test_rc4.py": "27baafc096b02a431bb2b207c073d93c0764936d8463410eac3989af96d54fec",
@@ -49,7 +49,7 @@
     "skills/ai-ready/scripts/hcai_readiness/cli.py": "7a5943d2a012cbe1f73247affaf3aec6e8ada8fcbbda46d8bfafa1220e2e34b6",
     "skills/ai-ready/scripts/hcai_readiness/contracts.py": "55d826bdf64980e9e7c77118f855f5e5d4f03819366f97bd83bb55e170a48f4f",
     "skills/ai-ready/scripts/hcai_readiness/criteria.json": "4138137de8bbcece62a12861d0465999193c93cb321eee7f8199d903d298e87e",
-    "skills/ai-ready/scripts/hcai_readiness/engine.py": "bfb6190542da0e8d16a9e7c2555935cf7238bebcb85c683a42a5fa8fd19e74ec",
+    "skills/ai-ready/scripts/hcai_readiness/engine.py": "e7ba6ad9fc29797f21078a389a534e93cbc27caaf9e071711d95e41ce6c0c769",
     "skills/ai-ready/scripts/hcai_readiness/guidance.py": "2976142123c75b2399b8955f87a66234d07511ede641c5cb2f209c63303c62f4",
     "skills/ai-ready/scripts/hcai_readiness/reporting.py": "8eab384f3a58f64fc45d1e51dea5d9a7efe31b3a076c82dfc26c537fca896550",
     "skills/ai-ready/scripts/hcai_readiness/versions.py": "79dbd9c70ca84e163bbf1f83f90370079442addf66fad7942de0253d26009fd1",
@@ -129,7 +129,7 @@
     "docs/web/agent-tools.html": "586b20ef521b841356bbf1a0141270d69ceefabdb01e7af1090c8bc3c0b0a776",
     "docs/web/claims-and-governance.html": "0856e4feb599ac5e370c02c41e22ba8880c71831df3f217cec5d2d000d78920c",
     "docs/web/deep-audit.html": "f845e9816cb522921605bef20dfd457c3adef47775129a2cac2a50428aaa3965",
-    "docs/web/example-report.html": "cb32a60caf5216ba3c5e5348075960ea6277930230b910c7befaec1206fa23be",
+    "docs/web/example-report.html": "d693bc58bd7e90a6ed1cbb95400bdc6de19b59f525450f4829ae81dfc28e06fd",
     "docs/web/migration-rc3-to-rc4.html": "e5673884c00f820325676f3aeb31760d7815ee0d3a60a637ecace89c08439527",
     "docs/web/research-boundary.html": "c6db8e6a43209043c57563764856e5c2a0a97dbf1e0af421a68d17c5f53f51f9",
     "docs/web/updates.html": "fe223668a7aab214b9ceb87ee75c400939f2dc69506862bf98eeeb21c6db7f1a"
