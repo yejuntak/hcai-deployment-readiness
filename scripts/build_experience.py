@@ -37,6 +37,8 @@ def main():
                 target = 'https://github.com/yejuntak/hcai-deployment-readiness/blob/codex/readiness-rc4-candidate/docs/'+basename
             return '['+label+']('+target+')'
         text = re.sub(r'\[([^]]+)\]\(([^)]+)\)',link,text)
+        # Paper-style answer blanks are literal writing spaces, not Markdown emphasis.
+        text = re.sub(r'_{3,}', lambda match: r'\_' * len(match.group()), text)
         body = markdown.markdown(text,extensions=['tables','fenced_code'])
         body = body.replace('<table>','<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>').replace('</table>','</table></div>')
         title = next((line[2:] for line in source.read_text().splitlines() if line.startswith('# ')), source.stem)

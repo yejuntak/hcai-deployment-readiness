@@ -187,3 +187,9 @@ def test_deep_audit_public_pages_and_references():
     protocol = (ROOT/'protocol/0.1-rc.4-candidate.3/PROTOCOL.md').read_text()
     assert '15 review criteria' in protocol and 'not a W3C standard' in protocol
     assert (ROOT/'docs/claims-and-governance.md').read_bytes() == (ROOT/'skills/ai-ready/references/claims-and-governance.md').read_bytes()
+
+def test_worksheet_writing_spaces_remain_literal_and_tables_focusable():
+    page = (ROOT/'docs/web/WORKSHEET.html').read_text()
+    assert 'Workflow / one completed case: ______' in page
+    assert '<em>' not in page
+    assert 'tabindex="0" role="region"' in page

@@ -3,8 +3,8 @@
   "status": "candidate",
   "files": {
     "HCAI-v0.1-rc.4-candidate.3.zip": {
-      "sha256": "0ea9cc202fd55818dd2197714ca386c6f8fe9c0cb0ec86f83d37baf7d09a38f3",
-      "bytes": 3323127
+      "sha256": "135549b53f8702f25b07188ecde5b60cf45132ba4c6b207e8b63bbaecdf39d1d",
+      "bytes": 3323287
     },
     "ai-ready-0.2.0-rc.3.zip": {
       "sha256": "95247363c79a1254bd1bbfaf9c6878a05556bf4bfde33dd93d58552b1b42717d",
