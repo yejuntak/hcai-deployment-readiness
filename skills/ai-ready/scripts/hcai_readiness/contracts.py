@@ -30,6 +30,8 @@ class Evidence(Record):
     locator: Text
     kind: Literal["observed", "estimate", "assumption", "synthetic"]
     description: Text
+    origin_id: Text | None = None
+    source_type: Literal["work_record", "end_user_discussion", "reference", "artifact", "validation_record", "review_record", "estimate", "unknown"] = "unknown"
 
 
 class Check(Record):
@@ -40,7 +42,34 @@ class Check(Record):
     independent_from_artifact_owner: bool | None = None
 
 
+class CurrentStep(Record):
+    id: Text
+    kind: Literal["normal", "edge", "recovery"]
+    actor_role: Text
+    trigger: Text
+    action: Text
+    data_handling: Text
+    next_step_ids: list[Text]
+    terminal: bool
+    evidence_ids: list[Text]
+    observation_status: Literal["observed", "reported"]
+
+
+class Scope(Record):
+    workflow_name: Text | None = None
+    unit_of_work: Text | None = None
+    starts_when: Text | None = None
+    ends_when: Text | None = None
+    environment: Text | None = None
+    ai_role: Literal["artifact_creation", "in_workflow", "both", "neither"] | None = None
+    alternatives_considered: list[Text] | None = None
+    exclusions: list[Text] | None = None
+
+
 class Baseline(Record):
+    steps: list[CurrentStep] = Field(default_factory=list)
+    entry_step_id: Text | None = None
+    map_review: Check = Field(default_factory=Check)
     current_state_summary: Text | None = None
     actor_roles: list[Text] | None = None
     observation_window: Text | None = None
@@ -63,6 +92,16 @@ class Baseline(Record):
         if self.labor_minutes_per_case is not None and all(x is not None for x in parts):
             if sum(parts) > self.labor_minutes_per_case:
                 raise ValueError("Baseline review/escalation/rework must be disjoint subsets of baseline labor")
+        ids = [step.id for step in self.steps]
+        if len(ids) != len(set(ids)):
+            raise ValueError("Duplicate current-state step IDs")
+        if self.entry_step_id is not None and self.entry_step_id not in ids:
+            raise ValueError("Current-state entry step does not resolve")
+        for step in self.steps:
+            if len(step.next_step_ids) != len(set(step.next_step_ids)) or not set(step.next_step_ids) <= set(ids):
+                raise ValueError("Current-state next-step references must be unique and resolve")
+            if step.terminal and step.next_step_ids:
+                raise ValueError("A terminal current-state step cannot have an outgoing path")
         return self
 
 
@@ -97,6 +136,7 @@ class Requirement(Record):
     need_ids: list[Text]
     artifact_ids: list[Text]
     validation_ids: list[Text]
+    behavior_status: Literal["specified_only", "simulated", "implemented", "unknown"] = "unknown"
 
 
 class State(Record):
@@ -119,6 +159,7 @@ class Validation(Record):
     level: Literal["specified", "walkthrough", "implemented_test"]
     status: Literal["pass", "fail", "missing"]
     evidence_ids: list[Text]
+    tested_artifact_digests: dict[str, Digest] = Field(default_factory=dict)
 
 
 class Workflow(Record):
@@ -131,6 +172,8 @@ class Workflow(Record):
     dependencies: list[Text] | None = None
     dependency_review: Check = Field(default_factory=Check)
     state_review: Check = Field(default_factory=Check)
+    human_control_review: Check = Field(default_factory=Check)
+    action_boundaries: list[Text] | None = None
 
 
 class Oversight(Record):
@@ -155,6 +198,9 @@ class Costs(Record):
 
 
 class EvaluatorBurden(Record):
+    preparation_elapsed_minutes: Number | None = None
+    preparation_person_minutes: Number | None = None
+    capture_reporting_minutes: Number | None = None
     elapsed_minutes: Number | None = None
     evaluator_minutes: Number | None = None
     participant_minutes: Number | None = None
@@ -169,6 +215,12 @@ class EvaluatorBurden(Record):
     labor_cost_per_hour: Number | None = None
     currency: Annotated[str, Field(pattern=r"^[A-Z]{3}$")] | None = None
     evidence_ids: list[Text] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def reporting_is_part_of_session(self):
+        if self.elapsed_minutes is not None and self.capture_reporting_minutes is not None and self.capture_reporting_minutes > self.elapsed_minutes:
+            raise ValueError("Capture/reporting time is a subset of session elapsed time")
+        return self
 
 
 class Finding(Record):
@@ -195,6 +247,7 @@ class Handoff(Record):
     commitment_scope: Text | None = None
     resource_limit: Text | None = None
     next_review_trigger: Text | None = None
+    investment_rationale: Text | None = None
 
 
 class OperationalEvidence(Record):
@@ -225,6 +278,9 @@ class Assessment(Record):
     evaluator_kind: Literal["human", "ai-assisted-human", "agent", "synthetic"]
     requested_profile: Profile
     evidence: list[Evidence]
+    scope: Scope = Field(default_factory=Scope)
+    previous_run_id: Text | None = None
+    revision_summary: Text | None = None
     baseline: Baseline = Field(default_factory=Baseline)
     risk: Risk = Field(default_factory=Risk)
     workflow: Workflow = Field(default_factory=Workflow)
@@ -240,6 +296,8 @@ class Assessment(Record):
         datetime.fromisoformat(self.recorded_at.replace("Z", "+00:00"))
         if self.versions.model_dump() != versions():
             raise ValueError("Exact protocol/MCP/Skill/contract candidate versions required; migrate explicitly")
+        if bool(self.previous_run_id) != bool(self.revision_summary) or self.previous_run_id == self.run_id:
+            raise ValueError("A revision needs a different previous_run_id and a revision_summary")
         groups = {"evidence": self.evidence, "need": self.workflow.needs,
                   "requirement": self.workflow.requirements, "state": self.workflow.states,
                   "validation": self.workflow.validations, "finding": self.handoff.reviewer_findings or []}
@@ -268,6 +326,9 @@ class Assessment(Record):
             refs(requirement.validation_ids, "validation")
         for row in [*self.workflow.states, *self.workflow.validations]:
             refs(row.requirement_ids, "requirement")
+        for validation in self.workflow.validations:
+            if not set(validation.tested_artifact_digests) <= set(validation.artifact_ids):
+                raise ValueError("Tested digest keys must be linked artifact IDs")
         if self.evaluator_kind != "synthetic" and any(e.kind == "synthetic" for e in self.evidence):
             raise ValueError("Synthetic evidence cannot support a real/agent run")
         if self.operational_oversight.basis == "measured":
@@ -308,6 +369,8 @@ class AssessmentResult(Record):
     handoff_record: dict
     provenance: dict
     limitations: list[str]
+    routing: dict
+    attention_items: list[dict]
 
 
 class FeedbackEntry(Record):
@@ -323,6 +386,50 @@ class FeedbackEntry(Record):
     affected_files: list[Text]
     affected_requirements: list[Text]
     validation_status: Literal["implemented_untested", "software_tests_only", "bounded_use_recorded"]
+
+
+class UsabilityNotes(Record):
+    first_use: bool | None = None
+    participant_explanation_of_decision: Text | None = None
+    confusing_questions: list[Text] = Field(default_factory=list)
+    difficult_evidence: list[Text] = Field(default_factory=list)
+    facilitator_prompts: Count | None = None
+    next_action_understood: bool | None = None
+    would_use_again: bool | None = None
+
+
+class StudyJudgment(Record):
+    requirement_id: Text
+    judgment: Literal["defect", "no_defect", "abstain"]
+    confidence_correct: Annotated[float, Field(ge=0, le=1, allow_inf_nan=False)] | None = None
+    finding: str = ""
+
+
+class StudyReview(Record):
+    """Reviewer-side lock record. No reference answers or engineering decision are permitted."""
+    study_version: Text
+    participant_id: Text
+    scenario_id: Text
+    artifact_version: Text
+    artifact_sha256: Digest
+    requirement_ids: Annotated[list[Text], Field(min_length=1)]
+    judgments: Annotated[list[StudyJudgment], Field(min_length=1)]
+    review_minutes: Number
+    perceived_handoff_readiness: Annotated[int, Field(ge=1, le=7)] | None = None
+    global_confidence: Annotated[float, Field(ge=0, le=1, allow_inf_nan=False)] | None = None
+    locked_at: Text
+    reference_answers_disclosed: Literal[False]
+
+    @model_validator(mode="after")
+    def locked_before_disclosure(self):
+        from datetime import datetime
+        timestamp = datetime.fromisoformat(self.locked_at.replace("Z", "+00:00"))
+        if timestamp.tzinfo is None:
+            raise ValueError("Study judgment lock needs a timezone")
+        ids = [j.requirement_id for j in self.judgments]
+        if len(set(self.requirement_ids)) != len(self.requirement_ids) or len(set(ids)) != len(ids) or set(ids) != set(self.requirement_ids):
+            raise ValueError("Record one judgment or explicit abstention for every requirement")
+        return self
 
 
 class PilotRun(Record):
@@ -350,6 +457,7 @@ class PilotRun(Record):
     revision_triggered: Text | None
     participant_feedback: str | None
     observation_evidence_ids: Annotated[list[Text], Field(min_length=1)]
+    usability: UsabilityNotes = Field(default_factory=UsabilityNotes)
 
     @model_validator(mode="after")
     def reconcile(self):

@@ -1,15 +1,15 @@
-# Candidate research-page copy
+# Candidate.2 research-page experience
 
-Headline: Evidence before engineering commitment.
+The canonical page source is docs/research-content.gohtml. scripts/build_experience.py combines it with src/hcai_readiness/criteria.json and creates the repository views, browser-readable documents, synthetic report and portfolio template. Do not hand-edit generated criterion text.
 
-Description: Review the current workflow, end-user requirements, recovery paths, traceability and human oversight costs before funding implementation.
+Headline: Looks finished. What has been demonstrated?
 
-Status: Protocol 0.1-rc.4-candidate; MCP 0.2.0rc1; Skill 0.2.0-rc.1. rc.3 remains frozen history. Correspondence informed refinement; controlled empirical validation has not been established.
+Primary action: Start with one workflow. Secondary: See an example. The first screen explains the benefit, next action/owner, and engineering-only boundary. It does not require an installation or present downloads as the only starting point.
 
-Primary action: Try QUICK-6. Other actions: candidate protocol, short pilot packet, candidate tools. Put rc.3 PDFs/workbooks and DOI in an archive section.
+Reading sequence: role-appropriate entry points; one current case; six questions and a visible stop; constructed AI-coding scenarios; four expandable principles and fourteen criteria; optional MCP/Skill; small document choices; research/validation limits and frozen history.
 
-Five layers: current baseline; proposed workflow; evaluation and oversight burden (separate outputs); handoff evidence; actual operational performance. Six mandatory gates, no total score. Missing baseline blocks proceeding and leaves ROI indeterminate. Failure stops QUICK6; moderate/high risk requires FULL. The <=15-minute target is untested.
+Protocol 0.1-rc.4-candidate.2, MCP 0.2.0rc2, Skill 0.2.0-rc.2. No final-release or empirical-validation claim. The proposed fidelity study holds AI authorship constant and has not established AI-coding causation or protocol effectiveness.
 
-Why changed: requirements-first/risk-scaled review; baseline before ROI; net savings; traceable form/fit/function references; actual external use; permission controls. Attribute only traceability feedback to Hillel Glazer, with permission and without an endorsement claim. Other themes are authored design rationales without private names/quotes.
+Public update log: /research/ai-readiness/updates. Browser guides: /static/research/ai-readiness/rc4-candidate-2/. Earlier /rc4-candidate/ URLs and rc.3 remain unchanged.
 
-Next evidence: one real workflow, an external advisor/end user, voluntary permission, duration, gates and participant feedback. Meetings/emails are not completed use. Do not invent partners, pilots, adoption or performance. Software tests establish implementation behavior only.
+Private correspondence maps to authored public themes; only Hillel Glazer is attributed with permission. Next evidence is voluntary bounded actual use, including preparation time and comprehension of the decision. Software tests and visual checks do not replace that use.

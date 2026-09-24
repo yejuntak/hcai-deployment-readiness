@@ -2,10 +2,10 @@
   "run_id": "SYNTHETIC-MISSING-RECOVERY",
   "recorded_at": "2026-09-24T12:00:00-05:00",
   "versions": {
-    "protocol": "0.1-rc.4-candidate",
-    "mcp": "0.2.0rc1",
-    "skill": "0.2.0-rc.1",
-    "contract": "0.2.0-rc.1"
+    "protocol": "0.1-rc.4-candidate.2",
+    "mcp": "0.2.0rc2",
+    "skill": "0.2.0-rc.2",
+    "contract": "0.2.0-rc.2"
   },
   "evaluator_kind": "synthetic",
   "requested_profile": "QUICK6",
@@ -16,7 +16,9 @@
       "sha256": "87a35fd15180404eedfd92f7c23b7afc6e35d8309ff1af4581ec356baaf2a5c7",
       "locator": "examples/evidence/synthetic-workflow.md",
       "kind": "synthetic",
-      "description": "Constructed test evidence; no actual use"
+      "description": "Constructed test evidence; no actual use",
+      "origin_id": "FICTIONAL-ORIGIN-E1",
+      "source_type": "artifact"
     },
     {
       "id": "E2",
@@ -24,7 +26,9 @@
       "sha256": "536a65dda13ab74c7e80df6335ba4348127b448314447acc19c1bef7ccad2e57",
       "locator": "examples/evidence/synthetic-observation.md",
       "kind": "synthetic",
-      "description": "Constructed test evidence; no actual use"
+      "description": "Constructed test evidence; no actual use",
+      "origin_id": "FICTIONAL-ORIGIN-E2",
+      "source_type": "work_record"
     },
     {
       "id": "E3",
@@ -32,14 +36,104 @@
       "sha256": "001a165921230ebd38790b83dd7e4e62a29d4089dbc8fb6b6b6d1374ce5ed959",
       "locator": "examples/evidence/synthetic-discussion.md",
       "kind": "synthetic",
-      "description": "Constructed test evidence; no actual use"
+      "description": "Constructed test evidence; no actual use",
+      "origin_id": "FICTIONAL-ORIGIN-E3",
+      "source_type": "end_user_discussion"
     }
   ],
+  "scope": {
+    "workflow_name": "Fictional advisor intake",
+    "unit_of_work": "one intake request",
+    "starts_when": "Request received",
+    "ends_when": "Advisor confirms or cancels the request",
+    "environment": "Fictional office; no live sending",
+    "ai_role": "in_workflow",
+    "alternatives_considered": [
+      "Retain current manual intake",
+      "Use a non-AI form with field checks"
+    ],
+    "exclusions": [
+      "No autonomous customer messages"
+    ]
+  },
   "baseline": {
     "current_state_summary": "Intake → advisor review → correction or confirmation",
     "actor_roles": [
       "intake advisor",
       "intake lead"
+    ],
+    "entry_step_id": "C1",
+    "map_review": {
+      "status": "pass",
+      "evidence_ids": [
+        "E1"
+      ],
+      "note": "Stipulated synthetic review for software tests"
+    },
+    "steps": [
+      {
+        "id": "C1",
+        "kind": "normal",
+        "actor_role": "intake advisor",
+        "trigger": "Request received",
+        "action": "Read and check intake",
+        "data_handling": "Keep original fields",
+        "next_step_ids": [
+          "C2",
+          "C4"
+        ],
+        "terminal": false,
+        "evidence_ids": [
+          "E2"
+        ],
+        "observation_status": "observed"
+      },
+      {
+        "id": "C2",
+        "kind": "edge",
+        "actor_role": "intake advisor",
+        "trigger": "Field missing",
+        "action": "Ask for correction",
+        "data_handling": "Keep original fields",
+        "next_step_ids": [
+          "C3"
+        ],
+        "terminal": false,
+        "evidence_ids": [
+          "E2"
+        ],
+        "observation_status": "reported"
+      },
+      {
+        "id": "C3",
+        "kind": "recovery",
+        "actor_role": "intake advisor",
+        "trigger": "Correction received or request cancelled",
+        "action": "Correct saved fields or retain cancelled record",
+        "data_handling": "No silent overwrite",
+        "next_step_ids": [
+          "C4"
+        ],
+        "terminal": false,
+        "evidence_ids": [
+          "E2"
+        ],
+        "observation_status": "reported"
+      },
+      {
+        "id": "C4",
+        "kind": "normal",
+        "actor_role": "intake lead",
+        "trigger": "Review finished",
+        "action": "Confirm or close intake",
+        "data_handling": "Retain review record",
+        "next_step_ids": [],
+        "terminal": true,
+        "evidence_ids": [
+          "E2"
+        ],
+        "observation_status": "observed"
+      }
     ],
     "observation_window": "Fictional five-case window",
     "sample_size": 5,
@@ -107,7 +201,8 @@
         ],
         "validation_ids": [
           "T1"
-        ]
+        ],
+        "behavior_status": "simulated"
       }
     ],
     "states": [
@@ -159,7 +254,10 @@
         "status": "pass",
         "evidence_ids": [
           "E1"
-        ]
+        ],
+        "tested_artifact_digests": {
+          "E1": "87a35fd15180404eedfd92f7c23b7afc6e35d8309ff1af4581ec356baaf2a5c7"
+        }
       }
     ],
     "dependencies": [
@@ -178,7 +276,17 @@
         "E1"
       ],
       "note": "Stipulated synthetic review for software tests"
-    }
+    },
+    "human_control_review": {
+      "status": "pass",
+      "evidence_ids": [
+        "E1"
+      ],
+      "note": "Stipulated synthetic review for software tests"
+    },
+    "action_boundaries": [
+      "Draft only; advisor approves changes; no sending or external data access"
+    ]
   },
   "operational_oversight": {
     "basis": "estimate",
@@ -207,6 +315,9 @@
     "elapsed_minutes": 12,
     "evaluator_minutes": 12,
     "participant_minutes": 12,
+    "preparation_elapsed_minutes": 0,
+    "preparation_person_minutes": 0,
+    "capture_reporting_minutes": 2,
     "participant_count": 1,
     "adjudication_minutes": 0,
     "review_correction_cycles": 0,

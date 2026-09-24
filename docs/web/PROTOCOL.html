@@ -1,0 +1,156 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PROTOCOL</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
+main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/rc4-candidate-2/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>Review AI-built workflows before engineering</h1>
+<p>Human-Centered AI Deployment Readiness Protocol — Engineering-Handoff Profile<br />
+Protocol 0.1-rc.4-candidate.2 · MCP 0.2.0rc2 · Skill 0.2.0-rc.2</p>
+<h2>What this helps you decide</h2>
+<p><strong>Is there enough evidence to commit engineering resources to this bounded workflow?</strong></p>
+<p>A polished booking screen may look complete while losing a customer's details after a payment failure. A passing test may belong to yesterday's code, before an agent changed it. This guide helps a reviewer distinguish what looks finished from what has actually been demonstrated.</p>
+<p>Use it for proposed workflows, interface prototypes, and AI-assisted, “vibe-coded,” or agent-built artifacts. AI may have helped create the artifact without being part of the eventual service. Record which is true. These are application scenarios, not evidence that AI authorship causes defects.</p>
+<p>The historical title contains “Deployment Readiness.” This profile <strong>does not approve deployment</strong>, measure full-system performance, or certify software quality. A supported engineering commitment is one decision; permission to operate is another.</p>
+<h2>Start with the smallest useful path</h2>
+<ul>
+<li>New here? Read <a href="/static/research/ai-readiness/rc4-candidate-2/START-HERE.html">Start here</a>.</li>
+<li>Reviewing a low-risk workflow with records already available? Use <a href="/static/research/ai-readiness/rc4-candidate-2/QUICK-6.html">QUICK-6</a>.</li>
+<li>Need an example? Read the <a href="/static/research/ai-readiness/rc4-candidate-2/SCENARIOS.html">scenarios</a>.</li>
+<li>Need to inspect a particular rule? Use the <a href="/static/research/ai-readiness/rc4-candidate-2/CRITERIA.html">14 review criteria</a>.</li>
+<li>Higher risk, missing evidence, or a longer review? Use the <a href="/static/research/ai-readiness/rc4-candidate-2/FULL-PROFILE.html">full profile</a>.</li>
+</ul>
+<p>An advisor can ask the questions aloud and record answers. Participants do not need to edit JSON, install a tool, or understand an evaluation framework. “We do not know yet” is a useful answer: it identifies the next piece of work.</p>
+<h2>Six questions, one next action</h2>
+<ol>
+<li><strong>What happens today?</strong> Show a recent case, who touched it, how long it took, and where it failed or needed rework.</li>
+<li><strong>What needs to improve, for whom?</strong> State the intended outcome and evidence of an actual end-user need.</li>
+<li><strong>What happens when things go wrong?</strong> Explain normal, edge, recovery, and escalation paths, including human and automated responsibilities.</li>
+<li><strong>What demonstrates the important behavior?</strong> Connect each requirement to an exact artifact revision and an appropriate test or validation.</li>
+<li><strong>What work remains for people?</strong> Estimate review, correction, escalation, rework, and residual manual effort before claiming savings.</li>
+<li><strong>Is this enough to fund the next engineering step?</strong> Apply the risk tier, resolve critical findings, and record the owner, limits, and remaining uncertainty.</li>
+</ol>
+<p>A critical gate cannot be averaged away. QUICK-6 stops at the first failed or missing gate; later gates say NOT_EVALUATED. Known critical findings remain visible even when the review stops earlier. A stopped session is a useful result, not a failed participant.</p>
+<p>The &lt;=15-minute QUICK-6 target is an <strong>untested design target</strong>, not a measured completion rate. It assumes records are available. Count capture and explanation within the session; report preparation separately. Take breaks, use accessible formats, or move to FULL without treating the participant as deficient.</p>
+<h2>What the result means</h2>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+<th>What happens next</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PROCEED_TO_ENGINEERING</td>
+<td>Required upstream evidence passes for the recorded scope and risk tier.</td>
+<td>The accountable owner decides whether to fund the bounded next step. This is not deployment permission.</td>
+</tr>
+<tr>
+<td>REVISE</td>
+<td>Evidence demonstrates a failed gate or a critical unresolved finding.</td>
+<td>Name the repair, owner, and evidence needed for another review.</td>
+</tr>
+<tr>
+<td>INSUFFICIENT_EVIDENCE</td>
+<td>Required information is missing, or the selected profile is insufficient.</td>
+<td>Obtain the missing evidence or continue in FULL. Do not substitute confidence for evidence.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Every result includes a plain-language explanation, the first useful next action, gate status, separate burden/benefit outputs, evidence links or identifiers, and exact versions. A recommendation is not a spending authorization. Never convert it into a general “AI readiness score.”</p>
+<h2>Four principles; inspectable criteria</h2>
+<p>The structure borrows the idea of principles, testable criteria, and practical techniques from <a href="https://www.w3.org/TR/WCAG20/#intro-layers-guidance">WCAG 2.0's layers of guidance</a>. This is an author-defined candidate, <strong>not a W3C standard, accessibility conformance claim, or A/AA/AAA certification</strong>.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Review focus</th>
+<th>Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Understand the work before judging the solution</td>
+<td>Scope, current workflow, actual need</td>
+<td>HCAI-1.1–1.3</td>
+</tr>
+<tr>
+<td>Make intended behavior and evidence inspectable</td>
+<td>Form/fit/function, exact tested revision, simulated versus implemented behavior</td>
+<td>HCAI-2.1–2.3</td>
+</tr>
+<tr>
+<td>Keep people able to understand and recover</td>
+<td>Failure paths, human control, remaining work</td>
+<td>HCAI-3.1–3.3</td>
+</tr>
+<tr>
+<td>Make the commitment accountable</td>
+<td>Risk depth, findings, ownership, separate measurements, provenance</td>
+<td>HCAI-4.1–4.5</td>
+</tr>
+</tbody>
+</table></div>
+<p>Each criterion has a requirement, a way to check it, and pass/failure examples. Deterministic checks enforce structure and boundaries; a human must still judge evidence quality. A correctly linked file can still contain a bad test.</p>
+<h2>Evidence must describe the work, not just the proposal</h2>
+<p>The current-state map records connected steps, actors, triggers, actions, data handling, branches, and endpoints. Distinguish observed steps from reported exceptions. Record cycle time separately from labor time; elapsed waiting is not labor savings.</p>
+<p>Need evidence must come from actual work records or end-user discussions, with distinct source origins. Two renamed copies of the same interview are one source. General reports and correspondence informing this protocol do not establish the need for a particular workflow.</p>
+<p>Traceability means <strong>requirement → artifact revision → test/validation</strong>. Describe form (what is shown), fit (how it connects to the surrounding workflow), and function (what it does). A visual demonstration can support design intent; it cannot establish implementation behavior. A code change after testing requires fresh evidence for affected requirements.</p>
+<h2>Risk changes the required evidence</h2>
+<p>Classify impact, importance, complexity, failure consequence, irreversibility, and mission criticality before choosing the path. The highest known dimension sets the minimum depth. An unknown dimension prevents a low-risk shortcut.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Minimum evidence</th>
+<th>Low</th>
+<th>Moderate</th>
+<th>High</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Profile</td>
+<td>QUICK-6 or FULL</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr>
+<td>Current cases</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Distinct need-source origins</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Actual end-user discussion</td>
+<td>Not mandatory; work evidence still required</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>Additional review</td>
+<td>Owner review</td>
+<td>Independent review and evaluation plan</td>
+<td>Also hazard, mission, and operational-evaluation planning</td>
+</tr>
+</tbody>
+</table></div>
+<p>These counts are provisional minimum completeness rules, <strong>not statistically adequate sample sizes</strong>. All tiers need the same six basic gates. More consequential work may require domain-specific review beyond this profile.</p>
+<h2>Five measurement layers stay separate</h2>
+<p>A. <strong>Current state:</strong> cycle time, labor, touches, failure points, review, escalation, rework, volume, and the workflow map.<br />
+B. <strong>Proposed workflow:</strong> requirements, states, recovery, responsibility, dependencies, acceptance criteria, and action boundaries.<br />
+C. <strong>Burden:</strong> the cost of running this review, separately from the expected cost of overseeing AI outputs in operation.<br />
+D. <strong>Engineering evidence:</strong> requirement/artifact/validation links, defects, reviewer findings, residual risks, and the decision record.<br />
+E. <strong>Operational performance:</strong> measured only after implementation in realistic use. Not inferred from A–D.</p>
+<p>Gross time saved minus review, correction, escalation/rework, and residual manual work gives a net labor estimate. Recurring operating costs and one-time implementation costs remain visible. Without a measurable baseline, ROI is indeterminate. Nonpositive net benefit requires an explicit investment rationale; the tool does not hide it behind a passing gate.</p>
+<h2>Research and practice are different activities</h2>
+<p>The related proposed study investigates visual fidelity and defect detection while AI authorship is held constant. Perceived handoff readiness and confidence are separate judgments, not proof of correctness. This protocol is a practical response to that review problem, not a validated intervention or a result of the proposed experiment.</p>
+<p>Do not give experimental participants criterion hints or answer keys unless the approved study design calls for them. The separate study-review contract captures judgments without issuing an engineering decision. See <a href="/static/research/ai-readiness/rc4-candidate-2/research-boundary.html">research boundaries</a>.</p>
+<h2>Limitations and release status</h2>
+<p>Practitioner correspondence informed refinement; it is not controlled empirical validation, proof of adoption, or an endorsement. No actual external pilot is recorded in this release. Usability, time-to-complete, benefit, and defect-prevention effects remain untested.</p>
+<p>Records are private by default. Publish only separately permission-checked material. Hillel Glazer approved attribution; other correspondence is represented by anonymized themes unless explicit permission is documented. Do not upload confidential artifacts simply to complete a field.</p>
+<p>rc.3 and the first rc.4 candidate remain frozen. This is a new candidate, not final rc.4. Promotion requires passing regression checks and recorded bounded external end-user/advisor use. Research Harness v3 is a separate project, not this protocol's version.</p>
+<p>See the <a href="https://www.takyejun.com/research/ai-readiness/updates">linked update log</a> and <a href="/static/research/ai-readiness/rc4-candidate-2/migration-rc3-to-rc4.html">migration notes</a>.</p></main></body></html>

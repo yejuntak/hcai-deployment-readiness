@@ -182,6 +182,19 @@
       },
       "title": "Limitations",
       "type": "array"
+    },
+    "routing": {
+      "additionalProperties": true,
+      "title": "Routing",
+      "type": "object"
+    },
+    "attention_items": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Attention Items",
+      "type": "array"
     }
   },
   "required": [
@@ -202,7 +215,9 @@
     "operational_performance",
     "handoff_record",
     "provenance",
-    "limitations"
+    "limitations",
+    "routing",
+    "attention_items"
   ],
   "title": "AssessmentResult",
   "type": "object"

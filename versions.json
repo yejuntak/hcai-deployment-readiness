@@ -1,6 +1,6 @@
 {
-  "protocol": "0.1-rc.4-candidate",
-  "mcp": "0.2.0rc1",
-  "skill": "0.2.0-rc.1",
-  "contract": "0.2.0-rc.1"
+  "protocol": "0.1-rc.4-candidate.2",
+  "mcp": "0.2.0rc2",
+  "skill": "0.2.0-rc.2",
+  "contract": "0.2.0-rc.2"
 }

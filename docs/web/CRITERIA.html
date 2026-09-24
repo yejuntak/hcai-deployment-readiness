@@ -1,0 +1,93 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CRITERIA</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
+main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/rc4-candidate-2/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>HCAI review criteria</h1>
+<p>Protocol 0.1-rc.4-candidate.2; candidate criteria, not certification.</p>
+<p>Use these checks to inspect upstream evidence. Structural checks support but do not replace human review. The six gates enforce the required contract; there is no aggregate conformance score.</p>
+<h2>Understand the work before judging the solution</h2>
+<h3>HCAI-1.1 Bound the task</h3>
+<p>Name the workflow, one unit of work, start and end boundaries, context, AI role, exclusions and a current/manual/non-AI alternative.</p>
+<p><strong>How to check:</strong> Ask a second person what is inside and outside this review; compare their answer with the scope record.</p>
+<p><strong>Example that meets the intent:</strong> Review one intake request from receipt to advisor confirmation; exclude live sending.</p>
+<p><strong>Common failure:</strong> Make our business AI-ready without naming a task.</p>
+<p><strong>Verification:</strong> Required fields plus accountable human scope review. Gate: G2_NEED_REQUIREMENTS.</p>
+<h3>HCAI-1.2 Observe the current workflow</h3>
+<p>Retain an observed baseline and a connected current-state map with actors, normal work, exceptions, recovery, time, volume and an endpoint. Mark reported paths separately.</p>
+<p><strong>How to check:</strong> Follow a recent case through every step; reconcile elapsed time, labor and the sampling window. Inspect where work changes hands or returns for correction.</p>
+<p><strong>Example that meets the intent:</strong> A work log supports measured labor; a separate operator account describes an exception not observed in that sample.</p>
+<p><strong>Common failure:</strong> The owner guesses hours saved without knowing today's steps or work volume.</p>
+<p><strong>Verification:</strong> Graph and numeric checks plus direct observation review. Gate: G1_BASELINE.</p>
+<h3>HCAI-1.3 Connect requirements to an actual need</h3>
+<p>Connect each need to an owned, checkable requirement. Use distinct original work or end-user sources at the required risk depth.</p>
+<p><strong>How to check:</strong> Ask whose difficulty the requirement resolves, what would count as success, and whether two sources share the same origin.</p>
+<p><strong>Example that meets the intent:</strong> An operator discussion and a work record independently support preserving data after cancellation.</p>
+<p><strong>Common failure:</strong> Two summaries of one conversation are presented as two independent customers.</p>
+<p><strong>Verification:</strong> Reference, origin and source-kind checks plus human relevance judgment. Gate: G2_NEED_REQUIREMENTS.</p>
+<h2>Make intended behavior and evidence inspectable</h2>
+<h3>HCAI-2.1 Explain form fit and function</h3>
+<p>Every requirement names what is represented, how it fits the surrounding workflow, what it must do and the reference material used to judge it.</p>
+<p><strong>How to check:</strong> Inspect the reference before judging whether the visible artifact belongs and behaves as intended.</p>
+<p><strong>Example that meets the intent:</strong> A review form is linked to required intake fields, advisor responsibilities and cancellation rules.</p>
+<p><strong>Common failure:</strong> A finished-looking screen is accepted without knowing its purpose or reference requirements.</p>
+<p><strong>Verification:</strong> Structured references plus human interpretation. Gate: G4_TRACEABILITY.</p>
+<h3>HCAI-2.2 Trace the exact artifact to a check</h3>
+<p>Each important artifact and each requirement-artifact pair has an executed walkthrough or test. The check identifies the exact tested artifact digest.</p>
+<p><strong>How to check:</strong> Open the chain from requirement to artifact to result; compare the recorded tested digest with the reviewed artifact. Repeat the check after a change.</p>
+<p><strong>Example that meets the intent:</strong> A cancellation walkthrough records the exact screen revision and the field-preservation result.</p>
+<p><strong>Common failure:</strong> An agent edits error handling after tests ran, but the old test pass is reused.</p>
+<p><strong>Verification:</strong> Deterministic chain and revision checks plus inspection of execution evidence. Gate: G4_TRACEABILITY.</p>
+<h3>HCAI-2.3 Distinguish simulated from implemented behavior</h3>
+<p>Label each requirement's behavior as specified only, simulated or implemented. Do not label a walkthrough of a simulation as an implementation test.</p>
+<p><strong>How to check:</strong> Ask what is actually connected and what is mocked. Keep visual polish separate from functional evidence.</p>
+<p><strong>Example that meets the intent:</strong> The export button is simulated; the review checks the intended recovery behavior and funds only implementation of that behavior.</p>
+<p><strong>Common failure:</strong> A mock success screen is presented as proof that a payment or export completed.</p>
+<p><strong>Verification:</strong> Behavior-status and test-level consistency plus human inspection. Gate: G4_TRACEABILITY.</p>
+<h2>Keep people able to understand and recover</h2>
+<h3>HCAI-3.1 Cover normal edge and recovery states</h3>
+<p>Represent normal, edge and recovery paths with triggers, behavior, resulting state, data treatment, owner and requirement links; review dependencies.</p>
+<p><strong>How to check:</strong> Try missing input, empty results, delay, unavailable dependency, cancellation and resumption where relevant. Document which cases apply.</p>
+<p><strong>Example that meets the intent:</strong> A failed save keeps entered data and explains how to retry or return to manual work.</p>
+<p><strong>Common failure:</strong> The happy path works but a failed save silently discards the user's input.</p>
+<p><strong>Verification:</strong> State/reference checks plus context-specific human walkthrough. Gate: G3_STATES_RECOVERY.</p>
+<h3>HCAI-3.2 Make human and automated authority explicit</h3>
+<p>Record what people and automated components may access, change or send. Review approval, interruption, escalation and recovery boundaries. If AI only created the artifact, say so.</p>
+<p><strong>How to check:</strong> For an agent action, ask who authorizes it, how to stop it, what happens after partial completion and who resolves exceptions.</p>
+<p><strong>Example that meets the intent:</strong> A draft-only agent cannot send; an advisor approves changes and can return to a saved record.</p>
+<p><strong>Common failure:</strong> An agent may delete or message externally without a stated owner, approval boundary or recovery path.</p>
+<p><strong>Verification:</strong> Required boundary review plus specialist verification when risk demands it. Gate: G3_STATES_RECOVERY.</p>
+<h3>HCAI-3.3 Count human oversight work</h3>
+<p>Estimate disjoint review, correction, escalation, rework and residual manual minutes with an owner and basis. Distinguish gross from net benefit.</p>
+<p><strong>How to check:</strong> Subtract every oversight component from gross labor savings. Keep waiting time and labor time separate. Leave missing baseline ROI indeterminate.</p>
+<p><strong>Example that meets the intent:</strong> Fifteen minutes of gross savings and fifteen minutes of oversight are reported as zero net time savings.</p>
+<p><strong>Common failure:</strong> Only generation speed is counted while a person must check and rewrite every output.</p>
+<p><strong>Verification:</strong> Required fields and arithmetic plus human estimate review. Gate: G5_OVERSIGHT.</p>
+<h2>Make the commitment accountable</h2>
+<h3>HCAI-4.1 Scale depth before starting</h3>
+<p>Classify all six risk dimensions with rationale. Use the highest dimension; moderate, high or unknown risk cannot qualify through QUICK6.</p>
+<p><strong>How to check:</strong> Review consequence, reversibility, complexity, importance, impact and mission before choosing the path. Do not lower risk to fit the meeting.</p>
+<p><strong>Example that meets the intent:</strong> A consequential allocation workflow goes to FULL even when its interface has only one screen.</p>
+<p><strong>Common failure:</strong> A simple-looking UI is treated as low risk despite an irreversible outcome.</p>
+<p><strong>Verification:</strong> Deterministic routing plus competent human risk classification. Gate: G6_COMMITMENT.</p>
+<h3>HCAI-4.2 Resolve findings at the required depth</h3>
+<p>Review reference defects, findings and unresolved risks. Unresolved critical findings cannot be waived. Add independent review and deeper plans when the risk tier requires them.</p>
+<p><strong>How to check:</strong> Inspect unresolved findings rather than averaging gate passes. Verify reviewer independence for moderate/high risk.</p>
+<p><strong>Example that meets the intent:</strong> A critical data-loss defect stays visible even when the baseline is also missing.</p>
+<p><strong>Common failure:</strong> A critical finding is marked accepted to obtain a favorable readiness result.</p>
+<p><strong>Verification:</strong> Finding status and evidence checks plus reviewer judgment. Gate: G6_COMMITMENT.</p>
+<h3>HCAI-4.3 Limit the engineering commitment</h3>
+<p>Record an owner, bounded engineering step, resource limit and next review trigger. Explain any investment despite a nonpositive net estimate; obtain separate owner authorization.</p>
+<p><strong>How to check:</strong> Ask what the team may build next and what it may not do yet. Retain a separate dated owner decision.</p>
+<p><strong>Example that meets the intent:</strong> One engineer-day for a disposable prototype, with no live sending and a review before further work.</p>
+<p><strong>Common failure:</strong> A gate pass is treated as permission for unrestricted building or deployment.</p>
+<p><strong>Verification:</strong> Recorded bounds and rationale; authorization remains a separate human act. Gate: G6_COMMITMENT.</p>
+<h3>HCAI-4.4 Separate effort from performance</h3>
+<p>Record preparation, timed-session and reporting burden. Keep protocol cost, projected operating oversight, reviewer judgments and actual system performance separate.</p>
+<p><strong>How to check:</strong> Check units and which activity each number measures. Do not infer operational accuracy, safety or readiness from document completeness.</p>
+<p><strong>Example that meets the intent:</strong> An expensive evaluation is reported separately from the workflow's projected operating cost.</p>
+<p><strong>Common failure:</strong> A high checklist score is reported as evidence that the implemented system works.</p>
+<p><strong>Verification:</strong> Separate contract fields and arithmetic; no combined score. Gate: G6_COMMITMENT.</p>
+<h3>HCAI-4.5 Preserve evidence and disclosure boundaries</h3>
+<p>Retain exact versions, source origins, digests and previous-run links. Preserve missing and stopped records. Keep private identities/comments out of public materials without permission.</p>
+<p><strong>How to check:</strong> Can the run be reconstructed, and is each proposed disclosure permitted? Do not alter an old record into a new pass.</p>
+<p><strong>Example that meets the intent:</strong> A new FULL record links to the stopped QUICK6 record; private notes remain outside the public package.</p>
+<p><strong>Common failure:</strong> A synthetic example is relabeled as an actual pilot or private feedback is published as an endorsement.</p>
+<p><strong>Verification:</strong> Structural provenance checks plus human permission review; hashes alone do not prove truth. Gate: G6_COMMITMENT.</p></main></body></html>

@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>migration-rc3-to-rc4</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
+main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/rc4-candidate-2/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>Migrating rc.3 records and tools to rc.4-candidate</h1>
+<p>The historical baseline is identified in historical/baseline-manifest.json. It contains all 71 files from commit 24ad1e1 plus the original rc.3 release archive and PDF. Existing tags agent-tools-v0.1.0 and skill-v0.1.1 remain unchanged. No rc.3 Git tag existed when inspected; its DOI/archive and hashes supply its provenance. Do not invent a past tag or overwrite a published asset.</p>
+<p>Keep root Protocol-v0.1.pdf, Evaluation-Template.xlsx, Source/Protocol-v0.1.md, legacy CSV templates and Worked-Example records as historical rc.3 materials. They have not been upgraded into candidate worksheets. Candidate documents live under protocol/0.1-rc.4-candidate.2; candidate contracts under schemas; candidate examples under examples/rc4. The historic DOI is not a DOI for the new protocol or software.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>rc.3 concept</th>
+<th>Candidate treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Eligible for handoff review / ready criterion</td>
+<td>No automatic migration. Reassess all six gates; possible bounded PROCEED_TO_ENGINEERING recommendation.</td>
+</tr>
+<tr>
+<td>Hold for remediation</td>
+<td>REVISE when an evaluated gate documents failure.</td>
+</tr>
+<tr>
+<td>Insufficient evidence / unknown</td>
+<td>INSUFFICIENT_EVIDENCE with explicit missing evidence; malformed input is rejected.</td>
+</tr>
+<tr>
+<td>Requirement and recovery coverage counts</td>
+<td>Preserve as evaluator/artifact diagnostics; add actual requirement/artifact/validation and state records.</td>
+</tr>
+<tr>
+<td>Elapsed minutes</td>
+<td>Retain original value; separately collect disjoint person-minutes, adjudication, calls, tokens and costs.</td>
+</tr>
+<tr>
+<td>Ready / Not ready / Unable to assess human judgment</td>
+<td>Preserve verbatim in legacy records; never reinterpret as deployment approval or copy into the new recommendation field.</td>
+</tr>
+<tr>
+<td>Missing baseline and operational burden</td>
+<td>Leave missing; collect evidence in a new candidate run. Do not backfill invented zeroes.</td>
+</tr>
+</tbody>
+</table></div>
+<p>MCP 0.2.0rc2 exposes assess_engineering_commitment, assessment_template, validate_pilot_run and export_public_feedback. Historical APIs are explicitly named assess_legacy_session and summarize_legacy_batch; their outputs retain rc.3/software-0.1.0 calculation identity. Update integrations calling the old assess_session or summarize_batch names. Legacy calculations cannot produce candidate gate eligibility.</p>
+<p>Use ai-ready Skill 0.2.0-rc.2 with its bundled deterministic engine. Every candidate run must supply exact protocol/MCP/Skill/contract versions even when executed through only one companion, identifying the compatibility set. Do not relabel an old run with the new version. Save original records, gather missing evidence, assign a new run ID and link prior decisions in retained notes.</p>
+<p>Unknown operating ROI, unknown tool costs and unavailable post-implementation evidence remain null/not_collected. The model cannot infer them from polished artifacts or complete documentation.</p>
+<p>Research Harness discovery: an unrelated quantitative-research capability matrix and a general workflow-system audit were inspected for architectural separation of specs, evidence and decisions. No identifiable Research Harness v3 package was found in the searched NIW assets. No harness logic, claimed tests or results have been imported as protocol evidence.</p>
+<h2>From the first rc.4 candidate to candidate.2</h2>
+<p>The first candidate (protocol 0.1-rc.4-candidate, MCP 0.2.0rc1, Skill 0.2.0-rc.1) remains byte-frozen in the named artifacts in historical/candidate-1-manifest.json. Its complete ZIP retains all original source and reports. Published downloads remain at /static/research/ai-readiness/rc4-candidate/. New downloads use /rc4-candidate-2/.</p>
+<p>Do not merely replace version strings in a run. Retain the original, create a new linked run, and collect:
+- Scope boundaries, unit, AI role, exclusions, and alternatives.
+- Connected current-state steps and a map review.
+- Original need-source IDs and work/discussion source types.
+- Specified/simulated/implemented behavior labels, human-control review, and action boundaries.
+- The exact artifact digests that each validation tested.
+- Preparation wall/person time and capture/reporting time.
+- An explicit investment rationale when net benefit is nonpositive.</p>
+<p>Early risk routing now marks all QUICK6 gates NOT_EVALUATED for higher/unknown risk. A known critical finding remains visible despite an earlier stop. The result adds routing and attention_items; decision names and the engineering-only boundary remain unchanged.</p>
+<p>New read-only MCP tools guide an empty record, retrieve individual criteria, and render private reports. Legacy and first-candidate results are not silently recalculated. Candidate.2 still lacks real external pilot evidence.</p></main></body></html>

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hcai-readiness-mcp"
-version = "0.2.0rc1"
+version = "0.2.0rc2"
 description = "Local MCP tools for the HCAI engineering-handoff research protocol"
 readme = "docs/agent-tools.md"
 requires-python = ">=3.11"
@@ -24,7 +24,11 @@ Repository = "https://github.com/yejuntak/hcai-deployment-readiness"
 packages = ["src/hcai_readiness"]
 
 [dependency-groups]
-dev = ["pytest>=8,<10", "jsonschema>=4.23,<5"]
+dev = [
+    "pytest>=8,<10",
+    "jsonschema>=4.23,<5",
+    "markdown>=3.7,<4",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

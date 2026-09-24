@@ -1,3 +1,15 @@
+# Protocol 0.1-rc.4-candidate.2 — September 24, 2026
+
+MCP 0.2.0rc2; ai-ready Skill/contract 0.2.0-rc.2. Candidate only; first candidate and rc.3 remain frozen.
+
+## Why rc.4 changed
+
+The deeper revision turns practitioner themes into a usable review experience: connected current-state maps and preparation time (SMB feedback); exact tested revisions, reference material and inspectable form/fit/function chains (Hillel Glazer, attribution approved); early risk routing and separate operational evaluation (requirements-first T&E feedback); actual work/discussion origins and comprehension notes for bounded use (end-user/advisor feedback).
+
+Added four principles, fourteen criteria, Start here, scenarios, one-question MCP/Skill guidance, private reports, human/agent authority checks, simulated/implemented labels, and a separate study-review contract. The public [update log](https://www.takyejun.com/research/ai-readiness/updates) explains the changes and remaining evidence gaps. Change IDs C11–C18 map details to tests.
+
+Practitioner correspondence informed refinement but is not equivalent to controlled empirical validation. Usability and the <=15-minute target remain untested. No completed external pilot is claimed. Private identities/comments remain withheld; software tests are not effectiveness evidence.
+
 # Protocol 0.1-rc.4-candidate — September 24, 2026
 
 MCP 0.2.0rc1; ai-ready Skill/contract 0.2.0-rc.1. Candidate only. No new DOI, final release or completed external pilot is claimed.

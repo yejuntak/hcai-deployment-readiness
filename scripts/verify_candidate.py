@@ -24,7 +24,7 @@ def main():
     summaries = ET.parse(suite).getroot().findall('testsuite') if suite.exists() else []
     totals = {k: sum(int(s.get(k, '0')) for s in summaries) for k in ('tests', 'failures', 'errors', 'skipped')}
     inputs = {}
-    for directory in ('src', 'tests', 'skills', 'protocol', 'schemas', 'evidence', 'examples'):
+    for directory in ('src', 'tests', 'skills', 'protocol', 'schemas', 'evidence', 'examples', 'scripts', 'docs'):
         for path in sorted((ROOT / directory).rglob('*')):
             if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc':
                 inputs[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()

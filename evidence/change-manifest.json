@@ -1,5 +1,5 @@
 {
-  "protocol_version": "0.1-rc.4-candidate",
+  "protocol_version": "0.1-rc.4-candidate.2",
   "status": "candidate_unvalidated",
   "changes": [
     {
@@ -14,7 +14,7 @@
       ],
       "files": [
         "src/hcai_readiness/engine.py",
-        "protocol/0.1-rc.4-candidate/PROTOCOL.md"
+        "protocol/0.1-rc.4-candidate.2/PROTOCOL.md"
       ],
       "acceptance_tests": [
         "test_documentation_pass_never_claims_operational_performance"
@@ -53,7 +53,7 @@
       ],
       "files": [
         "schemas/risk-depth.json",
-        "protocol/0.1-rc.4-candidate/FULL-PROFILE.md"
+        "protocol/0.1-rc.4-candidate.2/FULL-PROFILE.md"
       ],
       "acceptance_tests": [
         "test_each_risk_dimension_changes_depth",
@@ -115,7 +115,7 @@
         "QUICK6_STOP"
       ],
       "files": [
-        "protocol/0.1-rc.4-candidate/QUICK-6.md",
+        "protocol/0.1-rc.4-candidate.2/QUICK-6.md",
         "src/hcai_readiness/engine.py"
       ],
       "acceptance_tests": [
@@ -159,7 +159,7 @@
         "RELEASE_ACTUAL_USE"
       ],
       "files": [
-        "Pilot-Kit/rc4-external-packet.md",
+        "Pilot-Kit/rc4-candidate-2-external-packet.md",
         "src/hcai_readiness/records.py",
         "schemas/pilot-run.schema.json"
       ],
@@ -216,6 +216,166 @@
         "test_portable_skill_matches_engine_all_fixtures",
         "test_stdio_roundtrip",
         "test_baseline_history_is_byte_frozen"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C11",
+      "observed_problem": "Current-state prose allowed disconnected or unobserved work to appear complete.",
+      "source_theme_ids": [
+        "FB03"
+      ],
+      "change": "Connected current-state map, scope and observed/reported paths.",
+      "requirements": [
+        "G1_BASELINE",
+        "G2_NEED_REQUIREMENTS"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "protocol/0.1-rc.4-candidate.2/START-HERE.md"
+      ],
+      "acceptance_tests": [
+        "test_current_map_is_required_and_connected",
+        "test_current_map_requires_exit_and_observed_normal"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C12",
+      "observed_problem": "Artifact links did not establish which revision was tested.",
+      "source_theme_ids": [
+        "FB02"
+      ],
+      "change": "Tested digests, behavior-status labels and drill-down reports.",
+      "requirements": [
+        "G4_TRACEABILITY"
+      ],
+      "files": [
+        "src/hcai_readiness/reporting.py"
+      ],
+      "acceptance_tests": [
+        "test_stale_or_missing_tested_revision_never_passes",
+        "test_simulated_behavior_is_not_implemented_test"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C13",
+      "observed_problem": "Multiple records could originate from the same discussion or general reference.",
+      "source_theme_ids": [
+        "FB04"
+      ],
+      "change": "Count distinct actual work/discussion origins.",
+      "requirements": [
+        "G2_NEED_REQUIREMENTS"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_need_sources_are_actual_distinct_origins"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C14",
+      "observed_problem": "Preparation effort and nonpositive benefit could be obscured.",
+      "source_theme_ids": [
+        "FB03"
+      ],
+      "change": "Separate preparation/capture accounting and investment rationale.",
+      "requirements": [
+        "G5_OVERSIGHT",
+        "G6_COMMITMENT"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_preparation_is_costed_not_hidden_or_double_counted",
+        "test_nonpositive_benefit_requires_rationale_and_stays_visible"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C15",
+      "observed_problem": "A technical contract alone does not guide a new reader to a useful action.",
+      "source_theme_ids": [
+        "FB02",
+        "FB03"
+      ],
+      "change": "One-question guide, readable private reports and criterion examples; early routing.",
+      "requirements": [
+        "QUICK6_STOP",
+        "HCAI-4.1"
+      ],
+      "files": [
+        "src/hcai_readiness/guidance.py",
+        "skills/ai-ready/SKILL.md",
+        "docs/updates.md"
+      ],
+      "acceptance_tests": [
+        "test_guided_journey_starts_small_and_never_seeds_facts",
+        "test_report_escapes_artifacts_and_has_drilldown",
+        "test_routing_is_early_and_known_floor_retained"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C16",
+      "observed_problem": "AI coding can obscure whether behavior is simulated or an agent is authorized to act.",
+      "source_theme_ids": [],
+      "change": "Require human-control review/action boundaries; retain critical findings after early stops.",
+      "requirements": [
+        "G3_STATES_RECOVERY",
+        "G6_COMMITMENT"
+      ],
+      "files": [
+        "protocol/0.1-rc.4-candidate.2/SCENARIOS.md",
+        "src/hcai_readiness/criteria.json"
+      ],
+      "acceptance_tests": [
+        "test_human_action_boundaries_required",
+        "test_early_stop_does_not_hide_known_critical_findings",
+        "test_criteria_have_stable_ids_examples_and_gate_mapping"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C17",
+      "observed_problem": "Practical recommendations could be conflated with proposed fidelity-study judgments.",
+      "source_theme_ids": [],
+      "change": "Separate blinded reviewer-side study records and research claims; capture pilot comprehension.",
+      "requirements": [
+        "RESEARCH_BOUNDARY"
+      ],
+      "files": [
+        "docs/research-boundary.md",
+        "schemas/study-review.schema.json"
+      ],
+      "acceptance_tests": [
+        "test_study_judgments_are_not_engineering_decisions_or_answer_keys",
+        "test_pilot_usability_records_are_optional_not_fabricated"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C18",
+      "observed_problem": "A reworked candidate could silently replace the first public candidate.",
+      "source_theme_ids": [],
+      "change": "Freeze first candidate, bump all companions and link revisions.",
+      "requirements": [
+        "HISTORY_FROZEN",
+        "VERSION_PARITY"
+      ],
+      "files": [
+        "historical/candidate-1-manifest.json",
+        "docs/migration-rc3-to-rc4.md"
+      ],
+      "acceptance_tests": [
+        "test_first_candidate_is_byte_frozen",
+        "test_stopped_run_revision_requires_trace",
+        "test_cli_guide_report_and_empty_start"
       ],
       "validation_status": "software_tests_only"
     }

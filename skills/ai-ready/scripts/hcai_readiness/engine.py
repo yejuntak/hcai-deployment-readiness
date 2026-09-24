@@ -96,14 +96,14 @@ def economics(a, baseline_usable):
 
 def evaluation_cost(burden):
     result = burden.model_dump()
-    parts = (burden.evaluator_minutes, burden.participant_minutes, burden.adjudication_minutes)
+    parts = (burden.preparation_person_minutes, burden.evaluator_minutes, burden.participant_minutes, burden.adjudication_minutes)
     minutes = sum(parts) if all(p is not None for p in parts) else None
     cost = (minutes / 60 * burden.labor_cost_per_hour + burden.tool_model_cost
             if minutes is not None and burden.labor_cost_per_hour is not None
             and burden.tool_model_cost is not None and burden.currency else None)
     result.update(total_person_minutes=minutes, protocol_evaluation_cost=None if cost is None else round(cost, 6),
                   cost_status="INDETERMINATE" if cost is None else "RECORDED_COST",
-                  accounting_rule="Evaluator, participant and adjudication person-minutes are disjoint; elapsed time is wall-clock, not additive.")
+                  accounting_rule="Preparation, evaluator, participant and adjudication person-minutes are disjoint. Capture/reporting is included in session time, not added again. Preparation wall time is separate from the timed session.")
     return result
 
 
@@ -122,16 +122,48 @@ def assess(a: Assessment) -> dict:
     g.require(bool(b.actor_roles), "Current workflow actor roles required")
     accepted_kinds = {"observed", "synthetic"} if a.evaluator_kind == "synthetic" else {"observed"}
     g.require(all(evidence[r].kind in accepted_kinds for r in b.evidence_ids), "Estimates/assumptions are not a measured baseline")
+    g.require(bool(a.scope.unit_of_work), "Define one unit of work before comparing minutes or volume")
+    g.require(bool(b.entry_step_id) and bool(b.steps), "Map the current workflow step by step, with an entry step")
+    for kind in ("normal", "edge", "recovery"):
+        g.require(any(s.kind == kind for s in b.steps), f"Current-state {kind} path required; distinguish observed from reported practice")
+    g.require(any(s.kind == "normal" and s.observation_status == "observed" for s in b.steps), "At least one current normal path must be observed")
+    for step in b.steps:
+        g.require(bool(step.evidence_ids) and all(evidence[r].kind in accepted_kinds for r in step.evidence_ids), f"{step.id}: current practice needs retained observation/discussion records")
+        g.require(step.terminal or bool(step.next_step_ids), f"{step.id}: identify the next step or mark the endpoint")
+    if b.steps and b.entry_step_id:
+        by_id = {s.id: s for s in b.steps}
+        reached, pending = set(), [b.entry_step_id]
+        while pending:
+            node = pending.pop()
+            if node not in reached:
+                reached.add(node)
+                pending.extend(by_id[node].next_step_ids)
+        g.require(reached == set(by_id), "Every current-state step must be reachable from the entry")
+        can_end = {s.id for s in b.steps if s.terminal}
+        while True:
+            expanded = can_end | {s.id for s in b.steps if any(n in can_end for n in s.next_step_ids)}
+            if expanded == can_end:
+                break
+            can_end = expanded
+        g.require(set(by_id) <= can_end, "Every current-state path needs a reachable endpoint or safe exit")
+    g.check(b.map_review, "current_state_map_review")
     gates.append(g.result())
 
     g = GateBuilder("G2_NEED_REQUIREMENTS")
     g.require(bool(w.outcome), "Explicit intended outcome required")
     g.require(bool(w.needs) and bool(w.requirements), "End-user need and requirements required")
+    for key in type(a.scope).model_fields:
+        g.require(getattr(a.scope, key) is not None, f"scope.{key}: define the bounded workflow and alternatives")
+    g.require(bool(a.scope.alternatives_considered), "Compare at least one existing/manual/non-AI alternative")
     for need in w.needs:
-        g.require(len({evidence[r].sha256 for r in need.source_ids}) >= depth["need_sources"], f"{need.id}: {depth['need_sources']} distinct need sources required (duplicate bytes do not count twice)")
+        sources = [evidence[r] for r in need.source_ids if evidence[r].origin_id and evidence[r].kind in accepted_kinds
+                   and evidence[r].source_type in ("work_record", "end_user_discussion")]
+        independent_count = min(len({e.origin_id for e in sources}), len({e.sha256 for e in sources}))
+        g.require(independent_count >= depth["need_sources"], f"{need.id}: {depth['need_sources']} distinct original work/discussion sources required; copies, estimates and general references do not count")
         if tier != "low":
             g.require(bool(need.discussion_evidence_ids), f"{need.id}: actual end-user discussion required")
             g.require(all(evidence[r].kind in accepted_kinds for r in need.discussion_evidence_ids), f"{need.id}: discussion cannot be assumed")
+            g.require(all(evidence[r].source_type == "end_user_discussion" and evidence[r].origin_id for r in need.discussion_evidence_ids), f"{need.id}: identify the actual end-user discussion origin")
     for requirement in w.requirements:
         g.require(bool(requirement.need_ids), f"{requirement.id}: link to end-user need required")
     for need in w.needs:
@@ -148,6 +180,8 @@ def assess(a: Assessment) -> dict:
     g.require(w.dependencies is not None, "Dependency inventory required; [] explicitly means none")
     g.check(w.dependency_review, "dependency_review")
     g.check(w.state_review, "state_review")
+    g.require(w.action_boundaries is not None, "Record what people and automated components may access, change or send")
+    g.check(w.human_control_review, "human_control_review")
     gates.append(g.result())
 
     g = GateBuilder("G4_TRACEABILITY")
@@ -155,6 +189,7 @@ def assess(a: Assessment) -> dict:
     g.require(bool(w.requirements) and bool(w.validations), "Requirement and validation records required")
     validations = {v.id: v for v in w.validations}
     for r in w.requirements:
+        g.require(r.behavior_status != "unknown", f"{r.id}: label behavior as specified only, simulated or implemented")
         g.require(bool(r.reference_material_ids), f"{r.id}: form/fit/function reference material required")
         g.fail(not r.artifact_ids or not r.validation_ids, f"{r.id}: broken requirement→artifact→validation chain")
         for artifact in r.artifact_ids:
@@ -166,11 +201,17 @@ def assess(a: Assessment) -> dict:
     for artifact in w.important_artifact_ids:
         g.fail(not any(artifact in r.artifact_ids for r in w.requirements), f"{artifact}: important artifact has no requirement")
     for v in w.validations:
+        if v.level == "implemented_test":
+            g.fail(any(req.behavior_status != "implemented" for req in w.requirements if req.id in v.requirement_ids), f"{v.id}: cannot label a check implemented when linked behavior is only specified or simulated")
         g.fail(v.status == "fail", f"{v.id}: failed validation")
         g.require(bool(v.requirement_ids) and bool(v.artifact_ids), f"{v.id}: validation references required")
         g.require(v.status != "missing" and v.level != "specified" and bool(v.evidence_ids),
                   f"{v.id}: every listed validation requires execution evidence")
         g.require(all(evidence[r].kind in accepted_kinds for r in v.evidence_ids), f"{v.id}: execution cannot be assumed or estimated")
+        for artifact in v.artifact_ids:
+            tested_digest = v.tested_artifact_digests.get(artifact)
+            g.require(tested_digest is not None, f"{v.id}/{artifact}: record the exact artifact digest that was tested")
+            g.fail(tested_digest is not None and tested_digest != evidence[artifact].sha256, f"{v.id}/{artifact}: artifact changed since validation; rerun the check")
     gates.append(g.result())
 
     g = GateBuilder("G5_OVERSIGHT")
@@ -198,21 +239,45 @@ def assess(a: Assessment) -> dict:
         g.require(h.independent_review.independent_from_artifact_owner is True and bool(h.independent_review.reviewer_role),
                   "Independent reviewer role and separation from artifact owner required")
     for key in ("elapsed_minutes", "evaluator_minutes", "participant_minutes", "participant_count",
-                "adjudication_minutes", "review_correction_cycles"):
+                "adjudication_minutes", "review_correction_cycles", "preparation_elapsed_minutes",
+                "preparation_person_minutes", "capture_reporting_minutes"):
         g.require(getattr(a.evaluator_burden, key) is not None, f"evaluator_burden.{key}: required")
     g.require(bool(a.evaluator_burden.evidence_ids), "Evaluation timing/participant record required")
     if a.requested_profile == "QUICK6":
         g.require(a.evaluator_burden.elapsed_minutes is not None and a.evaluator_burden.elapsed_minutes <= 15,
                   "QUICK6 exceeded 15 minutes or was not timed: continue as FULL in a new run")
+    projected = economics(a, gates[0].status == "PASS")
+    nonpositive = (projected["net_operational_benefit_per_period"] is not None and projected["net_operational_benefit_per_period"] <= 0) or (
+        projected["net_minutes_saved_per_case"] is not None and projected["net_minutes_saved_per_case"] <= 0)
+    if nonpositive:
+        g.require(bool(h.investment_rationale), "Net benefit is nonpositive: owner must explain the nonfinancial or learning reason to fund engineering")
     gates.append(g.result())
 
     stop = next((g.id for g in gates if g.status != "PASS"), None)
-    if a.requested_profile == "QUICK6" and stop:
+    routing = {"status": "REVIEW", "reason": "Use the six gates at the classified depth.",
+               "known_risk_floor": max((getattr(a.risk, k) for k in RISK_FIELDS if getattr(a.risk, k)), default=None, key=("low", "moderate", "high").index)}
+    if a.requested_profile == "QUICK6" and tier != "low":
+        routing.update(status="USE_FULL", reason="Classify missing risk dimensions and use FULL." if tier == "unknown" else "This risk tier requires FULL before any QUICK6 gate is evaluated.")
+    elif a.requested_profile == "QUICK6" and a.evaluator_burden.elapsed_minutes is not None and a.evaluator_burden.elapsed_minutes > 15:
+        routing.update(status="USE_FULL", reason="The short-session limit was exceeded. Preserve this run and continue in FULL; extra time is not a product defect.")
+    if routing["status"] == "USE_FULL":
+        stop = "PROFILE_ROUTING"
+        gates = [Gate(id=g.id, status="NOT_EVALUATED", reasons=[routing["reason"]]) for g in gates]
+    elif a.requested_profile == "QUICK6" and stop:
         index = next(i for i, g in enumerate(gates) if g.id == stop)
         gates[index + 1:] = [Gate(id=g.id, status="NOT_EVALUATED", reasons=[f"Stopped at {stop}"]) for g in gates[index + 1:]]
     decision = ("REVISE" if any(g.status == "FAIL" for g in gates)
                 else "INSUFFICIENT_EVIDENCE" if any(g.status != "PASS" for g in gates)
                 else "PROCEED_TO_ENGINEERING")
+    attention = [{"kind": "critical_finding", "id": f.id, "message": f.description,
+                  "action": "Resolve this critical finding before any engineering recommendation."}
+                 for f in h.reviewer_findings or [] if f.severity == "critical" and f.status != "resolved"]
+    if attention:
+        decision = "REVISE"
+    if nonpositive:
+        attention.append({"kind": "nonpositive_benefit", "id": "OPERATING_BENEFIT",
+                          "message": "Oversight or recurring costs erase the claimed benefit.",
+                          "action": "Revise the business case or record an explicit nonfinancial/learning rationale."})
     result = AssessmentResult(
         run_id=a.run_id, versions=versions(), evaluator_kind=a.evaluator_kind, decision=decision,
         decision_scope="bounded_engineering_commitment", risk_tier=tier, requested_profile=a.requested_profile,
@@ -228,7 +293,8 @@ def assess(a: Assessment) -> dict:
         limitations=["Engineering commitment recommendation only; never deployment certification.",
                      "Evidence truth, completeness of inventories and risk judgments require accountable human review.",
                      "Practitioner correspondence informed refinement; it is not controlled empirical validation.",
-                     "Risk thresholds and the <=15-minute target are provisional and unvalidated."])
+                     "Risk thresholds and the <=15-minute target are provisional and unvalidated."],
+        routing=routing, attention_items=attention)
     return result.model_dump()
 
 

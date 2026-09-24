@@ -96,7 +96,7 @@ def feedback(permission="private"):
     return FeedbackEntry(id="FBTEST", source_person="PRIVATE_NAME_SENTINEL", source_date="2026-09-01",
                          recorded_on="2026-09-24", context="PRIVATE_CONTEXT_SENTINEL", feedback="PRIVATE_FEEDBACK_SENTINEL",
                          permission=permission, permission_basis="PRIVATE_PERMISSION_SENTINEL", changes=["C01"],
-                         affected_files=["protocol/0.1-rc.4-candidate/PROTOCOL.md"], affected_requirements=["G6_COMMITMENT"],
+                         affected_files=["protocol/0.1-rc.4-candidate.2/PROTOCOL.md"], affected_requirements=["G6_COMMITMENT"],
                          validation_status="software_tests_only")
 
 
@@ -199,6 +199,7 @@ def test_dangling_duplicate_and_mislinked_traceability():
         Assessment.model_validate(d)
     d = fixture()
     d["workflow"]["validations"][0]["artifact_ids"] = ["E2"]
+    d["workflow"]["validations"][0]["tested_artifact_digests"] = {"E2": d["evidence"][1]["sha256"]}
     assert evaluate(d)["decision"] == "REVISE"
 
 

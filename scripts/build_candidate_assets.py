@@ -4,9 +4,10 @@ import copy
 import importlib.util
 import json
 from pathlib import Path
-from hcai_readiness.contracts import Assessment, AssessmentResult, FeedbackEntry, PilotRun
+from hcai_readiness.contracts import Assessment, AssessmentResult, FeedbackEntry, PilotRun, StudyReview
 from hcai_readiness.engine import DEPTH, assess
 from hcai_readiness.versions import versions
+from hcai_readiness.guidance import criteria_catalog
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -18,17 +19,31 @@ def encoded(value):
 def generated():
     output = {"versions.json": encoded(versions()), "schemas/risk-depth.json": encoded(DEPTH)}
     for model, name in ((Assessment, "assessment"), (AssessmentResult, "assessment-result"),
-                        (FeedbackEntry, "feedback-entry"), (PilotRun, "pilot-run")):
+                        (FeedbackEntry, "feedback-entry"), (PilotRun, "pilot-run"), (StudyReview, "study-review")):
         output[f"schemas/{name}.schema.json"] = encoded({"$schema": "https://json-schema.org/draft/2020-12/schema", **model.model_json_schema()})
-    protocol = (ROOT / "protocol/0.1-rc.4-candidate/PROTOCOL.md").read_bytes()
+    protocol = (ROOT / "protocol/0.1-rc.4-candidate.2/PROTOCOL.md").read_bytes()
     output["src/hcai_readiness/protocol.md"] = protocol
     output["skills/ai-ready/references/protocol.md"] = protocol
-    for name in ("QUICK-6.md", "FULL-PROFILE.md"):
-        output[f"skills/ai-ready/references/{name}"] = (ROOT / "protocol/0.1-rc.4-candidate" / name).read_bytes()
-    for name in ("assessment", "pilot-run"):
+    for name in ("QUICK-6.md", "FULL-PROFILE.md", "START-HERE.md", "SCENARIOS.md"):
+        output[f"skills/ai-ready/references/{name}"] = (ROOT / "protocol/0.1-rc.4-candidate.2" / name).read_bytes()
+    for name in ("assessment", "pilot-run", "study-review"):
         output[f"skills/ai-ready/references/{name}.schema.json"] = output[f"schemas/{name}.schema.json"]
-    for name in ("__init__.py", "versions.py", "contracts.py", "engine.py", "cli.py"):
+    for name in ("__init__.py", "versions.py", "contracts.py", "engine.py", "cli.py", "guidance.py", "reporting.py", "criteria.json"):
         output[f"skills/ai-ready/scripts/hcai_readiness/{name}"] = (ROOT / "src/hcai_readiness" / name).read_bytes()
+    output["skills/ai-ready/references/research-boundary.md"] = (ROOT / "docs/research-boundary.md").read_bytes()
+    catalog = criteria_catalog()
+    criterion_text = ['# HCAI review criteria', '', 'Protocol '+versions()['protocol']+'; candidate criteria, not certification.', '',
+                      'Use these checks to inspect upstream evidence. Structural checks support but do not replace human review. The six gates enforce the required contract; there is no aggregate conformance score.', '']
+    for principle in catalog['principles']:
+        criterion_text += ['## '+principle['title'], '']
+        for criterion in catalog['criteria']:
+            if criterion['id'].startswith('HCAI-'+principle['id']+'.'):
+                criterion_text += ['### '+criterion['id']+' '+criterion['title'], '', criterion['requirement'], '',
+                                  '**How to check:** '+criterion['check'], '', '**Example that meets the intent:** '+criterion['pass_example'], '',
+                                  '**Common failure:** '+criterion['failure_example'], '',
+                                  '**Verification:** '+criterion['verification']+'. Gate: '+criterion['gate']+'.', '']
+    output['protocol/'+versions()['protocol']+'/CRITERIA.md'] = '\n'.join(criterion_text).encode()
+    output['skills/ai-ready/references/CRITERIA.md'] = '\n'.join(criterion_text).encode()
     spec = importlib.util.spec_from_file_location("make_fixture", ROOT / "examples/make_fixture.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)

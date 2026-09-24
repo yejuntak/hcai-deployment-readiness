@@ -1,6 +1,6 @@
 # Candidate MCP and ai-ready Skill
 
-Protocol 0.1-rc.4-candidate; MCP 0.2.0rc1; Skill/contract 0.2.0-rc.1. The historical DOI and tags identify earlier releases only.
+Protocol 0.1-rc.4-candidate.2; MCP 0.2.0rc2; Skill/contract 0.2.0-rc.2. The historical DOI and tags identify earlier releases only.
 
 ## Install the MCP server
 
@@ -41,3 +41,22 @@ These repository-relative examples are synthetic, not pilots. A portable install
 Unknown/dangling IDs, malformed digests, inconsistent counts, nonfinite/negative numbers, booleans in numeric fields and version mismatches are rejected. Missing nullable/defaultable evidence produces unmet gates. QUICK6 marks later gates NOT_EVALUATED; FULL reports all gates.
 
 Preserve separate evaluator_burden, operational_oversight, roi, operational_performance, gates and provenance. Never derive deployment claims or weighted scores. Unknown costs/tokens are null. Regenerate and parity-check copies with scripts/build_candidate_assets.py; tests include actual stdio MCP and a separate portable Skill subprocess.
+
+## A small guided conversation
+
+Call new_review_record with a caller-supplied ID, timestamp and evaluator provenance. It returns an empty record, not plausible answers. Use review_next_step to obtain one next question and an owner/action. The assistant should display the short question first; returned detail is for the facilitator.
+
+get_gate_guide explains one gate. get_review_criterion retrieves a stable HCAI criterion and examples. assessment_report returns private Markdown or offline HTML with expandable requirement/artifact/test chains. Invalid drafts return field paths without echoing sensitive input values.
+
+```sh
+uv run hcai-readiness --new --run-id MY-REVIEW --recorded-at 2026-09-24T12:00:00Z --evaluator-kind human
+uv run hcai-readiness examples/rc4/low-risk-quick.json --guide
+uv run hcai-readiness examples/rc4/low-risk-quick.json --format html
+python skills/ai-ready/scripts/assess.py examples/rc4/low-risk-quick.json --format markdown
+```
+
+Replace the example ID/time with actual metadata. Commands print to stdout and do not save records automatically. The HTML report is private by default, not a public export. It never loads artifact URLs or executes their content.
+
+hcai://criteria exposes the four principles and fourteen candidate criteria. validate_study_review is separate: it validates a locked reviewer-side record without keys, effect calculations or an engineering recommendation. A confidence field is not a validated scale.
+
+Preserve a stopped QUICK6 record before continuing in FULL with previous_run_id and revision_summary. Preparation time and capture/reporting are explicit, source origins must be distinct, tests must identify the artifact revision tested, and simulated behavior stays labeled.
