@@ -1,0 +1,7 @@
+scenario_id,applicable_yes_no,acceptance_check
+S01,Yes,Identify empty required fields
+S02,Yes,Correct an invalid requester while retaining other inputs
+S03,Yes,Recover from timeout and retain inputs
+S04,Yes,Explain server rejection and allow retry with preserved inputs
+S05,Yes,Explain repeated-click status and preserve inputs while preventing duplication
+S06,Yes,Specify cancellation outcome during processing

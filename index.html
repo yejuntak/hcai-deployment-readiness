@@ -1,32 +1,136 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Deployment Readiness Protocol — Yejun Tak</title>
-<meta name="description" content="An engineering-handoff evaluation protocol for AI-generated interfaces. Read the method, use the scorecard and workbook, and explore a synthetic worked example.">
-<style>
-:root{--ink:#172b43;--muted:#506179;--paper:#faf9f5;--line:#d6dce2;--accent:#244cac}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 system-ui,-apple-system,sans-serif}a{color:var(--accent);text-underline-offset:4px}a:focus-visible{outline:3px solid #df9b25;outline-offset:5px}header,main,footer{max-width:1100px;margin:auto;padding:24px 32px}header{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);font-size:14px}header a{color:var(--ink)}.eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:50px 0 18px}h1{font-size:clamp(37px,5.2vw,64px);line-height:1.08;letter-spacing:-.045em;max-width:900px;margin:0 0 24px;font-weight:650}.lead{font-size:21px;line-height:1.55;max-width:740px;color:var(--muted)}.actions{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 42px}.button{display:inline-block;border:1px solid var(--ink);padding:12px 18px;text-decoration:none;color:var(--ink);border-radius:5px;font-weight:600}.primary{background:var(--ink);color:white}.status{border-left:3px solid #b7822e;padding:10px 20px;background:#f2eee4;font-size:15px;max-width:870px}section{padding:42px 0;border-bottom:1px solid var(--line)}h2{font-size:28px;line-height:1.2;margin:0 0 18px;letter-spacing:-.025em}h3{font-size:19px;margin:0 0 9px}.two{display:grid;grid-template-columns:1fr 1fr;gap:42px}.measure{display:grid;grid-template-columns:52px 1fr;gap:15px;padding:20px 0;border-top:1px solid var(--line)}.num{color:var(--muted);font-size:14px}.measure p{margin:0;color:var(--muted)}ol{padding-left:23px}li{margin-bottom:12px}.files{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}.file{display:block;padding:17px 0;border-top:1px solid var(--line);text-decoration:none;font-weight:600}.file span{display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:4px}footer{font-size:13px;color:var(--muted);padding-top:30px;padding-bottom:44px}.cite{font-size:15px;padding:18px;background:#edf0f3;border-radius:5px}.caption{font-size:14px;color:var(--muted)}@media(max-width:650px){header,main,footer{padding-left:22px;padding-right:22px}.two,.files{grid-template-columns:1fr;gap:20px}.eyebrow{margin-top:32px}.lead{font-size:19px}section{padding:32px 0}.actions .button{width:100%;text-align:center}header{gap:20px}}
-</style></head>
-<body><header><a href="https://takyejun.com">Yejun Tak / Research</a><a href="https://github.com/yejuntak/hcai-deployment-readiness">GitHub repository</a></header>
-<main><p class="eyebrow">Evaluation methods / Engineering-handoff profile</p><h1>Human-Centered AI<br>Deployment Readiness Protocol</h1><p class="lead">Examine the gap between an interface that looks ready and the evidence needed to hand it to engineering.</p>
-<div class="actions"><a class="button primary" href="./Protocol-v0.1.pdf">Read the protocol</a><a class="button" href="./Evaluation-Template.xlsx">Get the evaluation workbook</a></div>
-<div class="status"><strong>v0.1 release candidate · September 2026</strong><br>A proposed method with a synthetic instructional example. External validation and measured effectiveness have not been established. This profile evaluates engineering handoff; it does not authorize production release.</div>
-<section class="two"><div><h2>The problem</h2><p>Interface polish and functional completeness describe different properties. A readiness judgment needs explicit requirements, observable state transitions and recovery evidence.</p></div><div><h2>The approach</h2><p>Freeze the criterion, collect the evaluator’s judgment before showing the reference key, and compare that judgment with documented evidence. Preserve disagreements and missing information.</p></div></section>
-<section><h2>Five distinct measurements</h2>
-<div class="measure"><div class="num">01</div><div><h3>Reference-set defect recall</h3><p>How many frozen reference defects did the evaluator correctly identify?</p></div></div>
-<div class="measure"><div class="num">02</div><div><h3>False-ready acceptance</h3><p>How often was a criterion-nonready artifact judged Ready? Missing judgments and abstentions are reported separately.</p></div></div>
-<div class="measure"><div class="num">03</div><div><h3>Expected-recall gap</h3><p>How far did expected recall differ from observed recall, in percentage points?</p></div></div>
-<div class="measure"><div class="num">04</div><div><h3>Recovery coverage</h3><p>How many applicable recovery scenarios were specified and walkthrough verified?</p></div></div>
-<div class="measure"><div class="num">05</div><div><h3>Requirements-omission recognition</h3><p>How many predefined omissions did the evaluator notice? Artifact requirements coverage is measured separately.</p></div></div>
-<p class="caption">There is no combined score. A high evaluator recall cannot override an unresolved critical issue in the artifact.</p></section>
-<section class="two"><div><h2>Run an assessment</h2><ol><li>Freeze the artifact, task brief and handoff criterion.</li><li>Evaluate and lock findings, expected recall and judgment.</li><li>Reveal the reference and adjudicate matches.</li><li>Calculate, reconcile evidence and record the owner’s decision.</li></ol></div><div><h2>Try the worked example</h2><p>Inspect a fictional service-request specification with ten requirements, six recovery scenarios and a separate reference key. Follow the constructed findings through the completed workbook.</p><a class="button" href="./Worked-Example/artifact.html">Open the fictional artifact</a><p class="caption">The example contains no real participant results or employer product data.</p></div></section>
-<section><h2>Materials</h2><div class="files">
-<a class="file" href="./Protocol-v0.1.pdf">Protocol PDF<span>8 pages · Scope, steps, definitions and limitations</span></a>
-<a class="file" href="./Scorecard.pdf">Evaluator scorecard<span>3 pages · Judgment, findings and decision record</span></a>
-<a class="file" href="./Evaluation-Template.xlsx">Blank evaluation workbook<span>Formula-driven session and batch calculations</span></a>
-<a class="file" href="./Worked-Example/Worked-Example.pdf">Worked example PDF<span>3 pages · Reference records and explained calculations</span></a>
-<a class="file" href="./Worked-Example/Evaluation-Completed.xlsx">Completed example workbook<span>Synthetic inputs with reproducible results</span></a>
-<a class="file" href="https://github.com/yejuntak/hcai-deployment-readiness/tree/main/Pilot-Kit">Feasibility kit and feedback log<span>Templates for actual review, use and revision</span></a>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HCAI Engineering Commitment - rc.4 Candidate</title><meta name="description" content="Current workflow, six gates and risk-tiered evidence before an engineering commitment."><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}.m-callout-icon{width:24px;height:24px;flex-shrink:0}.m-callout{display:flex;align-items:flex-start;gap:16px}</style></head><body><main>
+<section class="o-hero-page research-hero">
+  <div class="research-hero-copy">
+    <p class="o-hero-page-eyebrow">HCAI / Engineering-Handoff Profile</p>
+    <h1 class="o-hero-page-title">Evidence before engineering commitment.</h1>
+    <p class="o-hero-page-lede">Start with the work people do today. Decide what evidence justifies building the next step.</p>
+    <p class="t-body-m u-mt-4 u-max-w-60">A risk-tiered review of the current workflow, end-user requirements, recovery paths, traceability and human oversight costs. The result supports a bounded engineering decision.</p>
+    <div class="m-cta-pair u-mt-5">
+      <a class="button button-primary" href="#quick-six">Try the six-question review</a>
+      <a class="button button-secondary" href="output/pdf/Protocol-v0.1-rc.4-candidate.pdf">Read the candidate protocol</a>
+    </div>
+    <div class="cluster cluster-2 u-mt-5">
+      <span class="tag tag-mono">0.1-rc.4-candidate</span><span class="tag">Engineering commitment</span>
+      <span class="t-body-s">Yejun Tak · September 24, 2026</span>
+    </div>
+  </div>
+  <aside class="research-install" aria-label="Start with one workflow">
+    <p class="t-eyebrow">For practitioners and advisors</p>
+    <h2 class="t-title-m">One workflow. Six gates.</h2>
+    <div class="research-install-item">
+      <h3 class="t-title-s">Bring an existing work record.</h3>
+      <p class="t-body-s">For a low-risk case, an advisor guides a short review. The proposed target is 15 minutes or less, including the evidence check and decision record. That time target has not yet been tested.</p>
+      <a class="link-arrow" href="output/pdf/External-Pilot-Packet-v0.1-rc.4-candidate.pdf">Get the short pilot packet</a>
+    </div>
+    <div class="research-install-item">
+      <h3 class="t-title-s">Missing evidence is a useful result.</h3>
+      <p class="t-body-s">A failed or incomplete gate visibly stops QUICK-6. Gather the missing evidence, then use the full profile. Moderate or high risk also requires the full profile.</p>
+      <a class="link" href="#agent-tools">Use the MCP or ai-ready Skill</a>
+    </div>
+  </aside>
+</section>
+
+<div class="o-section o-section--compact"><div class="o-section-inner">
+  <aside class="m-callout" aria-label="Candidate status"><svg class="m-callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg><div class="m-callout-body">
+    <strong class="m-callout-title">Candidate for bounded external use</strong>
+    <p>Practitioner correspondence informed this refinement. It is not controlled empirical validation. No completed external pilot, adoption or measured system-performance result is claimed. The historical rc.3 release remains available below.</p>
+    <p>This upstream profile supports the decision to commit engineering resources. Deployment requires separate evaluation of an implemented system with real operators under realistic conditions.</p>
+  </div></aside>
+  <nav class="research-jump" aria-label="On this page"><a class="link" href="#quick-six">QUICK-6</a><a class="link" href="#measurements">Five layers</a><a class="link" href="#risk-depth">Risk depth</a><a class="link" href="#why-changed">Why changed</a><a class="link" href="#materials">Downloads</a><a class="link" href="#agent-tools">MCP + Skill</a><a class="link" href="#archive">rc.3 archive</a></nav>
+</div></div>
+
+<section class="o-section o-section--bordered" id="quick-six"><div class="o-section-inner">
+  <div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">01 / Advisor-led QUICK-6</span><h2 class="m-eyebrow-title-title t-title-xl">A missing answer stops the review.</h2>
+    <p class="t-body-m u-max-w-60">Use existing records for one low-risk workflow. These are mandatory gates, not a score. Six prompts can support a useful decision even when the right result is to stop and gather evidence.</p></div>
+  <ol class="research-usage-list t-body-m">
+    <li><strong>Can we quantify today's work?</strong> Capture the current path and people, cycle and labor time, touches, failures, review, rework and volume. No measured baseline means insufficient evidence and indeterminate ROI.</li>
+    <li><strong>Whose need does the change address?</strong> State the outcome and connect it to owned requirements with measurable acceptance criteria.</li>
+    <li><strong>What happens at the edges?</strong> Define normal, edge and recovery paths, data preservation, dependencies and responsibility.</li>
+    <li><strong>Can we trace the behavior?</strong> Connect each important artifact to its requirement, form/fit/function references and an executed walkthrough or test.</li>
+    <li><strong>Who checks and corrects AI output?</strong> Estimate review, correction, escalation, rework and remaining manual effort before trusting gross savings.</li>
+    <li><strong>What engineering step is justified?</strong> Apply risk depth, resolve blocking findings, and record a resource ceiling, owner and next review trigger.</li>
+  </ol>
+  <div class="research-example ds-grid ds-grid-2">
+    <div class="stack stack-3"><h3 class="t-title-l">Stop at the first unmet gate.</h3><p class="t-body-m">Record the missing evidence and next action. Later gates are marked not evaluated. Continue with a new full-profile run after remediation. A strong score elsewhere cannot rescue a failed gate.</p><a class="link-arrow" href="output/pdf/QUICK-6-v0.1-rc.4-candidate.pdf">Download the advisor sheet</a></div>
+    <figure class="research-preview" aria-label="Illustrative stop example, not a pilot result">
+      <figcaption class="research-preview-heading"><span class="t-eyebrow">Illustrative example</span><span class="tag">No pilot data</span></figcaption>
+      <div class="research-preview-row"><span>Proposed workflow</span><strong>Polished</strong></div>
+      <div class="research-preview-row"><span>Measured baseline</span><strong>Missing</strong></div>
+      <div class="research-preview-note"><strong>STOP at gate 1</strong><p>Insufficient evidence. ROI indeterminate.</p></div>
+      <p class="t-body-s research-preview-foot">Next action: observe the current workflow.</p>
+    </figure>
+  </div>
 </div></section>
-<section id="agent-tools"><h2>MCP server + ai-ready Skill</h2><p>MCP v0.1.0 and Skill v0.1.1 support protocol v0.1-rc.3. Prepare a review and calculate descriptive results from supplied records, keeping agent reviews separate from human observations.</p><p><a href="https://github.com/yejuntak/hcai-deployment-readiness/blob/main/docs/agent-tools.md">Install and use the tools</a> · <a href="https://github.com/yejuntak/hcai-deployment-readiness/releases/tag/agent-tools-v0.1.0">Software release</a> · <a href="https://takyejun.com/research/ai-readiness#agent-tools">Project website</a></p></section><section><h2>Related design system</h2><p>The Peter Tak Design System supplies reusable styles, tokens and component specifications for constructing reference cases. It is a separate implementation resource; external adoption and protocol validation have not been established.</p><p><a href="https://github.com/yejuntak/peter-tak-design-system">Explore the design system</a> · <a href="https://github.com/yejuntak/hcai-deployment-readiness/blob/main/docs/design-system-connection.md">Read the connection and documented correction</a></p></section><section class="two"><div><h2>Research context</h2><p>The method relates explicit requirements and human judgments to evaluation evidence. Its NIST references provide context, not certification or endorsement.</p><p><a href="https://doi.org/10.6028/NIST.AI.100-1">NIST AI RMF 1.0</a><br><a href="https://doi.org/10.6028/NIST.AI.200-2.ipd">TEVV-Athlon initial public draft</a></p></div><div><h2>Version and citation</h2><p class="cite">Tak, Y. (2026). <em>Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile</em> (v0.1-rc.3).</p><p>Archived on Zenodo: <a href="https://doi.org/10.5281/zenodo.22667623">10.5281/zenodo.22667623</a>.</p><a href="https://github.com/yejuntak/hcai-deployment-readiness/blob/main/CITATION.cff">Citation metadata</a></div></section>
-</main><footer>Yejun Tak · CC BY 4.0 for original documents and synthetic data; MIT for software.<br>Development assisted by OpenAI Codex. Author review and external validation are separate steps.</footer></body></html>
+
+<section class="o-section o-section--bordered" id="measurements"><div class="o-section-inner">
+  <div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">02 / Measurement layers</span><h2 class="m-eyebrow-title-title t-title-xl">Five layers. Separate evidence.</h2><p class="t-body-m">Evaluation cost, projected operating oversight and actual system performance stay separate. There is no combined readiness score.</p></div>
+  <dl class="research-measures">
+    <div><dt><span class="t-eyebrow">A</span><span>Current-state baseline</span></dt><dd>Observed time, people, handoffs, errors, review, escalation, rework and volume. Compare proposed work with a measurable starting point.</dd></div>
+    <div><dt><span class="t-eyebrow">B</span><span>Proposed workflow</span></dt><dd>End-user needs, requirements, states, edge cases, recovery, owners, acceptance criteria and dependencies.</dd></div>
+    <div><dt><span class="t-eyebrow">C</span><span>Evaluation and oversight burden</span></dt><dd>Record the time and cost of running this protocol. Separately estimate the human review and correction burden of operating the proposed workflow.</dd></div>
+    <div><dt><span class="t-eyebrow">D</span><span>Engineering-handoff evidence</span></dt><dd>Trace requirements to artifacts and validation. Retain reference defects, reviewer findings, unresolved risks and the bounded decision record.</dd></div>
+    <div><dt><span class="t-eyebrow">E</span><span>Operational system performance</span></dt><dd>Measure after implementation in realistic use. Documentation and upstream gate results do not establish this layer.</dd></div>
+  </dl>
+  <div class="m-callout u-mt-5"><svg class="m-callout-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg><div class="m-callout-body"><strong class="m-callout-title">Gross savings are only the starting estimate.</strong><p>Net time saved = gross time saved − review − correction − escalation − rework. Report remaining manual work, recurring costs and one-time implementation cost. Keep protocol evaluation cost separate. Missing baseline means ROI is indeterminate.</p></div></div>
+</div></section>
+
+<section class="o-section o-section--bordered" id="risk-depth"><div class="o-section-inner">
+  <div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">03 / Proportionate depth</span><h2 class="m-eyebrow-title-title t-title-xl">Let the consequences set the evidence burden.</h2><p class="t-body-m">The highest rating across complexity, importance, impact, mission, failure consequence and irreversibility determines the tier. Unknown risk prevents a qualifying pass.</p></div>
+  <div class="ds-grid ds-grid-3">
+    <div class="o-card-archetype"><div class="o-card-archetype-head">Low</div><h3 class="o-card-archetype-title">QUICK-6 or full</h3><p class="o-card-archetype-tagline">At least one observed baseline case and one need-source record, with every core gate passed. The quick review must finish within 15 minutes.</p></div>
+    <div class="o-card-archetype"><div class="o-card-archetype-head">Moderate</div><h3 class="o-card-archetype-title">Full profile</h3><p class="o-card-archetype-tagline">At least three baseline cases, two need sources, actual end-user discussion, independent review and a validation plan.</p></div>
+    <div class="o-card-archetype"><div class="o-card-archetype-head">High</div><h3 class="o-card-archetype-title">Deeper full review</h3><p class="o-card-archetype-tagline">At least five baseline cases and all moderate-tier evidence, plus hazard analysis, mission review and an operational evaluation plan.</p></div>
+  </div>
+  <p class="t-body-s u-mt-5">These are provisional minimum evidence floors, not validated safety thresholds or statistically representative sample sizes. The full profile may require more evidence for the actual context.</p>
+  <details class="research-connection"><summary class="t-title-s">Inspect a traceability example</summary><p class="t-body-m">Illustrative requirement: an advisor can cancel an incomplete intake request without losing entered details.</p><dl class="research-measures"><div><dt>Reference</dt><dd>Current workflow, saved-field specification and user need.</dd></div><div><dt>Form / fit / function</dt><dd>An editable review form; it fits the advisor's intake process; correction and cancellation preserve the specified fields.</dd></div><div><dt>Artifact → validation</dt><dd>Versioned review and recovery states → a recorded walkthrough against the requirement's acceptance criteria.</dd></div><div><dt>Decision boundary</dt><dd>A walkthrough may support engineering commitment. It does not prove an implemented system works in operation.</dd></div></dl></details>
+</div></section>
+
+<section class="o-section o-section--bordered" id="why-changed"><div class="o-section-inner">
+  <div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">04 / Why rc.4 changed</span><h2 class="m-eyebrow-title-title t-title-xl">Move the evidence check earlier.</h2></div>
+  <ul class="research-usage-list t-body-m">
+    <li><strong>Requirements first:</strong> make the intended workflow testable before committing engineering resources; separate the later deployment decision.</li>
+    <li><strong>Current state before ROI:</strong> require a measured baseline and include the human effort created by AI output.</li>
+    <li><strong>Traceability beyond appearance:</strong> Hillel Glazer's feedback emphasized requirements, validating tests and reference material for form, fit and function. Attribution is approved; no endorsement is implied.</li>
+    <li><strong>A usable short path:</strong> provide advisor-led QUICK-6, visible stops and risk-based escalation.</li>
+    <li><strong>Actual use as the next evidence stage:</strong> collect a bounded end-user/advisor session with permission, time, gate outcomes and feedback. Keep private correspondence private.</li>
+  </ul>
+  <p class="t-body-m">Other feedback themes are reflected in these design changes without publishing private identities or comments. Correspondence, meeting invitations and software tests are distinct from controlled empirical validation.</p>
+  <a class="link-arrow" href="evidence/change-manifest.json">Inspect the change-to-test manifest</a>
+</div></section>
+
+<section class="o-section o-section--bordered" id="materials"><div class="o-section-inner">
+  <div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">05 / Candidate materials</span><h2 class="m-eyebrow-title-title t-title-xl">Start small. Keep the evidence.</h2><p class="t-body-m">Every download below is labeled 0.1-rc.4-candidate. Pilot participation is voluntary; no organization is represented as sponsoring or requiring it.</p></div>
+  <div class="ds-grid ds-grid-3">
+    <a class="o-card-archetype" href="output/pdf/QUICK-6-v0.1-rc.4-candidate.pdf"><div class="o-card-archetype-head">Advisor sheet / PDF</div><h3 class="o-card-archetype-title">QUICK-6</h3><p class="o-card-archetype-tagline">Six prompts, evidence expectations and stop rules.</p><div class="o-card-archetype-foot">Open the short profile →</div></a>
+    <a class="o-card-archetype" href="output/pdf/Protocol-v0.1-rc.4-candidate.pdf"><div class="o-card-archetype-head">Method / PDF</div><h3 class="o-card-archetype-title">Candidate protocol</h3><p class="o-card-archetype-tagline">Decision logic, five layers, costs and limitations.</p><div class="o-card-archetype-foot">Read the method →</div></a>
+    <a class="o-card-archetype" href="output/pdf/Full-Profile-v0.1-rc.4-candidate.pdf"><div class="o-card-archetype-head">Deeper review / PDF</div><h3 class="o-card-archetype-title">Full profile</h3><p class="o-card-archetype-tagline">Evidence requirements for moderate and high risk.</p><div class="o-card-archetype-foot">Read the full path →</div></a>
+    <a class="o-card-archetype" href="output/pdf/External-Pilot-Packet-v0.1-rc.4-candidate.pdf"><div class="o-card-archetype-head">Voluntary use / PDF</div><h3 class="o-card-archetype-title">Short pilot packet</h3><p class="o-card-archetype-tagline">One workflow, permission choices and a capture form.</p><div class="o-card-archetype-foot">Get the packet →</div></a>
+    <a class="o-card-archetype" href="release/HCAI-v0.1-rc.4-candidate.zip"><div class="o-card-archetype-head">Versioned package / ZIP</div><h3 class="o-card-archetype-title">Complete candidate</h3><p class="o-card-archetype-tagline">Method, schemas, tools, synthetic fixtures and checksums.</p><div class="o-card-archetype-foot">Download candidate →</div></a>
+    <a class="o-card-archetype" href="Verification/rc4-test-results.json"><div class="o-card-archetype-head">Software checks / JSON</div><h3 class="o-card-archetype-title">Verification record</h3><p class="o-card-archetype-tagline">Implementation test results; no claim of empirical effectiveness.</p><div class="o-card-archetype-foot">Inspect the record →</div></a>
+  </div>
+  <p class="t-body-s u-mt-5">Actual external pilot records are currently empty. Promotion to final rc.4 requires passing regression checks and recorded bounded external use reviewed by the author.</p>
+</div></section>
+
+<section class="o-section o-section--bordered" id="agent-tools"><div class="o-section-inner">
+  <div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">06 / Candidate MCP + Skill</span><h2 class="m-eyebrow-title-title t-title-xl">One decision logic across both tools.</h2><p class="t-body-m">MCP 0.2.0rc1 and ai-ready Skill 0.2.0-rc.1 use the same deterministic gates and contracts. Prompts help gather and interpret evidence; they do not override a stop.</p></div>
+  <div class="ds-grid ds-grid-2 research-columns">
+    <div class="stack stack-4"><h3 class="t-title-m">MCP: validate and calculate</h3><p class="t-body-m">Use completed evidence records to check the six gates and report separate costs, oversight estimates and provenance. The server runs locally and uses no model key.</p><details class="research-connection"><summary class="t-title-s">Candidate MCP configuration</summary><p class="t-body-s">Requires uv. The first run downloads the versioned candidate wheel and dependencies from this site and the package registry. Your assistant host can see supplied data.</p><pre class="research-config"><code id="mcp-config">{
+  "mcpServers": {
+    "hcai-readiness-candidate": {
+      "command": "uvx",
+      "args": ["--from", "https://www.takyejun.com/static/research/ai-readiness/rc4-candidate/hcai_readiness_mcp-0.2.0rc1-py3-none-any.whl", "hcai-readiness-mcp"]
+    }
+  }
+}</code></pre><button type="button" class="button button-secondary" data-copy-target="mcp-config" aria-label="Copy candidate MCP configuration">Copy config</button><p class="t-body-s">Verify the connection with assessment_template; use assess_engineering_commitment for candidate results. Legacy tools are explicitly labeled rc.3.</p></details></div>
+    <div class="stack stack-4"><h3 class="t-title-m">ai-ready: guide the review</h3><p class="t-body-m">Collect the baseline, choose risk depth and guide an advisor through the evidence. Its bundled Python engine also runs without MCP. Python 3.11+ and Pydantic 2 are required for deterministic execution.</p><a class="button button-secondary" href="release/ai-ready-0.2.0-rc.1.zip">Download candidate Skill</a><p class="t-body-s">Extract the ai-ready folder into your assistant's Skill directory. Follow the included method and requirements. Without a runtime, the Skill prepares evidence and reports assessment pending.</p><a class="link" href="docs/agent-tools.md">Installation and migration details</a></div>
+  </div>
+  <p class="t-body-s research-copy-status" role="status" aria-live="polite"></p>
+  <p class="t-body-s u-mt-5">Every run records protocol, MCP, Skill and contract versions plus evidence digests. Agent reviews remain separate from human observations. A qualifying recommendation still requires the owner's recorded engineering authorization.</p>
+</div></section>
+
+<section class="o-section o-section--bordered" id="archive"><div class="o-section-inner ds-grid ds-grid-2 research-columns">
+  <div class="stack stack-4"><span class="t-eyebrow">07 / Frozen history</span><h2 class="t-title-xl">rc.3 remains available.</h2><p class="t-body-m">The original method, worked example, workbooks and software history are preserved. These older materials do not implement the candidate baseline and risk gates.</p><a class="link" href="Protocol-v0.1.pdf">Historical rc.3 protocol PDF</a><a class="link" href="Evaluation-Template.xlsx">Historical evaluation workbook</a><a class="link" href="https://zenodo.org/records/22667623/files/HCAI-Deployment-Readiness-v0.1-rc.3.zip?download=1">Original rc.3 archive</a><a class="link" href="https://github.com/yejuntak/hcai-deployment-readiness">Protocol repository</a></div>
+  <div class="stack stack-4"><h3 class="t-title-m">Cite the exact version used.</h3><p class="research-citation t-body-m">Tak, Y. (2026). <em>Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile</em>, 0.1-rc.4-candidate. MCP 0.2.0rc1; Skill 0.2.0-rc.1. No candidate DOI has been assigned.</p><p class="t-body-s">Historical rc.3: <a class="link" href="https://doi.org/10.5281/zenodo.22667623">10.5281/zenodo.22667623</a>. This DOI does not identify the candidate or new software.</p><a class="link" href="docs/migration-rc3-to-rc4.md">Migration and provenance notes</a><a class="link" href="https://www.takyejun.com/design-system#research-use">Related design system</a><p class="t-body-s">Research Harness v3 is a separate project. Its assets, versions and results are not protocol validation evidence.</p></div>
+</div><div class="o-section-inner research-provenance"><p class="t-body-s">Yejun Tak · Original method/Skill text and synthetic data: CC BY 4.0; software: MIT. AI-assisted development. Author review, practitioner correspondence, software tests and empirical validation are distinct.</p></div></section>
+
+</main><script>document.querySelectorAll("[data-copy-target]").forEach(b=>b.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(document.getElementById(b.dataset.copyTarget).textContent);document.querySelector(".research-copy-status").textContent="Configuration copied."}catch{document.querySelector(".research-copy-status").textContent="Select and copy the configuration above."}}));</script></body></html>

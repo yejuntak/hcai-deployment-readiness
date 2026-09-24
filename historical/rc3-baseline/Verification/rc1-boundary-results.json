@@ -1,0 +1,32 @@
+[
+  {
+    "test": "published synthetic example",
+    "recall": 0.625,
+    "omission": 0.3333333333333333,
+    "disposition": "Hold for remediation",
+    "falseReady": 0.75
+  },
+  {
+    "test": "impossible subset: all eight defects omissions, one detected, zero omissions detected",
+    "actualRecall": 0.125,
+    "actualOmission": 0,
+    "expected": "Invalid counts"
+  },
+  {
+    "test": "only one recovery item unassessed, no documented failures or critical defects",
+    "actual": "Hold for remediation",
+    "expected": "Insufficient evidence"
+  },
+  {
+    "test": "first batch row blank, three valid records with same criterion remain",
+    "actual": "Review records",
+    "actualRate": "Not evaluated",
+    "expected": "Valid; rate 2/3"
+  },
+  {
+    "test": "all observed nonready judgments abstain",
+    "falseReady": 0,
+    "abstention": 1,
+    "interpretation": "Defined arithmetic is correct but zero false-ready alone is not evidence of useful discrimination"
+  }
+]

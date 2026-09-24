@@ -1,0 +1,9 @@
+defect_id,requirement_id,severity,deficiency,match_rule,synthetic_detected,reference_omission
+D01,R02,Minor,Ambiguous Go navigation label,Identify the return/navigation label as ambiguous.,1,0
+D02,R04,Minor,Unclear validation wording,Identify the nonspecific field-error wording.,1,0
+D03,R05,Major,Missing pending-state behavior,Identify missing behavior/status while awaiting a response.,0,1
+D04,R06,Minor,Inconsistent reference formatting,"Identify formatting inconsistency, not absence of a unique ID.",1,0
+D05,R07,Major,Omitted network recovery,Identify missing retry/preserved-data behavior after timeout.,1,1
+D06,R08,Minor,Unclear duplicate-protection explanation,Identify unclear explanatory text; protection itself is specified.,0,0
+D07,R09,Minor,Ambiguous cancellation label,Identify unclear Leave label before submission.,1,0
+D08,R10,Critical,Omitted confirmation,Identify missing explicit confirmation before sending access change.,0,1

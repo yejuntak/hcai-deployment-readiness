@@ -1,0 +1,11 @@
+requirement_id,acceptance_check,artifact_evidence,handoff_status
+R01,Choose service type,Service selection is present.,Verified
+R02,Preserve details when navigating,Return control is labeled Go; text is preserved.,Verified
+R03,Identify requester,Requester field is present.,Verified
+R04,Show field validation,Required-field message says Something is wrong; field is identified.,Verified
+R05,Specify pending state,No pending-state behavior is specified.,Fail
+R06,Show unique success reference,"Unique reference is present, with inconsistent formatting.",Verified
+R07,Recover from network failure,No network-failure recovery is specified.,Fail
+R08,Prevent duplicate submission,One request per submission token; explanation says Protected.,Verified
+R09,Allow cancellation before submission,"Leave abandons unsent request, with an ambiguous control label.",Verified
+R10,Confirm consequential access change,Sending an access-change request has no confirmation step.,Fail

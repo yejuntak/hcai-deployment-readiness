@@ -1,0 +1,13 @@
+[
+  "Synthetic arithmetic retained",
+  "Impossible omission subset rejected",
+  "Unassessed-only case distinguished from failed checks",
+  "Unreconciled evidence counts rejected",
+  "Eligible case requires complete reconciled counts",
+  "Blank first batch row is allowed",
+  "Mixed criteria blocked",
+  "Duplicate IDs blocked",
+  "All-abstention companion metrics expose zero decisions",
+  "Ready control false holds and abstentions are separate",
+  "Missing judgments excluded and counted"
+]

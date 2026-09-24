@@ -1,0 +1,379 @@
+"""Candidate contracts. Unknown evidence remains nullable; invalid data never passes."""
+from typing import Annotated, Literal
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+from .versions import versions
+
+Text = Annotated[str, Field(min_length=1)]
+Number = Annotated[float, Field(ge=0, allow_inf_nan=False)]
+Count = Annotated[int, Field(ge=0)]
+Digest = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
+Decision = Literal["PROCEED_TO_ENGINEERING", "REVISE", "INSUFFICIENT_EVIDENCE"]
+Tier = Literal["low", "moderate", "high"]
+Profile = Literal["QUICK6", "FULL"]
+
+
+class Record(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True, str_strip_whitespace=True)
+
+
+class Versions(Record):
+    protocol: Text
+    mcp: Text
+    skill: Text
+    contract: Text
+
+
+class Evidence(Record):
+    id: Text
+    version: Text
+    sha256: Digest
+    locator: Text
+    kind: Literal["observed", "estimate", "assumption", "synthetic"]
+    description: Text
+
+
+class Check(Record):
+    status: Literal["pass", "fail", "missing"] = "missing"
+    evidence_ids: list[Text] = Field(default_factory=list)
+    note: str = ""
+    reviewer_role: Text | None = None
+    independent_from_artifact_owner: bool | None = None
+
+
+class Baseline(Record):
+    current_state_summary: Text | None = None
+    actor_roles: list[Text] | None = None
+    observation_window: Text | None = None
+    sample_size: Count | None = None
+    cycle_minutes_per_case: Number | None = None
+    labor_minutes_per_case: Number | None = None
+    handoffs_per_case: Number | None = None
+    touches_per_case: Number | None = None
+    failure_points: list[Text] | None = None
+    manual_review_minutes_per_case: Number | None = None
+    escalation_minutes_per_case: Number | None = None
+    rework_minutes_per_case: Number | None = None
+    volume_per_period: Number | None = None
+    period: Text | None = None
+    evidence_ids: list[Text] = Field(default_factory=list)
+
+    @model_validator(mode="after")
+    def labor_subsets(self):
+        parts = (self.manual_review_minutes_per_case, self.escalation_minutes_per_case, self.rework_minutes_per_case)
+        if self.labor_minutes_per_case is not None and all(x is not None for x in parts):
+            if sum(parts) > self.labor_minutes_per_case:
+                raise ValueError("Baseline review/escalation/rework must be disjoint subsets of baseline labor")
+        return self
+
+
+class Risk(Record):
+    complexity: Tier | None = None
+    importance: Tier | None = None
+    impact: Tier | None = None
+    mission: Tier | None = None
+    failure_consequence: Tier | None = None
+    irreversibility: Tier | None = None
+    rationale: str = ""
+    evidence_ids: list[Text] = Field(default_factory=list)
+
+
+class Need(Record):
+    id: Text
+    description: Text
+    end_user_role: Text
+    source_ids: list[Text]
+    discussion_evidence_ids: list[Text] = Field(default_factory=list)
+
+
+class Requirement(Record):
+    id: Text
+    description: Text
+    acceptance_criteria: Text
+    form: Text
+    fit: Text
+    function: Text
+    reference_material_ids: list[Text]
+    owner_role: Text
+    need_ids: list[Text]
+    artifact_ids: list[Text]
+    validation_ids: list[Text]
+
+
+class State(Record):
+    id: Text
+    kind: Literal["normal", "edge", "recovery"]
+    trigger: Text
+    behavior: Text
+    resulting_state: Text
+    data_handling: Text
+    owner_role: Text
+    requirement_ids: list[Text]
+    evidence_ids: list[Text]
+
+
+class Validation(Record):
+    id: Text
+    requirement_ids: list[Text]
+    artifact_ids: list[Text]
+    method: Text
+    level: Literal["specified", "walkthrough", "implemented_test"]
+    status: Literal["pass", "fail", "missing"]
+    evidence_ids: list[Text]
+
+
+class Workflow(Record):
+    outcome: Text | None = None
+    needs: list[Need] = Field(default_factory=list)
+    requirements: list[Requirement] = Field(default_factory=list)
+    states: list[State] = Field(default_factory=list)
+    important_artifact_ids: list[Text] = Field(default_factory=list)
+    validations: list[Validation] = Field(default_factory=list)
+    dependencies: list[Text] | None = None
+    dependency_review: Check = Field(default_factory=Check)
+    state_review: Check = Field(default_factory=Check)
+
+
+class Oversight(Record):
+    basis: Literal["estimate", "measured"] = "estimate"
+    review_minutes_per_case: Number | None = None
+    correction_minutes_per_case: Number | None = None
+    escalation_minutes_per_case: Number | None = None
+    rework_minutes_per_case: Number | None = None
+    residual_manual_minutes_per_case: Number | None = None
+    owner_role: Text | None = None
+    evidence_ids: list[Text] = Field(default_factory=list)
+
+
+class Costs(Record):
+    currency: Annotated[str, Field(pattern=r"^[A-Z]{3}$")] | None = None
+    labor_cost_per_hour: Number | None = None
+    baseline_nonlabor_cost_per_period: Number | None = None
+    proposed_recurring_fixed_cost_per_period: Number | None = None
+    proposed_nonlabor_cost_per_case: Number | None = None
+    one_time_implementation_cost: Number | None = None
+    evidence_ids: list[Text] = Field(default_factory=list)
+
+
+class EvaluatorBurden(Record):
+    elapsed_minutes: Number | None = None
+    evaluator_minutes: Number | None = None
+    participant_minutes: Number | None = None
+    participant_count: Count | None = None
+    adjudication_minutes: Number | None = None
+    review_correction_cycles: Count | None = None
+    tool_calls: Count | None = None
+    model_calls: Count | None = None
+    input_tokens: Count | None = None
+    output_tokens: Count | None = None
+    tool_model_cost: Number | None = None
+    labor_cost_per_hour: Number | None = None
+    currency: Annotated[str, Field(pattern=r"^[A-Z]{3}$")] | None = None
+    evidence_ids: list[Text] = Field(default_factory=list)
+
+
+class Finding(Record):
+    id: Text
+    severity: Literal["critical", "major", "minor"]
+    status: Literal["open", "resolved", "accepted"]
+    description: Text
+    evidence_ids: list[Text]
+
+
+class Handoff(Record):
+    reference_defect_ids: list[Text] | None = None
+    reviewer_findings: list[Finding] | None = None
+    unresolved_risks: list[Text] | None = None
+    reference_review: Check = Field(default_factory=Check)
+    findings_review: Check = Field(default_factory=Check)
+    independent_review: Check = Field(default_factory=Check)
+    hazard_analysis: Check = Field(default_factory=Check)
+    validation_plan: Check = Field(default_factory=Check)
+    mission_review: Check = Field(default_factory=Check)
+    operational_evaluation_plan: Check = Field(default_factory=Check)
+    risk_acceptance: Check = Field(default_factory=Check)
+    decision_owner_role: Text | None = None
+    commitment_scope: Text | None = None
+    resource_limit: Text | None = None
+    next_review_trigger: Text | None = None
+
+
+class OperationalEvidence(Record):
+    status: Literal["not_collected", "collected_after_implementation"] = "not_collected"
+    implemented_version: Text | None = None
+    realistic_use_context: Text | None = None
+    evidence_ids: list[Text] = Field(default_factory=list)
+    metrics: dict[str, float] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def scope(self):
+        import math
+        if not all(math.isfinite(x) for x in self.metrics.values()):
+            raise ValueError("Operational metrics must be finite")
+        if self.status == "not_collected" and (self.metrics or self.evidence_ids or self.implemented_version):
+            raise ValueError("Operational metrics require actual post-implementation evidence")
+        if self.status == "collected_after_implementation" and not (
+            self.implemented_version and self.realistic_use_context and self.evidence_ids
+        ):
+            raise ValueError("Operational evidence needs implementation version, realistic context and retained records")
+        return self
+
+
+class Assessment(Record):
+    run_id: Text
+    recorded_at: Annotated[str, Field(pattern=r"^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$")]
+    versions: Versions
+    evaluator_kind: Literal["human", "ai-assisted-human", "agent", "synthetic"]
+    requested_profile: Profile
+    evidence: list[Evidence]
+    baseline: Baseline = Field(default_factory=Baseline)
+    risk: Risk = Field(default_factory=Risk)
+    workflow: Workflow = Field(default_factory=Workflow)
+    operational_oversight: Oversight = Field(default_factory=Oversight)
+    costs: Costs = Field(default_factory=Costs)
+    evaluator_burden: EvaluatorBurden = Field(default_factory=EvaluatorBurden)
+    handoff: Handoff = Field(default_factory=Handoff)
+    operational_performance: OperationalEvidence = Field(default_factory=OperationalEvidence)
+
+    @model_validator(mode="after")
+    def integrity(self):
+        from datetime import datetime
+        datetime.fromisoformat(self.recorded_at.replace("Z", "+00:00"))
+        if self.versions.model_dump() != versions():
+            raise ValueError("Exact protocol/MCP/Skill/contract candidate versions required; migrate explicitly")
+        groups = {"evidence": self.evidence, "need": self.workflow.needs,
+                  "requirement": self.workflow.requirements, "state": self.workflow.states,
+                  "validation": self.workflow.validations, "finding": self.handoff.reviewer_findings or []}
+        ids = {}
+        for name, group in groups.items():
+            keys = [x.id for x in group]
+            if len(keys) != len(set(keys)):
+                raise ValueError(f"Duplicate {name} IDs")
+            ids[name] = set(keys)
+        def refs(values, category):
+            if len(values) != len(set(values)) or not set(values) <= ids[category]:
+                raise ValueError(f"Duplicate or dangling {category} references: {values}")
+        def evidence_refs(value):
+            if isinstance(value, dict):
+                for key, item in value.items():
+                    if key in ("evidence_ids", "artifact_ids", "important_artifact_ids", "source_ids", "discussion_evidence_ids", "reference_material_ids"):
+                        refs(item, "evidence")
+                    else:
+                        evidence_refs(item)
+            elif isinstance(value, list):
+                for item in value:
+                    evidence_refs(item)
+        evidence_refs(self.model_dump())
+        for requirement in self.workflow.requirements:
+            refs(requirement.need_ids, "need")
+            refs(requirement.validation_ids, "validation")
+        for row in [*self.workflow.states, *self.workflow.validations]:
+            refs(row.requirement_ids, "requirement")
+        if self.evaluator_kind != "synthetic" and any(e.kind == "synthetic" for e in self.evidence):
+            raise ValueError("Synthetic evidence cannot support a real/agent run")
+        if self.operational_oversight.basis == "measured":
+            observed_kinds = {"observed", "synthetic"} if self.evaluator_kind == "synthetic" else {"observed"}
+            if self.operational_performance.status != "collected_after_implementation" or not self.operational_oversight.evidence_ids:
+                raise ValueError("Measured operational oversight requires post-implementation observation context")
+            if any(next(e for e in self.evidence if e.id == r).kind not in observed_kinds for r in self.operational_oversight.evidence_ids):
+                raise ValueError("Measured oversight cannot be supported by an assumption or estimate")
+        for ref in self.operational_performance.evidence_ids:
+            entry = next(e for e in self.evidence if e.id == ref)
+            if entry.kind not in ({"observed", "synthetic"} if self.evaluator_kind == "synthetic" else {"observed"}):
+                raise ValueError("Operational performance requires observed evidence")
+        return self
+
+
+class Gate(Record):
+    id: Text
+    status: Literal["PASS", "FAIL", "MISSING", "NOT_EVALUATED"]
+    reasons: list[str]
+
+
+class AssessmentResult(Record):
+    run_id: Text
+    versions: Versions
+    evaluator_kind: Text
+    decision: Decision
+    decision_scope: Literal["bounded_engineering_commitment"]
+    risk_tier: Literal["low", "moderate", "high", "unknown"]
+    requested_profile: Profile
+    required_profile: Profile
+    escalation_required: bool
+    stop_at_gate: str | None
+    gates: list[Gate]
+    roi: dict
+    evaluator_burden: dict
+    operational_oversight: dict
+    operational_performance: dict
+    handoff_record: dict
+    provenance: dict
+    limitations: list[str]
+
+
+class FeedbackEntry(Record):
+    id: Text
+    source_person: Text | None
+    source_date: Annotated[str, Field(pattern=r"^\d{4}-\d{2}-\d{2}$")] | None
+    recorded_on: Text
+    context: Text
+    feedback: Text | None
+    permission: Literal["private", "attribution_approved"]
+    permission_basis: Text
+    changes: list[Text]
+    affected_files: list[Text]
+    affected_requirements: list[Text]
+    validation_status: Literal["implemented_untested", "software_tests_only", "bounded_use_recorded"]
+
+
+class PilotRun(Record):
+    pilot_id: Text
+    date: Text
+    participant_role: Text
+    sector: Text
+    participant_id: Text
+    permission: Literal["private", "anonymized_public", "attributed_public"]
+    permission_evidence: Text
+    anonymization: Text
+    external_participant: bool
+    actual_bounded_use: bool
+    record_kind: Literal["actual", "synthetic_fixture"]
+    profile_used: Profile
+    risk_tier: Literal["low", "moderate", "high", "unknown"]
+    elapsed_minutes: Number
+    assessment: Assessment
+    gates_passed: list[Text]
+    gates_failed: list[Text]
+    gates_missing: list[Text]
+    evidence_missing: list[Text]
+    decision_before: Decision | None
+    decision_after: Decision
+    revision_triggered: Text | None
+    participant_feedback: str | None
+    observation_evidence_ids: Annotated[list[Text], Field(min_length=1)]
+
+    @model_validator(mode="after")
+    def reconcile(self):
+        from datetime import date
+        from .engine import assess
+        date.fromisoformat(self.date)
+        if self.record_kind == "actual" and self.assessment.evaluator_kind not in ("human", "ai-assisted-human"):
+            raise ValueError("Actual pilot needs retained human/assisted-human observations")
+        if self.record_kind == "synthetic_fixture" and (self.actual_bounded_use or self.external_participant):
+            raise ValueError("Synthetic pilot cannot count as external actual use")
+        evidence = {e.id: e for e in self.assessment.evidence}
+        if any(ref not in evidence for ref in self.observation_evidence_ids):
+            raise ValueError("Pilot observation references must resolve")
+        if self.record_kind == "actual" and any(evidence[r].kind != "observed" for r in self.observation_evidence_ids):
+            raise ValueError("Actual pilot requires observed discussion/use records")
+        result = assess(self.assessment)
+        for attr, status in (("gates_passed", "PASS"), ("gates_failed", "FAIL"), ("gates_missing", "MISSING")):
+            if sorted(getattr(self, attr)) != sorted(g["id"] for g in result["gates"] if g["status"] == status):
+                raise ValueError(f"{attr} disagrees with assessment")
+        if (self.decision_after != result["decision"] or self.risk_tier != result["risk_tier"]
+                or self.profile_used != self.assessment.requested_profile
+                or self.elapsed_minutes != self.assessment.evaluator_burden.elapsed_minutes):
+            raise ValueError("Pilot decision/profile/risk/time disagrees with assessment")
+        expected_missing = [reason for g in result["gates"] if g["status"] == "MISSING" for reason in g["reasons"]]
+        if sorted(self.evidence_missing) != sorted(expected_missing):
+            raise ValueError("Pilot missing-evidence list disagrees with evaluated missing gates")
+        return self

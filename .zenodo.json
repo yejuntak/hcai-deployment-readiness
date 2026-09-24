@@ -1,13 +1,13 @@
 {
-  "title": "HCAI Readiness MCP Server and Agent Skill",
+  "title": "HCAI Engineering-Commitment MCP Server and Agent Skill - Candidate",
   "upload_type": "software",
   "creators": [
     {
       "name": "Tak, Yejun"
     }
   ],
-  "description": "Local MCP server and agent skill implementing descriptive calculations and workflow guidance for the HCAI engineering-handoff protocol 0.1-rc.3. Separate companion software; not empirical validation or NIST endorsement. Original software MIT; bundled protocol and skill text CC BY 4.0. AI-assisted development disclosed.",
-  "version": "0.1.0",
+  "description": "Candidate MCP 0.2.0rc1 and Skill 0.2.0-rc.1 for protocol 0.1-rc.4-candidate: deterministic upstream engineering gates, measured current-state baseline, risk-tiered evidence and separate evaluation/operational oversight costs. Not deployment authorization or controlled empirical validation. Original software MIT; protocol and skill text CC BY 4.0. AI-assisted development disclosed. No new DOI assigned.",
+  "version": "0.2.0rc1",
   "access_right": "open",
   "license": "cc-by-4.0",
   "keywords": [
@@ -20,7 +20,7 @@
   "related_identifiers": [
     {
       "identifier": "10.5281/zenodo.22667623",
-      "relation": "isSupplementTo",
+      "relation": "references",
       "scheme": "doi"
     },
     {
@@ -29,6 +29,5 @@
       "scheme": "url"
     }
   ],
-  "publication_date": "2026-09-09",
   "language": "eng"
 }

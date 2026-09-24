@@ -231,7 +231,7 @@ wheels = [
 
 [[package]]
 name = "hcai-readiness-mcp"
-version = "0.1.0"
+version = "0.2.0rc1"
 source = { editable = "." }
 dependencies = [
     { name = "mcp" },
@@ -240,6 +240,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "jsonschema" },
     { name = "pytest" },
 ]
 
@@ -250,7 +251,10 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "pytest", specifier = ">=8,<10" }]
+dev = [
+    { name = "jsonschema", specifier = ">=4.23,<5" },
+    { name = "pytest", specifier = ">=8,<10" },
+]
 
 [[package]]
 name = "httpcore"

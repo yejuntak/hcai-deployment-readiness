@@ -1,0 +1,223 @@
+{
+  "protocol_version": "0.1-rc.4-candidate",
+  "status": "candidate_unvalidated",
+  "changes": [
+    {
+      "id": "C01",
+      "observed_problem": "The historical title and generic ready language can be mistaken for deployment authorization.",
+      "source_theme_ids": [
+        "FB01"
+      ],
+      "change": "Engineering-only decisions and a separate unassessed deployment output.",
+      "requirements": [
+        "DECISION_SCOPE"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py",
+        "protocol/0.1-rc.4-candidate/PROTOCOL.md"
+      ],
+      "acceptance_tests": [
+        "test_documentation_pass_never_claims_operational_performance"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C02",
+      "observed_problem": "Documentation/evaluator metrics do not establish operational system performance.",
+      "source_theme_ids": [
+        "FB01"
+      ],
+      "change": "Separate five layers, evaluator cost, operational oversight and post-implementation evidence.",
+      "requirements": [
+        "MEASUREMENT_LAYERS"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_evaluation_expense_is_separate",
+        "test_operational_claims_require_actual_context"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C03",
+      "observed_problem": "A single upstream threshold ignores workflow consequences and available evaluation resources.",
+      "source_theme_ids": [
+        "FB01"
+      ],
+      "change": "Maximum-dimension risk classification changes sample/source/profile/review requirements.",
+      "requirements": [
+        "G6_COMMITMENT"
+      ],
+      "files": [
+        "schemas/risk-depth.json",
+        "protocol/0.1-rc.4-candidate/FULL-PROFILE.md"
+      ],
+      "acceptance_tests": [
+        "test_each_risk_dimension_changes_depth",
+        "test_higher_risk_escalates_and_requires_deeper_evidence",
+        "test_depth_changes_baseline_and_need_thresholds"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C04",
+      "observed_problem": "A polished artifact can lack requirement/test connections and form/fit/function references.",
+      "source_theme_ids": [
+        "FB02"
+      ],
+      "change": "Bidirectional important-artifact coverage and requirement/artifact/executed-validation chains.",
+      "requirements": [
+        "G4_TRACEABILITY"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_prototype_without_traceability_revises",
+        "test_important_artifacts_and_reference_material_cannot_be_omitted",
+        "test_test_plan_is_not_executed_evidence"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C05",
+      "observed_problem": "Proposed completeness alone allows a baseline-free improvement claim.",
+      "source_theme_ids": [
+        "FB03"
+      ],
+      "change": "Measured current-state gate; separate elapsed/labor time; missing baseline blocks ROI.",
+      "requirements": [
+        "G1_BASELINE"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py",
+        "schemas/assessment.schema.json"
+      ],
+      "acceptance_tests": [
+        "test_polished_without_baseline_cannot_proceed",
+        "test_assumed_baseline_is_not_measured",
+        "test_cost_and_cycle_time_units"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C06",
+      "observed_problem": "A long self-administered instrument may be impractical for small organizations.",
+      "source_theme_ids": [
+        "FB03"
+      ],
+      "change": "Advisor-led QUICK6, visible stop, no averaging, <=15-minute candidate target and FULL escalation.",
+      "requirements": [
+        "QUICK6_STOP"
+      ],
+      "files": [
+        "protocol/0.1-rc.4-candidate/QUICK-6.md",
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_low_risk_quick_is_sufficient",
+        "test_missing_recovery_stops_quick",
+        "test_quick_time_limit_is_enforced"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C07",
+      "observed_problem": "Gross time savings omit new review/correction/escalation/rework burden.",
+      "source_theme_ids": [
+        "FB03"
+      ],
+      "change": "Projected net time/cost, recurring versus one-time cost, separate evaluation expense.",
+      "requirements": [
+        "G5_OVERSIGHT"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py",
+        "examples/rc4/savings-erased.json"
+      ],
+      "acceptance_tests": [
+        "test_gross_savings_can_be_erased_by_oversight",
+        "test_unknown_money_does_not_become_zero",
+        "test_missing_oversight_blocks_and_roi_indeterminate"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C08",
+      "observed_problem": "Outreach and interest cannot establish actual use or program sponsorship.",
+      "source_theme_ids": [
+        "FB04",
+        "FB05"
+      ],
+      "change": "Voluntary short packet, actual discussion/source requirements, pilot records and release prerequisite.",
+      "requirements": [
+        "PILOT_VOLUNTARY",
+        "RELEASE_ACTUAL_USE"
+      ],
+      "files": [
+        "Pilot-Kit/rc4-external-packet.md",
+        "src/hcai_readiness/records.py",
+        "schemas/pilot-run.schema.json"
+      ],
+      "acceptance_tests": [
+        "test_synthetic_pilot_cannot_unlock_release",
+        "test_pilot_exact_versions_and_provenance"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C09",
+      "observed_problem": "Feedback provenance and public attribution permissions need explicit boundaries.",
+      "source_theme_ids": [
+        "FB02",
+        "FB04"
+      ],
+      "change": "Private source ledger retained separately; allowlisted public export and change-to-test mapping.",
+      "requirements": [
+        "FEEDBACK_PERMISSION"
+      ],
+      "files": [
+        "src/hcai_readiness/records.py",
+        "evidence/feedback-ledger.public.json",
+        "schemas/change-manifest.schema.json"
+      ],
+      "acceptance_tests": [
+        "test_feedback_permission_export",
+        "test_change_manifest_maps_to_existing_tests_and_files"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C10",
+      "observed_problem": "Different protocol/software/page copies can silently diverge or overwrite historical evidence.",
+      "source_theme_ids": [
+        "FB01",
+        "FB02",
+        "FB03",
+        "FB05"
+      ],
+      "change": "Frozen hashed history; exact candidate versions; shared MCP/Skill engine; candidate website/download copy.",
+      "requirements": [
+        "VERSION_PARITY",
+        "HISTORY_FROZEN"
+      ],
+      "files": [
+        "scripts/build_candidate_assets.py",
+        "docs/research-page-copy.md",
+        "docs/migration-rc3-to-rc4.md",
+        "historical/baseline-manifest.json"
+      ],
+      "acceptance_tests": [
+        "test_generated_parity_and_json_schemas",
+        "test_portable_skill_matches_engine_all_fixtures",
+        "test_stdio_roundtrip",
+        "test_baseline_history_is_byte_frozen"
+      ],
+      "validation_status": "software_tests_only"
+    }
+  ]
+}

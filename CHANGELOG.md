@@ -1,3 +1,21 @@
+# Protocol 0.1-rc.4-candidate — September 24, 2026
+
+MCP 0.2.0rc1; ai-ready Skill/contract 0.2.0-rc.1. Candidate only. No new DOI, final release or completed external pilot is claimed.
+
+## Why rc.4 changed
+
+- Requirements-first T&E feedback: define testable end-user requirements early; make the decision explicitly about bounded engineering commitment. Keep operational evaluation separate (C01–C02).
+- Risk-scaled evaluation feedback: low/moderate/high deterministically change required evidence and profile depth (C03).
+- Hillel Glazer's traceability feedback, attributed with permission: connect requirements, artifacts, executed validation and reference material explaining form, fit and function (C04).
+- SMB baseline/adoption feedback: require measurable current-state evidence and an advisor-led QUICK6 with a visible stop; the <=15-minute target remains untested (C05–C06).
+- Net-benefit feedback: subtract review/correction/escalation/rework from gross savings; report evaluation expense separately (C07).
+- End-user and voluntary-use feedback: gather bounded actual use and discussion evidence, with an accessible pilot packet; invitations and correspondence do not count as validation or sponsorship (C08).
+- Record permissions, exact versions and evidence digests; keep MCP/Skill logic synchronized and rc.3 frozen (C09–C10).
+
+Private correspondents' names and comments are withheld in public artifacts. A separate private audit maps source emails to these themes. Practitioner correspondence informed refinement but is not equivalent to controlled empirical validation. No effectiveness, adoption, endorsement or system-performance result is claimed.
+
+See evidence/change-manifest.json for affected requirements/files and acceptance tests; docs/migration-rc3-to-rc4.md for breaking API names and record migration. Historical releases below are preserved.
+
 # Skill 0.1.1 — September 9, 2026
 
 - Rename the Skill to ai-ready; update install paths and invocation examples.

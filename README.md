@@ -1,38 +1,36 @@
-# Human-Centered AI Deployment Readiness Protocol
+# HCAI Engineering-Handoff Profile
 
-Engineering-handoff profile, v0.1-rc.3. Author attribution: Yejun Tak.
+Protocol **0.1-rc.4-candidate** · MCP **0.2.0rc1** · ai-ready Skill **0.2.0-rc.1** · contract **0.2.0-rc.1**
 
-A proposed operational synthesis for comparing a human evaluator's engineering-handoff judgment with frozen requirement, state and recovery evidence. This is an unvalidated research-method release with a synthetic instructional case. It does not establish a new measurement theory, production readiness, external adoption or NIST endorsement.
+Decide whether evidence supports a bounded commitment of engineering resources. Begin with the current workflow, end-user need and risk. This candidate does not determine deployment readiness or infer operational performance from documentation.
 
-## Use with an AI assistant
+## Start here
+
+- [QUICK-6 advisor profile](protocol/0.1-rc.4-candidate/QUICK-6.md): six mandatory gates, a proposed <=15-minute low-risk path, and a visible stop.
+- [External pilot packet](Pilot-Kit/rc4-external-packet.md): short, voluntary bounded-use instructions.
+- [Complete protocol](protocol/0.1-rc.4-candidate/PROTOCOL.md) and [full risk-tiered profile](protocol/0.1-rc.4-candidate/FULL-PROFILE.md).
+- [Install MCP/Skill and run a local assessment](docs/agent-tools.md).
+- [Contracts](schemas/README.md), [change manifest](evidence/change-manifest.json), [public feedback ledger](evidence/feedback-ledger.public.json), [migration](docs/migration-rc3-to-rc4.md).
+
+The gates cover measured baseline; need/requirements; states/recovery; traceability; operational oversight; and risk/evidence for engineering commitment. Outputs are PROCEED_TO_ENGINEERING, REVISE or INSUFFICIENT_EVIDENCE. No combined score. Missing baseline blocks a qualifying decision and leaves ROI indeterminate. Evaluation cost, projected operating oversight and actual operational performance remain separate.
+
+## Candidate status
+
+Practitioner correspondence informed refinement; it is not controlled empirical validation. The time target and risk thresholds are untested assumptions. Actual external pilot records are currently empty. Software tests establish implementation behavior only. Promotion requires current passing regression tests and recorded bounded external use reviewed by the author. The release checker never automatically promotes or publishes.
+
+## Frozen history
+
+[Baseline manifest](historical/baseline-manifest.json) hashes the inspected rc.3 repository and original archive. [Frozen artifacts](historical/rc3-baseline/) and historical software tags are preserved. Root PDFs/workbooks, Source/Protocol-v0.1.md, Templates and Worked-Example remain legacy materials, not rc.4 gate implementations. Candidate PDFs live under output/pdf.
+
+[DOI 10.5281/zenodo.22667623](https://doi.org/10.5281/zenodo.22667623) identifies rc.3 only. Research Harness v3 is a separate project and supplies no validation evidence here.
+
+## Verify
 
 ```sh
-npx skills add yejuntak/hcai-deployment-readiness --skill ai-ready
+uv sync --group dev
+uv run python scripts/build_candidate_assets.py --check
+uv run pytest -q
+uv run python scripts/verify_candidate.py
 ```
 
-[Copy MCP configuration and choose when to use each tool](docs/agent-tools.md#quick-start-and-when-to-use)
-
-
-[Install the MCP server](docs/agent-tools.md#install-the-mcp-server) · [Install the Skill](docs/agent-tools.md#install-the-skill) · [Agent tools v0.1.0](https://github.com/yejuntak/hcai-deployment-readiness/releases/tag/agent-tools-v0.1.0) · [Protocol DOI](https://doi.org/10.5281/zenodo.22667623)
-
-The local MCP server validates supplied assessment counts and calculates descriptive results. The standalone **ai-ready** Skill guides evaluation preparation, evidence separation and reporting. Agent reviews remain distinct from human observations. MCP v0.1.0 and Skill v0.1.1 are separate companion releases to archived protocol 0.1-rc.3; the DOI does not archive the new software.
-
-## Materials
-- Protocol-v0.1.pdf: method, limits and prior-work references.
-- Evaluator-Scorecard.pdf: evaluator-only form; withhold reference records until locked.
-- Scorecard.pdf: full evaluator and adjudicator forms.
-- Evaluation-Template.xlsx: single-session and 20-instance batch calculations.
-- Worked-Example/Evaluator-Packet/: separate outcome-free training materials.
-- Worked-Example/: stipulated reference records and completed synthetic workbook.
-- Templates/evaluator-packet.md: assembly and disclosure instructions.
-- Pilot-Kit/comparative-study-plan.md: proposed strong-checklist comparison.
-- Publication/technical-corrections.md and Verification/: correction and calculation records.
-
-## Contribution boundary
-Individual usability checks and metrics have substantial prior work. The proposed contribution is their stage-specific implementation with a frozen criterion, pre-disclosure judgment and retained evidence. Improvement over existing methods has not been tested. The public example is text based and cannot demonstrate a visual-polish effect.
-
-## Citation and reuse
-Use CITATION.cff and identify protocol version 0.1-rc.3, archived September 9, 2026 at https://doi.org/10.5281/zenodo.22667623 . Original documents and synthetic data use CC BY 4.0; original software uses MIT. Third-party works remain under their own terms. Development and this technical review used OpenAI Codex assistance; this is not an independent peer review.
-
-## Related resource
-The Peter Tak Design System is available at https://github.com/yejuntak/peter-tak-design-system . It can support future consistent study stimuli. Its publication is not evidence that this protocol works. Project page: https://takyejun.com/research/ai-readiness .
+Verification reports are under Verification/rc4-*.json. Original method/Skill text and synthetic data: CC BY 4.0, Yejun Tak. Original software: MIT. Development and technical checks were AI-assisted; author review and external validation remain separate.

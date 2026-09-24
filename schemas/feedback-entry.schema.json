@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "minLength": 1,
+      "title": "Id",
+      "type": "string"
+    },
+    "source_person": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Source Person"
+    },
+    "source_date": {
+      "anyOf": [
+        {
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Source Date"
+    },
+    "recorded_on": {
+      "minLength": 1,
+      "title": "Recorded On",
+      "type": "string"
+    },
+    "context": {
+      "minLength": 1,
+      "title": "Context",
+      "type": "string"
+    },
+    "feedback": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Feedback"
+    },
+    "permission": {
+      "enum": [
+        "private",
+        "attribution_approved"
+      ],
+      "title": "Permission",
+      "type": "string"
+    },
+    "permission_basis": {
+      "minLength": 1,
+      "title": "Permission Basis",
+      "type": "string"
+    },
+    "changes": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Changes",
+      "type": "array"
+    },
+    "affected_files": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Affected Files",
+      "type": "array"
+    },
+    "affected_requirements": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Affected Requirements",
+      "type": "array"
+    },
+    "validation_status": {
+      "enum": [
+        "implemented_untested",
+        "software_tests_only",
+        "bounded_use_recorded"
+      ],
+      "title": "Validation Status",
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "source_person",
+    "source_date",
+    "recorded_on",
+    "context",
+    "feedback",
+    "permission",
+    "permission_basis",
+    "changes",
+    "affected_files",
+    "affected_requirements",
+    "validation_status"
+  ],
+  "title": "FeedbackEntry",
+  "type": "object"
+}

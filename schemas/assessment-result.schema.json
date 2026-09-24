@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Gate": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "MISSING",
+            "NOT_EVALUATED"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "reasons": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "status",
+        "reasons"
+      ],
+      "title": "Gate",
+      "type": "object"
+    },
+    "Versions": {
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "minLength": 1,
+          "title": "Protocol",
+          "type": "string"
+        },
+        "mcp": {
+          "minLength": 1,
+          "title": "Mcp",
+          "type": "string"
+        },
+        "skill": {
+          "minLength": 1,
+          "title": "Skill",
+          "type": "string"
+        },
+        "contract": {
+          "minLength": 1,
+          "title": "Contract",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol",
+        "mcp",
+        "skill",
+        "contract"
+      ],
+      "title": "Versions",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "versions": {
+      "$ref": "#/$defs/Versions"
+    },
+    "evaluator_kind": {
+      "minLength": 1,
+      "title": "Evaluator Kind",
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "PROCEED_TO_ENGINEERING",
+        "REVISE",
+        "INSUFFICIENT_EVIDENCE"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "decision_scope": {
+      "const": "bounded_engineering_commitment",
+      "title": "Decision Scope",
+      "type": "string"
+    },
+    "risk_tier": {
+      "enum": [
+        "low",
+        "moderate",
+        "high",
+        "unknown"
+      ],
+      "title": "Risk Tier",
+      "type": "string"
+    },
+    "requested_profile": {
+      "enum": [
+        "QUICK6",
+        "FULL"
+      ],
+      "title": "Requested Profile",
+      "type": "string"
+    },
+    "required_profile": {
+      "enum": [
+        "QUICK6",
+        "FULL"
+      ],
+      "title": "Required Profile",
+      "type": "string"
+    },
+    "escalation_required": {
+      "title": "Escalation Required",
+      "type": "boolean"
+    },
+    "stop_at_gate": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Stop At Gate"
+    },
+    "gates": {
+      "items": {
+        "$ref": "#/$defs/Gate"
+      },
+      "title": "Gates",
+      "type": "array"
+    },
+    "roi": {
+      "additionalProperties": true,
+      "title": "Roi",
+      "type": "object"
+    },
+    "evaluator_burden": {
+      "additionalProperties": true,
+      "title": "Evaluator Burden",
+      "type": "object"
+    },
+    "operational_oversight": {
+      "additionalProperties": true,
+      "title": "Operational Oversight",
+      "type": "object"
+    },
+    "operational_performance": {
+      "additionalProperties": true,
+      "title": "Operational Performance",
+      "type": "object"
+    },
+    "handoff_record": {
+      "additionalProperties": true,
+      "title": "Handoff Record",
+      "type": "object"
+    },
+    "provenance": {
+      "additionalProperties": true,
+      "title": "Provenance",
+      "type": "object"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "run_id",
+    "versions",
+    "evaluator_kind",
+    "decision",
+    "decision_scope",
+    "risk_tier",
+    "requested_profile",
+    "required_profile",
+    "escalation_required",
+    "stop_at_gate",
+    "gates",
+    "roi",
+    "evaluator_burden",
+    "operational_oversight",
+    "operational_performance",
+    "handoff_record",
+    "provenance",
+    "limitations"
+  ],
+  "title": "AssessmentResult",
+  "type": "object"
+}

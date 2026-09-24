@@ -1,0 +1,11 @@
+{
+  "session_id": "synthetic-training-01", "artifact_version": "fictional-v1", "criterion_version": "handoff-rc3",
+  "evaluator_kind": "synthetic", "reference_defects": 8, "detected_reference_defects": 5,
+  "reference_omissions": 3, "detected_reference_omissions": 1, "expected_recall_percent": 80,
+  "requirements": {"total": 10, "verified": 7, "failed": 3, "unassessed": 0},
+  "recovery": {"total": 6, "verified": 3, "failed": 3, "unassessed": 0},
+  "unresolved_critical": 1, "evidence_complete": true, "judgment": "Ready",
+  "judgment_locked_before_reference": true, "reference_basis": "Stipulated synthetic training key; not a participant record",
+  "unsupported_findings": 0, "duplicate_findings": 0, "novel_genuine_findings": 0, "unresolved_findings": 0,
+  "elapsed_minutes": null
+}

@@ -1,0 +1,34 @@
+{
+  "protocol_version": "0.1-rc.4-candidate",
+  "status": "candidate",
+  "files": {
+    "HCAI-v0.1-rc.4-candidate.zip": {
+      "sha256": "4098915bcc44daad347f12ba31b655e2a784ad2cbdb459974a04c82f35284450",
+      "bytes": 683614
+    },
+    "ai-ready-0.2.0-rc.1.zip": {
+      "sha256": "f4cf65cf542044579e2aea38f1c3247c179e80bb6c98961cf8eb569cc6e7a51f",
+      "bytes": 31401
+    },
+    "hcai_readiness_mcp-0.2.0rc1-py3-none-any.whl": {
+      "sha256": "d809b0607590d2ce3856dc888221d8efcbda473181a545d439de64adabadb49c",
+      "bytes": 26966
+    },
+    "External-Pilot-Packet-v0.1-rc.4-candidate.pdf": {
+      "sha256": "0ac8a8c51c6c1a1d04c0ba6c7a2dbf7e42ccc132614fa31473c518b867d4c32a",
+      "bytes": 4112
+    },
+    "QUICK-6-v0.1-rc.4-candidate.pdf": {
+      "sha256": "f73c4b5ea26ad61a2e6d7c341f11670a3373e1bc01d491a49a9f303ca7e9537c",
+      "bytes": 4229
+    },
+    "Protocol-v0.1-rc.4-candidate.pdf": {
+      "sha256": "ad0e16f282329e03913adec5af7fc8675ef5d123ed917e08ef0eae16189bf27a",
+      "bytes": 17656
+    },
+    "Full-Profile-v0.1-rc.4-candidate.pdf": {
+      "sha256": "f5dd9a7dfbbb72b4f6308032cf0238ed476e40fc3379c9d22905226de9000b04",
+      "bytes": 3550
+    }
+  }
+}

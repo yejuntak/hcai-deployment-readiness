@@ -1,0 +1,101 @@
+[
+  {
+    "id": "FB01",
+    "permission": "private",
+    "changes": [
+      "C01",
+      "C02",
+      "C03"
+    ],
+    "affected_files": [
+      "protocol/0.1-rc.4-candidate/PROTOCOL.md",
+      "src/hcai_readiness/engine.py"
+    ],
+    "affected_requirements": [
+      "G2_NEED_REQUIREMENTS",
+      "G6_COMMITMENT"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": null,
+    "feedback": null
+  },
+  {
+    "id": "FB02",
+    "permission": "attribution_approved",
+    "changes": [
+      "C04",
+      "C10"
+    ],
+    "affected_files": [
+      "src/hcai_readiness/contracts.py",
+      "src/hcai_readiness/engine.py",
+      "docs/index.html"
+    ],
+    "affected_requirements": [
+      "G4_TRACEABILITY"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": "Hillel Glazer",
+    "feedback": "Visual fidelity is insufficient: connect artifacts to requirements and validating tests, with reference material explaining form, fit and function. Make those relationships inspectable without clutter."
+  },
+  {
+    "id": "FB03",
+    "permission": "private",
+    "changes": [
+      "C05",
+      "C06",
+      "C07"
+    ],
+    "affected_files": [
+      "src/hcai_readiness/engine.py",
+      "protocol/0.1-rc.4-candidate/QUICK-6.md",
+      "schemas/assessment.schema.json"
+    ],
+    "affected_requirements": [
+      "G1_BASELINE",
+      "G5_OVERSIGHT"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": null,
+    "feedback": null
+  },
+  {
+    "id": "FB04",
+    "permission": "private",
+    "changes": [
+      "C08",
+      "C09"
+    ],
+    "affected_files": [
+      "src/hcai_readiness/records.py",
+      "Pilot-Kit/rc4-external-packet.md",
+      "schemas/pilot-run.schema.json"
+    ],
+    "affected_requirements": [
+      "G2_NEED_REQUIREMENTS",
+      "RELEASE_ACTUAL_USE"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": null,
+    "feedback": null
+  },
+  {
+    "id": "FB05",
+    "permission": "private",
+    "changes": [
+      "C08",
+      "C10"
+    ],
+    "affected_files": [
+      "Pilot-Kit/rc4-external-packet.md",
+      "docs/research-page-copy.md"
+    ],
+    "affected_requirements": [
+      "PILOT_VOLUNTARY",
+      "CLAIMS_BOUNDARY"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": null,
+    "feedback": null
+  }
+]

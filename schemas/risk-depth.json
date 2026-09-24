@@ -1,0 +1,29 @@
+{
+  "low": {
+    "profile": "QUICK6",
+    "baseline_samples": 1,
+    "need_sources": 1,
+    "checks": []
+  },
+  "moderate": {
+    "profile": "FULL",
+    "baseline_samples": 3,
+    "need_sources": 2,
+    "checks": [
+      "independent_review",
+      "validation_plan"
+    ]
+  },
+  "high": {
+    "profile": "FULL",
+    "baseline_samples": 5,
+    "need_sources": 2,
+    "checks": [
+      "independent_review",
+      "validation_plan",
+      "hazard_analysis",
+      "mission_review",
+      "operational_evaluation_plan"
+    ]
+  }
+}

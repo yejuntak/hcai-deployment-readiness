@@ -1,0 +1,272 @@
+{
+  "run_id": "SYNTHETIC-SAVINGS-ERASED",
+  "recorded_at": "2026-09-24T12:00:00-05:00",
+  "versions": {
+    "protocol": "0.1-rc.4-candidate",
+    "mcp": "0.2.0rc1",
+    "skill": "0.2.0-rc.1",
+    "contract": "0.2.0-rc.1"
+  },
+  "evaluator_kind": "synthetic",
+  "requested_profile": "QUICK6",
+  "evidence": [
+    {
+      "id": "E1",
+      "version": "fixture-1",
+      "sha256": "87a35fd15180404eedfd92f7c23b7afc6e35d8309ff1af4581ec356baaf2a5c7",
+      "locator": "examples/evidence/synthetic-workflow.md",
+      "kind": "synthetic",
+      "description": "Constructed test evidence; no actual use"
+    },
+    {
+      "id": "E2",
+      "version": "fixture-1",
+      "sha256": "536a65dda13ab74c7e80df6335ba4348127b448314447acc19c1bef7ccad2e57",
+      "locator": "examples/evidence/synthetic-observation.md",
+      "kind": "synthetic",
+      "description": "Constructed test evidence; no actual use"
+    },
+    {
+      "id": "E3",
+      "version": "fixture-1",
+      "sha256": "001a165921230ebd38790b83dd7e4e62a29d4089dbc8fb6b6b6d1374ce5ed959",
+      "locator": "examples/evidence/synthetic-discussion.md",
+      "kind": "synthetic",
+      "description": "Constructed test evidence; no actual use"
+    }
+  ],
+  "baseline": {
+    "current_state_summary": "Intake → advisor review → correction or confirmation",
+    "actor_roles": [
+      "intake advisor",
+      "intake lead"
+    ],
+    "observation_window": "Fictional five-case window",
+    "sample_size": 5,
+    "cycle_minutes_per_case": 30,
+    "labor_minutes_per_case": 20,
+    "handoffs_per_case": 1,
+    "touches_per_case": 3,
+    "failure_points": [
+      "Missing contact field"
+    ],
+    "manual_review_minutes_per_case": 2,
+    "escalation_minutes_per_case": 1,
+    "rework_minutes_per_case": 1,
+    "volume_per_period": 100,
+    "period": "month",
+    "evidence_ids": [
+      "E2"
+    ]
+  },
+  "risk": {
+    "complexity": "low",
+    "importance": "low",
+    "impact": "low",
+    "mission": "low",
+    "failure_consequence": "low",
+    "irreversibility": "low",
+    "rationale": "Constructed reversible, low-consequence intake draft with human approval",
+    "evidence_ids": [
+      "E1"
+    ]
+  },
+  "workflow": {
+    "outcome": "Reduce repetitive entry without losing advisor control",
+    "needs": [
+      {
+        "id": "N1",
+        "description": "Preserve contact details",
+        "end_user_role": "intake advisor",
+        "source_ids": [
+          "E2",
+          "E3"
+        ],
+        "discussion_evidence_ids": [
+          "E3"
+        ]
+      }
+    ],
+    "requirements": [
+      {
+        "id": "R1",
+        "description": "Correct or cancel without data loss",
+        "acceptance_criteria": "All three paths preserve the defined fields",
+        "form": "Review form with editable fields",
+        "fit": "Advisor intake workflow and email dependency",
+        "function": "Preserve details through correction/cancel",
+        "reference_material_ids": [
+          "E1"
+        ],
+        "owner_role": "intake lead",
+        "need_ids": [
+          "N1"
+        ],
+        "artifact_ids": [
+          "E1"
+        ],
+        "validation_ids": [
+          "T1"
+        ]
+      }
+    ],
+    "states": [
+      {
+        "id": "S1",
+        "kind": "normal",
+        "trigger": "Draft available",
+        "behavior": "Review request",
+        "resulting_state": "Confirmed",
+        "data_handling": "Preserve entered contact details",
+        "owner_role": "intake advisor",
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_ids": [
+          "E1"
+        ]
+      },
+      {
+        "id": "S2",
+        "kind": "edge",
+        "trigger": "Contact detail missing",
+        "behavior": "Flag missing field",
+        "resulting_state": "Correction required",
+        "data_handling": "Preserve entered contact details",
+        "owner_role": "intake advisor",
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_ids": [
+          "E1"
+        ]
+      },
+      {
+        "id": "S3",
+        "kind": "recovery",
+        "trigger": "Advisor cancels",
+        "behavior": "Return to saved intake",
+        "resulting_state": "Intake",
+        "data_handling": "Preserve entered contact details",
+        "owner_role": "intake advisor",
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "important_artifact_ids": [
+      "E1"
+    ],
+    "validations": [
+      {
+        "id": "T1",
+        "requirement_ids": [
+          "R1"
+        ],
+        "artifact_ids": [
+          "E1"
+        ],
+        "method": "Stipulated three-path walkthrough",
+        "level": "walkthrough",
+        "status": "pass",
+        "evidence_ids": [
+          "E1"
+        ]
+      }
+    ],
+    "dependencies": [
+      "email system"
+    ],
+    "dependency_review": {
+      "status": "pass",
+      "evidence_ids": [
+        "E1"
+      ],
+      "note": "Stipulated synthetic review for software tests"
+    },
+    "state_review": {
+      "status": "pass",
+      "evidence_ids": [
+        "E1"
+      ],
+      "note": "Stipulated synthetic review for software tests"
+    }
+  },
+  "operational_oversight": {
+    "basis": "estimate",
+    "review_minutes_per_case": 8,
+    "correction_minutes_per_case": 5,
+    "escalation_minutes_per_case": 1,
+    "rework_minutes_per_case": 1,
+    "residual_manual_minutes_per_case": 5,
+    "owner_role": "intake lead",
+    "evidence_ids": [
+      "E1"
+    ]
+  },
+  "costs": {
+    "currency": "USD",
+    "labor_cost_per_hour": 30,
+    "baseline_nonlabor_cost_per_period": 0,
+    "proposed_recurring_fixed_cost_per_period": 20,
+    "proposed_nonlabor_cost_per_case": 0.1,
+    "one_time_implementation_cost": 1000,
+    "evidence_ids": [
+      "E1"
+    ]
+  },
+  "evaluator_burden": {
+    "elapsed_minutes": 12,
+    "evaluator_minutes": 12,
+    "participant_minutes": 12,
+    "participant_count": 1,
+    "adjudication_minutes": 0,
+    "review_correction_cycles": 0,
+    "tool_calls": 1,
+    "model_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "tool_model_cost": 0,
+    "labor_cost_per_hour": 30,
+    "currency": "USD",
+    "evidence_ids": [
+      "E1"
+    ]
+  },
+  "handoff": {
+    "reference_defect_ids": [],
+    "reviewer_findings": [],
+    "unresolved_risks": [],
+    "reference_review": {
+      "status": "pass",
+      "evidence_ids": [
+        "E1"
+      ],
+      "note": "Stipulated synthetic review for software tests"
+    },
+    "findings_review": {
+      "status": "pass",
+      "evidence_ids": [
+        "E1"
+      ],
+      "note": "Stipulated synthetic review for software tests"
+    },
+    "risk_acceptance": {
+      "status": "pass",
+      "evidence_ids": [
+        "E1"
+      ],
+      "note": "Stipulated synthetic review for software tests"
+    },
+    "decision_owner_role": "engineering lead",
+    "commitment_scope": "Build a disposable intake prototype",
+    "resource_limit": "One engineer-day; no live sending",
+    "next_review_trigger": "Review after prototype walkthrough"
+  },
+  "operational_performance": {
+    "status": "not_collected"
+  }
+}
