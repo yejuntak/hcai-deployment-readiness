@@ -5,6 +5,9 @@ from .contracts import Assessment, AssessmentResult, Gate
 from .versions import versions
 
 RISK_FIELDS = ("complexity", "importance", "impact", "mission", "failure_consequence", "irreversibility")
+CONTEXT_FLOORS = {"safety_or_rights_impact": "high", "irreversible_external_actions": "high",
+                  "sensitive_data": "moderate", "untrusted_input_to_actions": "moderate"}
+IMPACT_DOMAINS = ("access_usability", "privacy_security", "unequal_effects", "human_agency")
 DEPTH = {
     "low": {"profile": "QUICK6", "baseline_samples": 1, "need_sources": 1, "checks": []},
     "moderate": {"profile": "FULL", "baseline_samples": 3, "need_sources": 2,
@@ -16,9 +19,15 @@ DEPTH = {
 
 def risk_tier(risk):
     levels = [getattr(risk, key) for key in RISK_FIELDS]
-    if any(v is None for v in levels):
+    if any(v is None for v in levels) or any(v is None for v in risk.context.model_dump().values()):
         return "unknown"
-    return max(levels, key=("low", "moderate", "high").index)
+    return known_risk_floor(risk)
+
+
+def known_risk_floor(risk):
+    levels = [getattr(risk, key) for key in RISK_FIELDS if getattr(risk, key)]
+    levels += [tier for key, tier in CONTEXT_FLOORS.items() if getattr(risk.context, key) is True]
+    return max(levels, default=None, key=("low", "moderate", "high").index)
 
 
 class GateBuilder:
@@ -47,6 +56,47 @@ class GateBuilder:
 def canonical_digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False,
                                      allow_nan=False).encode()).hexdigest()
+
+
+def requirement_digest(a, requirement):
+    """Bind a check to its requirement and relevant design context, not just its artifact."""
+    evidence = {e.id: e for e in a.evidence}
+    return canonical_digest({
+        "requirement": requirement.model_dump(), "scope": a.scope.model_dump(),
+        "states": [s.model_dump() for s in a.workflow.states if requirement.id in s.requirement_ids],
+        "entry_state_id": a.workflow.entry_state_id, "dependencies": a.workflow.dependencies,
+        "action_boundaries": a.workflow.action_boundaries,
+        "references": {ref: {"version": evidence[ref].version, "sha256": evidence[ref].sha256}
+                       for ref in requirement.reference_material_ids}})
+
+
+def validation_targets(a):
+    """Current fingerprints, NOT validation receipts. Never stamps a passing test."""
+    return {"versions": versions(), "artifact_digests": {e.id: e.sha256 for e in a.evidence},
+            "requirement_digests": {r.id: requirement_digest(a, r) for r in a.workflow.requirements},
+            "instruction": "Capture these targets when performing the check. Recheck changed requirements/context/artifacts; do not relabel an old result with new hashes.",
+            "evidence_verified": False}
+
+
+def connected_paths(g, rows, entry, next_field, label):
+    if not rows or not entry:
+        g.require(False, f"{label}: define an entry and connected states")
+        return
+    by_id = {row.id: row for row in rows}
+    reached, pending = set(), [entry]
+    while pending:
+        node = pending.pop()
+        if node not in reached:
+            reached.add(node)
+            pending.extend(getattr(by_id[node], next_field))
+    g.require(reached == set(by_id), f"{label}: every state must be reachable from the entry")
+    can_end = {row.id for row in rows if row.terminal}
+    while True:
+        expanded = can_end | {row.id for row in rows if any(n in can_end for n in getattr(row, next_field))}
+        if expanded == can_end:
+            break
+        can_end = expanded
+    g.require(set(by_id) <= can_end, f"{label}: every state needs a reachable endpoint or safe exit")
 
 
 def economics(a, baseline_usable):
@@ -155,6 +205,23 @@ def assess(a: Assessment) -> dict:
     for key in type(a.scope).model_fields:
         g.require(getattr(a.scope, key) is not None, f"scope.{key}: define the bounded workflow and alternatives")
     g.require(bool(a.scope.alternatives_considered), "Compare at least one existing/manual/non-AI alternative")
+    g.require(bool(a.scope.affected_roles), "Name affected people, including non-operators where relevant")
+    impacts = {row.domain: row for row in w.impact_reviews}
+    for domain in IMPACT_DOMAINS:
+        row = impacts.get(domain)
+        g.require(row is not None, f"{domain}: screen effects on people; unknown is not not-applicable")
+        if row is None:
+            continue
+        g.require(row.applicability != 'unknown', f"{domain}: applicability unresolved")
+        g.require(bool(row.rationale.strip()) and bool(row.owner_role) and bool(row.evidence_ids), f"{domain}: record rationale, owner and evidence even for not-applicable")
+        if domain in ('access_usability', 'human_agency'):
+            g.fail(row.applicability == 'not_applicable', f"{domain}: human use and control cannot be excluded from this profile")
+        if domain == 'privacy_security' and (a.risk.context.sensitive_data is True or a.risk.context.untrusted_input_to_actions is True):
+            g.fail(row.applicability == 'not_applicable', 'privacy_security: consequential-context flags make this review applicable')
+        if row.applicability == 'applicable':
+            g.require(bool(row.affected_roles) and bool(row.requirement_ids), f"{domain}: affected roles and testable requirements required")
+    covered = {role for row in w.impact_reviews if row.applicability == 'applicable' for role in row.affected_roles}
+    g.require(set(a.scope.affected_roles or []) <= covered, "Every affected role needs coverage in an applicable impact review")
     for need in w.needs:
         sources = [evidence[r] for r in need.source_ids if evidence[r].origin_id and evidence[r].kind in accepted_kinds
                    and evidence[r].source_type in ("work_record", "end_user_discussion")]
@@ -175,12 +242,15 @@ def assess(a: Assessment) -> dict:
         g.require(any(s.kind == kind for s in w.states), f"{kind} state path required")
     for state in w.states:
         g.require(bool(state.requirement_ids) and bool(state.evidence_ids), f"{state.id}: requirement and behavior evidence required")
+        g.require(state.terminal is not None, f"{state.id}: specify whether this is an endpoint")
+        g.require(state.terminal or bool(state.next_state_ids), f"{state.id}: identify the next state or an endpoint")
+    connected_paths(g, w.states, w.entry_state_id, 'next_state_ids', 'Proposed workflow')
     for requirement in w.requirements:
         g.require(any(requirement.id in s.requirement_ids for s in w.states), f"{requirement.id}: no defined state behavior")
     g.require(w.dependencies is not None, "Dependency inventory required; [] explicitly means none")
     g.check(w.dependency_review, "dependency_review")
     g.check(w.state_review, "state_review")
-    g.require(w.action_boundaries is not None, "Record what people and automated components may access, change or send")
+    g.require(bool(w.action_boundaries), "Record what people and automated components may access, change or send; an empty inventory is insufficient")
     g.check(w.human_control_review, "human_control_review")
     gates.append(g.result())
 
@@ -201,6 +271,11 @@ def assess(a: Assessment) -> dict:
     for artifact in w.important_artifact_ids:
         g.fail(not any(artifact in r.artifact_ids for r in w.requirements), f"{artifact}: important artifact has no requirement")
     for v in w.validations:
+        for requirement in w.requirements:
+            if requirement.id in v.requirement_ids:
+                tested = v.tested_requirement_digests.get(requirement.id)
+                g.require(tested is not None, f"{v.id}/{requirement.id}: record the requirement/context fingerprint tested")
+                g.fail(tested is not None and tested != requirement_digest(a, requirement), f"{v.id}/{requirement.id}: requirement or context changed since validation; repeat the affected check")
         if v.level == "implemented_test":
             g.fail(any(req.behavior_status != "implemented" for req in w.requirements if req.id in v.requirement_ids), f"{v.id}: cannot label a check implemented when linked behavior is only specified or simulated")
         g.fail(v.status == "fail", f"{v.id}: failed validation")
@@ -223,6 +298,7 @@ def assess(a: Assessment) -> dict:
 
     g = GateBuilder("G6_COMMITMENT")
     g.require(tier != "unknown", "All six risk dimensions must be classified")
+    g.require(all(v is not None for v in a.risk.context.model_dump().values()), "Answer every consequential-context question; unknown cannot be treated as no")
     g.require(bool(a.risk.rationale.strip()) and bool(a.risk.evidence_ids), "Risk rationale and evidence required")
     if depth["profile"] == "FULL":
         g.require(a.requested_profile == "FULL", "Escalate to FULL and submit a new run; QUICK6 cannot satisfy this tier")
@@ -235,6 +311,13 @@ def assess(a: Assessment) -> dict:
         g.require(bool(finding.evidence_ids), f"{finding.id}: finding evidence required")
     for key in ["reference_review", "findings_review", "risk_acceptance", *depth["checks"]]:
         g.check(getattr(h, key), key)
+    review = h.evidence_quality_review
+    g.check(review, 'evidence_quality_review')
+    if review.status == 'pass':
+        allowed_reviewers = {'synthetic'} if a.evaluator_kind == 'synthetic' else {'human', 'ai-assisted-human'}
+        g.require(bool(review.reviewer_role) and review.reviewer_kind in allowed_reviewers,
+                  'A human evidence-quality reviewer must inspect relevance, coverage, authenticity and test adequacy; agent-only review cannot pass')
+        g.require(all(evidence[r].kind in accepted_kinds for r in review.evidence_ids), 'Evidence-quality review needs retained observation records, not estimates or assumptions')
     if tier != "low":
         g.require(h.independent_review.independent_from_artifact_owner is True and bool(h.independent_review.reviewer_role),
                   "Independent reviewer role and separation from artifact owner required")
@@ -255,7 +338,8 @@ def assess(a: Assessment) -> dict:
 
     stop = next((g.id for g in gates if g.status != "PASS"), None)
     routing = {"status": "REVIEW", "reason": "Use the six gates at the classified depth.",
-               "known_risk_floor": max((getattr(a.risk, k) for k in RISK_FIELDS if getattr(a.risk, k)), default=None, key=("low", "moderate", "high").index)}
+               "known_risk_floor": known_risk_floor(a.risk),
+               "context_triggers": [{"field": key, "minimum_tier": floor} for key, floor in CONTEXT_FLOORS.items() if getattr(a.risk.context, key) is True]}
     if a.requested_profile == "QUICK6" and tier != "low":
         routing.update(status="USE_FULL", reason="Classify missing risk dimensions and use FULL." if tier == "unknown" else "This risk tier requires FULL before any QUICK6 gate is evaluated.")
     elif a.requested_profile == "QUICK6" and a.evaluator_burden.elapsed_minutes is not None and a.evaluator_burden.elapsed_minutes > 15:
@@ -294,7 +378,11 @@ def assess(a: Assessment) -> dict:
                      "Evidence truth, completeness of inventories and risk judgments require accountable human review.",
                      "Practitioner correspondence informed refinement; it is not controlled empirical validation.",
                      "Risk thresholds and the <=15-minute target are provisional and unvalidated."],
-        routing=routing, attention_items=attention)
+        routing=routing, attention_items=attention,
+        assurance={"machine_check": "STRUCTURAL_AND_RULE_CHECKS_ONLY", "human_quality_review": review.status,
+                   "reviewer_role": review.reviewer_role, "reviewer_kind": review.reviewer_kind,
+                   "evidence_authenticity": "NOT_INDEPENDENTLY_VERIFIED", "criterion_conformance": "NOT_CERTIFIED",
+                   "meaning": "A pass combines deterministic checks with supplied human judgments. Software cannot establish that the evidence is true or adequate, or that the reviewer actually inspected it."})
     return result.model_dump()
 
 

@@ -1,3 +1,13 @@
+# Protocol 0.1-rc.4-candidate.3 — September 24, 2026
+
+MCP 0.2.0rc3; ai-ready Skill/contract 0.2.0-rc.3. Earlier candidates and rc.3 remain byte-frozen.
+
+## Why rc.4 changed
+
+The deep audit found that document completeness could still hide stale requirements, disconnected proposed behavior and unspecified authority. Candidate.3 binds tests to requirement/context as well as artifacts; checks proposed-state graphs and nonempty authority; adds context-driven risk floors, affected-person coverage and a recorded human evidence-quality review. Pilot routing/stops are preserved. A worksheet, public audit and claims/governance rules support usable, inspectable application. C19–C25 map changes to tests.
+
+These deepen the existing requirements-first T&E, Hillel Glazer traceability, SMB baseline/effort and end-user-use themes without publishing other correspondents' identities. Fifteen criteria retain existing IDs. Correspondence and synthetic regression tests are not controlled empirical validation. No pilot, standard status or worldwide impact is claimed.
+
 # Protocol 0.1-rc.4-candidate.2 — September 24, 2026
 
 MCP 0.2.0rc2; ai-ready Skill/contract 0.2.0-rc.2. Candidate only; first candidate and rc.3 remain frozen.

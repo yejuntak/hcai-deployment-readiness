@@ -9,11 +9,11 @@
       "C10"
     ],
     "affected_files": [
-      "protocol/0.1-rc.4-candidate.2/PROTOCOL.md",
+      "protocol/0.1-rc.4-candidate.3/PROTOCOL.md",
       "src/hcai_readiness/engine.py",
       "src/hcai_readiness/contracts.py",
       "schemas/risk-depth.json",
-      "protocol/0.1-rc.4-candidate.2/FULL-PROFILE.md",
+      "protocol/0.1-rc.4-candidate.3/FULL-PROFILE.md",
       "scripts/build_candidate_assets.py",
       "docs/research-page-copy.md",
       "docs/migration-rc3-to-rc4.md",
@@ -74,7 +74,7 @@
     ],
     "affected_files": [
       "src/hcai_readiness/engine.py",
-      "protocol/0.1-rc.4-candidate.2/QUICK-6.md",
+      "protocol/0.1-rc.4-candidate.3/QUICK-6.md",
       "schemas/assessment.schema.json",
       "examples/rc4/savings-erased.json",
       "scripts/build_candidate_assets.py",
@@ -82,7 +82,7 @@
       "docs/migration-rc3-to-rc4.md",
       "historical/baseline-manifest.json",
       "src/hcai_readiness/contracts.py",
-      "protocol/0.1-rc.4-candidate.2/START-HERE.md",
+      "protocol/0.1-rc.4-candidate.3/START-HERE.md",
       "src/hcai_readiness/guidance.py",
       "skills/ai-ready/SKILL.md",
       "docs/updates.md"
@@ -105,9 +105,9 @@
     ],
     "affected_files": [
       "src/hcai_readiness/records.py",
-      "Pilot-Kit/rc4-candidate-2-external-packet.md",
+      "Pilot-Kit/rc4-candidate-3-external-packet.md",
       "schemas/pilot-run.schema.json",
-      "Pilot-Kit/rc4-candidate-2-external-packet.md",
+      "Pilot-Kit/rc4-candidate-3-external-packet.md",
       "evidence/feedback-ledger.public.json",
       "schemas/change-manifest.schema.json",
       "src/hcai_readiness/engine.py"
@@ -128,9 +128,9 @@
       "C10"
     ],
     "affected_files": [
-      "Pilot-Kit/rc4-candidate-2-external-packet.md",
+      "Pilot-Kit/rc4-candidate-3-external-packet.md",
       "docs/research-page-copy.md",
-      "Pilot-Kit/rc4-candidate-2-external-packet.md",
+      "Pilot-Kit/rc4-candidate-3-external-packet.md",
       "src/hcai_readiness/records.py",
       "schemas/pilot-run.schema.json",
       "scripts/build_candidate_assets.py",

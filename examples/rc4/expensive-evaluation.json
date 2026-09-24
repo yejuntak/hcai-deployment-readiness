@@ -2,10 +2,10 @@
   "run_id": "SYNTHETIC-EXPENSIVE-EVALUATION",
   "recorded_at": "2026-09-24T12:00:00-05:00",
   "versions": {
-    "protocol": "0.1-rc.4-candidate.2",
-    "mcp": "0.2.0rc2",
-    "skill": "0.2.0-rc.2",
-    "contract": "0.2.0-rc.2"
+    "protocol": "0.1-rc.4-candidate.3",
+    "mcp": "0.2.0rc3",
+    "skill": "0.2.0-rc.3",
+    "contract": "0.2.0-rc.3"
   },
   "evaluator_kind": "synthetic",
   "requested_profile": "FULL",
@@ -54,6 +54,10 @@
     ],
     "exclusions": [
       "No autonomous customer messages"
+    ],
+    "affected_roles": [
+      "intake advisor",
+      "requester"
     ]
   },
   "baseline": {
@@ -160,6 +164,12 @@
     "mission": "low",
     "failure_consequence": "low",
     "irreversibility": "low",
+    "context": {
+      "safety_or_rights_impact": false,
+      "irreversible_external_actions": false,
+      "sensitive_data": false,
+      "untrusted_input_to_actions": false
+    },
     "rationale": "Constructed reversible, low-consequence intake draft with human approval",
     "evidence_ids": [
       "E1"
@@ -167,6 +177,73 @@
   },
   "workflow": {
     "outcome": "Reduce repetitive entry without losing advisor control",
+    "entry_state_id": "S1",
+    "impact_reviews": [
+      {
+        "domain": "access_usability",
+        "applicability": "applicable",
+        "owner_role": "intake lead",
+        "affected_roles": [
+          "intake advisor",
+          "requester"
+        ],
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_ids": [
+          "E1"
+        ],
+        "rationale": "Stipulated synthetic case: readable editable drafts, equal correction access, local fictional data, advisor control. Not empirical evidence."
+      },
+      {
+        "domain": "privacy_security",
+        "applicability": "applicable",
+        "owner_role": "intake lead",
+        "affected_roles": [
+          "intake advisor",
+          "requester"
+        ],
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_ids": [
+          "E1"
+        ],
+        "rationale": "Stipulated synthetic case: readable editable drafts, equal correction access, local fictional data, advisor control. Not empirical evidence."
+      },
+      {
+        "domain": "unequal_effects",
+        "applicability": "applicable",
+        "owner_role": "intake lead",
+        "affected_roles": [
+          "intake advisor",
+          "requester"
+        ],
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_ids": [
+          "E1"
+        ],
+        "rationale": "Stipulated synthetic case: readable editable drafts, equal correction access, local fictional data, advisor control. Not empirical evidence."
+      },
+      {
+        "domain": "human_agency",
+        "applicability": "applicable",
+        "owner_role": "intake lead",
+        "affected_roles": [
+          "intake advisor",
+          "requester"
+        ],
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_ids": [
+          "E1"
+        ],
+        "rationale": "Stipulated synthetic case: readable editable drafts, equal correction access, local fictional data, advisor control. Not empirical evidence."
+      }
+    ],
     "needs": [
       {
         "id": "N1",
@@ -219,7 +296,12 @@
         ],
         "evidence_ids": [
           "E1"
-        ]
+        ],
+        "next_state_ids": [
+          "S2",
+          "S4"
+        ],
+        "terminal": false
       },
       {
         "id": "S2",
@@ -234,14 +316,18 @@
         ],
         "evidence_ids": [
           "E1"
-        ]
+        ],
+        "next_state_ids": [
+          "S3"
+        ],
+        "terminal": false
       },
       {
         "id": "S3",
         "kind": "recovery",
-        "trigger": "Advisor cancels",
-        "behavior": "Return to saved intake",
-        "resulting_state": "Intake",
+        "trigger": "Advisor corrects or cancels",
+        "behavior": "Retain corrected or cancelled intake",
+        "resulting_state": "Ready to close",
         "data_handling": "Preserve entered contact details",
         "owner_role": "intake advisor",
         "requirement_ids": [
@@ -249,7 +335,28 @@
         ],
         "evidence_ids": [
           "E1"
-        ]
+        ],
+        "next_state_ids": [
+          "S4"
+        ],
+        "terminal": false
+      },
+      {
+        "id": "S4",
+        "kind": "normal",
+        "trigger": "Advisor confirms outcome",
+        "behavior": "Close with retained record",
+        "resulting_state": "Confirmed or cancelled",
+        "data_handling": "Preserve entered contact details",
+        "owner_role": "intake advisor",
+        "requirement_ids": [
+          "R1"
+        ],
+        "evidence_ids": [
+          "E1"
+        ],
+        "next_state_ids": [],
+        "terminal": true
       }
     ],
     "important_artifact_ids": [
@@ -272,6 +379,9 @@
         ],
         "tested_artifact_digests": {
           "E1": "87a35fd15180404eedfd92f7c23b7afc6e35d8309ff1af4581ec356baaf2a5c7"
+        },
+        "tested_requirement_digests": {
+          "R1": "807347fd3fb3d7c22258f89724cae47b7744de8cdfd831b7405bb89ea8cf7bb9"
         }
       }
     ],
@@ -351,6 +461,15 @@
     "reference_defect_ids": [],
     "reviewer_findings": [],
     "unresolved_risks": [],
+    "evidence_quality_review": {
+      "status": "pass",
+      "evidence_ids": [
+        "E1"
+      ],
+      "note": "Stipulated synthetic review for software tests",
+      "reviewer_role": "fictional reviewer",
+      "reviewer_kind": "synthetic"
+    },
     "reference_review": {
       "status": "pass",
       "evidence_ids": [

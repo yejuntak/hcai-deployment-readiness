@@ -17,7 +17,7 @@ async def roundtrip():
             assert names=={"assessment_template","assess_legacy_session","summarize_legacy_batch",
                            "assess_engineering_commitment", "validate_pilot_run", "export_public_feedback",
                            "new_review_record", "review_next_step", "get_gate_guide", "assessment_report",
-                           "get_review_criterion", "validate_study_review"}
+                           "get_review_criterion", "validate_study_review", "get_validation_targets"}
             template=await client.call_tool("assessment_template",{})
             assert not template.isError
             d=json.loads((Path(__file__).resolve().parents[1]/"examples/session.json").read_text())
@@ -31,7 +31,7 @@ async def roundtrip():
             resources=await client.list_resources()
             assert any(str(r.uri)=="hcai://protocol" for r in resources.resources)
             resource=await client.read_resource("hcai://protocol")
-            assert "0.1-rc.4-candidate.2" in resource.contents[0].text
+            assert "0.1-rc.4-candidate.3" in resource.contents[0].text
             for path in (Path(__file__).resolve().parents[1]/"examples/rc4").glob("*.json"):
                 data=json.loads(path.read_text())
                 if path.stem=="pilot-synthetic":
@@ -55,6 +55,11 @@ async def roundtrip():
             data=json.loads((Path(__file__).resolve().parents[1]/"examples/rc4/low-risk-quick.json").read_text())
             report=await client.call_tool("assessment_report",{"assessment":data,"format":"html"})
             assert not report.isError and "<details><summary>" in report.content[0].text
+            targets=await client.call_tool('get_validation_targets',{'assessment':data})
+            assert not targets.isError
+            payload=json.loads(targets.content[0].text)
+            assert payload['requirement_digests']==data['workflow']['validations'][0]['tested_requirement_digests']
+            assert not payload['evidence_verified']
             catalog=await client.read_resource("hcai://criteria")
             assert "HCAI-4.5" in catalog.contents[0].text
             from test_experience import study

@@ -96,7 +96,7 @@ def feedback(permission="private"):
     return FeedbackEntry(id="FBTEST", source_person="PRIVATE_NAME_SENTINEL", source_date="2026-09-01",
                          recorded_on="2026-09-24", context="PRIVATE_CONTEXT_SENTINEL", feedback="PRIVATE_FEEDBACK_SENTINEL",
                          permission=permission, permission_basis="PRIVATE_PERMISSION_SENTINEL", changes=["C01"],
-                         affected_files=["protocol/0.1-rc.4-candidate.2/PROTOCOL.md"], affected_requirements=["G6_COMMITMENT"],
+                         affected_files=["protocol/0.1-rc.4-candidate.3/PROTOCOL.md"], affected_requirements=["G6_COMMITMENT"],
                          validation_status="software_tests_only")
 
 
@@ -236,7 +236,7 @@ def test_important_artifacts_and_reference_material_cannot_be_omitted():
     assert evaluate(d)["decision"] == "REVISE"
     d = fixture()
     d["workflow"]["requirements"][0]["reference_material_ids"] = []
-    assert evaluate(d)["decision"] == "INSUFFICIENT_EVIDENCE"
+    assert evaluate(d)["decision"] == "REVISE"  # Missing reference AND stale recorded validation.
 
 
 def test_critical_failure_cannot_be_waived_or_averaged():

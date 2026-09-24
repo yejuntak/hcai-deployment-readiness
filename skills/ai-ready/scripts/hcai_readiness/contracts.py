@@ -39,6 +39,7 @@ class Check(Record):
     evidence_ids: list[Text] = Field(default_factory=list)
     note: str = ""
     reviewer_role: Text | None = None
+    reviewer_kind: Literal["human", "ai-assisted-human", "agent", "synthetic"] | None = None
     independent_from_artifact_owner: bool | None = None
 
 
@@ -64,6 +65,7 @@ class Scope(Record):
     ai_role: Literal["artifact_creation", "in_workflow", "both", "neither"] | None = None
     alternatives_considered: list[Text] | None = None
     exclusions: list[Text] | None = None
+    affected_roles: list[Text] | None = None
 
 
 class Baseline(Record):
@@ -105,7 +107,15 @@ class Baseline(Record):
         return self
 
 
+class ContextScreen(Record):
+    safety_or_rights_impact: bool | None = None
+    irreversible_external_actions: bool | None = None
+    sensitive_data: bool | None = None
+    untrusted_input_to_actions: bool | None = None
+
+
 class Risk(Record):
+    context: ContextScreen = Field(default_factory=ContextScreen)
     complexity: Tier | None = None
     importance: Tier | None = None
     impact: Tier | None = None
@@ -149,6 +159,18 @@ class State(Record):
     owner_role: Text
     requirement_ids: list[Text]
     evidence_ids: list[Text]
+    next_state_ids: list[Text] = Field(default_factory=list)
+    terminal: bool | None = None
+
+
+class ImpactReview(Record):
+    domain: Literal["access_usability", "privacy_security", "unequal_effects", "human_agency"]
+    applicability: Literal["applicable", "not_applicable", "unknown"] = "unknown"
+    rationale: str = ""
+    owner_role: Text | None = None
+    affected_roles: list[Text] = Field(default_factory=list)
+    requirement_ids: list[Text] = Field(default_factory=list)
+    evidence_ids: list[Text] = Field(default_factory=list)
 
 
 class Validation(Record):
@@ -160,6 +182,7 @@ class Validation(Record):
     status: Literal["pass", "fail", "missing"]
     evidence_ids: list[Text]
     tested_artifact_digests: dict[str, Digest] = Field(default_factory=dict)
+    tested_requirement_digests: dict[str, Digest] = Field(default_factory=dict)
 
 
 class Workflow(Record):
@@ -167,6 +190,8 @@ class Workflow(Record):
     needs: list[Need] = Field(default_factory=list)
     requirements: list[Requirement] = Field(default_factory=list)
     states: list[State] = Field(default_factory=list)
+    entry_state_id: Text | None = None
+    impact_reviews: list[ImpactReview] = Field(default_factory=list)
     important_artifact_ids: list[Text] = Field(default_factory=list)
     validations: list[Validation] = Field(default_factory=list)
     dependencies: list[Text] | None = None
@@ -232,6 +257,7 @@ class Finding(Record):
 
 
 class Handoff(Record):
+    evidence_quality_review: Check = Field(default_factory=Check)
     reference_defect_ids: list[Text] | None = None
     reviewer_findings: list[Finding] | None = None
     unresolved_risks: list[Text] | None = None
@@ -326,9 +352,24 @@ class Assessment(Record):
             refs(requirement.validation_ids, "validation")
         for row in [*self.workflow.states, *self.workflow.validations]:
             refs(row.requirement_ids, "requirement")
+        for row in self.workflow.impact_reviews:
+            refs(row.requirement_ids, "requirement")
+            if not set(row.affected_roles) <= set(self.scope.affected_roles or []):
+                raise ValueError("Impact-review roles must resolve to scope.affected_roles")
+        domains = [r.domain for r in self.workflow.impact_reviews]
+        if len(domains) != len(set(domains)):
+            raise ValueError("Duplicate impact-review domains")
+        if self.workflow.entry_state_id is not None and self.workflow.entry_state_id not in ids['state']:
+            raise ValueError("Proposed entry state does not resolve")
+        for state in self.workflow.states:
+            refs(state.next_state_ids, 'state')
+            if state.terminal and state.next_state_ids:
+                raise ValueError("A terminal proposed state cannot have outgoing paths")
         for validation in self.workflow.validations:
             if not set(validation.tested_artifact_digests) <= set(validation.artifact_ids):
                 raise ValueError("Tested digest keys must be linked artifact IDs")
+            if not set(validation.tested_requirement_digests) <= set(validation.requirement_ids):
+                raise ValueError("Tested requirement digest keys must be linked requirement IDs")
         if self.evaluator_kind != "synthetic" and any(e.kind == "synthetic" for e in self.evidence):
             raise ValueError("Synthetic evidence cannot support a real/agent run")
         if self.operational_oversight.basis == "measured":
@@ -371,6 +412,7 @@ class AssessmentResult(Record):
     limitations: list[str]
     routing: dict
     attention_items: list[dict]
+    assurance: dict
 
 
 class FeedbackEntry(Record):
@@ -451,6 +493,9 @@ class PilotRun(Record):
     gates_passed: list[Text]
     gates_failed: list[Text]
     gates_missing: list[Text]
+    gates_not_evaluated: list[Text]
+    routing_status: Literal["REVIEW", "USE_FULL"]
+    follow_up_reasons: list[Text]
     evidence_missing: list[Text]
     decision_before: Decision | None
     decision_after: Decision
@@ -474,9 +519,12 @@ class PilotRun(Record):
         if self.record_kind == "actual" and any(evidence[r].kind != "observed" for r in self.observation_evidence_ids):
             raise ValueError("Actual pilot requires observed discussion/use records")
         result = assess(self.assessment)
-        for attr, status in (("gates_passed", "PASS"), ("gates_failed", "FAIL"), ("gates_missing", "MISSING")):
+        for attr, status in (("gates_passed", "PASS"), ("gates_failed", "FAIL"), ("gates_missing", "MISSING"), ("gates_not_evaluated", "NOT_EVALUATED")):
             if sorted(getattr(self, attr)) != sorted(g["id"] for g in result["gates"] if g["status"] == status):
                 raise ValueError(f"{attr} disagrees with assessment")
+        follow_up = sorted({reason for g in result['gates'] if g['status'] != 'PASS' for reason in g['reasons']})
+        if self.routing_status != result['routing']['status'] or sorted(self.follow_up_reasons) != follow_up:
+            raise ValueError("Pilot must preserve routing and all unevaluated/failed/missing follow-up reasons")
         if (self.decision_after != result["decision"] or self.risk_tier != result["risk_tier"]
                 or self.profile_used != self.assessment.requested_profile
                 or self.elapsed_minutes != self.assessment.evaluator_burden.elapsed_minutes):

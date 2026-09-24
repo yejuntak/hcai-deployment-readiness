@@ -1,5 +1,5 @@
 {
-  "protocol_version": "0.1-rc.4-candidate.2",
+  "protocol_version": "0.1-rc.4-candidate.3",
   "status": "candidate_unvalidated",
   "changes": [
     {
@@ -14,7 +14,7 @@
       ],
       "files": [
         "src/hcai_readiness/engine.py",
-        "protocol/0.1-rc.4-candidate.2/PROTOCOL.md"
+        "protocol/0.1-rc.4-candidate.3/PROTOCOL.md"
       ],
       "acceptance_tests": [
         "test_documentation_pass_never_claims_operational_performance"
@@ -53,7 +53,7 @@
       ],
       "files": [
         "schemas/risk-depth.json",
-        "protocol/0.1-rc.4-candidate.2/FULL-PROFILE.md"
+        "protocol/0.1-rc.4-candidate.3/FULL-PROFILE.md"
       ],
       "acceptance_tests": [
         "test_each_risk_dimension_changes_depth",
@@ -115,7 +115,7 @@
         "QUICK6_STOP"
       ],
       "files": [
-        "protocol/0.1-rc.4-candidate.2/QUICK-6.md",
+        "protocol/0.1-rc.4-candidate.3/QUICK-6.md",
         "src/hcai_readiness/engine.py"
       ],
       "acceptance_tests": [
@@ -159,7 +159,7 @@
         "RELEASE_ACTUAL_USE"
       ],
       "files": [
-        "Pilot-Kit/rc4-candidate-2-external-packet.md",
+        "Pilot-Kit/rc4-candidate-3-external-packet.md",
         "src/hcai_readiness/records.py",
         "schemas/pilot-run.schema.json"
       ],
@@ -232,7 +232,7 @@
       ],
       "files": [
         "src/hcai_readiness/contracts.py",
-        "protocol/0.1-rc.4-candidate.2/START-HERE.md"
+        "protocol/0.1-rc.4-candidate.3/START-HERE.md"
       ],
       "acceptance_tests": [
         "test_current_map_is_required_and_connected",
@@ -331,7 +331,7 @@
         "G6_COMMITMENT"
       ],
       "files": [
-        "protocol/0.1-rc.4-candidate.2/SCENARIOS.md",
+        "protocol/0.1-rc.4-candidate.3/SCENARIOS.md",
         "src/hcai_readiness/criteria.json"
       ],
       "acceptance_tests": [
@@ -376,6 +376,134 @@
         "test_first_candidate_is_byte_frozen",
         "test_stopped_run_revision_requires_trace",
         "test_cli_guide_report_and_empty_start"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C19",
+      "observed_problem": "An altered requirement/context could retain a passing old artifact validation.",
+      "source_theme_ids": [],
+      "change": "Bind checks to both artifact and requirement/context fingerprints; targets never stamp a pass.",
+      "requirements": [
+        "G4_TRACEABILITY"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py",
+        "src/hcai_readiness/server.py"
+      ],
+      "acceptance_tests": [
+        "test_changed_requirement_context_invalidates_validation",
+        "test_validation_targets_do_not_stamp_or_verify_evidence"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C20",
+      "observed_problem": "Proposed state descriptions and an empty authority list could pass without a connected executable design.",
+      "source_theme_ids": [],
+      "change": "Require proposed entry/transitions/exits and a nonempty authority inventory.",
+      "requirements": [
+        "G3_STATES_RECOVERY"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_proposed_graph_cannot_pass_disconnected_or_unfinished",
+        "test_empty_authority_inventory_cannot_pass"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C21",
+      "observed_problem": "All-low self-selected labels could bypass deeper review despite consequential context.",
+      "source_theme_ids": [],
+      "change": "Context flags set deterministic minimum tiers; unknown prevents a quick pass.",
+      "requirements": [
+        "G6_COMMITMENT"
+      ],
+      "files": [
+        "schemas/context-risk-floors.json",
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_context_floors_override_self_declared_low_risk",
+        "test_unknown_context_never_means_no_and_retains_known_floor"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C22",
+      "observed_problem": "An owner efficiency case could omit affected non-operators and human-centered concerns.",
+      "source_theme_ids": [],
+      "change": "Add HCAI-1.4 applicability/affected-role/requirement coverage.",
+      "requirements": [
+        "G2_NEED_REQUIREMENTS"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "src/hcai_readiness/criteria.json"
+      ],
+      "acceptance_tests": [
+        "test_affected_people_and_applicability_cannot_be_skipped",
+        "test_human_use_and_control_cannot_be_declared_inapplicable"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C23",
+      "observed_problem": "A structural pass could be mistaken for evidence-quality assurance.",
+      "source_theme_ids": [],
+      "change": "Require recorded human evidence-quality review and explicit machine/human/authenticity claim boundaries.",
+      "requirements": [
+        "G6_COMMITMENT"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py",
+        "src/hcai_readiness/reporting.py"
+      ],
+      "acceptance_tests": [
+        "test_evidence_quality_needs_accountable_review",
+        "test_report_distinguishes_rule_checks_from_assurance"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C24",
+      "observed_problem": "Pilot records could omit skipped gates and routing follow-up.",
+      "source_theme_ids": [],
+      "change": "Reconcile routing status, NOT_EVALUATED gates and all follow-up reasons.",
+      "requirements": [
+        "PILOT_PROVENANCE"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "schemas/pilot-run.schema.json"
+      ],
+      "acceptance_tests": [
+        "test_pilot_preserves_routing_and_unassessed_gates"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C25",
+      "observed_problem": "More polished packaging does not establish impact; upgrades could erase the prior candidate.",
+      "source_theme_ids": [],
+      "change": "Freeze candidate.2; publish a worksheet, deep audit, falsifiable validation roadmap and claim/change-control rules.",
+      "requirements": [
+        "HISTORY_FROZEN",
+        "CLAIM_BOUNDARY"
+      ],
+      "files": [
+        "historical/candidate-2-manifest.json",
+        "docs/deep-audit.md",
+        "docs/claims-and-governance.md",
+        "protocol/0.1-rc.4-candidate.3/WORKSHEET.md"
+      ],
+      "acceptance_tests": [
+        "test_candidate_two_remains_byte_frozen",
+        "test_deep_audit_public_pages_and_references"
       ],
       "validation_status": "software_tests_only"
     }

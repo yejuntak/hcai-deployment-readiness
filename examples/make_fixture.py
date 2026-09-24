@@ -2,6 +2,8 @@
 import hashlib
 from pathlib import Path
 from hcai_readiness.versions import versions
+from hcai_readiness.contracts import Assessment
+from hcai_readiness.engine import validation_targets, IMPACT_DOMAINS
 
 
 def synthetic_case(root: Path):
@@ -13,14 +15,14 @@ def synthetic_case(root: Path):
                          "origin_id": "FICTIONAL-ORIGIN-" + id,
                          "source_type": {"E1": "artifact", "E2": "work_record", "E3": "end_user_discussion"}[id]})
     check = {"status": "pass", "evidence_ids": ["E1"], "note": "Stipulated synthetic review for software tests"}
-    return {
+    data = {
         "run_id": "SYNTHETIC-LOW-001", "recorded_at": "2026-09-24T12:00:00-05:00", "versions": versions(),
         "evaluator_kind": "synthetic", "requested_profile": "QUICK6", "evidence": evidence,
         "scope": {"workflow_name": "Fictional advisor intake", "unit_of_work": "one intake request",
                   "starts_when": "Request received", "ends_when": "Advisor confirms or cancels the request",
                   "environment": "Fictional office; no live sending", "ai_role": "in_workflow",
                   "alternatives_considered": ["Retain current manual intake", "Use a non-AI form with field checks"],
-                  "exclusions": ["No autonomous customer messages"]},
+                  "exclusions": ["No autonomous customer messages"], "affected_roles": ["intake advisor", "requester"]},
         "baseline": {"current_state_summary": "Intake → advisor review → correction or confirmation", "actor_roles": ["intake advisor", "intake lead"],
                      "entry_step_id": "C1", "map_review": dict(check),
                      "steps": [
@@ -34,8 +36,13 @@ def synthetic_case(root: Path):
                      "escalation_minutes_per_case": 1, "rework_minutes_per_case": 1,
                      "volume_per_period": 100, "period": "month", "evidence_ids": ["E2"]},
         "risk": {**{key: "low" for key in ("complexity", "importance", "impact", "mission", "failure_consequence", "irreversibility")},
+                 "context": {"safety_or_rights_impact": False, "irreversible_external_actions": False,
+                             "sensitive_data": False, "untrusted_input_to_actions": False},
                  "rationale": "Constructed reversible, low-consequence intake draft with human approval", "evidence_ids": ["E1"]},
-        "workflow": {"outcome": "Reduce repetitive entry without losing advisor control",
+        "workflow": {"outcome": "Reduce repetitive entry without losing advisor control", "entry_state_id": "S1",
+            "impact_reviews": [{"domain": domain, "applicability": "applicable", "owner_role": "intake lead",
+                                "affected_roles": ["intake advisor", "requester"], "requirement_ids": ["R1"], "evidence_ids": ["E1"],
+                                "rationale": "Stipulated synthetic case: readable editable drafts, equal correction access, local fictional data, advisor control. Not empirical evidence."} for domain in IMPACT_DOMAINS],
             "needs": [{"id": "N1", "description": "Preserve contact details", "end_user_role": "intake advisor",
                        "source_ids": ["E2", "E3"], "discussion_evidence_ids": ["E3"]}],
             "requirements": [{"id": "R1", "description": "Correct or cancel without data loss", "acceptance_criteria": "All three paths preserve the defined fields",
@@ -43,11 +50,13 @@ def synthetic_case(root: Path):
                               "reference_material_ids": ["E1"],
                               "owner_role": "intake lead", "need_ids": ["N1"], "artifact_ids": ["E1"], "validation_ids": ["T1"], "behavior_status": "simulated"}],
             "states": [{"id": f"S{i}", "kind": kind, "trigger": trigger, "behavior": behavior, "resulting_state": state,
-                        "data_handling": "Preserve entered contact details", "owner_role": "intake advisor", "requirement_ids": ["R1"], "evidence_ids": ["E1"]}
+                        "data_handling": "Preserve entered contact details", "owner_role": "intake advisor", "requirement_ids": ["R1"], "evidence_ids": ["E1"],
+                        "next_state_ids": {1:["S2", "S4"], 2:["S3"], 3:["S4"], 4:[]}[i], "terminal": i == 4}
                        for i, (kind, trigger, behavior, state) in enumerate([
                            ("normal", "Draft available", "Review request", "Confirmed"),
                            ("edge", "Contact detail missing", "Flag missing field", "Correction required"),
-                           ("recovery", "Advisor cancels", "Return to saved intake", "Intake")], 1)],
+                           ("recovery", "Advisor corrects or cancels", "Retain corrected or cancelled intake", "Ready to close"),
+                           ("normal", "Advisor confirms outcome", "Close with retained record", "Confirmed or cancelled")], 1)],
             "important_artifact_ids": ["E1"],
             "validations": [{"id": "T1", "requirement_ids": ["R1"], "artifact_ids": ["E1"], "method": "Stipulated three-path walkthrough",
                              "level": "walkthrough", "status": "pass", "evidence_ids": ["E1"], "tested_artifact_digests": {"E1": evidence[0]["sha256"]}}],
@@ -65,8 +74,13 @@ def synthetic_case(root: Path):
              "tool_calls": 1, "model_calls": 0, "input_tokens": 0, "output_tokens": 0, "tool_model_cost": 0,
              "labor_cost_per_hour": 30, "currency": "USD", "evidence_ids": ["E1"]},
         "handoff": {"reference_defect_ids": [], "reviewer_findings": [], "unresolved_risks": [],
+                    "evidence_quality_review": {**check, "reviewer_role": "fictional reviewer", "reviewer_kind": "synthetic"},
                     **{key: dict(check) for key in ("reference_review", "findings_review", "risk_acceptance")},
                     "decision_owner_role": "engineering lead", "commitment_scope": "Build a disposable intake prototype",
                     "resource_limit": "One engineer-day; no live sending", "next_review_trigger": "Review after prototype walkthrough"},
         "operational_performance": {"status": "not_collected"},
     }
+    # Constructed test targets only, not a mechanism for relabeling a real passing check.
+    targets = validation_targets(Assessment.model_validate(data))
+    data['workflow']['validations'][0]['tested_requirement_digests'] = targets['requirement_digests']
+    return data

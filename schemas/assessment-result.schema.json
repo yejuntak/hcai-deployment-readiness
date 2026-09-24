@@ -195,6 +195,11 @@
       },
       "title": "Attention Items",
       "type": "array"
+    },
+    "assurance": {
+      "additionalProperties": true,
+      "title": "Assurance",
+      "type": "object"
     }
   },
   "required": [
@@ -217,7 +222,8 @@
     "provenance",
     "limitations",
     "routing",
-    "attention_items"
+    "attention_items",
+    "assurance"
   ],
   "title": "AssessmentResult",
   "type": "object"

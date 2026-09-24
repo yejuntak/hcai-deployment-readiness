@@ -1,6 +1,6 @@
 """Accessible, offline decision report. Supplied content is always escaped, never executed."""
 import html
-from .engine import assess
+from .engine import assess, requirement_digest
 from .guidance import decision_card
 
 
@@ -15,7 +15,8 @@ def traceability(a):
             checks = [v for v in validations.values() if v.id in requirement.validation_ids and
                       requirement.id in v.requirement_ids and artifact_id in v.artifact_ids]
             pairs.append({"artifact": artifact.model_dump(), "checks": [{**v.model_dump(),
-                          "tested_revision_matches": v.tested_artifact_digests.get(artifact_id) == artifact.sha256} for v in checks]})
+                          "tested_revision_matches": v.tested_artifact_digests.get(artifact_id) == artifact.sha256,
+                          "tested_requirement_matches": v.tested_requirement_digests.get(requirement.id) == requirement_digest(a, requirement)} for v in checks]})
         rows.append({"requirement": requirement.model_dump(), "pairs": pairs})
     return rows
 
@@ -43,14 +44,15 @@ def render_report(a, format="markdown"):
         sections.append(f'<p>{esc(text)}</p>' if format == 'html' else esc(text))
     def table(headers, rows):
         if format == 'html':
-            sections.append('<div class="table-scroll"><table><thead><tr>' + ''.join('<th scope="col">'+esc(h)+'</th>' for h in headers) + '</tr></thead><tbody>' + ''.join('<tr>'+''.join('<td>'+esc(c)+'</td>' for c in row)+'</tr>' for row in rows) + '</tbody></table></div>')
+            sections.append('<div class="table-scroll" tabindex="0" role="region" aria-label="'+esc('Table: '+', '.join(headers))+'"><table><thead><tr>' + ''.join('<th scope="col">'+esc(h)+'</th>' for h in headers) + '</tr></thead><tbody>' + ''.join('<tr>'+''.join('<td>'+esc(c)+'</td>' for c in row)+'</tr>' for row in rows) + '</tbody></table></div>')
         else:
             sections.append('\n'.join(['| '+' | '.join(esc(h) for h in headers)+' |', '| '+' | '.join('---' for _ in headers)+' |', *['| '+' | '.join(esc(c) for c in row)+' |' for row in rows]]))
     heading(card['headline'], 1)
     paragraph(card['record_privacy'])
     paragraph(f"{a.run_id} · {a.scope.workflow_name or 'Workflow not yet named'} · {a.versions.protocol}")
     paragraph(card['boundary'])
-    table(['Decision', 'Profile needed', 'Risk', 'First stop'], [[card['decision'], card['required_profile'], card['risk'], card['stop_at']]])
+    table(['Decision', 'Profile needed', 'Risk', 'First stop'], [[card['decision'], card['required_profile'], card['risk'], card['stop_at'] or 'No gate stop']])
+    paragraph('Machine checks: structure and decision rules only. Human evidence-quality review: '+r['assurance']['human_quality_review']+'. Evidence authenticity is not independently verified; no criterion certification is issued.')
     heading('Do next')
     step = card['next_step']
     paragraph(step['question'])
@@ -59,7 +61,7 @@ def render_report(a, format="markdown"):
         paragraph(f"ATTENTION - {attention['message']} {attention['action']}")
     heading('Six gates - no combined score')
     table(['Gate and criteria', 'Result', 'What is missing or failed'], [[g['title']+' ('+', '.join(g['criteria_ids'])+')', g['status'], '; '.join(g['reasons']) or 'Required checks passed'] for g in card['gates']])
-    paragraph('PASS means the required upstream evidence is present. MISSING means gather evidence. FAIL means repair a known problem. NOT_EVALUATED means no conclusion was drawn.')
+    paragraph('PASS means the structural rules and supplied review judgments satisfy this gate. It does not prove the evidence is true or sufficient in practice. MISSING means gather evidence; FAIL means repair a known problem; NOT_EVALUATED means no conclusion was drawn.')
     heading('Keep these results separate')
     roi, burden = r['roi'], r['evaluator_burden']
     table(['Result', 'Value', 'Interpretation'], [
@@ -75,6 +77,13 @@ def render_report(a, format="markdown"):
     paragraph('Missing values are not zero. Money and time are scenario estimates unless separately observed. Evaluation expense is not workflow operating cost.')
     heading('Current workflow - observed versus reported')
     table(['Step', 'Role and action', 'Next / endpoint', 'Basis'], [[s.id, f'{s.actor_role}: {s.action}', ', '.join(s.next_step_ids) or 'Endpoint', s.observation_status] for s in a.baseline.steps])
+    heading('People and consequences')
+    paragraph('Affected roles: '+', '.join(a.scope.affected_roles or []))
+    table(['Review area', 'Applicability and reason', 'Requirements / owner'], [[i.domain, i.applicability+': '+i.rationale, ', '.join(i.requirement_ids)+' / '+display(i.owner_role)] for i in a.workflow.impact_reviews])
+    for trigger in r['routing']['context_triggers']:
+        paragraph('Risk floor: '+trigger['field']+' requires at least '+trigger['minimum_tier']+' depth.')
+    heading('Proposed workflow - connected paths')
+    table(['State', 'Behavior', 'Next / endpoint'], [[s.id, s.behavior, ', '.join(s.next_state_ids) or ('Endpoint' if s.terminal else 'Unresolved')] for s in a.workflow.states])
     heading('Inspect requirement -> artifact -> check')
     for row in traceability(a):
         req = row['requirement']
@@ -92,7 +101,7 @@ def render_report(a, format="markdown"):
             if not pair['checks']:
                 paragraph('No linked executed check. Repair this chain.')
             for check in pair['checks']:
-                paragraph(f"Check {check['id']}: {check['method']} | {check['level']} | {check['status']} | tested revision matches: {check['tested_revision_matches']}")
+                paragraph(f"Check {check['id']}: {check['method']} | {check['level']} | {check['status']} | tested revision matches: {check['tested_revision_matches']} | requirement/context matches: {check['tested_requirement_matches']}")
         if format == 'html':
             sections.append('</details>')
     heading('Bounded owner decision')

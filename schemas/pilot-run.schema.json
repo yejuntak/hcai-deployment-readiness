@@ -372,6 +372,24 @@
           "default": null,
           "title": "Reviewer Role"
         },
+        "reviewer_kind": {
+          "anyOf": [
+            {
+              "enum": [
+                "human",
+                "ai-assisted-human",
+                "agent",
+                "synthetic"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewer Kind"
+        },
         "independent_from_artifact_owner": {
           "anyOf": [
             {
@@ -386,6 +404,61 @@
         }
       },
       "title": "Check",
+      "type": "object"
+    },
+    "ContextScreen": {
+      "additionalProperties": false,
+      "properties": {
+        "safety_or_rights_impact": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Safety Or Rights Impact"
+        },
+        "irreversible_external_actions": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Irreversible External Actions"
+        },
+        "sensitive_data": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sensitive Data"
+        },
+        "untrusted_input_to_actions": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Untrusted Input To Actions"
+        }
+      },
+      "title": "ContextScreen",
       "type": "object"
     },
     "Costs": {
@@ -916,6 +989,9 @@
     "Handoff": {
       "additionalProperties": false,
       "properties": {
+        "evidence_quality_review": {
+          "$ref": "#/$defs/Check"
+        },
         "reference_defect_ids": {
           "anyOf": [
             {
@@ -1054,6 +1130,78 @@
         }
       },
       "title": "Handoff",
+      "type": "object"
+    },
+    "ImpactReview": {
+      "additionalProperties": false,
+      "properties": {
+        "domain": {
+          "enum": [
+            "access_usability",
+            "privacy_security",
+            "unequal_effects",
+            "human_agency"
+          ],
+          "title": "Domain",
+          "type": "string"
+        },
+        "applicability": {
+          "default": "unknown",
+          "enum": [
+            "applicable",
+            "not_applicable",
+            "unknown"
+          ],
+          "title": "Applicability",
+          "type": "string"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "owner_role": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Owner Role"
+        },
+        "affected_roles": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Affected Roles",
+          "type": "array"
+        },
+        "requirement_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Requirement Ids",
+          "type": "array"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "domain"
+      ],
+      "title": "ImpactReview",
       "type": "object"
     },
     "Need": {
@@ -1360,6 +1508,9 @@
     "Risk": {
       "additionalProperties": false,
       "properties": {
+        "context": {
+          "$ref": "#/$defs/ContextScreen"
+        },
         "complexity": {
           "anyOf": [
             {
@@ -1596,6 +1747,22 @@
           ],
           "default": null,
           "title": "Exclusions"
+        },
+        "affected_roles": {
+          "anyOf": [
+            {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Affected Roles"
         }
       },
       "title": "Scope",
@@ -1658,6 +1825,26 @@
           },
           "title": "Evidence Ids",
           "type": "array"
+        },
+        "next_state_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Next State Ids",
+          "type": "array"
+        },
+        "terminal": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Terminal"
         }
       },
       "required": [
@@ -1821,6 +2008,14 @@
           },
           "title": "Tested Artifact Digests",
           "type": "object"
+        },
+        "tested_requirement_digests": {
+          "additionalProperties": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Tested Requirement Digests",
+          "type": "object"
         }
       },
       "required": [
@@ -1903,6 +2098,26 @@
             "$ref": "#/$defs/State"
           },
           "title": "States",
+          "type": "array"
+        },
+        "entry_state_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entry State Id"
+        },
+        "impact_reviews": {
+          "items": {
+            "$ref": "#/$defs/ImpactReview"
+          },
+          "title": "Impact Reviews",
           "type": "array"
         },
         "important_artifact_ids": {
@@ -2078,6 +2293,30 @@
       "title": "Gates Missing",
       "type": "array"
     },
+    "gates_not_evaluated": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Gates Not Evaluated",
+      "type": "array"
+    },
+    "routing_status": {
+      "enum": [
+        "REVIEW",
+        "USE_FULL"
+      ],
+      "title": "Routing Status",
+      "type": "string"
+    },
+    "follow_up_reasons": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Follow Up Reasons",
+      "type": "array"
+    },
     "evidence_missing": {
       "items": {
         "minLength": 1,
@@ -2166,6 +2405,9 @@
     "gates_passed",
     "gates_failed",
     "gates_missing",
+    "gates_not_evaluated",
+    "routing_status",
+    "follow_up_reasons",
     "evidence_missing",
     "decision_before",
     "decision_after",

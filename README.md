@@ -1,18 +1,20 @@
 # HCAI Engineering-Handoff Profile
 
-Protocol **0.1-rc.4-candidate.2** · MCP **0.2.0rc2** · ai-ready Skill **0.2.0-rc.2** · contract **0.2.0-rc.2**
+Protocol **0.1-rc.4-candidate.3** · MCP **0.2.0rc3** · ai-ready Skill **0.2.0-rc.3** · contract **0.2.0-rc.3**
 
 Decide whether evidence supports a bounded commitment of engineering resources. Begin with the current workflow, end-user need and risk. This candidate does not determine deployment readiness or infer operational performance from documentation.
 
 ## Start here
 
-[One-page introduction](protocol/0.1-rc.4-candidate.2/START-HERE.md) · [Scenarios](protocol/0.1-rc.4-candidate.2/SCENARIOS.md) · [14 review criteria](protocol/0.1-rc.4-candidate.2/CRITERIA.md) · [Public update log](https://www.takyejun.com/research/ai-readiness/updates)
+[Starting guide](protocol/0.1-rc.4-candidate.3/START-HERE.md) · [Worksheet](protocol/0.1-rc.4-candidate.3/WORKSHEET.md) · [Scenarios](protocol/0.1-rc.4-candidate.3/SCENARIOS.md) · [15 review criteria](protocol/0.1-rc.4-candidate.3/CRITERIA.md) · [Public update log](https://www.takyejun.com/research/ai-readiness/updates)
+
+Candidate.3 closes reproduced false positives and explicitly separates machine checks from human evidence quality. Read the [deep audit and validation roadmap](docs/deep-audit.md) and [claims/governance rules](docs/claims-and-governance.md). Potential benefit is a hypothesis, not demonstrated impact or certification.
 
 The human-review problem: distinguish what looks finished from what has been demonstrated. Four principles organize inspectable criteria; they are not a W3C standard or certification. The related fidelity study and this practical guide have distinct claims; see [research boundaries](docs/research-boundary.md).
 
-- [QUICK-6 advisor profile](protocol/0.1-rc.4-candidate.2/QUICK-6.md): six mandatory gates, a proposed <=15-minute low-risk path, and a visible stop.
-- [External pilot packet](Pilot-Kit/rc4-candidate-2-external-packet.md): short, voluntary bounded-use instructions.
-- [Complete protocol](protocol/0.1-rc.4-candidate.2/PROTOCOL.md) and [full risk-tiered profile](protocol/0.1-rc.4-candidate.2/FULL-PROFILE.md).
+- [QUICK-6 advisor profile](protocol/0.1-rc.4-candidate.3/QUICK-6.md): six mandatory gates, a proposed <=15-minute low-risk path, and a visible stop.
+- [External pilot packet](Pilot-Kit/rc4-candidate-3-external-packet.md): short, voluntary bounded-use instructions.
+- [Complete protocol](protocol/0.1-rc.4-candidate.3/PROTOCOL.md) and [full risk-tiered profile](protocol/0.1-rc.4-candidate.3/FULL-PROFILE.md).
 - [Install MCP/Skill and run a local assessment](docs/agent-tools.md).
 - [Contracts](schemas/README.md), [change manifest](evidence/change-manifest.json), [public feedback ledger](evidence/feedback-ledger.public.json), [migration](docs/migration-rc3-to-rc4.md).
 

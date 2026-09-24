@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 from pydantic import ValidationError
 from hcai_readiness.contracts import Assessment, StudyReview, PilotRun
-from hcai_readiness.engine import assess
+from hcai_readiness.engine import assess, validation_targets
 from hcai_readiness.guidance import new_review, guided_review, criteria_catalog, criterion_guide
 from hcai_readiness.reporting import render_report
 from hcai_readiness.server import review_next_step, validate_study_review
@@ -59,6 +59,8 @@ def test_simulated_behavior_is_not_implemented_test():
     d['workflow']['validations'][0]['level'] = 'implemented_test'
     assert result(d)['decision'] == 'REVISE'
     d['workflow']['requirements'][0]['behavior_status'] = 'implemented'
+    # Stipulate a NEW synthetic execution against the changed requirement, not an old pass.
+    d['workflow']['validations'][0]['tested_requirement_digests'] = validation_targets(Assessment.model_validate(d))['requirement_digests']
     assert result(d)['decision'] == 'PROCEED_TO_ENGINEERING'
     assert result(d)['operational_performance']['deployment_decision'] == 'NOT_ASSESSED'
 
@@ -152,9 +154,9 @@ def test_invalid_draft_does_not_echo_private_values():
 
 def test_criteria_have_stable_ids_examples_and_gate_mapping():
     catalog = criteria_catalog()
-    assert len(catalog['principles']) == 4 and len(catalog['criteria']) == 14
+    assert len(catalog['principles']) == 4 and len(catalog['criteria']) == 15
     ids = [c['id'] for c in catalog['criteria']]
-    assert len(set(ids)) == 14
+    assert len(set(ids)) == 15
     gates = {g['id'] for g in result(case())['gates']}
     for c in catalog['criteria']:
         assert c['gate'] in gates

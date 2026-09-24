@@ -2,7 +2,7 @@
 import json
 from importlib.resources import files
 from .contracts import Assessment
-from .engine import assess, RISK_FIELDS
+from .engine import assess, RISK_FIELDS, CONTEXT_FLOORS
 from .versions import versions
 
 GUIDES = {
@@ -15,7 +15,7 @@ GUIDES = {
     "G2_NEED_REQUIREMENTS": {
         "title": "Name the need and success condition", "question": "Whose difficulty are we solving, and what observable result would satisfy them?",
         "owner": "product/workflow owner", "fields": ["scope", "workflow.outcome", "workflow.needs", "workflow.requirements"],
-        "action": "Connect a real work record or end-user discussion to an owned requirement with a checkable acceptance condition. Compare a manual/non-AI option.",
+        "action": "Connect real work/discussion to an owned success condition. Include affected non-users; screen access, privacy/security, unequal effects and human control. Compare a non-AI option.",
         "example": "Illustration only: after cancellation, the advisor can reopen all previously entered contact fields.",
         "do_not": "Do not count two copies of one source, general industry articles, or feedback about this protocol as independent customer need evidence."},
     "G3_STATES_RECOVERY": {
@@ -27,7 +27,7 @@ GUIDES = {
     "G4_TRACEABILITY": {
         "title": "Inspect why each artifact belongs", "question": "Show the requirement, the exact artifact revision and the check that tested it together.",
         "owner": "requirement owner and reviewer", "fields": ["workflow.important_artifact_ids", "workflow.requirements", "workflow.validations", "evidence"],
-        "action": "Repair each requirement -> artifact -> executed-check link. Compare tested artifact digests; repeat checks after changed artifacts.",
+        "action": "Repair each requirement -> artifact -> executed-check link. Compare artifact AND requirement/context fingerprints; repeat affected checks after changes, never just replace the hash.",
         "example": "Illustration only: requirement R1 -> saved-intake screen revision 2 -> recorded cancellation walkthrough of that exact file.",
         "do_not": "Do not count a planned test, an old artifact revision, or visual fidelity as a passing check."},
     "G5_OVERSIGHT": {
@@ -75,6 +75,7 @@ def next_step(a, result=None):
                 "action": "Name one bounded workflow. Do not start with the proposed technology."}
     if r["routing"]["status"] == "USE_FULL":
         unknown = ["risk." + k for k in RISK_FIELDS if getattr(a.risk, k) is None]
+        unknown += ['risk.context.'+k for k in CONTEXT_FLOORS if getattr(a.risk.context,k) is None]
         return {"stage": "PROFILE_ROUTING", "question": "Who will help classify the missing risk information and lead the full review?" if unknown else "Who will lead the full review for this workflow?",
                 "owner": "workflow owner and qualified reviewer", "fields": unknown or ["requested_profile"],
                 "action": r["routing"]["reason"] + " Preserve this record; create a new FULL run linked through previous_run_id and revision_summary."}
@@ -92,7 +93,7 @@ def decision_card(a, result=None):
     return {"headline": LABELS[r["decision"]], "decision": r["decision"], "run_id": a.run_id,
             "versions": versions(), "workflow": a.scope.workflow_name, "unit_of_work": a.scope.unit_of_work,
             "risk": r["risk_tier"], "required_profile": r["required_profile"], "routing": r["routing"],
-            "stop_at": r["stop_at_gate"], "next_step": next_step(a, r), "attention_items": r["attention_items"],
+            "stop_at": r["stop_at_gate"], "next_step": next_step(a, r), "attention_items": r["attention_items"], "assurance": r['assurance'],
             "gates": [{**g, "title": GUIDES[g["id"]]["title"],
                        "criteria_ids": [c["id"] for c in criteria_catalog()["criteria"] if c["gate"] == g["id"]]} for g in r["gates"]],
             "operating_benefit": r["roi"], "protocol_evaluation_burden": r["evaluator_burden"],

@@ -5,7 +5,7 @@ description: Guide a human through evidence for a bounded engineering commitment
 
 # Help a person make the next engineering decision
 
-Protocol 0.1-rc.4-candidate.2 · Skill/contract 0.2.0-rc.2 · MCP 0.2.0rc2.
+Protocol 0.1-rc.4-candidate.3 · Skill/contract 0.2.0-rc.3 · MCP 0.2.0rc3.
 
 This is a candidate method, not an empirically validated standard. Keep the conversation simple; the supporting references contain the detail.
 
@@ -22,6 +22,8 @@ An advisor may record the answers. Accept ordinary language, accessible formats,
 Bound the scope and identify the accountable owner. Record whether AI created the artifact, acts during operation, both, or neither. Do not assume runtime AI simply because an agent wrote code.
 
 Classify complexity, importance, impact, mission, failure consequence, and irreversibility with rationale. Use the anchors in [FULL](references/FULL-PROFILE.md). Highest dimension sets depth; unknown prevents QUICK6. Never lower risk to fit the short path.
+
+Also ask the four consequential-context questions: safety/rights effects, irreversible external actions, sensitive data, and untrusted input influencing actions. Apply the deterministic minimum tiers; do not infer “no” from silence. Include affected non-operators, access/use, privacy/security, unequal effects and human agency within the need question. Link applicable concerns to requirements; justify permitted inapplicability, never waive a gate.
 
 [QUICK-6](references/QUICK-6.md) is low-risk and assumes evidence is available. Its <=15-minute target is untested. Count capture/explanation inside session time and preparation separately. Moderate/high/unknown risk uses FULL.
 
@@ -41,7 +43,9 @@ Retain observations, source origins, versions, locators, and digests. Hash acces
 
 Map connected current steps, actors, failures, recovery, and observed versus reported practice. A summary and guessed savings are not a baseline. Count actual work/discussion origins, not multiple copies of a source or general industry citations.
 
-Inspect requirement -> exact artifact -> executed validation. Label specified-only, simulated, or implemented behavior. A test of an old revision is not a test of the current artifact. Review human/agent authority and failure recovery; a polished normal path is insufficient.
+Inspect requirement -> exact artifact -> executed validation. Label specified-only, simulated, or implemented behavior. Record connected proposed transitions and endpoints, not only a list of states. Require an explicit authority boundary even for draft-only/manual work.
+
+Bind checks to both artifact and requirement/context fingerprints. MCP get_validation_targets or CLI --validation-targets computes targets; it does not run a test or grant a pass. After a requirement/context/artifact change, ask for a new affected check and retain its evidence. Never quietly refresh a fingerprint to make a stale pass valid.
 
 Never fabricate timings, participant statements, independent reviews, cost data, permission, observations, or an end-user need. Unknown stays null; explicit zero needs a basis. Synthetic records remain clearly synthetic.
 
@@ -50,6 +54,8 @@ Never fabricate timings, participant statements, independent reviews, cost data,
 Use the shared deterministic engine: MCP assess_engineering_commitment, or Python 3.11+ scripts/assess.py with scripts/requirements.txt. The CLI accepts --format markdown or --format html for a readable report. Without the runtime, prepare evidence and state that the deterministic assessment is pending. Do not replace gates with prompt judgment or a weighted score.
 
 Present: plain-language recommendation, reason, one next action/owner, gate status, and the bounded scope. Offer expandable detail or the private report; show raw JSON only on request or for handoff.
+
+Explain the assurance boundary: machine checks are partial structural/rule checks. A recorded human evidence-quality review must examine relevance, authenticity, coverage and test adequacy. If absent, stop; never assign yourself a human role or invent their review. Even a supplied human pass is not independently authenticated by the engine. See [claims and governance](references/claims-and-governance.md) when interpreting or sharing results.
 
 Keep protocol evaluation effort, operational oversight, projected net operating benefit, and actual system performance separate. Subtract checking/correction/escalation/rework; missing baseline makes ROI indeterminate. Do not infer a cash value for saved time without a stated labor rate and assumptions.
 
@@ -65,4 +71,4 @@ All working reports are private by default. A public link needs explicit permiss
 
 Use the pilot-run schema for bounded actual external use and usability observations. Invitations, correspondence, and synthetic tests are not adoption or empirical validation. This Skill does not authorize contacting people, sending messages, publishing records, or deploying anything.
 
-Keep exact versions in every record. rc.3 and candidate.1 are historical, not silently migrated. Research Harness v3 is a separate project. Original text CC BY 4.0; engine MIT; see references/LICENSE.
+Keep exact versions in every record. rc.3, candidate.1 and candidate.2 are historical, not silently migrated. Record pilot routing, unassessed gates and follow-up reasons; a stopped pilot is not an empty success. Research Harness v3 is a separate project. Original text CC BY 4.0; engine MIT; see references/LICENSE.

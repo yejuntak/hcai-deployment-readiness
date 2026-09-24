@@ -1,7 +1,7 @@
 # Review AI-built workflows before engineering
 
 Human-Centered AI Deployment Readiness Protocol — Engineering-Handoff Profile  
-Protocol 0.1-rc.4-candidate.2 · MCP 0.2.0rc2 · Skill 0.2.0-rc.2
+Protocol 0.1-rc.4-candidate.3 · MCP 0.2.0rc3 · Skill 0.2.0-rc.3
 
 ## What this helps you decide
 
@@ -18,7 +18,8 @@ The historical title contains “Deployment Readiness.” This profile **does no
 - New here? Read [Start here](START-HERE.md).
 - Reviewing a low-risk workflow with records already available? Use [QUICK-6](QUICK-6.md).
 - Need an example? Read the [scenarios](SCENARIOS.md).
-- Need to inspect a particular rule? Use the [14 review criteria](CRITERIA.md).
+- Need to inspect a particular rule? Use the [15 review criteria](CRITERIA.md).
+- Want a simple recording aid? Use the [conversation worksheet](WORKSHEET.md).
 - Higher risk, missing evidence, or a longer review? Use the [full profile](FULL-PROFILE.md).
 
 An advisor can ask the questions aloud and record answers. Participants do not need to edit JSON, install a tool, or understand an evaluation framework. “We do not know yet” is a useful answer: it identifies the next piece of work.
@@ -52,12 +53,20 @@ The structure borrows the idea of principles, testable criteria, and practical t
 
 | Principle | Review focus | Criteria |
 | --- | --- | --- |
-| Understand the work before judging the solution | Scope, current workflow, actual need | HCAI-1.1–1.3 |
+| Understand the work before judging the solution | Scope, current workflow, actual need, affected people | HCAI-1.1–1.4 |
 | Make intended behavior and evidence inspectable | Form/fit/function, exact tested revision, simulated versus implemented behavior | HCAI-2.1–2.3 |
 | Keep people able to understand and recover | Failure paths, human control, remaining work | HCAI-3.1–3.3 |
 | Make the commitment accountable | Risk depth, findings, ownership, separate measurements, provenance | HCAI-4.1–4.5 |
 
 Each criterion has a requirement, a way to check it, and pass/failure examples. Deterministic checks enforce structure and boundaries; a human must still judge evidence quality. A correctly linked file can still contain a bad test.
+
+**What a pass actually establishes:** the supplied record satisfies deterministic rules and includes the required human judgments. It does not independently establish truth, completeness, adequate testing, or compliance with each criterion's intent. A human evidence-quality reviewer must inspect those questions and retain the review basis. Agent-only review is insufficient. These limitations appear in the machine result and readable report, not just the fine print.
+
+### People who use the workflow—and people affected by it
+
+Name affected roles beyond the purchaser or operator. Within question 2, screen access/usability, privacy/security, unequal effects, and human agency. Connect applicable concerns to requirements and validation. For example: can a requester correct a generated record, use an alternative channel, understand an error, and reach a person with authority to help?
+
+Unknown is not “not applicable.” A not-applicable item needs an owner, reason and evidence; human use and control cannot be excluded. This screen routes review, not a fairness, privacy, security or accessibility certification. Bring in relevant specialists when the effects exceed the team's competence.
 
 ## Evidence must describe the work, not just the proposal
 
@@ -67,9 +76,13 @@ Need evidence must come from actual work records or end-user discussions, with d
 
 Traceability means **requirement → artifact revision → test/validation**. Describe form (what is shown), fit (how it connects to the surrounding workflow), and function (what it does). A visual demonstration can support design intent; it cannot establish implementation behavior. A code change after testing requires fresh evidence for affected requirements.
 
+The validation also records a requirement/context fingerprint: acceptance criteria, scope, linked states, reference revisions, dependencies and action boundaries. Changing the requirement while keeping the same code does not preserve the old pass. Reperform affected checks; never just replace an old hash. Both current and proposed state maps must have connected paths and a reachable endpoint. Graph checks establish possible paths, not that a real system always terminates or recovers.
+
 ## Risk changes the required evidence
 
 Classify impact, importance, complexity, failure consequence, irreversibility, and mission criticality before choosing the path. The highest known dimension sets the minimum depth. An unknown dimension prevents a low-risk shortcut.
+
+Four context answers set additional minimums: safety/rights impact or irreversible external action → **high**; sensitive data or untrusted input capable of triggering actions → **at least moderate**. Any unknown answer prevents QUICK-6. The highest dimension or context minimum wins. These conservative author-defined routing rules are not a validated risk taxonomy; see the full profile for definitions.
 
 | Minimum evidence | Low | Moderate | High |
 | --- | --- | --- | --- |
@@ -103,6 +116,8 @@ Practitioner correspondence informed refinement; it is not controlled empirical 
 
 Records are private by default. Publish only separately permission-checked material. Hillel Glazer approved attribution; other correspondence is represented by anonymized themes unless explicit permission is documented. Do not upload confidential artifacts simply to complete a field.
 
-rc.3 and the first rc.4 candidate remain frozen. This is a new candidate, not final rc.4. Promotion requires passing regression checks and recorded bounded external end-user/advisor use. Research Harness v3 is a separate project, not this protocol's version.
+rc.3, candidate.1 and candidate.2 remain frozen. This is a new candidate, not final rc.4. Promotion requires passing regression checks and recorded bounded external end-user/advisor use. That is a release prerequisite, not proof of effectiveness. Research Harness v3 is a separate project, not this protocol's version.
+
+The proposed contribution is narrower than “a standard for all AI”: a repeatable, inspectable transition from a persuasive artifact to a bounded engineering decision. Whether it improves decisions is still a testable hypothesis. Read the [deep audit and validation roadmap](../../docs/deep-audit.md) and [claims and governance rules](../../docs/claims-and-governance.md).
 
 See the [linked update log](https://www.takyejun.com/research/ai-readiness/updates) and [migration notes](../../docs/migration-rc3-to-rc4.md).

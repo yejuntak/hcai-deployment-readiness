@@ -1,6 +1,6 @@
 # Candidate MCP and ai-ready Skill
 
-Protocol 0.1-rc.4-candidate.2; MCP 0.2.0rc2; Skill/contract 0.2.0-rc.2. The historical DOI and tags identify earlier releases only.
+Protocol 0.1-rc.4-candidate.3; MCP 0.2.0rc3; Skill/contract 0.2.0-rc.3. The historical DOI and tags identify earlier releases only.
 
 ## Install the MCP server
 
@@ -57,6 +57,10 @@ python skills/ai-ready/scripts/assess.py examples/rc4/low-risk-quick.json --form
 
 Replace the example ID/time with actual metadata. Commands print to stdout and do not save records automatically. The HTML report is private by default, not a public export. It never loads artifact URLs or executes their content.
 
-hcai://criteria exposes the four principles and fourteen candidate criteria. validate_study_review is separate: it validates a locked reviewer-side record without keys, effect calculations or an engineering recommendation. A confidence field is not a validated scale.
+hcai://criteria exposes four principles and fifteen candidate criteria. validate_study_review is separate: it validates a locked reviewer-side record without keys, effect calculations or an engineering recommendation. A confidence field is not a validated scale.
+
+get_validation_targets (or CLI --validation-targets) returns current artifact and requirement/context fingerprints for a new check. It does not execute a test, modify a record or verify evidence. Never use it to relabel a stale result; repeat the affected validation first. There are thirteen read-only MCP tools, including legacy diagnostics.
+
+Candidate.3 requires connected proposed transitions, affected-person impact screening, context risk flags, explicit authority boundaries and recorded human evidence-quality review. The result's assurance object distinguishes structural checks, supplied review and unverified authenticity. Guided output remains one question at a time. See [migration](migration-rc3-to-rc4.md) before using old records.
 
 Preserve a stopped QUICK6 record before continuing in FULL with previous_run_id and revision_summary. Preparation time and capture/reporting are explicit, source origins must be distinct, tests must identify the artifact revision tested, and simulated behavior stays labeled.

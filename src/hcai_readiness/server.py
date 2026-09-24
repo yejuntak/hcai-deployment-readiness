@@ -6,13 +6,13 @@ from mcp.server.fastmcp import FastMCP
 from mcp.types import ToolAnnotations
 from .assessment import Session, Judgment, calculate_session, summarize_judgments
 from .contracts import Assessment, PilotRun, FeedbackEntry, StudyReview
-from .engine import assess, DEPTH
+from .engine import assess, DEPTH, CONTEXT_FLOORS, validation_targets
 from .versions import versions
 from .records import public_feedback, release_readiness
 from .guidance import GUIDES, new_review, guided_review, criterion_guide, criteria_catalog
 from .reporting import render_report
 
-mcp = FastMCP("HCAI Engineering Commitment", instructions="Protocol 0.1-rc.4-candidate.2. Begin a small review with new_review_record, guide one question at a time with review_next_step, then render an assessment_report. No evidence is invented. Deterministic upstream gates; no deployment authorization. Preserve exact versions and human/agent provenance. Legacy tools reproduce rc.3 only. The historical DOI does not identify this candidate.")
+mcp = FastMCP("HCAI Engineering Commitment", instructions="Protocol 0.1-rc.4-candidate.3. Begin a small review with new_review_record, guide one question at a time with review_next_step, then render an assessment_report. No evidence is invented. Deterministic upstream gates; no deployment authorization. Preserve exact versions and human/agent provenance. Legacy tools reproduce rc.3 only. The historical DOI does not identify this candidate.")
 READ_ONLY = ToolAnnotations(readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
 
 @mcp.tool(annotations=READ_ONLY)
@@ -28,7 +28,7 @@ def summarize_legacy_batch(records: list[Judgment]) -> dict:
 @mcp.tool(annotations=READ_ONLY)
 def assessment_template() -> dict:
     """Candidate schema, exact versions and deterministic risk depth. No seeded answers."""
-    return {"versions": versions(), "schema": Assessment.model_json_schema(), "risk_depth": DEPTH,
+    return {"versions": versions(), "schema": Assessment.model_json_schema(), "risk_depth": DEPTH, "context_risk_floors": CONTEXT_FLOORS,
             "checklist": ["Observe the baseline", "Define end-user requirements", "Define states, recovery and ownership",
                           "Link requirements, artifacts and executed validations", "Estimate operational oversight",
                           "Apply risk depth and record bounded engineering recommendation"]}
@@ -37,6 +37,11 @@ def assessment_template() -> dict:
 def assess_engineering_commitment(assessment: Assessment) -> dict:
     """Run all mandatory gates; QUICK6 visibly stops at its first unmet gate. Never returns deployment ready."""
     return assess(assessment)
+
+@mcp.tool(annotations=READ_ONLY)
+def get_validation_targets(assessment: Assessment) -> dict:
+    """Return current requirement/context and artifact fingerprints for a NEW check. Does not test, authenticate, modify, or stamp a validation; never use it to relabel stale results."""
+    return validation_targets(assessment)
 
 @mcp.tool(annotations=READ_ONLY)
 def new_review_record(run_id: str, recorded_at: str, evaluator_kind: Literal["human", "ai-assisted-human", "agent", "synthetic"], requested_profile: Literal["QUICK6", "FULL"] = "QUICK6") -> dict:
@@ -92,7 +97,7 @@ def protocol() -> str:
 
 @mcp.resource("hcai://criteria")
 def criteria() -> dict:
-    """Four principles and fourteen stable candidate criteria. No A/AA/AAA levels or certification claim."""
+    """Four principles and stable candidate criteria. No A/AA/AAA levels or certification claim."""
     return criteria_catalog()
 
 @mcp.prompt()

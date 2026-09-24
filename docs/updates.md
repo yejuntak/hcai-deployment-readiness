@@ -1,8 +1,30 @@
 # Protocol update log
 
-Last updated: September 24, 2026. Current: **0.1-rc.4-candidate.2**. MCP 0.2.0rc2; ai-ready Skill/contract 0.2.0-rc.2.
+Last updated: September 24, 2026. Current: **0.1-rc.4-candidate.3**. MCP 0.2.0rc3; ai-ready Skill/contract 0.2.0-rc.3.
 
 This is a public record of changes, not a validation claim. Earlier versions remain available. No completed external pilot, adoption, endorsement, or performance improvement is claimed.
+
+## September 24, 2026 — candidate.3: challenge the pass, not only improve the presentation
+
+A deeper audit compared the candidate with the structure and evidence boundaries of WCAG, NIST AI RMF, human-AI interaction guidelines and the SSDF AI profile. It also reproduced three false positives in candidate.2: an altered acceptance criterion, an unrelated proposed-state destination, and an empty action-boundary inventory could each preserve PROCEED_TO_ENGINEERING.
+
+### Why rc.4 changed
+
+The practitioner themes remain requirements-first evaluation, traceability (Hillel Glazer, attribution approved), measured current work, realistic review burden and actual end-user use. This revision deepens those themes through reproducible software findings; it does **not** claim new practitioner approval or external validation.
+
+- Validation now binds both artifact and requirement/context revisions. Retesting is required; a newly computed hash is not a new test.
+- Proposed workflows need connected transitions and reachable exits. Authority limits cannot be an empty list.
+- Four context questions set minimum risk depth. Self-labeling a consequential workflow “low risk” cannot bypass those floors.
+- New HCAI-1.4 covers affected people, access/use, privacy/security, unequal effects and human agency. Applicable concerns require linked requirements; exceptions need justification.
+- A recorded human quality review is required. Every result distinguishes structural checks, supplied human judgment, unverified authenticity and separate owner authorization.
+- Pilot records preserve routing and skipped gates. A simple worksheet supports the conversation without exposing the whole schema.
+- A public audit, validation roadmap and claims/change-control rules explain what would justify stronger future claims.
+
+There are now four principles and fifteen criteria. Existing IDs are retained; C19–C25 in the manifest map the audit changes to acceptance tests. rc.3 and both earlier candidates stay frozen. This remains a candidate with no recorded external pilot.
+
+Read the [deep audit](/static/research/ai-readiness/rc4-candidate-3/deep-audit.html), [claims and governance](/static/research/ai-readiness/rc4-candidate-3/claims-and-governance.html), [worksheet](/static/research/ai-readiness/rc4-candidate-3/WORKSHEET.html), [current test record](/static/research/ai-readiness/rc4-candidate-3/rc4-test-results.json), [change-to-test manifest](/static/research/ai-readiness/rc4-candidate-3/change-manifest.json), and [release status](/static/research/ai-readiness/rc4-candidate-3/rc4-release-readiness.json).
+
+[Preserved candidate.2 package](/static/research/ai-readiness/rc4-candidate-2/HCAI-v0.1-rc.4-candidate.2.zip).
 
 ## September 24, 2026 — candidate.2: make the review usable and inspectable
 
@@ -46,6 +68,6 @@ Introduced the current-state gate, six mandatory gates, risk-tier depth, separat
 
 ## Historical rc.3
 
-Original protocol and earlier tools remain frozen. The [historical DOI](https://doi.org/10.5281/zenodo.22667623) identifies rc.3, not either rc.4 candidate. Research Harness v3 is a separate project.
+Original protocol and earlier tools remain frozen. The [historical DOI](https://doi.org/10.5281/zenodo.22667623) identifies rc.3, not any rc.4 candidate. Research Harness v3 is a separate project.
 
 [Return to the review guide](/research/ai-readiness).
