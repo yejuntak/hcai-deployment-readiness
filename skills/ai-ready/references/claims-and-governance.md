@@ -1,16 +1,16 @@
-# Claims, interpretation and change control
+# Reporting results and managing changes
 
-Protocol 0.1-rc.4-candidate.3 · Candidate rules, not certification
+Protocol 0.1-rc.4-candidate.4 · Candidate rules, not certification
 
-## What is normative within this candidate?
+## Which requirements govern the review?
 
 The full profile's required fields, gate rules, risk/context floors, decision boundaries and version contract define the candidate procedure. The criteria describe the intended human review obligations. Quick guidance, examples, scenarios and test fixtures explain the procedure; an example is not a mandatory solution or a substitute for evidence.
 
-The engine enforces only the encoded structural and decision rules. It is not the authority on whether evidence satisfies the full human meaning of a criterion. If code, schema and normative text disagree, record a defect, preserve the disputed run and do not issue a favorable recommendation based on the disagreement. Resolve it in a new version with a regression fixture.
+The engine enforces the encoded structural and decision rules. A human reviewer must judge whether the evidence meets each criterion's intent. If code, schema and normative text disagree, record a defect, preserve the disputed run and do not issue a favorable recommendation based on the disagreement. Resolve it in a new version with a regression fixture.
 
 Every profile retains the six mandatory gates. QUICK-6 changes how a low-risk review is conducted; it is not a weaker certification level. No gate can be marked not applicable. Inapplicability is available only for the explicitly scoped impact-screen items, with evidence, owner and rationale. Domain profiles may add requirements; they may not waive mandatory gates or use the base version identity for changed logic.
 
-## Say precisely what was established
+## Match the claim to the evidence
 
 | Evidence available | Permitted description | Unsupported shortcut |
 | --- | --- | --- |
@@ -29,12 +29,12 @@ Use the [public issue tracker](https://github.com/yejuntak/hcai-deployment-readi
 
 The maintainer records the report, whether it reproduces, proposed disposition, affected requirements and tests, and the change manifest entry. Preserve disagreement rather than silently changing the old record. Public credit requires permission; reporting a problem does not imply endorsement or authorship of a fix.
 
-The current project is author-maintained. No independent standards body, multi-stakeholder consensus, external audit board or formal accreditation is claimed. Establishing broader governance would require actual participants, decision rules and a transparent record—not invented committee names.
+The author currently maintains the project. It has no independent standards body, multi-stakeholder consensus, external audit board or formal accreditation. Broader governance would require participating members, agreed decision rules and a public record of their work.
 
 ## Version and release policy
 
 - Published artifacts and their hashes are immutable. Correct them by publishing a new candidate with migration notes and linked history.
-- A changed required field or decision boundary requires a coordinated protocol, contract, MCP and Skill version advance. Existing runs remain old-version evidence; migration cannot create new passes or observed facts.
+- A changed required field or decision boundary requires a coordinated protocol, contract, MCP and Skill version advance. An editorial release may also advance these identities to identify the exact distribution, without changing the rules. Existing runs remain old-version evidence; migration cannot create new passes or observed facts.
 - Stable criterion IDs remain attached to their meaning. Explain refinements; use a new ID when the obligation is materially new. Removed obligations would be deprecated explicitly rather than silently reassigned.
 - Changes need regression tests, implementation parity, link/package checks, permission review and readable documentation. A new candidate is allowed while actual-use evidence is missing; final rc.4 is not.
 - Current passing regressions and at least one genuine, version-matched bounded external use with feedback make a release eligible for author review, not automatic promotion. The author still evaluates unresolved issues and the adequacy of evidence. One pilot does not validate effectiveness or establish a standard.

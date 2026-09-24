@@ -31,7 +31,7 @@ async def roundtrip():
             resources=await client.list_resources()
             assert any(str(r.uri)=="hcai://protocol" for r in resources.resources)
             resource=await client.read_resource("hcai://protocol")
-            assert "0.1-rc.4-candidate.3" in resource.contents[0].text
+            assert "0.1-rc.4-candidate.4" in resource.contents[0].text
             for path in (Path(__file__).resolve().parents[1]/"examples/rc4").glob("*.json"):
                 data=json.loads(path.read_text())
                 if path.stem=="pilot-synthetic":

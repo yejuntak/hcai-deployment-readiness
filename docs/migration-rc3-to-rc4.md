@@ -1,5 +1,15 @@
 # Migrating rc.3 records and tools to rc.4-candidate
 
+## Current editorial release: candidate.4
+
+Protocol 0.1-rc.4-candidate.4, MCP 0.2.0rc4 and Skill/contract 0.2.0-rc.4 revise the writing from candidate.3. Gates, required fields, risk thresholds and calculations are unchanged. The coordinated identity advance records the exact distribution used; it does not imply a new validated method.
+
+For a new review, use the candidate.4 documents and tools together. Retain existing runs with their original versions. If continuing an earlier review, create a new run linked through previous_run_id and explain the revision. Reuse unchanged evidence only when it still describes the reviewed scope and revisions; do not invent a fresh observation or silently relabel an old pass.
+
+Candidate.3 documents and downloads are recorded in historical/candidate-3-manifest.json, with published web assets in historical/candidate-3-site-manifest.json. New downloads use /static/research/ai-readiness/rc4-candidate-4/. The historical migration notes below retain their original version references.
+
+## Historical migration notes
+
 The historical baseline is identified in historical/baseline-manifest.json. It contains all 71 files from commit 24ad1e1 plus the original rc.3 release archive and PDF. Existing tags agent-tools-v0.1.0 and skill-v0.1.1 remain unchanged. No rc.3 Git tag existed when inspected; its DOI/archive and hashes supply its provenance. Do not invent a past tag or overwrite a published asset.
 
 Keep root Protocol-v0.1.pdf, Evaluation-Template.xlsx, Source/Protocol-v0.1.md, legacy CSV templates and Worked-Example records as historical rc.3 materials. They have not been upgraded into candidate worksheets. Candidate documents live under protocol/0.1-rc.4-candidate.3; candidate contracts under schemas; candidate examples under examples/rc4. The historic DOI is not a DOI for the new protocol or software.

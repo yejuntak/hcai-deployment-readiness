@@ -1,8 +1,20 @@
 # Protocol update log
 
-Last updated: September 24, 2026. Current: **0.1-rc.4-candidate.3**. MCP 0.2.0rc3; ai-ready Skill/contract 0.2.0-rc.3.
+Last updated: September 24, 2026. Current: **0.1-rc.4-candidate.4**. MCP 0.2.0rc4; ai-ready Skill/contract 0.2.0-rc.4.
 
 This is a public record of changes, not a validation claim. Earlier versions remain available. No completed external pilot, adoption, endorsement, or performance improvement is claimed.
+
+## September 24, 2026: candidate.4 editorial revision
+
+The current documents and public page have been edited using Academic Humanize v2.0.0. The revision replaces repeated slogans and contrast formulas with direct explanations, clarifies the cost paragraph against the existing formulas, and aligns the MCP questions, reports and Skill instructions with the revised guides.
+
+### Why rc.4 changed
+
+This revision responds to the author's request for more natural, readable prose. It adds no practitioner feedback and changes no gate, risk threshold, required evidence or calculation. Citations, reported values, permission restrictions and research limitations remain. The release is still a candidate with no recorded external pilot.
+
+Candidate.3 has been preserved alongside rc.3 and the earlier candidates. C26 in the change manifest records the editorial scope and integrity tests. The exact protocol and tool identities advance together so a run can identify which text and software package it used; old runs must not be relabeled.
+
+Read the [editorial review](/static/research/ai-readiness/rc4-candidate-4/editorial-review.html), [current test record](/static/research/ai-readiness/rc4-candidate-4/rc4-test-results.json) and [release status](/static/research/ai-readiness/rc4-candidate-4/rc4-release-readiness.json). The [candidate.3 package](/static/research/ai-readiness/rc4-candidate-3/HCAI-v0.1-rc.4-candidate.3.zip) remains unchanged.
 
 ## September 24, 2026 — candidate.3: challenge the pass, not only improve the presentation
 

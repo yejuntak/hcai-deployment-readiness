@@ -6,7 +6,7 @@ from reportlab.lib import colors
 from reportlab.lib.enums import TA_LEFT
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.pagesizes import letter
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, KeepTogether
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, KeepTogether, PageBreak
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "output/pdf"
@@ -30,7 +30,7 @@ def inline(text):
         label, target = match.groups()
         if not target.startswith(('https://', 'http://')):
             name = target.rsplit('/', 1)[-1].replace('.md', '.html')
-            target = 'https://www.takyejun.com/static/research/ai-readiness/rc4-candidate-3/' + name
+            target = 'https://www.takyejun.com/static/research/ai-readiness/rc4-candidate-4/' + name
         return '<link href="' + target + '" color="#244cac"><u>' + label + '</u></link>'
     text = re.sub(r"\[([^]]+)\]\(([^)]+)\)", link, text)
     text = re.sub(r"\*\*([^*]+)\*\*", r"<b>\1</b>", text)
@@ -42,14 +42,14 @@ def footer(canvas, doc):
     canvas.line(44, 39, 568, 39)
     canvas.setFillColor(colors.HexColor("#506179"))
     canvas.setFont("Helvetica", 8)
-    canvas.drawString(44, 26, "Yejun Tak | 0.1-rc.4-candidate.3 | Engineering commitment only")
+    canvas.drawString(44, 26, "Yejun Tak | 0.1-rc.4-candidate.4 | Engineering commitment only")
     canvas.drawRightString(568, 26, str(doc.page))
 
 
 def build(source, destination):
     lines = source.read_text().splitlines()
     body_style = styles["BodyCandidate"]
-    if source.name == "rc4-candidate-3-external-packet.md":
+    if source.name == "rc4-candidate-4-external-packet.md":
         body_style = ParagraphStyle(name="PacketBody", parent=body_style, fontSize=11, leading=14.5, spaceAfter=5)
     story = []
     i = 0
@@ -88,6 +88,8 @@ def build(source, destination):
         if line.startswith("# "):
             story.append(Paragraph(inline(line[2:]), styles["TitleCandidate"]))
         elif line.startswith("##"):
+            if source.name == "FULL-PROFILE.md" and line.startswith("## 9."):
+                story.append(PageBreak())
             story.append(Paragraph(inline(line.lstrip("# ")), styles["HeadingCandidate"]))
         else:
             text = line
@@ -99,17 +101,17 @@ def build(source, destination):
             story.append(Paragraph(inline(text), body_style))
         i += 1
     SimpleDocTemplate(str(destination), pagesize=letter, leftMargin=44, rightMargin=44,
-                      topMargin=43, bottomMargin=53, title=source.stem + " - 0.1-rc.4-candidate.3",
+                      topMargin=43, bottomMargin=53, title=source.stem + " - 0.1-rc.4-candidate.4",
                       author="Yejun Tak").build(story, onFirstPage=footer, onLaterPages=footer)
 
 
 def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     docs = {
-        "protocol/0.1-rc.4-candidate.3/PROTOCOL.md": "Protocol-v0.1-rc.4-candidate.3.pdf",
-        "protocol/0.1-rc.4-candidate.3/QUICK-6.md": "QUICK-6-v0.1-rc.4-candidate.3.pdf",
-        "protocol/0.1-rc.4-candidate.3/FULL-PROFILE.md": "Full-Profile-v0.1-rc.4-candidate.3.pdf",
-        "Pilot-Kit/rc4-candidate-3-external-packet.md": "External-Pilot-Packet-v0.1-rc.4-candidate.3.pdf",
+        "protocol/0.1-rc.4-candidate.4/PROTOCOL.md": "Protocol-v0.1-rc.4-candidate.4.pdf",
+        "protocol/0.1-rc.4-candidate.4/QUICK-6.md": "QUICK-6-v0.1-rc.4-candidate.4.pdf",
+        "protocol/0.1-rc.4-candidate.4/FULL-PROFILE.md": "Full-Profile-v0.1-rc.4-candidate.4.pdf",
+        "Pilot-Kit/rc4-candidate-4-external-packet.md": "External-Pilot-Packet-v0.1-rc.4-candidate.4.pdf",
     }
     for source, name in docs.items():
         build(ROOT / source, OUTPUT / name)

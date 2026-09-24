@@ -1,5 +1,5 @@
 {
-  "protocol_version": "0.1-rc.4-candidate.3",
+  "protocol_version": "0.1-rc.4-candidate.4",
   "status": "candidate_unvalidated",
   "changes": [
     {
@@ -504,6 +504,36 @@
       "acceptance_tests": [
         "test_candidate_two_remains_byte_frozen",
         "test_deep_audit_public_pages_and_references"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C26",
+      "observed_problem": "The author requested revision of repetitive slogans, contrast formulas and compressed explanations across the current writing.",
+      "source_theme_ids": [],
+      "change": "Apply Academic Humanize v2.0.0 with its integrity lock; clarify the existing cost formula in prose, preserve candidate.3 and check unchanged decision behavior.",
+      "requirements": [
+        "EDITORIAL_INTEGRITY",
+        "HISTORY_FROZEN",
+        "CLAIM_BOUNDARY"
+      ],
+      "files": [
+        "docs/editorial-review.md",
+        "protocol/0.1-rc.4-candidate.4/PROTOCOL.md",
+        "docs/research-content.gohtml",
+        "src/hcai_readiness/guidance.py",
+        "src/hcai_readiness/reporting.py",
+        "src/hcai_readiness/server.py",
+        "skills/ai-ready/SKILL.md",
+        "historical/candidate-3-manifest.json"
+      ],
+      "acceptance_tests": [
+        "test_candidate_three_remains_byte_frozen",
+        "test_editorial_release_preserves_core_logic",
+        "test_editorial_release_preserves_fixture_decisions",
+        "test_editorial_release_preserves_criterion_identity",
+        "test_editorial_release_preserves_risk_tables_and_formulas",
+        "test_editorial_release_preserves_external_citations"
       ],
       "validation_status": "software_tests_only"
     }

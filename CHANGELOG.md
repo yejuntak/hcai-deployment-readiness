@@ -1,3 +1,13 @@
+# Protocol 0.1-rc.4-candidate.4: September 24, 2026
+
+MCP 0.2.0rc4; ai-ready Skill/contract 0.2.0-rc.4. Candidate.3 and earlier releases remain frozen.
+
+## Why rc.4 changed
+
+The author requested an editorial pass using the actual Academic Humanize v2.0.0 skill. The revised protocol, website, reading guides and tool instructions use more direct explanations and fewer repeated slogans or contrast formulas. The cost overview now states explicitly that gross savings already deduct residual manual work, consistent with the unchanged formulas.
+
+Decision logic, risk thresholds, evidence requirements, criterion IDs, citations and reported values are preserved. C26 maps the revision to integrity checks, including comparison with the frozen candidate.3 implementation. No new practitioner feedback, pilot, validation result or endorsement is claimed. The [editorial review](docs/editorial-review.md) records the method and limits.
+
 # Protocol 0.1-rc.4-candidate.3 — September 24, 2026
 
 MCP 0.2.0rc3; ai-ready Skill/contract 0.2.0-rc.3. Earlier candidates and rc.3 remain byte-frozen.

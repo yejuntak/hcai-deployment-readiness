@@ -6,8 +6,8 @@
       "name": "Tak, Yejun"
     }
   ],
-  "description": "Candidate MCP 0.2.0rc3 and Skill 0.2.0-rc.3 for protocol 0.1-rc.4-candidate.3: deterministic upstream engineering gates, measured current-state baseline, risk-tiered evidence and separate evaluation/operational oversight costs. Not deployment authorization or controlled empirical validation. Original software MIT; protocol and skill text CC BY 4.0. AI-assisted development disclosed. No new DOI assigned.",
-  "version": "0.2.0rc3",
+  "description": "Candidate MCP 0.2.0rc4 and Skill 0.2.0-rc.4 for protocol 0.1-rc.4-candidate.4: a review of evidence before committing engineering resources. The tools apply deterministic gates to the current-state baseline and proposed workflow, with requirements set by risk tier. Evaluation costs and operational oversight costs remain separate. This editorial revision retains the preceding candidate's decision logic. It cannot authorize deployment and has not undergone controlled empirical validation. Original software is MIT-licensed; protocol and Skill text use CC BY 4.0. Development was AI-assisted. No new DOI is assigned.",
+  "version": "0.2.0rc4",
   "access_right": "open",
   "license": "cc-by-4.0",
   "keywords": [

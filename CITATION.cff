@@ -1,12 +1,12 @@
 cff-version: 1.2.0
-message: "Unreleased candidate. Cite exact protocol 0.1-rc.4-candidate.3, MCP 0.2.0rc3 and Skill 0.2.0-rc.3. The rc.3 DOI does not identify this candidate."
+message: "Unreleased candidate. Cite exact protocol 0.1-rc.4-candidate.4, MCP 0.2.0rc4 and Skill 0.2.0-rc.4. The rc.3 DOI does not identify this candidate."
 type: software
 title: "Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile"
 authors:
   - family-names: Tak
     given-names: Yejun
-version: "0.1-rc.4-candidate.3"
+version: "0.1-rc.4-candidate.4"
 repository-code: "https://github.com/yejuntak/hcai-deployment-readiness"
 url: "https://github.com/yejuntak/hcai-deployment-readiness"
 license: CC-BY-4.0
-abstract: "A candidate upstream instrument for bounded engineering commitment, with measured-baseline gates, risk-tiered evidence, separate evaluation and operational oversight cost, and synthetic software fixtures. No controlled empirical validation or operational performance is claimed."
+abstract: "A candidate protocol for reviewing evidence before committing engineering resources to a defined workflow. It requires a measured baseline and evidence suited to the risk tier, and reports evaluation costs separately from operational oversight. Verification uses synthetic software fixtures. No controlled empirical validation or operational performance is claimed."

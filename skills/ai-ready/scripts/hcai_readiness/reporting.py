@@ -1,4 +1,4 @@
-"""Accessible, offline decision report. Supplied content is always escaped, never executed."""
+"""Offline decision report with semantic headings and tables. Supplied content is escaped, never executed."""
 import html
 from .engine import assess, requirement_digest
 from .guidance import decision_card
@@ -52,8 +52,8 @@ def render_report(a, format="markdown"):
     paragraph(f"{a.run_id} · {a.scope.workflow_name or 'Workflow not yet named'} · {a.versions.protocol}")
     paragraph(card['boundary'])
     table(['Decision', 'Profile needed', 'Risk', 'First stop'], [[card['decision'], card['required_profile'], card['risk'], card['stop_at'] or 'No gate stop']])
-    paragraph('Machine checks: structure and decision rules only. Human evidence-quality review: '+r['assurance']['human_quality_review']+'. Evidence authenticity is not independently verified; no criterion certification is issued.')
-    heading('Do next')
+    paragraph('The software checks structure and decision rules. Recorded human evidence-quality review: '+r['assurance']['human_quality_review']+'. The software does not independently verify evidence authenticity or certify criterion conformance.')
+    heading('Next action')
     step = card['next_step']
     paragraph(step['question'])
     paragraph(f"Owner: {step['owner']}. {step['action']}")
@@ -62,19 +62,19 @@ def render_report(a, format="markdown"):
     heading('Six gates - no combined score')
     table(['Gate and criteria', 'Result', 'What is missing or failed'], [[g['title']+' ('+', '.join(g['criteria_ids'])+')', g['status'], '; '.join(g['reasons']) or 'Required checks passed'] for g in card['gates']])
     paragraph('PASS means the structural rules and supplied review judgments satisfy this gate. It does not prove the evidence is true or sufficient in practice. MISSING means gather evidence; FAIL means repair a known problem; NOT_EVALUATED means no conclusion was drawn.')
-    heading('Keep these results separate')
+    heading('Effort, costs and performance')
     roi, burden = r['roi'], r['evaluator_burden']
     table(['Result', 'Value', 'Interpretation'], [
         ['Gross labor minutes saved / case', roi['gross_minutes_saved_per_case'], 'Before AI-output oversight'],
         ['Oversight minutes / case', roi['oversight_minutes_per_case'], 'Review + correction + escalation + rework'],
         ['Net labor minutes saved / case', roi['net_minutes_saved_per_case'], 'Projected; not measured performance'],
         ['Net operating benefit / period', roi['net_operational_benefit_per_period'], f"{roi['currency'] or 'Currency unknown'} / {roi['period'] or 'period unknown'}; {roi['status']}"],
-        ['Preparation elapsed minutes', burden['preparation_elapsed_minutes'], 'Outside the short session, never hidden'],
+        ['Preparation elapsed minutes', burden['preparation_elapsed_minutes'], 'Preparation time outside the review session'],
         ['Review session elapsed minutes', burden['elapsed_minutes'], 'Includes capture/reporting'],
         ['Total evaluation person-minutes', burden['total_person_minutes'], 'Disjoint preparation + evaluator + participant + adjudication'],
         ['Protocol evaluation cost', burden['protocol_evaluation_cost'], burden['currency'] or 'Currency unknown'],
         ['Operational system performance', r['operational_performance']['status'], 'No deployment decision is made by this instrument']])
-    paragraph('Missing values are not zero. Money and time are scenario estimates unless separately observed. Evaluation expense is not workflow operating cost.')
+    paragraph('Missing values are not zero. Money and time are scenario estimates unless separately observed. The cost of this review is reported separately from workflow operating cost.')
     heading('Current workflow - observed versus reported')
     table(['Step', 'Role and action', 'Next / endpoint', 'Basis'], [[s.id, f'{s.actor_role}: {s.action}', ', '.join(s.next_step_ids) or 'Endpoint', s.observation_status] for s in a.baseline.steps])
     heading('People and consequences')
@@ -99,12 +99,12 @@ def render_report(a, format="markdown"):
             artifact = pair['artifact']
             paragraph(f"Artifact {artifact['id']} · version {artifact['version']} · SHA-256 {artifact['sha256']}")
             if not pair['checks']:
-                paragraph('No linked executed check. Repair this chain.')
+                paragraph('No executed check is linked to this artifact. Add the evidence for the affected validation.')
             for check in pair['checks']:
                 paragraph(f"Check {check['id']}: {check['method']} | {check['level']} | {check['status']} | tested revision matches: {check['tested_revision_matches']} | requirement/context matches: {check['tested_requirement_matches']}")
         if format == 'html':
             sections.append('</details>')
-    heading('Bounded owner decision')
+    heading('Engineering scope and owner decision')
     for label, value in [('Owner', card['owner']), ('Engineering step', card['engineering_scope']), ('Resource cap', card['resource_limit']), ('Revisit trigger', card['revisit_when'])]:
         paragraph(label+': '+display(value))
     paragraph('Owner authorization: pending separate dated record. A recommendation alone does not permit deployment.')
@@ -112,7 +112,7 @@ def render_report(a, format="markdown"):
     paragraph('Versions: '+'; '.join(k+' '+v for k,v in a.versions.model_dump().items()))
     paragraph('Input SHA-256: '+card['input_sha256'])
     paragraph('Previous run: '+display(a.previous_run_id)+'; revision: '+display(a.revision_summary))
-    paragraph('Evidence digests are supplied and structurally checked, not independently fetched or authenticated. Practitioner correspondence and software tests do not establish empirical effectiveness.')
+    paragraph('The report checks the structure of supplied evidence digests without fetching or authenticating the files. Practitioner correspondence and software tests do not establish empirical effectiveness.')
     if format == 'markdown':
         return '\n\n'.join(sections)+'\n'
     css = 'body{font:17px/1.6 system-ui,sans-serif;color:#172b43;background:#faf9f6;margin:0}main{max-width:1040px;margin:auto;padding:36px 24px}h1{font-size:36px;line-height:1.15;max-width:850px}h2{margin-top:38px;border-top:1px solid #ccd6df;padding-top:20px}p{max-width:80ch;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;min-width:540px;font-size:15px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #ccd6df;overflow-wrap:anywhere}th{background:#e8eef4}.table-scroll{overflow:auto}details{border:1px solid #ccd6df;border-radius:8px;padding:16px;margin:12px 0;background:white}summary{cursor:pointer;font-weight:650}summary:focus-visible{outline:3px solid #94580c;outline-offset:4px}@media print{body{background:white}details{break-inside:avoid}.table-scroll{overflow:visible}table{min-width:0;font-size:11px}}'

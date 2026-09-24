@@ -1,19 +1,19 @@
 # Review AI-built workflows before engineering
 
-Human-Centered AI Deployment Readiness Protocol — Engineering-Handoff Profile  
-Protocol 0.1-rc.4-candidate.3 · MCP 0.2.0rc3 · Skill 0.2.0-rc.3
+Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile  
+Protocol 0.1-rc.4-candidate.4 · MCP 0.2.0rc4 · Skill 0.2.0-rc.4
 
 ## What this helps you decide
 
 **Is there enough evidence to commit engineering resources to this bounded workflow?**
 
-A polished booking screen may look complete while losing a customer's details after a payment failure. A passing test may belong to yesterday's code, before an agent changed it. This guide helps a reviewer distinguish what looks finished from what has actually been demonstrated.
+A booking screen can look complete yet lose a customer's details after a payment failure. A test report can show a pass for code that an agent has since changed. This protocol asks reviewers to examine the evidence for the proposed workflow before the team commits engineering resources.
 
-Use it for proposed workflows, interface prototypes, and AI-assisted, “vibe-coded,” or agent-built artifacts. AI may have helped create the artifact without being part of the eventual service. Record which is true. These are application scenarios, not evidence that AI authorship causes defects.
+The intended uses include proposed workflows, interface prototypes, and AI-assisted, “vibe-coded,” or agent-built artifacts. Record whether AI helped create the artifact, will act within the service, or both. These applications do not establish that AI authorship causes defects.
 
-The historical title contains “Deployment Readiness.” This profile **does not approve deployment**, measure full-system performance, or certify software quality. A supported engineering commitment is one decision; permission to operate is another.
+Although the historical title contains “Deployment Readiness,” this profile **does not approve deployment**. It neither measures full-system performance nor certifies software quality. The evidence needed to fund engineering differs from the evidence needed to permit operation.
 
-## Start with the smallest useful path
+## Choose a reading path
 
 - New here? Read [Start here](START-HERE.md).
 - Reviewing a low-risk workflow with records already available? Use [QUICK-6](QUICK-6.md).
@@ -22,9 +22,9 @@ The historical title contains “Deployment Readiness.” This profile **does no
 - Want a simple recording aid? Use the [conversation worksheet](WORKSHEET.md).
 - Higher risk, missing evidence, or a longer review? Use the [full profile](FULL-PROFILE.md).
 
-An advisor can ask the questions aloud and record answers. Participants do not need to edit JSON, install a tool, or understand an evaluation framework. “We do not know yet” is a useful answer: it identifies the next piece of work.
+An advisor can ask the questions aloud and record answers. Participants need no software installation or knowledge of the data format. When an answer is unknown, record the gap and identify the evidence needed to resolve it.
 
-## Six questions, one next action
+## The six review questions
 
 1. **What happens today?** Show a recent case, who touched it, how long it took, and where it failed or needed rework.
 2. **What needs to improve, for whom?** State the intended outcome and evidence of an actual end-user need.
@@ -33,9 +33,9 @@ An advisor can ask the questions aloud and record answers. Participants do not n
 5. **What work remains for people?** Estimate review, correction, escalation, rework, and residual manual effort before claiming savings.
 6. **Is this enough to fund the next engineering step?** Apply the risk tier, resolve critical findings, and record the owner, limits, and remaining uncertainty.
 
-A critical gate cannot be averaged away. QUICK-6 stops at the first failed or missing gate; later gates say NOT_EVALUATED. Known critical findings remain visible even when the review stops earlier. A stopped session is a useful result, not a failed participant.
+QUICK-6 stops at the first failed or missing gate and marks later gates NOT_EVALUATED. Known critical findings remain visible even after an earlier stop. Passing other gates cannot offset a critical failure. The stop identifies unfinished work; it is not a judgment of the participant.
 
-The <=15-minute QUICK-6 target is an **untested design target**, not a measured completion rate. It assumes records are available. Count capture and explanation within the session; report preparation separately. Take breaks, use accessible formats, or move to FULL without treating the participant as deficient.
+QUICK-6 has an **untested design target of <=15 minutes**, assuming records are already available. Session time includes recording answers and explaining the result; preparation is reported separately. Offer breaks or accessible formats when needed. If the review takes longer, continue in FULL without treating the participant as deficient.
 
 ## What the result means
 
@@ -45,9 +45,9 @@ The <=15-minute QUICK-6 target is an **untested design target**, not a measured 
 | REVISE | Evidence demonstrates a failed gate or a critical unresolved finding. | Name the repair, owner, and evidence needed for another review. |
 | INSUFFICIENT_EVIDENCE | Required information is missing, or the selected profile is insufficient. | Obtain the missing evidence or continue in FULL. Do not substitute confidence for evidence. |
 
-Every result includes a plain-language explanation, the first useful next action, gate status, separate burden/benefit outputs, evidence links or identifiers, and exact versions. A recommendation is not a spending authorization. Never convert it into a general “AI readiness score.”
+The result explains the recommendation and names a next action. It also retains gate statuses, separate burden and benefit outputs, evidence links or identifiers, and exact versions. The accountable owner must authorize spending separately. The protocol does not produce a general “AI readiness score.”
 
-## Four principles; inspectable criteria
+## Principles and review criteria
 
 The structure borrows the idea of principles, testable criteria, and practical techniques from [WCAG 2.0's layers of guidance](https://www.w3.org/TR/WCAG20/#intro-layers-guidance). This is an author-defined candidate, **not a W3C standard, accessibility conformance claim, or A/AA/AAA certification**.
 
@@ -58,17 +58,17 @@ The structure borrows the idea of principles, testable criteria, and practical t
 | Keep people able to understand and recover | Failure paths, human control, remaining work | HCAI-3.1–3.3 |
 | Make the commitment accountable | Risk depth, findings, ownership, separate measurements, provenance | HCAI-4.1–4.5 |
 
-Each criterion has a requirement, a way to check it, and pass/failure examples. Deterministic checks enforce structure and boundaries; a human must still judge evidence quality. A correctly linked file can still contain a bad test.
+Each criterion states a requirement and explains how to check it, with examples of a pass and a failure. The software checks record structure and decision rules. A human reviewer must judge the evidence itself: a correctly linked file may still contain an inadequate test.
 
-**What a pass actually establishes:** the supplied record satisfies deterministic rules and includes the required human judgments. It does not independently establish truth, completeness, adequate testing, or compliance with each criterion's intent. A human evidence-quality reviewer must inspect those questions and retain the review basis. Agent-only review is insufficient. These limitations appear in the machine result and readable report, not just the fine print.
+A pass establishes that the supplied record satisfies the encoded rules and includes the required human judgments. It does not independently establish that the evidence is true, complete, adequately tested, or consistent with each criterion's intent. A human evidence-quality reviewer must examine those questions and retain the basis for the review. Agent-only review is insufficient. Both the machine result and the readable report state these limits.
 
-### People who use the workflow—and people affected by it
+### Include people affected by the workflow
 
 Name affected roles beyond the purchaser or operator. Within question 2, screen access/usability, privacy/security, unequal effects, and human agency. Connect applicable concerns to requirements and validation. For example: can a requester correct a generated record, use an alternative channel, understand an error, and reach a person with authority to help?
 
-Unknown is not “not applicable.” A not-applicable item needs an owner, reason and evidence; human use and control cannot be excluded. This screen routes review, not a fairness, privacy, security or accessibility certification. Bring in relevant specialists when the effects exceed the team's competence.
+Keep unknown items unresolved. A not-applicable item requires an owner, reason and evidence; human use and control cannot be excluded. This screen identifies concerns for review. It does not certify fairness, privacy, security or accessibility. Seek specialist review where the effects exceed the team's competence.
 
-## Evidence must describe the work, not just the proposal
+## Establish the baseline and trace the evidence
 
 The current-state map records connected steps, actors, triggers, actions, data handling, branches, and endpoints. Distinguish observed steps from reported exceptions. Record cycle time separately from labor time; elapsed waiting is not labor savings.
 
@@ -76,7 +76,7 @@ Need evidence must come from actual work records or end-user discussions, with d
 
 Traceability means **requirement → artifact revision → test/validation**. Describe form (what is shown), fit (how it connects to the surrounding workflow), and function (what it does). A visual demonstration can support design intent; it cannot establish implementation behavior. A code change after testing requires fresh evidence for affected requirements.
 
-The validation also records a requirement/context fingerprint: acceptance criteria, scope, linked states, reference revisions, dependencies and action boundaries. Changing the requirement while keeping the same code does not preserve the old pass. Reperform affected checks; never just replace an old hash. Both current and proposed state maps must have connected paths and a reachable endpoint. Graph checks establish possible paths, not that a real system always terminates or recovers.
+Each validation also records a requirement/context fingerprint covering acceptance criteria, scope, linked states, reference revisions, dependencies and action boundaries. A changed requirement invalidates the affected pass even if the code is unchanged. Repeat the affected checks; replacing an old hash is not retesting. Current and proposed state maps must have connected paths and a reachable endpoint. These graph checks establish possible paths, but cannot show that a running system always terminates or recovers.
 
 ## Risk changes the required evidence
 
@@ -100,9 +100,9 @@ A. **Current state:** cycle time, labor, touches, failure points, review, escala
 B. **Proposed workflow:** requirements, states, recovery, responsibility, dependencies, acceptance criteria, and action boundaries.  
 C. **Burden:** the cost of running this review, separately from the expected cost of overseeing AI outputs in operation.  
 D. **Engineering evidence:** requirement/artifact/validation links, defects, reviewer findings, residual risks, and the decision record.  
-E. **Operational performance:** measured only after implementation in realistic use. Not inferred from A–D.
+E. **Operational performance:** measured only after implementation in realistic use. It cannot be inferred from layers A through D.
 
-Gross time saved minus review, correction, escalation/rework, and residual manual work gives a net labor estimate. Recurring operating costs and one-time implementation costs remain visible. Without a measurable baseline, ROI is indeterminate. Nonpositive net benefit requires an explicit investment rationale; the tool does not hide it behind a passing gate.
+Gross labor savings already deduct residual manual work. Net savings also deduct review, correction, escalation and rework; use the disjoint categories and formulas in the full profile. Report recurring and one-time costs separately. ROI is indeterminate without a measurable baseline. Retain any nonpositive net benefit and an explicit rationale for proposed investment.
 
 ## Research and practice are different activities
 
@@ -116,8 +116,8 @@ Practitioner correspondence informed refinement; it is not controlled empirical 
 
 Records are private by default. Publish only separately permission-checked material. Hillel Glazer approved attribution; other correspondence is represented by anonymized themes unless explicit permission is documented. Do not upload confidential artifacts simply to complete a field.
 
-rc.3, candidate.1 and candidate.2 remain frozen. This is a new candidate, not final rc.4. Promotion requires passing regression checks and recorded bounded external end-user/advisor use. That is a release prerequisite, not proof of effectiveness. Research Harness v3 is a separate project, not this protocol's version.
+rc.3 and candidates.1, .2 and .3 remain frozen. Candidate.4 edits the writing; gates, risk thresholds and calculations are unchanged. Final rc.4 still requires passing regressions and recorded bounded external end-user/advisor use, neither of which proves effectiveness. Research Harness v3 is a separate project.
 
-The proposed contribution is narrower than “a standard for all AI”: a repeatable, inspectable transition from a persuasive artifact to a bounded engineering decision. Whether it improves decisions is still a testable hypothesis. Read the [deep audit and validation roadmap](../../docs/deep-audit.md) and [claims and governance rules](../../docs/claims-and-governance.md).
+Whether this review improves engineering decisions remains untested. See the [deep audit and validation roadmap](../../docs/deep-audit.md) and [claims and governance rules](../../docs/claims-and-governance.md).
 
 See the [linked update log](https://www.takyejun.com/research/ai-readiness/updates) and [migration notes](../../docs/migration-rc3-to-rc4.md).

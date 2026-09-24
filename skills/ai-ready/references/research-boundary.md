@@ -1,8 +1,8 @@
 # Research question and practical use
 
-The proposed research studies how manipulated visual fidelity affects human review of AI-generated interface prototypes when requirements, content, behavior and embedded defects are held constant. AI authorship is not the manipulated factor. The practical protocol helps a team examine the evidence before funding engineering; it is not the experimental treatment or proof of the hypothesized effect.
+The proposed study examines how visual fidelity affects human review of AI-generated interface prototypes. Requirements, content, behavior and embedded defects are held constant, as is AI authorship. The protocol serves a separate practical purpose: reviewing evidence before a team funds engineering. It is neither the experimental treatment nor evidence that the hypothesized effect exists.
 
-## Keep the constructs separate
+## Definitions and measurement boundaries
 
 | Construct | Meaning in this work | Do not substitute |
 | --- | --- | --- |
@@ -13,13 +13,13 @@ The proposed research studies how manipulated visual fidelity affects human revi
 | Confidence calibration | Relationship between item-level confidence and correctness across sufficient observations | A few global confidence ratings |
 | Operational performance | Implemented behavior with real operators in realistic use | Documents, prototypes or upstream review completeness |
 
-“Fidelity-maturity mismatch” is a study-specific framing here, not a validated construct or an established effect. A polished prototype can be correct or defective. The claim that polish changes detection requires experimental evidence; a passing protocol test cannot establish it.
+“Fidelity-maturity mismatch” is a study-specific framing, not a validated construct or established effect. A polished prototype may be correct or defective. Determining whether polish changes defect detection requires experimental evidence; protocol software tests cannot answer that question.
 
-## Use two separate paths
+## Practice reviews and research sessions
 
-**Practice path:** an owner/advisor uses the six gates, makes references available, inspects behavior and records a bounded engineering recommendation. Practice may involve designers, developers or small-business advisors, but usability and benefit across those groups remain untested.
+**In practice**, an owner or advisor uses the six gates, provides references, inspects behavior and records a bounded engineering recommendation. Designers, developers and small-business advisors are intended users. Usability and benefit across those groups remain untested.
 
-**Research path:** a researcher freezes the requirements, intact and defective items, reference key, artifacts, generation/edit history, study version and assignment schedule. Reviewers do not receive the answer key before their judgments are locked. Do not use the guided practice prompts or public worked example as an unplanned experimental intervention: they could change detection and contaminate the comparison.
+**For a study**, the researcher freezes the requirements, intact and defective items, reference key, artifacts, generation/edit history, study version and assignment schedule. Reviewers do not receive the answer key before their judgments are locked. Do not use the guided practice prompts or public worked example as an unplanned experimental intervention: they could change detection and contaminate the comparison.
 
 The optional `study-review` schema stores one defect/no-defect judgment or abstention per requirement, item-level confidence, review time and separate perceived-readiness/global-confidence fields. The example 1–7 readiness scale is an unvalidated capture convention, not a validated questionnaire. The schema contains no reference key and computes neither engineering readiness nor a treatment effect.
 
@@ -35,4 +35,4 @@ Restrict conclusions to the bounded task, sampled scenarios and eligible partici
 
 ## Why the guide borrows a layered structure
 
-The structure uses broad principles, stable testable criteria, explanations, examples and techniques so readers can enter at different depths. This is a structural analogy to [W3C WCAG 2.0's layers of guidance](https://www.w3.org/TR/WCAG20/#intro-layers-guidance), not an adaptation of its accessibility requirements. There is no W3C affiliation, A/AA/AAA level, legal compliance claim or HCAI certification. Accessibility, security, privacy, domain safety and deployment assurance still need their own applicable reviews.
+The guide separates broad principles and stable testable criteria from explanations, examples and techniques. Readers can consult the level of detail their task requires. This is a structural analogy to [W3C WCAG 2.0's layers of guidance](https://www.w3.org/TR/WCAG20/#intro-layers-guidance), not an adaptation of its accessibility requirements. There is no W3C affiliation, A/AA/AAA level, legal compliance claim or HCAI certification. Accessibility, security, privacy, domain safety and deployment assurance still need their own applicable reviews.

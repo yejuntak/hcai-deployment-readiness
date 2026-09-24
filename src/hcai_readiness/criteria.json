@@ -1,5 +1,5 @@
 {
-  "version": "0.1-rc.4-candidate.3",
+  "version": "0.1-rc.4-candidate.4",
   "status": "candidate_not_a_certification_standard",
   "principles": [
     {
@@ -25,7 +25,7 @@
       "title": "Bound the task",
       "gate": "G2_NEED_REQUIREMENTS",
       "requirement": "Name the workflow, one unit of work, start and end boundaries, context, AI role, exclusions and a current/manual/non-AI alternative.",
-      "check": "Ask a second person what is inside and outside this review; compare their answer with the scope record.",
+      "check": "Ask a second person to describe the review's boundaries, then compare their answer with the scope record.",
       "pass_example": "Review one intake request from receipt to advisor confirmation; exclude live sending.",
       "failure_example": "Make our business AI-ready without naming a task.",
       "verification": "Required fields plus accountable human scope review"
@@ -55,17 +55,17 @@
       "title": "Include the people who bear the consequences",
       "gate": "G2_NEED_REQUIREMENTS",
       "requirement": "Name affected roles, including non-operators. Screen access/usability, privacy/security, unequal effects and human agency. Link applicable concerns to requirements and validation; justify inapplicable items with an owner and evidence. Human use/control cannot be excluded.",
-      "check": "Ask who might be unable to use, correct, decline or challenge the workflow, and who could be affected without operating it. Inspect the linked success conditions and evidence, not just a checked box.",
+      "check": "Ask who might be unable to use, correct, decline or challenge the workflow, and who could be affected without operating it. Inspect the linked success conditions and supporting evidence; a checked box alone is insufficient.",
       "pass_example": "A requester and an advisor can correct an intake; the requirement specifies retained data, readable error feedback and a human escalation path.",
       "failure_example": "The owner saves time, but a requester cannot correct a wrong generated record and nobody evaluated that effect.",
       "verification": "Deterministic coverage and applicability checks plus human/context-specific review; not an accessibility, fairness, privacy or security certification"
     },
     {
       "id": "HCAI-2.1",
-      "title": "Explain form fit and function",
+      "title": "Explain form, fit and function",
       "gate": "G4_TRACEABILITY",
       "requirement": "Every requirement names what is represented, how it fits the surrounding workflow, what it must do and the reference material used to judge it.",
-      "check": "Inspect the reference before judging whether the visible artifact belongs and behaves as intended.",
+      "check": "Compare the artifact with its reference material to judge whether its role and behavior meet the requirement.",
       "pass_example": "A review form is linked to required intake fields, advisor responsibilities and cancellation rules.",
       "failure_example": "A finished-looking screen is accepted without knowing its purpose or reference requirements.",
       "verification": "Structured references plus human interpretation"
@@ -85,14 +85,14 @@
       "title": "Distinguish simulated from implemented behavior",
       "gate": "G4_TRACEABILITY",
       "requirement": "Label each requirement's behavior as specified only, simulated or implemented. Do not label a walkthrough of a simulation as an implementation test.",
-      "check": "Ask what is actually connected and what is mocked. Keep visual polish separate from functional evidence.",
+      "check": "Identify the connected components and the mocks. Judge functionality from evidence of behavior, independently of visual polish.",
       "pass_example": "The export button is simulated; the review checks the intended recovery behavior and funds only implementation of that behavior.",
       "failure_example": "A mock success screen is presented as proof that a payment or export completed.",
       "verification": "Behavior-status and test-level consistency plus human inspection"
     },
     {
       "id": "HCAI-3.1",
-      "title": "Cover normal edge and recovery states",
+      "title": "Cover normal, edge and recovery states",
       "gate": "G3_STATES_RECOVERY",
       "requirement": "Represent connected normal, edge and recovery paths with an entry, resolvable next-state IDs, reachable endpoints, data treatment, ownership and requirement links. Review transition conditions, dependency failures and bounded retry/exit behavior.",
       "check": "Try missing input, empty results, delay, unavailable dependency, cancellation and resumption where relevant. Document which cases apply.",
@@ -125,7 +125,7 @@
       "title": "Scale depth before starting",
       "gate": "G6_COMMITMENT",
       "requirement": "Classify six risk dimensions and four consequential-context flags. Use the highest dimension or context floor. Safety/rights impact or irreversible external action sets high; sensitive data or untrusted input to actions sets at least moderate. Any unknown prevents QUICK6.",
-      "check": "Review consequence, reversibility, complexity, importance, impact and mission before choosing the path. Do not lower risk to fit the meeting.",
+      "check": "Review consequence, reversibility, complexity, importance, impact and mission before choosing the path. Do not lower the classification to fit the meeting's length.",
       "pass_example": "A consequential allocation workflow goes to FULL even when its interface has only one screen.",
       "failure_example": "A simple-looking UI is treated as low risk despite an irreversible outcome.",
       "verification": "Deterministic routing plus competent human risk classification"
@@ -135,7 +135,7 @@
       "title": "Resolve findings at the required depth",
       "gate": "G6_COMMITMENT",
       "requirement": "Review reference defects, findings and unresolved risks. Unresolved critical findings cannot be waived. Add independent review and deeper plans when the risk tier requires them. A recorded human evidence-quality review must address relevance, completeness, authenticity and test adequacy; agent-only assertions cannot replace it.",
-      "check": "Inspect unresolved findings rather than averaging gate passes. Verify reviewer independence for moderate/high risk.",
+      "check": "Inspect each unresolved finding; passing other gates cannot offset it. Verify reviewer independence for moderate/high risk.",
       "pass_example": "A critical data-loss defect stays visible even when the baseline is also missing.",
       "failure_example": "A critical finding is marked accepted to obtain a favorable readiness result.",
       "verification": "Finding status and evidence checks plus reviewer judgment"
@@ -165,7 +165,7 @@
       "title": "Preserve evidence and disclosure boundaries",
       "gate": "G6_COMMITMENT",
       "requirement": "Retain exact versions, source origins, digests and previous-run links. Preserve missing and stopped records. Keep private identities/comments out of public materials without permission.",
-      "check": "Can the run be reconstructed, and is each proposed disclosure permitted? Do not alter an old record into a new pass.",
+      "check": "Check whether another reviewer could reconstruct the run and whether each proposed disclosure is permitted. Retain the old record when creating a new run.",
       "pass_example": "A new FULL record links to the stopped QUICK6 record; private notes remain outside the public package.",
       "failure_example": "A synthetic example is relabeled as an actual pilot or private feedback is published as an endorsement.",
       "verification": "Structural provenance checks plus human permission review; hashes alone do not prove truth"

@@ -4,7 +4,7 @@
   "additionalProperties": false,
   "required": ["protocol_version", "status", "changes"],
   "properties": {
-    "protocol_version": {"const": "0.1-rc.4-candidate.3"},
+    "protocol_version": {"const": "0.1-rc.4-candidate.4"},
     "status": {"const": "candidate_unvalidated"},
     "changes": {"type": "array", "minItems": 1, "items": {
       "type": "object", "additionalProperties": false,

@@ -1,4 +1,4 @@
-"""Small, deterministic review prompts and decision cards. No evidence generation."""
+"""Deterministic questions and decision cards for a guided review. These do not generate evidence."""
 import json
 from importlib.resources import files
 from .contracts import Assessment
@@ -9,13 +9,13 @@ GUIDES = {
     "G1_BASELINE": {
         "title": "Understand today's work", "question": "Can you show one recent case from its first step to its final outcome?",
         "owner": "workflow owner", "fields": ["scope.unit_of_work", "baseline.steps", "baseline.entry_step_id", "baseline.observation_window", "baseline.sample_size", "baseline.labor_minutes_per_case", "baseline.cycle_minutes_per_case", "baseline.volume_per_period", "baseline.period", "baseline.map_review"],
-        "action": "Observe the current work, map who does each step and how exceptions are handled, then record disjoint labor and elapsed time.",
+        "action": "Observe a current case. Map who does each step and handles exceptions. Record labor without overlapping categories, and record elapsed time separately.",
         "example": "Illustration only: intake received -> advisor review -> confirmed; missing details -> correction -> return to review.",
         "do_not": "Do not replace observations with the proposed process or recollected savings estimates."},
     "G2_NEED_REQUIREMENTS": {
         "title": "Name the need and success condition", "question": "Whose difficulty are we solving, and what observable result would satisfy them?",
         "owner": "product/workflow owner", "fields": ["scope", "workflow.outcome", "workflow.needs", "workflow.requirements"],
-        "action": "Connect real work/discussion to an owned success condition. Include affected non-users; screen access, privacy/security, unequal effects and human control. Compare a non-AI option.",
+        "action": "Use work records or an end-user discussion to define success and its owner. Include affected non-users and review access, privacy/security, unequal effects and human control. Compare a non-AI option.",
         "example": "Illustration only: after cancellation, the advisor can reopen all previously entered contact fields.",
         "do_not": "Do not count two copies of one source, general industry articles, or feedback about this protocol as independent customer need evidence."},
     "G3_STATES_RECOVERY": {
@@ -25,28 +25,28 @@ GUIDES = {
         "example": "Illustration only: a missing field is shown to the advisor; cancelling returns to saved intake without data loss.",
         "do_not": "Do not infer an error or recovery path from a polished happy-path screen."},
     "G4_TRACEABILITY": {
-        "title": "Inspect why each artifact belongs", "question": "Show the requirement, the exact artifact revision and the check that tested it together.",
+        "title": "Check the requirement and tested revision", "question": "Show the requirement, the exact artifact revision and the check that tested it together.",
         "owner": "requirement owner and reviewer", "fields": ["workflow.important_artifact_ids", "workflow.requirements", "workflow.validations", "evidence"],
-        "action": "Repair each requirement -> artifact -> executed-check link. Compare artifact AND requirement/context fingerprints; repeat affected checks after changes, never just replace the hash.",
+        "action": "Check each requirement -> artifact -> executed-check link. Compare both the artifact and requirement/context fingerprints. After a change, repeat the affected check; replacing the hash does not establish a new pass.",
         "example": "Illustration only: requirement R1 -> saved-intake screen revision 2 -> recorded cancellation walkthrough of that exact file.",
         "do_not": "Do not count a planned test, an old artifact revision, or visual fidelity as a passing check."},
     "G5_OVERSIGHT": {
-        "title": "Count the work AI leaves or creates", "question": "For each case, how much human checking, correction and remaining manual work will be needed?",
+        "title": "Estimate the remaining human work", "question": "For each case, how much human checking, correction and remaining manual work will be needed?",
         "owner": "operating workflow owner", "fields": ["operational_oversight", "costs"],
         "action": "Estimate review, correction, escalation, rework and residual manual minutes separately, with a basis. Keep recurring and one-time costs separate.",
         "example": "Illustration only: 15 gross minutes saved minus 15 oversight minutes leaves zero net time savings.",
         "do_not": "Do not count the same minute twice or convert unknown money, time or token usage into zero."},
     "G6_COMMITMENT": {
-        "title": "Bound the engineering decision", "question": "What exact engineering step, resource limit and next review would this evidence justify?",
+        "title": "Bound the engineering decision", "question": "Which engineering step does this evidence support, how much may it use, and when should it be reviewed again?",
         "owner": "engineering decision owner", "fields": ["handoff", "evaluator_burden"],
-        "action": "Resolve blocking findings, complete tier-specific reviews, record preparation/session burden, and name the scope, owner, resource cap and revisit trigger.",
+        "action": "Resolve blocking findings and complete the reviews required for this risk tier. Record preparation and session effort, then name the scope, owner, resource cap and revisit trigger.",
         "example": "Illustration only: one engineer-day for a disposable prototype; no live sending; review the cancellation path before any further spend.",
         "do_not": "Do not treat this recommendation as owner authorization or deployment approval. Explain funding despite nonpositive benefit."},
 }
 
 LABELS = {"PROCEED_TO_ENGINEERING": "Evidence supports a bounded engineering step",
-          "REVISE": "Fix the identified problem before committing engineering",
-          "INSUFFICIENT_EVIDENCE": "Pause: the decision does not yet have enough evidence"}
+          "REVISE": "Revise before committing engineering resources",
+          "INSUFFICIENT_EVIDENCE": "More evidence is needed before an engineering decision"}
 
 
 def criteria_catalog():
@@ -58,7 +58,7 @@ def criterion_guide(criterion_id):
     if match is None:
         return {"found": False, "valid_ids": [c["id"] for c in criteria_catalog()["criteria"]]}
     return {"found": True, "versions": versions(), **match, "gate_guide": GUIDES[match["gate"]],
-            "claim_limit": "Candidate criterion; structural checks do not replace human evidence review or prove system performance."}
+            "claim_limit": "This candidate criterion requires human evidence review as well as structural checks. Neither establishes system performance."}
 
 
 def new_review(run_id, recorded_at, evaluator_kind, requested_profile="QUICK6"):
@@ -72,7 +72,7 @@ def next_step(a, result=None):
     if not a.scope.workflow_name or not a.scope.unit_of_work:
         return {"stage": "SCOPE", "question": "Which one piece of work are we reviewing, and what counts as one completed case?",
                 "owner": "workflow owner", "fields": ["scope.workflow_name", "scope.unit_of_work", "scope.starts_when", "scope.ends_when"],
-                "action": "Name one bounded workflow. Do not start with the proposed technology."}
+                "action": "Name the workflow and its boundaries before discussing the proposed technology."}
     if r["routing"]["status"] == "USE_FULL":
         unknown = ["risk." + k for k in RISK_FIELDS if getattr(a.risk, k) is None]
         unknown += ['risk.context.'+k for k in CONTEXT_FLOORS if getattr(a.risk.context,k) is None]
@@ -101,7 +101,7 @@ def decision_card(a, result=None):
             "engineering_scope": a.handoff.commitment_scope, "resource_limit": a.handoff.resource_limit,
             "owner": a.handoff.decision_owner_role, "revisit_when": a.handoff.next_review_trigger,
             "boundary": "Engineering recommendation only. Owner authorization and deployment evaluation are separate.",
-            "input_sha256": r["provenance"]["input_sha256"], "record_privacy": "PRIVATE working record; review permission and identifying content before sharing."}
+            "input_sha256": r["provenance"]["input_sha256"], "record_privacy": "PRIVATE working record. Check permissions and identifying content before sharing."}
 
 
 def guided_review(a, include_assessment=False):

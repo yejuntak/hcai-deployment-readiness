@@ -1,6 +1,6 @@
-# Candidate MCP and ai-ready Skill
+# Use the MCP server or ai-ready Skill
 
-Protocol 0.1-rc.4-candidate.3; MCP 0.2.0rc3; Skill/contract 0.2.0-rc.3. The historical DOI and tags identify earlier releases only.
+Protocol 0.1-rc.4-candidate.4; MCP 0.2.0rc4; Skill/contract 0.2.0-rc.4. The historical DOI and tags identify earlier releases only.
 
 ## Install the MCP server
 
@@ -17,7 +17,7 @@ Configure a local stdio MCP server using the absolute candidate checkout path. R
 {"mcpServers":{"hcai-readiness-candidate":{"command":"uv","args":["--directory","/ABSOLUTE/PATH/readiness-rc4","run","hcai-readiness-mcp"]}}}
 ```
 
-For an extracted candidate distribution, use its root directory instead. No candidate Git tag or package-index release is assumed. Call assessment_template to verify exact versions/schema/depth. Call assess_engineering_commitment with the assessment object. The tool validates supplied evidence; it does not crawl files, verify facts, authorize engineering, deploy or send results. It uses no model or model key. Your assistant host may still receive supplied data.
+For an extracted candidate distribution, use its root directory instead. No candidate Git tag or package-index release is assumed. Call assessment_template to verify exact versions/schema/depth. Call assess_engineering_commitment with the assessment object. The tool checks the supplied record against the protocol's rules. It does not crawl files, verify facts, authorize engineering, deploy or send results. No model or model key is used, though your assistant host may receive the data you supply.
 
 ## Install the Skill
 
@@ -40,11 +40,11 @@ These repository-relative examples are synthetic, not pilots. A portable install
 
 Unknown/dangling IDs, malformed digests, inconsistent counts, nonfinite/negative numbers, booleans in numeric fields and version mismatches are rejected. Missing nullable/defaultable evidence produces unmet gates. QUICK6 marks later gates NOT_EVALUATED; FULL reports all gates.
 
-Preserve separate evaluator_burden, operational_oversight, roi, operational_performance, gates and provenance. Never derive deployment claims or weighted scores. Unknown costs/tokens are null. Regenerate and parity-check copies with scripts/build_candidate_assets.py; tests include actual stdio MCP and a separate portable Skill subprocess.
+Keep evaluator_burden, operational_oversight, roi, operational_performance, gates and provenance as separate outputs. They must not be combined into a deployment claim or weighted score. Unknown costs/tokens are null. Regenerate and parity-check copies with scripts/build_candidate_assets.py; tests include actual stdio MCP and a separate portable Skill subprocess.
 
-## A small guided conversation
+## Run a guided review
 
-Call new_review_record with a caller-supplied ID, timestamp and evaluator provenance. It returns an empty record, not plausible answers. Use review_next_step to obtain one next question and an owner/action. The assistant should display the short question first; returned detail is for the facilitator.
+Call new_review_record with a caller-supplied ID, timestamp and evaluator provenance. It returns a record with no evidence filled in. Use review_next_step for the next question, responsible role and action. The assistant should show the short question first and retain the returned detail for the facilitator.
 
 get_gate_guide explains one gate. get_review_criterion retrieves a stable HCAI criterion and examples. assessment_report returns private Markdown or offline HTML with expandable requirement/artifact/test chains. Invalid drafts return field paths without echoing sensitive input values.
 
@@ -61,6 +61,6 @@ hcai://criteria exposes four principles and fifteen candidate criteria. validate
 
 get_validation_targets (or CLI --validation-targets) returns current artifact and requirement/context fingerprints for a new check. It does not execute a test, modify a record or verify evidence. Never use it to relabel a stale result; repeat the affected validation first. There are thirteen read-only MCP tools, including legacy diagnostics.
 
-Candidate.3 requires connected proposed transitions, affected-person impact screening, context risk flags, explicit authority boundaries and recorded human evidence-quality review. The result's assurance object distinguishes structural checks, supplied review and unverified authenticity. Guided output remains one question at a time. See [migration](migration-rc3-to-rc4.md) before using old records.
+Candidate.4 retains the evidence requirements introduced in candidate.3: connected proposed transitions, affected-person impact screening, context risk flags, explicit authority boundaries and recorded human evidence-quality review. Its changes are editorial. The result's assurance object continues to distinguish structural checks, supplied review and unverified authenticity. See [migration](migration-rc3-to-rc4.md) before using old records.
 
 Preserve a stopped QUICK6 record before continuing in FULL with previous_run_id and revision_summary. Preparation time and capture/reporting are explicit, source origins must be distinct, tests must identify the artifact revision tested, and simulated behavior stays labeled.

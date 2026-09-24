@@ -143,7 +143,7 @@ def test_report_escapes_artifacts_and_has_drilldown():
     md = render_report(a)
     assert '\\!\\[x\\]' in md
     assert '| --- | --- | --- | --- |\n|' in md
-    assert '## Do next' in md
+    assert '## Next action' in md
 
 def test_invalid_draft_does_not_echo_private_values():
     d = case()

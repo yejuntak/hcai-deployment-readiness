@@ -21,11 +21,11 @@ def generated():
     for model, name in ((Assessment, "assessment"), (AssessmentResult, "assessment-result"),
                         (FeedbackEntry, "feedback-entry"), (PilotRun, "pilot-run"), (StudyReview, "study-review")):
         output[f"schemas/{name}.schema.json"] = encoded({"$schema": "https://json-schema.org/draft/2020-12/schema", **model.model_json_schema()})
-    protocol = (ROOT / "protocol/0.1-rc.4-candidate.3/PROTOCOL.md").read_bytes()
+    protocol = (ROOT / "protocol/0.1-rc.4-candidate.4/PROTOCOL.md").read_bytes()
     output["src/hcai_readiness/protocol.md"] = protocol
     output["skills/ai-ready/references/protocol.md"] = protocol
     for name in ("QUICK-6.md", "FULL-PROFILE.md", "START-HERE.md", "SCENARIOS.md", "WORKSHEET.md"):
-        output[f"skills/ai-ready/references/{name}"] = (ROOT / "protocol/0.1-rc.4-candidate.3" / name).read_bytes()
+        output[f"skills/ai-ready/references/{name}"] = (ROOT / "protocol/0.1-rc.4-candidate.4" / name).read_bytes()
     for name in ("assessment", "pilot-run", "study-review"):
         output[f"skills/ai-ready/references/{name}.schema.json"] = output[f"schemas/{name}.schema.json"]
     for name in ("__init__.py", "versions.py", "contracts.py", "engine.py", "cli.py", "guidance.py", "reporting.py", "criteria.json"):
@@ -34,7 +34,7 @@ def generated():
     output["skills/ai-ready/references/claims-and-governance.md"] = (ROOT / "docs/claims-and-governance.md").read_bytes()
     catalog = criteria_catalog()
     criterion_text = ['# HCAI review criteria', '', 'Protocol '+versions()['protocol']+'; candidate criteria, not certification.', '',
-                      'Use these checks to inspect upstream evidence. Structural checks support but do not replace human review. The six gates enforce the required contract; there is no aggregate conformance score.', '']
+                      'Use these criteria to review the evidence before an engineering commitment. The software checks record structure and the six gates; a human reviewer must judge the evidence itself. The protocol does not produce an aggregate conformance score.', '']
     for principle in catalog['principles']:
         criterion_text += ['## '+principle['title'], '']
         for criterion in catalog['criteria']:

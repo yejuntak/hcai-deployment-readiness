@@ -1,0 +1,24 @@
+{
+  "protocol": "0.1-rc.4-candidate.3",
+  "mcp": "0.2.0rc3",
+  "skill": "0.2.0-rc.3",
+  "source_commit": "f138cfefa64ded736810f3b528fdb48ffc148e91",
+  "note": "The complete historical ZIP retains the original source, contracts, documentation and test report.",
+  "files": {
+    "Pilot-Kit/rc4-candidate-3-external-packet.md": "d5103796acdfb7f6be4d98097e71a77d097cc0eaf7655404ed49b8e365cf4256",
+    "output/pdf/External-Pilot-Packet-v0.1-rc.4-candidate.3.pdf": "f6781fdd8f423d5b5fc7633e7ec036dd29d4249a535cd8580d0969ab9760e20e",
+    "output/pdf/Full-Profile-v0.1-rc.4-candidate.3.pdf": "91ed378757b6bcb00db797ba3f06738df86caca59fad29330739426c4d038ec7",
+    "output/pdf/Protocol-v0.1-rc.4-candidate.3.pdf": "f51a0ad00a6e9f4ba539334782c10b9a817091025583cd18cea95f8b3f54faea",
+    "output/pdf/QUICK-6-v0.1-rc.4-candidate.3.pdf": "b2a93da7d6ff7e823d414517aae471a3e3c33d70c0828bbf11f620d88fc00058",
+    "protocol/0.1-rc.4-candidate.3/CRITERIA.md": "e9b7ce3b7d28bad4925d9d6a12ca52ba522a02a3e9420eb107871cb2d0f540f5",
+    "protocol/0.1-rc.4-candidate.3/FULL-PROFILE.md": "85aed0aa2db6d5e6613afa72622365fc769d948f5b819d5d455e660e64fec8c3",
+    "protocol/0.1-rc.4-candidate.3/PROTOCOL.md": "67a33205fcb6a6bbc7e2976905d296f4d4036e692ba3f16ea950cf39bcd68ccc",
+    "protocol/0.1-rc.4-candidate.3/QUICK-6.md": "549e9c3347e5fa12093b7c9ed74b125bc7bc2464b647b18c91122b0666e48665",
+    "protocol/0.1-rc.4-candidate.3/SCENARIOS.md": "e022b54487123660cbbfc8c79b2088632ec7218a34310a3f184e00cee919f722",
+    "protocol/0.1-rc.4-candidate.3/START-HERE.md": "e70ea6745f511d155429908831e561eb0a24de1b78b0084ff37b012908829f8b",
+    "protocol/0.1-rc.4-candidate.3/WORKSHEET.md": "38b85794a90562c10a21c55907970bf9b20688f4d112d755c258d6a152301bd2",
+    "release/HCAI-v0.1-rc.4-candidate.3.zip": "7477ddc0f349086524350dbb40ff8a4765ece78223c943944f45a5cf1ed7f585",
+    "release/ai-ready-0.2.0-rc.3.zip": "ee409adfedc8af1799c801a183476ef2f1af2b6c6d72df4e6e6acb9bde2c8d79",
+    "release/hcai_readiness_mcp-0.2.0rc3-py3-none-any.whl": "d1f0c00c3448685206ee7c7b3c12a818cce3c12e45d0fbe3d1d5a6eda43250a0"
+  }
+}
