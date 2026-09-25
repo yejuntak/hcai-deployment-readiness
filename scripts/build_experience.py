@@ -19,6 +19,23 @@ PROTOCOL = ROOT / 'protocol' / versions()['protocol']
 def page(title, body):
     return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(title)+'</title><style>'+STYLE+'\nmain{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}\n</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="'+PREFIX+'START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav>'+body+'</main></body></html>'
 
+def render_research_page():
+    """Render the overview only, without rewriting frozen release artifacts."""
+    catalogue = criteria_catalog()
+    chunks = []
+    for principle in catalogue['principles']:
+        chunks.append('<div class="o-card-archetype stack stack-3"><h3 class="t-title-m">'+html.escape(principle['title'])+'</h3><ul class="research-rule-links t-body-m">')
+        for criterion in catalogue['criteria']:
+            if criterion['id'].startswith('HCAI-'+principle['id']+'.'):
+                cid = html.escape(criterion['id'])
+                label = html.escape(criterion['id']+' · '+criterion['title'])
+                chunks.append('<li id="'+cid+'"><a class="link" href="/research/ai-readiness/developers#'+cid+'">'+label+'</a></li>')
+        chunks.append('</ul></div>')
+    template = (ROOT/'docs/research-content.gohtml').read_text().replace('<!-- CRITERIA -->','\n'.join(chunks))
+    for key, value in {'@@HARD_TITLE@@':public_title(), '@@HARD_FULL_NAME@@':PROTOCOL_FULL_NAME, '@@HARD_STATUS@@':RELEASE_LABEL}.items():
+        template = template.replace(key, html.escape(value))
+    return template
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--site-root',type=Path)
@@ -47,20 +64,7 @@ def main():
     synthetic = Assessment.model_validate_json((ROOT/'examples/rc4/low-risk-quick.json').read_text())
     sample = render_report(synthetic,'html').replace('<main>','<main><p><strong>PUBLIC SYNTHETIC EXAMPLE: no real participant or pilot.</strong> The private label below describes the report default; this constructed example contains no confidential participant record.</p><p><a href="/research/ai-readiness">Return to the guide</a></p>')
     (output/'example-report.html').write_text(sample)
-    catalogue = criteria_catalog()
-    chunks = []
-    for principle in catalogue['principles']:
-        chunks.append('<details class="research-connection"><summary class="t-title-m">'+html.escape(principle['title'])+'</summary>')
-        for c in catalogue['criteria']:
-            if c['id'].startswith('HCAI-'+principle['id']+'.'):
-                chunks.append('<details class="research-criterion" id="'+c['id']+'"><summary class="t-title-s">'+html.escape(c['id']+' · '+c['title'])+'</summary>')
-                for label,key in [('Requirement','requirement'),('How to check','check'),('Meets the intent','pass_example'),('Common failure','failure_example'),('Verification boundary','verification')]:
-                    chunks.append('<p class="t-body-m"><strong>'+label+':</strong> '+html.escape(c[key])+'</p>')
-                chunks.append('<p class="t-body-s">Decision gate: '+html.escape(c['gate'])+'. No separate certification is issued.</p></details>')
-        chunks.append('</details>')
-    template=(ROOT/'docs/research-content.gohtml').read_text().replace('<!-- CRITERIA -->','\n'.join(chunks))
-    for key, value in {'@@HARD_TITLE@@':public_title(), '@@HARD_FULL_NAME@@':PROTOCOL_FULL_NAME, '@@HARD_STATUS@@':RELEASE_LABEL}.items():
-        template=template.replace(key,html.escape(value))
+    template = render_research_page()
     body=template.replace('{{define "research"}}','').replace('{{end}}','')
     for name in ('index.html','docs/index.html'):
         (ROOT/name).write_text(page(public_title(),body))
