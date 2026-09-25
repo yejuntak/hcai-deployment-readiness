@@ -1,0 +1,41 @@
+{
+  "protocol_version": "0.2-preview.2",
+  "status": "public_preview",
+  "identity": {
+    "name": "H.A.R.D. Protocol",
+    "full_name": "Human-centered AI Readiness and Decision Protocol",
+    "display_version": "0.2",
+    "release_label": "Public Preview",
+    "distribution_id": "hard-0.2-preview-2"
+  },
+  "files": {
+    "HARD-Protocol-0.2-preview.2.zip": {
+      "sha256": "4c9e31285dcefa9a52302d6dff72f8b2b0183a0f9e20053a7e5657199307432b",
+      "bytes": 55026676
+    },
+    "ai-ready-0.2.0-rc.8.zip": {
+      "sha256": "60d637c1602a55dad2bf41c73b7aa5140c7a3c234690d8246e959a4aac3d83c9",
+      "bytes": 77393
+    },
+    "hcai_readiness_mcp-0.2.0rc8-py3-none-any.whl": {
+      "sha256": "b318e7ebbd922f8417bf7f8204cfcff92cab038c313be8bf35fd6606679b5967",
+      "bytes": 47797
+    },
+    "HARD-Full-Profile-0.2-preview.2.pdf": {
+      "sha256": "48f48cfab4035d9c7252d08f400622b048fbb5b01ef20da96206c93019f92d0a",
+      "bytes": 19292
+    },
+    "HARD-QUICK-6-0.2-preview.2.pdf": {
+      "sha256": "6ac7018dc2ae7540c2f7f03bc73ef325f9b479d41146bc21444789436ae528f9",
+      "bytes": 6373
+    },
+    "HARD-Protocol-0.2-preview.2.pdf": {
+      "sha256": "e61f9bf59a8bb6f10fffdfdf75ea615db286755da49c01c1eac8905eaa863c3c",
+      "bytes": 20225
+    },
+    "HARD-External-Pilot-Packet-0.2-preview.2.pdf": {
+      "sha256": "890bbd02950572de0b980db737bfa31c5fb45326f33822416a0873dd6e1aa4fe",
+      "bytes": 3753
+    }
+  }
+}

@@ -1,0 +1,11 @@
+requirement_id,mandatory_yes_no,acceptance_check
+R01,Yes,Choose a service type
+R02,Yes,Retain entered details after returning and reopening
+R03,Yes,Identify the requester
+R04,Yes,Identify an invalid required field and display validation
+R05,Yes,Describe pending submission status and allowed actions
+R06,Yes,Show a unique success reference
+R07,Yes,Recover from timeout while retaining entered data
+R08,Yes,Prevent duplicate requests for one submission
+R09,Yes,Allow abandoning the request before submission
+R10,Yes,Require explicit confirmation before consequential access-change sending

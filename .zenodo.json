@@ -1,13 +1,13 @@
 {
-  "title": "HCAI Readiness MCP Server and Agent Skill",
+  "title": "H.A.R.D. Protocol 0.2: MCP Server and Agent Skill (Public Preview)",
   "upload_type": "software",
   "creators": [
     {
       "name": "Tak, Yejun"
     }
   ],
-  "description": "Local MCP server and agent skill implementing descriptive calculations and workflow guidance for the HCAI engineering-handoff protocol 0.1-rc.3. Separate companion software; not empirical validation or NIST endorsement. Original software MIT; bundled protocol and skill text CC BY 4.0. AI-assisted development disclosed.",
-  "version": "0.1.0",
+  "description": "Human-centered AI Readiness and Decision Protocol. H.A.R.D. Protocol 0.2 is a Public Preview for reviewing evidence before committing engineering resources. Exact versions: protocol 0.2-preview.2, MCP 0.2.0rc8 and Skill/contract 0.2.0-rc.8. This naming revision retains the preceding decision logic, risk thresholds and evidence requirements. It cannot authorize deployment and has not undergone controlled empirical validation. Original software is MIT-licensed; protocol and Skill text use CC BY 4.0. Development was AI-assisted. No new DOI is assigned; the referenced DOI identifies historical rc.3 only.",
+  "version": "0.2.0rc8",
   "access_right": "open",
   "license": "cc-by-4.0",
   "keywords": [
@@ -20,7 +20,7 @@
   "related_identifiers": [
     {
       "identifier": "10.5281/zenodo.22667623",
-      "relation": "isSupplementTo",
+      "relation": "references",
       "scheme": "doi"
     },
     {
@@ -29,6 +29,5 @@
       "scheme": "url"
     }
   ],
-  "publication_date": "2026-09-09",
   "language": "eng"
 }

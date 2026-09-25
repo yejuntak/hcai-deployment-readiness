@@ -1,4 +1,5 @@
 *.csv text eol=lf
+*.md whitespace=-blank-at-eol
 
 *.pdf binary
 *.xlsx binary

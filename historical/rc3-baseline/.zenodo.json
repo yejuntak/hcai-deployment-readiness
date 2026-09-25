@@ -1,0 +1,34 @@
+{
+  "title": "HCAI Readiness MCP Server and Agent Skill",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Tak, Yejun"
+    }
+  ],
+  "description": "Local MCP server and agent skill implementing descriptive calculations and workflow guidance for the HCAI engineering-handoff protocol 0.1-rc.3. Separate companion software; not empirical validation or NIST endorsement. Original software MIT; bundled protocol and skill text CC BY 4.0. AI-assisted development disclosed.",
+  "version": "0.1.0",
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "keywords": [
+    "human-AI interaction",
+    "prototype evaluation",
+    "engineering handoff",
+    "evaluation methodology",
+    "readiness calibration"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.22667623",
+      "relation": "isSupplementTo",
+      "scheme": "doi"
+    },
+    {
+      "identifier": "https://takyejun.com/research/ai-readiness#agent-tools",
+      "relation": "isDocumentedBy",
+      "scheme": "url"
+    }
+  ],
+  "publication_date": "2026-09-09",
+  "language": "eng"
+}

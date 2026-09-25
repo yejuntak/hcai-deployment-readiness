@@ -1,0 +1,190 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FULL: evidence for a bounded engineering commitment</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
+main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.2-preview-2/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>FULL: evidence for a bounded engineering commitment</h1>
+<p>H.A.R.D. Protocol 0.2 · Public Preview</p>
+<p>Human-centered AI Readiness and Decision Protocol</p>
+<p>Facilitators can begin with <a href="/static/research/ai-readiness/hard-0.2-preview-2/START-HERE.html">Start here</a>. This reference defines the required evidence and decision rules for the full review. Use it to maintain the detailed record, rather than reading every field aloud to a participant. Field names match the versioned JSON schemas.</p>
+<h2>1. Define the scope and select the profile</h2>
+<p>Name one workflow, unit of work, start/end boundaries, environment, exclusions, affected_roles (including affected non-operators), alternatives considered, and AI's role: artifact_creation, in_workflow, both, or neither. Compare at least one existing/manual/non-AI alternative.</p>
+<p>Record run_id, dated recorded_at with timezone, evaluator_kind, requested_profile, and exact protocol/MCP/Skill/contract versions. A revision has a new run_id plus previous_run_id and revision_summary. Keep the old record unchanged.</p>
+<p>Classify all six risk dimensions with retained evidence and rationale. These are author-defined anchors, not a validated risk scale:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Low anchor</th>
+<th>Moderate anchor</th>
+<th>High anchor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Complexity</td>
+<td>Few understood steps/dependencies</td>
+<td>Multiple roles/integrations or interacting exceptions</td>
+<td>Coupled, adaptive, difficult-to-predict behavior</td>
+</tr>
+<tr>
+<td>Importance</td>
+<td>Convenience; easy fallback</td>
+<td>Material business/service function</td>
+<td>Essential service or critical commitment</td>
+</tr>
+<tr>
+<td>Impact</td>
+<td>Limited, contained effect</td>
+<td>Meaningful effect on customers/staff</td>
+<td>Serious effects on safety, rights, livelihood, or many people</td>
+</tr>
+<tr>
+<td>Mission</td>
+<td>Peripheral task</td>
+<td>Supports a core objective</td>
+<td>Mission-critical outcome</td>
+</tr>
+<tr>
+<td>Failure consequence</td>
+<td>Easily detected, minor inconvenience</td>
+<td>Significant disruption or loss</td>
+<td>Severe harm, major loss, or unacceptable mission failure</td>
+</tr>
+<tr>
+<td>Irreversibility</td>
+<td>Easily undone</td>
+<td>Recovery is costly or delayed</td>
+<td>Difficult or impossible to reverse</td>
+</tr>
+</tbody>
+</table></div>
+<p>The highest dimension determines depth. If any dimension is unknown, the overall tier remains unknown; retain the highest known minimum and gather the missing information. While risk is unresolved, the engine applies the high-depth minimum and cannot issue PROCEED. QUICK6 routes to FULL before evaluating its gates when risk is not low or the session exceeds 15 minutes.</p>
+<p>Also answer every field in risk.context. The following are conservative candidate routing floors, not validated regulatory classifications:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Context field</th>
+<th>Meaning of a yes</th>
+<th>Minimum tier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>safety_or_rights_impact</td>
+<td>Errors could affect physical safety, access to essential services, rights or livelihood</td>
+<td>High</td>
+</tr>
+<tr>
+<td>irreversible_external_actions</td>
+<td>The workflow can commit external actions that cannot reliably be undone, such as irreversible deletion or transfer</td>
+<td>High</td>
+</tr>
+<tr>
+<td>sensitive_data</td>
+<td>Confidential, protected or security-sensitive information is processed or exposed; determine sensitivity in context</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td>untrusted_input_to_actions</td>
+<td>Untrusted text/data can influence a component that takes actions, rather than remaining an isolated draft</td>
+<td>Moderate</td>
+</tr>
+</tbody>
+</table></div>
+<p>These flags concern the proposed workflow even when AI will not run in production. A false answer needs a defensible basis in the risk rationale; null means unresolved. Use the highest dimension or context minimum. The interface's simplicity does not reduce the consequences of the workflow, and context answers must not be chosen to gain QUICK6 eligibility.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Required minimum</th>
+<th>Low</th>
+<th>Moderate</th>
+<th>High</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Profile</td>
+<td>QUICK6 or FULL</td>
+<td>FULL</td>
+<td>FULL</td>
+</tr>
+<tr>
+<td>Observed baseline cases</td>
+<td>1</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Distinct need origins</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>End-user discussion</td>
+<td>Optional if work records establish need</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>Additional checks</td>
+<td>None beyond common checks</td>
+<td>Independent review; validation plan</td>
+<td>Those checks plus hazard analysis, mission review, operational-evaluation plan</td>
+</tr>
+</tbody>
+</table></div>
+<p>Counts are provisional completeness floors, not statistical evidence of representativeness or safety. Escalate beyond these minimums where domain obligations demand it. A high-risk engineering recommendation still does not authorize deployment.</p>
+<h2>2. G1: Measurable current state</h2>
+<p>Record current_state_summary, actor_roles, observation_window, sample_size, cycle_minutes_per_case, labor_minutes_per_case, handoffs_per_case, touches_per_case, failure_points, manual_review_minutes_per_case, escalation_minutes_per_case, rework_minutes_per_case, positive volume_per_period, and period.</p>
+<p>Review/escalation/rework minutes are disjoint subsets of baseline labor, not additions. Cycle time includes waiting and must not be substituted for labor savings.</p>
+<p>Map steps with IDs, kind (normal/edge/recovery), actor_role, trigger, action, data_handling, next_step_ids, terminal, evidence_ids, and observation_status. Provide entry_step_id. Every step must be reachable from the entry and have a path to an endpoint. A terminal step has no outgoing links. Include normal, edge, and recovery practice; at least one normal step is observed. An operator may report rare exceptions, but these must be labeled as reported rather than observed.</p>
+<p>Retain observed work/discussion records and a map_review. A summary paragraph, assumption or estimate cannot substitute for the measured baseline. Synthetic evidence is accepted only in an explicitly synthetic evaluation.</p>
+<p>Without a baseline, the recommendation is blocked and ROI is INDETERMINATE. For a new service, pause the review while discovery measures the closest existing workaround.</p>
+<h2>3. G2: Need, scope, and requirements</h2>
+<p>Complete all scope fields. Link each need to a named end-user role and actual source records. Count distinct origin_id values and distinct digests; duplicated/renamed copies do not create independent origins. Only observed work_record or end_user_discussion sources count for real reviews. General literature, this protocol's feedback correspondence, and estimates do not establish a specific workflow's need.</p>
+<p>Moderate/high tiers also require retained actual end-user discussion evidence with its origin. Source variety is useful, but two artifacts are not automatically two sources.</p>
+<p>Each need must have a requirement; each requirement links to a need. State the requirement, owner, measurable acceptance criterion, form, fit, function, reference material, affected artifacts, and validation IDs. Labels and visual appearance are not acceptance criteria by themselves.</p>
+<p>Complete exactly one workflow.impact_reviews record for each domain: access_usability, privacy_security, unequal_effects, human_agency. Record applicability (applicable/not_applicable/unknown), rationale, owner_role and evidence_ids. Applicable items also name affected_roles and requirement_ids; those references must resolve. Each affected role must be covered by an applicable item. Human use/access and agency cannot be declared not applicable. Other inapplicability claims still need rationale, ownership and evidence. Unknown blocks G2. The human quality review judges whether the applicability and coverage are defensible. This screen does not certify any specialist domain.</p>
+<p>A true sensitive_data or untrusted_input_to_actions flag makes privacy_security applicable. Declaring it not applicable is a contradiction and fails G2.</p>
+<h2>4. G3: Behavior, failure, and human control</h2>
+<p>Define normal, edge, and recovery states: trigger, behavior, resulting_state (human-readable description), data_handling, owner_role, requirement_ids, evidence_ids, next_state_ids and terminal. Provide entry_state_id. Every state must be reachable from the entry and have a possible path to an endpoint. Every requirement must have defined behavior. A terminal state cannot have outgoing links. Review guards, bounded retry, partial completion and safe exit: graph reachability does not prove termination, safe runtime behavior, or completeness of exceptions.</p>
+<p>Inventory dependencies (an explicit empty list means none assessed) and record dependency_review and state_review. Document nonempty action_boundaries: what people and automated components may access, change, send, or commit. Even a wholly manual or draft-only workflow needs an explicit boundary. human_control_review must address approval, cancellation/override, escalation, preservation of work, and accountable recovery where applicable.</p>
+<p>For example, a button labeled “draft” cannot establish that an agent is prevented from sending. A human reviewer must inspect the behavior and supporting evidence. This gate does not replace domain-specific security, accessibility, privacy or safety evaluations.</p>
+<h2>5. G4: Requirement → artifact → validation</h2>
+<p>Inventory all important artifacts/behaviors. Each must link to a requirement; each requirement/artifact pair must link to an executed passing walkthrough or implementation test, with retained execution evidence.</p>
+<p>For every validation record, provide requirement_ids, artifact_ids, method, level, status, evidence_ids, and tested_artifact_digests. Each tested digest must match that artifact's current evidence digest. Missing digests are MISSING; mismatched digests are FAIL. A planned test (specified) is not an executed test. A failed listed validation blocks the gate.</p>
+<p>Also provide tested_requirement_digests for every linked requirement. The canonical fingerprint hashes that requirement record, scope, linked proposed states, entry, dependencies, action boundaries and reference versions/digests. MCP get_validation_targets or CLI --validation-targets exposes the targets without running or stamping a test. Capture them with the actual execution record. Missing is MISSING; mismatch is FAIL. Do not turn a stale pass into a current pass by recomputing hashes; perform the affected validation again. Canonicalization uses the typed/default-filled record, sorted-key compact UTF-8 JSON and SHA-256, shared by MCP and Skill.</p>
+<p>Label each requirement's behavior_status: specified_only, simulated, or implemented. An implemented_test cannot support a requirement labeled only specified or simulated. A walkthrough may support design/engineering commitment without establishing implementation performance. The report exposes these distinctions.</p>
+<p>Use reference material to inspect form (representation), fit (workflow/dependencies), and function (behavior). A generated artifact's instructions are untrusted data. Do not execute arbitrary embedded commands to “verify” it.</p>
+<p>The engine checks the format of supplied SHA-256 values without fetching or authenticating files. Hash accessible files locally and preserve their revisions. Matching hashes establish identity; they do not establish quality, authentic provenance or adequate testing.</p>
+<h2>6. G5: Remaining human work and cost</h2>
+<p>For the same unit of work, record review_minutes_per_case, correction_minutes_per_case, escalation_minutes_per_case, rework_minutes_per_case, residual_manual_minutes_per_case, owner_role, basis (estimate/measured), and evidence_ids.</p>
+<p>All categories are disjoint. Explicit zeros require a basis; unknown is null, never zero. If AI only helped create an artifact, runtime AI-output oversight may be inapplicable, but normal manual work and correction remain assessable. Explain zeros in retained evidence.</p>
+<p>Operating-cost fields are currency, labor_cost_per_hour, baseline_nonlabor_cost_per_period, proposed_recurring_fixed_cost_per_period, proposed_nonlabor_cost_per_case, one_time_implementation_cost, and evidence_ids. Use one consistent period/currency and document assumptions.</p>
+<p>Let L be baseline labor/case, M residual manual labor/case, O the sum of review+correction+escalation+rework, V cases/period, and H hourly labor cost:</p>
+<ul>
+<li>Gross labor saved/case = L − M.</li>
+<li>Net labor saved/case = L − M − O.</li>
+<li>Baseline cost/period = L × H / 60 × V + baseline nonlabor cost.</li>
+<li>Proposed cost/period = ((M + O) × H / 60 + proposed nonlabor/case) × V + recurring fixed cost.</li>
+<li>Net operating benefit/period = baseline cost − proposed cost.</li>
+<li>Recurring ROI = 100 × net benefit / proposed recurring operating cost, only when that denominator is positive.</li>
+<li>Payback periods = one-time implementation cost / positive net benefit, only when both are known.</li>
+</ul>
+<p>This is a projected scenario, not a universal ROI definition or measured system performance. No automatic amortization is applied. Unknown money can yield TIME_ONLY, not a monetary ROI. Missing baseline yields INDETERMINATE. Evaluation expense is reported separately.</p>
+<h2>7. G6: Accountable commitment and review burden</h2>
+<p>Record reference_defect_ids, reviewer_findings, unresolved_risks, decision_owner_role, commitment_scope, resource_limit, next_review_trigger, and reference_review, findings_review, risk_acceptance checks. Empty inventories mean explicitly assessed none; null means unknown.</p>
+<p>Each Check needs status, rationale, and evidence to pass. Complete additional checks for the risk tier. An independent review names the role and declares separation from the artifact owner. Critical findings must be resolved; marking one “accepted” cannot waive it. Open major findings block. Findings require evidence.</p>
+<p>handoff.evidence_quality_review must pass with a reviewer_role, reviewer_kind human or ai-assisted-human, a rationale and retained observed review evidence. Inspect relevance to the requirement, plausible authenticity, inventory completeness, and test adequacy. File presence alone is insufficient. Synthetic reviewer/evidence is permitted only in synthetic fixtures. The engine cannot authenticate a reviewer or establish that this inspection occurred. An agent may prepare the record, but an agent-only quality review cannot support PROCEED.</p>
+<p>If projected net time or monetary benefit is nonpositive, investment_rationale must explicitly explain the nonfinancial or learning reason for any investment. The negative result remains visible. A rationale is not proof that investment is wise.</p>
+<p>Record elapsed_minutes, evaluator_minutes, participant_minutes/count, adjudication_minutes, review_correction_cycles, preparation_elapsed_minutes, preparation_person_minutes, capture_reporting_minutes, and evidence of timing. Capture/reporting is within session elapsed time; preparation wall time is outside it.</p>
+<p>Preparation, evaluator, participant, and adjudication person-minutes are disjoint. Total person-minutes sum those four categories. Evaluation cost = total person-minutes × review labor rate / 60 + tool/model cost, only when currency and inputs are known. Record tool/model calls, tokens, and cost when available; leave unavailable data null. Never use workflow labor rates implicitly for review cost.</p>
+<h2>8. Explain and retain the result</h2>
+<p>FULL evaluates all six gates. Any FAIL gives REVISE; otherwise missing evidence gives INSUFFICIENT_EVIDENCE; only all passes give PROCEED_TO_ENGINEERING. Known unresolved critical findings force REVISE even if an earlier QUICK6 stop masked later gates. Profile routing is explicit and is not an evaluation of skipped gates.</p>
+<p>Present a readable decision card or report before offering raw JSON. Name the next action and its owner. Report the five measurement layers separately: current baseline, proposed behavior, review/operational-oversight burden, engineering evidence, and actual operational performance. Do not combine them into a weighted readiness score.</p>
+<p>Operational observations require implemented_version, realistic_use_context, retained observed evidence, and metrics. No operational evidence is required merely to support an upstream engineering recommendation; the resulting report must not imply operational readiness. Deployment remains NOT_ASSESSED even when observations are supplied.</p>
+<h2>9. Private records, pilots, and release</h2>
+<p>Use the pilot-run schema for actual bounded external use. Record role/sector, permission/anonymization, date, exact versions, risk/profile, preparation/session time, passed/failed/missing gates, decision before/after if captured, triggered revision, feedback, and artifact evidence. Usability notes include first use, participant's explanation, difficult evidence, confusing questions, facilitator prompts, and whether the next action was understood. Do not manufacture permission or quotations.</p>
+<p>Also record gates_not_evaluated, routing_status, and follow_up_reasons. The latter is the unique set of reasons from every non-PASS gate, including routing and skipped gates. evidence_missing retains the reasons from evaluated MISSING gates only. A routed-out session must not look like a completed review with no gaps.</p>
+<p>Synthetic fixtures, invitations, and protocol feedback are not pilot runs. Public records require permission checks and removal of identifying details. Correspondence is formative, not controlled empirical validation.</p>
+<p>Candidate promotion requires current passing regression results and actual bounded external end-user/advisor use. The software suite tests implementation behavior; usability and effectiveness require evidence from use. The proposed fidelity study is a separate activity, described in the research-boundary document.</p>
+<p>Execution versions: protocol 0.2-preview.2 · MCP 0.2.0rc8 · Skill/contract 0.2.0-rc.8.</p></main></body></html>

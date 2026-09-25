@@ -1,102 +1,68 @@
-# MCP server and agent skill
+# H.A.R.D. Protocol: MCP and Skill
 
-Use the published engineering-handoff protocol from an MCP-compatible assistant or a file-based agent skill. **MCP 0.1.0 and Skill 0.1.1** implement the descriptive calculations and workflow of **protocol 0.1-rc.3** ([archived method](https://doi.org/10.5281/zenodo.22667623)). The software is a separate release, not part of the earlier Zenodo archive and not evidence of external validation.
+H.A.R.D. Protocol 0.2 · Public Preview
 
-[Project website](https://takyejun.com/research/ai-readiness#agent-tools) · [Source repository](https://github.com/yejuntak/hcai-deployment-readiness) · [Skill](../skills/ai-ready/SKILL.md)
-
-## Quick start and when to use
-
-**Before handoff:** install the Skill to prepare the scope, requirements and evidence records. Run this in your project terminal (Node.js required), then choose your agent:
-
-```sh
-npx skills add yejuntak/hcai-deployment-readiness --skill ai-ready
-```
-
-Example: “Use ai-ready to prepare a handoff review. Identify missing criteria before judging readiness. Label your own findings as an agent review.”
-
-**After findings are locked and adjudicated:** use MCP to validate counts and calculate results. It does not inspect an interface or validate the truth of submitted evidence. Example: “Use assess_session with these reconciled records, explain each metric and flag missing evidence.” Use summarize_batch for multiple instances with the same criterion and evaluator population.
-
-**Together:** the Skill guides the process; MCP performs deterministic checks and arithmetic. The Skill works without MCP. Neither substitutes for human participant records, the decision owner's review, or production testing.
-
-For a checkout-free MCP connection, install uv and Python 3.11+, then add this to a client supporting mcpServers JSON:
-
-```json
-{
-  "mcpServers": {
-    "hcai-readiness": {
-      "command": "uvx",
-      "args": ["--from", "git+https://github.com/yejuntak/hcai-deployment-readiness.git@agent-tools-v0.1.0", "hcai-readiness-mcp"]
-    }
-  }
-}
-```
-
-Reload the client and ask it to call `assessment_template`; expect a checklist and JSON schema. If `uvx` is not found, use its absolute executable path in `command`. Clients with other config formats can use the same stdio command and args. First launch downloads the tagged software and dependencies. For a locked checkout installation, use the steps below.
-
-The shortcut was checked with a fresh project-level Skills CLI installation and actual MCP initialize/template/session/batch calls through uvx using the published tag. The known synthetic case produced 62.5% recall; an all-abstention batch correctly returned N/A for decisive false-ready acceptance. These are installation and software checks, not empirical validation of the Skill's judgment quality.
+Human-centered AI Readiness and Decision Protocol. Exact protocol 0.2-preview.2; MCP 0.2.0rc8; Skill/contract 0.2.0-rc.8. The displayed MCP and Skill name is H.A.R.D. Protocol. Existing package names, hcai-readiness commands, hcai:// resources, API fields and the ai-ready invocation are unchanged. The historical DOI and tags identify earlier releases only.
 
 ## Install the MCP server
 
-Requires Python 3.11+ and [uv](https://docs.astral.sh/uv/getting-started/installation/). Clone the tagged release, install the locked dependencies, then use its absolute directory in your client configuration:
+From this candidate checkout, use Python 3.11+ and uv:
 
 ```sh
-git clone --branch agent-tools-v0.1.0 https://github.com/yejuntak/hcai-deployment-readiness.git
-cd hcai-deployment-readiness
-uv sync --frozen --no-dev
+uv sync --group dev
+uv run hcai-readiness-mcp
 ```
 
-For clients accepting the common `mcpServers` JSON format:
+Configure a local stdio MCP server using the absolute candidate checkout path. Replace /ABSOLUTE/PATH/readiness-rc4 with your path; it is a placeholder.
 
 ```json
-{
-  "mcpServers": {
-    "hcai-readiness": {
-      "command": "uv",
-      "args": ["run", "--frozen", "--no-dev", "--directory", "/ABSOLUTE/PATH/hcai-deployment-readiness", "hcai-readiness-mcp"]
-    }
-  }
-}
+{"mcpServers":{"hcai-readiness-candidate":{"command":"uv","args":["--directory","/ABSOLUTE/PATH/readiness-rc4","run","hcai-readiness-mcp"]}}}
 ```
 
-Replace the absolute path. Some clients use a different settings format; use their local stdio server option with the same command and arguments. Start the command through your MCP client; a terminal alone waits for protocol messages. Installation downloads dependencies. The running server performs no network calls, file writes or telemetry. Inputs and outputs are visible to the host assistant, so use a host appropriate for your data.
+For an extracted candidate distribution, use its root directory instead. No candidate Git tag or package-index release is assumed. Call assessment_template to verify exact versions/schema/depth. Call assess_engineering_commitment with the assessment object. The tool checks the supplied record against the protocol's rules. It does not crawl files, verify facts, authorize engineering, deploy or send results. No model or model key is used, though your assistant host may receive the data you supply.
 
-The implementation uses the official MCP Python SDK's supported 1.x interface, bounded below 2 and pinned in `uv.lock`. It does not require an API key or run an AI model itself.
+## Install the Skill
 
-## Available operations
-
-| Operation | Purpose |
-|---|---|
-| `assessment_template` | Input JSON schema and preparation checklist; no answer key |
-| `assess_session` | Validate supplied adjudicated counts, calculate five descriptive measures and provisional handoff status |
-| `summarize_batch` | Criterion-conditioned false-ready/false-hold rates with abstention, decision coverage, missing and unknown counts |
-| `hcai://protocol` resource | Full protocol reference, including clearly marked public synthetic training answers |
-| `plan_handoff_review` prompt | Prepare a scoped review while separating evaluator and reference roles |
-
-Example request: “Use assessment_template to prepare an engineering-handoff review of this prototype. Record missing criteria first; label your own findings as an agent review.”
-
-After real human findings have been locked and adjudicated: “Use assess_session with these reconciled counts and retain the input records in the report.” `examples/session.json` is an explicitly synthetic arithmetic fixture. It yields 62.5% recall, +17.5 percentage points expected-recall gap, 50% recovery coverage, 33.333333% omission recognition and 70% requirements coverage, with Hold for remediation.
-
-`null` means missing/N/A, not zero. Whole-number counts must reconcile. Expected recall is a percentage from 0 to 100 (the Excel workbook instead uses a fraction). Unknown gate inputs prevent an established pass; documented missing required evidence makes the artifact nonready. Zero applicable recovery scenarios require a reason. Batch records must share a criterion version and evaluator population. Use artifact/evaluator provenance and stratify different populations even if they use the same criterion label.
-
-The server checks arithmetic and structural consistency. It cannot verify the truth of supplied counts, timestamps, reference quality or evidence completeness. Human decisions and source records remain essential. A full repository or the protocol resource exposes the public training answers; use a separate outcome-free packet and context for blinded work. The server is not an access-control boundary for reference materials.
-
-## Install the skill
-
-The Skill is now named **ai-ready** (previously hcai-readiness). Version 0.1.1 changes the name only; its evaluation workflow and protocol reference are unchanged. Existing installations under the old name still work; install the new name and remove the old copy through your host when ready.
-
-Download `ai-ready-skill-v0.1.1.zip` from the [Skill release](https://github.com/yejuntak/hcai-deployment-readiness/releases/tag/skill-v0.1.1), or copy `skills/ai-ready/` from this repository into your agent's skills directory. Keep the whole folder, including `references/`. For Codex, a standard personal location is `~/.codex/skills/ai-ready/`; other hosts have their own locations and discovery rules. Do not overwrite a customized installed skill without comparing it first.
-
-Invoke `ai-ready` using your host's skill selector. The skill can guide the workflow without MCP. MCP adds deterministic validation and calculation; it does not turn an agent into a human participant. The skill does not install the server automatically.
-
-## Test and reproduce
+Copy skills/ai-ready into your assistant's Skill directory. Protocol, profiles, schemas and deterministic Python engine are bundled. Install scripts/requirements.txt in your Python environment (Pydantic 2). The Skill requires Python 3.11+; without a runtime it can prepare evidence but must report assessment pending.
 
 ```sh
-uv sync --frozen
-uv run --frozen pytest
+python skills/ai-ready/scripts/assess.py examples/rc4/low-risk-quick.json
+uv run hcai-readiness examples/rc4/low-risk-quick.json
 ```
 
-Tests cover the archived synthetic arithmetic, invalid counts, missing data, zero denominators, abstention, criterion-ready controls, evaluator populations, and an actual stdio MCP handshake/tool/resource/prompt round trip. These are software checks, not empirical validation of the method.
+These repository-relative examples are synthetic, not pilots. A portable installation uses its own input path.
 
-## Version and attribution
+## Operations and boundaries
 
-Cite the underlying method as Tak, Y. (2026). *Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile* (0.1-rc.3). Zenodo. https://doi.org/10.5281/zenodo.22667623 . Identify software `agent-tools-v0.1.0` separately when reporting calculations. Original software is MIT; protocol and skill text are CC BY 4.0. See [LICENSE](../LICENSE). Development assisted by OpenAI Codex. No NIST endorsement or autonomous production certification is claimed.
+- Prepare: Skill collects current-state evidence, classifies risk and walks QUICK6/FULL; it visibly stops at an unmet gate.
+- Evaluate: MCP assess_engineering_commitment and the Skill script use byte-identical contracts/engine logic.
+- Record use: validate_pilot_run checks versions, gates/decision and evidence references; it does not prove a session occurred.
+- Export feedback: export_public_feedback strips private names, comments, dates, context and permission evidence. Review change/file metadata for inadvertent private content before publication.
+- Legacy: assess_legacy_session and summarize_legacy_batch retain rc.3 formulas/identity. They cannot establish a candidate pass. Old assess_session/summarize_batch names are replaced to avoid mixing contracts.
+
+Unknown/dangling IDs, malformed digests, inconsistent counts, nonfinite/negative numbers, booleans in numeric fields and version mismatches are rejected. Missing nullable/defaultable evidence produces unmet gates. QUICK6 marks later gates NOT_EVALUATED; FULL reports all gates.
+
+Keep evaluator_burden, operational_oversight, roi, operational_performance, gates and provenance as separate outputs. They must not be combined into a deployment claim or weighted score. Unknown costs/tokens are null. Regenerate and parity-check copies with scripts/build_candidate_assets.py; tests include actual stdio MCP and a separate portable Skill subprocess.
+
+## Run a guided review
+
+Call new_review_record with a caller-supplied ID, timestamp and evaluator provenance. It returns a record with no evidence filled in. Use review_next_step for the next question, responsible role and action. The assistant should show the short question first and retain the returned detail for the facilitator.
+
+get_gate_guide explains one gate. get_review_criterion retrieves a stable HCAI criterion and examples. assessment_report returns private Markdown or offline HTML with expandable requirement/artifact/test chains. Invalid drafts return field paths without echoing sensitive input values.
+
+```sh
+uv run hcai-readiness --new --run-id MY-REVIEW --recorded-at 2026-09-24T12:00:00Z --evaluator-kind human
+uv run hcai-readiness examples/rc4/low-risk-quick.json --guide
+uv run hcai-readiness examples/rc4/low-risk-quick.json --format html
+python skills/ai-ready/scripts/assess.py examples/rc4/low-risk-quick.json --format markdown
+```
+
+Replace the example ID/time with actual metadata. Commands print to stdout and do not save records automatically. The HTML report is private by default, not a public export. It never loads artifact URLs or executes their content.
+
+hcai://criteria exposes four principles and fifteen candidate criteria. validate_study_review is separate: it validates a locked reviewer-side record without keys, effect calculations or an engineering recommendation. A confidence field is not a validated scale.
+
+get_validation_targets (or CLI --validation-targets) returns current artifact and requirement/context fingerprints for a new check. It does not execute a test, modify a record or verify evidence. Never use it to relabel a stale result; repeat the affected validation first. There are thirteen read-only MCP tools, including legacy diagnostics.
+
+Candidate.5 retains the evidence requirements introduced in candidate.3: connected proposed transitions, affected-person impact screening, context risk flags, explicit authority boundaries and recorded human evidence-quality review. Candidate.4 revised the wording; candidate.5 removes the remaining em dashes and en dashes. The result's assurance object continues to distinguish structural checks, supplied review and unverified authenticity. See [migration](migration-rc3-to-rc4.md) before using old records.
+
+Preserve a stopped QUICK6 record before continuing in FULL with previous_run_id and revision_summary. Preparation time and capture/reporting are explicit, source origins must be distinct, tests must identify the artifact revision tested, and simulated behavior stays labeled.

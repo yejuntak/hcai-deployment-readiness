@@ -1,0 +1,24 @@
+{
+  "protocol": "0.1-rc.4-candidate.4",
+  "mcp": "0.2.0rc4",
+  "skill": "0.2.0-rc.4",
+  "source_commit": "23601e5e8770b9adad78de1721b4f6a5d8c7103d",
+  "note": "The complete historical ZIP retains the original source, contracts, documentation and test report.",
+  "files": {
+    "Pilot-Kit/rc4-candidate-4-external-packet.md": "2c1bc5b66b7bb7e71c33fc64fb946824018dcfebde94934ab1aeb56a3aa436b4",
+    "output/pdf/External-Pilot-Packet-v0.1-rc.4-candidate.4.pdf": "a1b6760a9333bb21f9fea7ee25b0cdb2ed008ef4127f8766fa9778f884420cbb",
+    "output/pdf/Full-Profile-v0.1-rc.4-candidate.4.pdf": "153316f6728322bbb0273471ebcfc02604a70e1613f38229526e8c9816325749",
+    "output/pdf/Protocol-v0.1-rc.4-candidate.4.pdf": "16d48f74f32b00ba0621fee68ba70d11d65bbbebecf51b1e0f7ffbcc1535ff02",
+    "output/pdf/QUICK-6-v0.1-rc.4-candidate.4.pdf": "c796c8247be1e9c5fa15ba3ffcf1a0aa1cf2a1349e67254ab1e87fdd5b4625df",
+    "protocol/0.1-rc.4-candidate.4/CRITERIA.md": "92a63201aa58159e228b6cdd9d93d90dc119f95b125b8f07e6d03d3b972f9e17",
+    "protocol/0.1-rc.4-candidate.4/FULL-PROFILE.md": "3b69cf88596b6e09277972edfbf79d88272abe988a4d500e5ec4c018f311b34c",
+    "protocol/0.1-rc.4-candidate.4/PROTOCOL.md": "c0c412995e14372260840942ff2bf02d7568a7e16365404285a8a094e1c73c9c",
+    "protocol/0.1-rc.4-candidate.4/QUICK-6.md": "7f9d4f50e6cd8d0ce1c99f0d8fc778574bf72beef45be98cf1ba6326f3585cb9",
+    "protocol/0.1-rc.4-candidate.4/SCENARIOS.md": "ccdd8ea35fa8f8708d3be1c17bfe2e5310bd9bc577c378a18702915b039f7ef7",
+    "protocol/0.1-rc.4-candidate.4/START-HERE.md": "5c26fbd38e60b34153cf608dd65aa2ce3d0e18f82895a1faff4a8df7d836638f",
+    "protocol/0.1-rc.4-candidate.4/WORKSHEET.md": "5a808ea2cec4a10ff626da6e4c7e01103f973d09f68b6a3e85775147e97e90a5",
+    "release/HCAI-v0.1-rc.4-candidate.4.zip": "fa7b359d1387112dff5b8f7f3f92952d5a58ed8f22a520e51ce72fcf8ba3e491",
+    "release/ai-ready-0.2.0-rc.4.zip": "dfbb53fd4dface303ad474beb6c4bd5e75cb3a52d3da2a6c90766c999c9aff86",
+    "release/hcai_readiness_mcp-0.2.0rc4-py3-none-any.whl": "de284ad56a24fa1ce0cbc796a3d29c0a994439ac40db53ac399a4f0a059318e3"
+  }
+}

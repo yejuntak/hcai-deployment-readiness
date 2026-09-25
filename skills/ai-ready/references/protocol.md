@@ -1,143 +1,144 @@
-# Human-Centered AI Deployment Readiness Protocol
+# H.A.R.D. Protocol 0.2
 
-Engineering-handoff profile · v0.1-rc.3 · Yejun Tak · September 8, 2026
+Human-centered AI Readiness and Decision Protocol  
+H.A.R.D. Protocol 0.2 · Public Preview
 
-## Purpose, scope and status
+## What this helps you decide
 
-This protocol helps human evaluators examine whether an AI-generated interface prototype contains enough requirement, interaction-state and recovery evidence for engineering handoff. It separates an evaluator's readiness judgment from the evidence supporting that judgment. Version 0.1-rc.3 is a proposed method for testing and refinement. Its example is synthetic. No external validation, measured effectiveness, production certification or organizational adoption is claimed.
+AI-assisted work can arrive with a convincing visual surface before its underlying decisions have been reviewed. The practical concern is the missing review step: information hierarchy, meaningful choices, dependencies, failure paths, technical evidence and the work left to people. A polished artifact may be correct or defective; appearance alone cannot resolve that question.
 
-Deployment readiness describes the wider program. This initial engineering-handoff profile covers prototype specifications and walkthroughs. It does not establish production readiness or replace functional, accessibility, security, privacy, model-performance or regulatory testing. Record whether AI generated the interface, operates at runtime, both, or neither. These are different populations. The included fictional case has no runtime AI.
+**Is this AI-created or AI-enabled workflow ready for the next step?**
 
-Intended users are UX evaluators, product designers, engineering leads and researchers reviewing a frozen prototype and task brief. A project owner must define the relevant stage and requirements before evaluation. Visual polish is not itself a defect. A difference between perceived readiness and criterion status is an observation to investigate, not proof that visual fidelity caused it.
+Use six questions to decide whether to invest in building it, revise it, or gather missing evidence. Here, the next step means a bounded engineering commitment with a named owner and resource limit.
 
-Start with the separate evaluator packet described in Templates/evaluator-packet.md, retain a separate reference key, lock the evaluator's findings and judgment, then use Evaluation-Template.xlsx to calculate results. Worked-Example contains a fictional artifact specification, reference records and completed calculations. Do not show the reference key to evaluators before their records are locked.
+A booking screen can look complete yet lose a customer's details after a payment failure. A test report can show a pass for code that an agent has since changed. This protocol asks reviewers to examine the evidence for the proposed workflow before the team commits engineering resources.
 
-## 1. Freeze the assessment
+The intended uses include proposed workflows, interface prototypes, and AI-assisted, “vibe-coded,” or agent-built artifacts. Record whether AI helped create the artifact, will act within the service, or both. These applications do not establish that AI authorship causes defects.
 
-Record session ID, artifact/version, date, intended user and task, assessment stage, evaluator, decision owner, time limit, environment, exclusions and presentation conditions. Specify whether the purpose is artifact assessment, evaluator assessment or both. Record model/tool provenance when known; do not guess how an artifact was generated.
+Decision refers to this limited next-step recommendation. The protocol **does not approve deployment**. It neither measures full-system performance nor certifies software quality. The evidence needed to fund engineering differs from the evidence needed to permit operation.
 
-Freeze mandatory requirements, applicable recovery scenarios, acceptance checks, severity rules and the gate before the evaluator sees the artifact. Every exclusion needs a reason. A changed criterion creates a new dated version. Keep the old record.
+## Choose a reading path
 
-The provisional v0.1 handoff gate requires every mandatory requirement and applicable recovery scenario to be both specified and walkthrough verified, no unresolved critical defect, no unassessed mandatory item, and a complete evidence record. All conditions must be satisfied. This conservative project rule is proposed here, not established by NIST or empirically validated. An eligible result goes to the designated owner for handoff review.
+- New here? Read [Start here](START-HERE.md).
+- Reviewing a low-risk workflow with records already available? Use [QUICK-6](QUICK-6.md).
+- Need an example? Read the [scenarios](SCENARIOS.md).
+- Need to inspect a particular rule? Use the [15 review criteria](CRITERIA.md).
+- Want a simple recording aid? Use the [conversation worksheet](WORKSHEET.md).
+- Higher risk, missing evidence, or a longer review? Use the [full profile](FULL-PROFILE.md).
 
-A specified behavior describes trigger, action, resulting state and preserved or changed data. Walkthrough verified means a reviewer has followed the defined path in the frozen artifact and found that it satisfies the acceptance check. Implemented and runtime tested are separate evidence levels. A drawn button alone cannot verify recovery behavior.
+An advisor can ask the questions aloud and record answers. Participants need no software installation or knowledge of the data format. When an answer is unknown, record the gap and identify the evidence needed to resolve it.
 
-## 2. Roles, reference and severity
+## Inspect the structure beneath the artifact
 
-The artifact owner supplies the version and requirements. A reference reviewer prepares and checks the criterion record and defect key. An evaluator independently examines the artifact. An adjudicator resolves finding matches and disputes. The decision owner records the final disposition. Disclose role overlap. For an independent evaluation, the evaluator should neither have developed the artifact nor seen its reference key.
+Keep the original artifact and its exact revision. When presentation makes the work difficult to discuss, create a separate review view: a task outline, information hierarchy, wireframe, state map or annotated trace. Preserve labels, requirements and known behavior. Mark unspecified parts as unknown; do not invent them to complete a diagram. Blurring a screen is not itself a review method.
 
-A seeded benchmark uses a frozen set of deliberately included defects. A second reviewer should check observability and match rules. A real prototype uses a documented, adjudicated reference set that may still be incomplete. Recall against that set is not the proportion of every actual defect found.
+Use four views of the same work:
 
-Keep the answer key separate until judgments are locked. New genuine defects affect the artifact decision where relevant, but must not silently change the denominator of the frozen recall measure. Report them separately and issue a versioned correction or exploratory recalculation if warranted.
+- Experience and information: task hierarchy, labels, competing choices, duplicate actions and alignment with user needs. A preference about style is not a defect without a relevant requirement or evidence.
+- Workflow and architecture: states, dependencies, transitions, data movement, authority and recovery.
+- Implementation and evidence: which behavior is specified, simulated or implemented, and which exact revision each test covers.
+- People and operation: ownership, checking, correction, escalation, support and residual manual work.
 
-Critical: an essential failure with a serious consequence in the scoped task, such as omitting a required confirmation for a consequential action. Major: a required task is prevented or a materially wrong but recoverable outcome is likely. Minor: limited friction or ambiguity that does not invalidate a mandatory task. Document consequence and context, not just the label. Preserve disagreements.
+These views help collect the existing evidence. They are not four scores or additional gates. Map findings to requirements, the original artifact and the six gates below. Information and affected-person concerns inform G2; workflow and authority inform G3; exact-revision checks inform G4; remaining human work informs G5. G1 supplies the baseline and G6 bounds the commitment. A simplified view cannot replace executed validation or human evidence-quality review.
 
-Use categories such as requirements, system status, recovery and user control. For runtime-AI interfaces, document applicable correction, uncertainty and escalation requirements while treating model performance as separate evidence outside this profile.
+The architecture-previsualization anecdote described in the [research boundary](../../docs/research-boundary.md) motivated the author's question. It is not empirical support for a watercolor treatment, lower fidelity or this protocol improving review.
 
-## 3. Run and lock the evaluation
+## The six review questions
 
-1. Supply only the evaluator-facing brief, requirements-brief.csv, recovery-brief.csv, artifact, and Evaluator-Scorecard.pdf. Do not supply the reference-location field, completed outcome matrices, answer key, completed workbook or entire repository to a blinded evaluator. A public training case cannot serve as an unseen test case for someone who has studied it. Withhold reference outcomes, seeded-defect keys and other evaluators' findings. Use the same instructions and time limit within a comparison condition.
+1. **What happens today?** Show a recent case, who touched it, how long it took, and where it failed or needed rework.
+2. **What needs to improve, for whom?** State the intended outcome and evidence of an actual end-user need.
+3. **What happens when things go wrong?** Explain normal, edge, recovery, and escalation paths, including human and automated responsibilities.
+4. **What demonstrates the important behavior?** Connect each requirement to an exact artifact revision and an appropriate test or validation.
+5. **What work remains for people?** Estimate review, correction, escalation, rework, and residual manual effort before claiming savings.
+6. **Is this enough to fund the next engineering step?** Apply the risk tier, resolve critical findings, and record the owner, limits, and remaining uncertainty.
 
-2. Complete assigned tasks, including failure and recovery paths. Record each finding with ID, requirement/state ID, reproduction steps, observed and expected behavior, proposed severity, evidence location and uncertainty. Preserve raw findings. Do not merge or edit an evaluator's words after locking.
+QUICK-6 stops at the first failed or missing gate and marks later gates NOT_EVALUATED. Known critical findings remain visible even after an earlier stop. Passing other gates cannot offset a critical failure. The stop identifies unfinished work; it is not a judgment of the participant.
 
-3. Before revealing the key, ask: "What percentage of the predefined reference defects do you estimate your findings correctly identify? Enter 0-100." Do not reveal the number of reference defects. This is an expected-recall estimate, not the probability of having found every defect.
+QUICK-6 has an **untested design target of <=15 minutes**, assuming records are already available. Session time includes recording answers and explaining the result; preparation is reported separately. Offer breaks or accessible formats when needed. If the review takes longer, continue in FULL without treating the participant as deficient.
 
-4. Ask separately: "Under the supplied engineering-handoff criterion, is this artifact Ready, Not ready, or Unable to assess?" Require a reason. Record elapsed minutes and the locking timestamp with timezone. The evaluator's judgment is distinct from the final criterion determination.
+## What the result means
 
-5. Reveal the key and adjudicate each finding as matched, duplicate, unsupported, novel genuine, or unresolved. A match must identify a specific deficiency. Each reference defect counts at most once per evaluator. Record IDs, adjudicator, rationale and unresolved disagreement. Do not count vague suggestions as detected defects.
+| Result | Meaning | What happens next |
+| --- | --- | --- |
+| PROCEED_TO_ENGINEERING | Required upstream evidence passes for the recorded scope and risk tier. | The accountable owner decides whether to fund the bounded next step. This is not deployment permission. |
+| REVISE | Evidence demonstrates a failed gate or a critical unresolved finding. | Name the repair, owner, and evidence needed for another review. |
+| INSUFFICIENT_EVIDENCE | Required information is missing, or the selected profile is insufficient. | Obtain the missing evidence or continue in FULL. Do not substitute confidence for evidence. |
 
-6. Reconcile workbook counts to the retained records. Determine criterion status from requirement, recovery, critical-issue and evidence records. Calculate the applicable measures. The owner records disposition, conditions and the next review trigger.
+The result explains the recommendation and names a next action. It also retains gate statuses, separate burden and benefit outputs, evidence links or identifiers, and exact versions. The accountable owner must authorize spending separately. The protocol does not produce a general “AI readiness score.”
 
-## 4. Define the measurements
+## Principles and review criteria
 
-Reference-set defect recall. Unique correctly detected reference defects / eligible reference defects. Report both counts and percent. A zero or unknown denominator is N/A. Preserve duplicate, unsupported, novel and unresolved findings separately. A novel genuine finding is not a frozen-reference true positive.
+Four principles organize the review criteria. Each criterion states the required evidence, a way to check it and examples of adequate and inadequate evidence. This author-defined HCAI protocol supports engineering-commitment reviews; it does not certify a system or approve deployment.
 
-False-ready acceptance. Among criterion-nonready assessment instances with an observed judgment, divide Ready judgments by all observed judgments in those instances. One evaluator assessing one artifact is one instance. Unable to assess is an observed abstention included in that denominator; also report its rate. Missing judgments are excluded and counted separately. Unknown criterion status is excluded and separately counted. A gate failure caused by missing required evidence is criterion-nonready, not unknown.
+| Principle | Review focus | Criteria |
+| --- | --- | --- |
+| Understand the work before judging the solution | Scope, current workflow, actual need, affected people | HCAI-1.1 to 1.4 |
+| Make intended behavior and evidence inspectable | Form/fit/function, exact tested revision, simulated versus implemented behavior | HCAI-2.1 to 2.3 |
+| Keep people able to understand and recover | Failure paths, human control, remaining work | HCAI-3.1 to 3.3 |
+| Make the commitment accountable | Risk depth, findings, ownership, separate measurements, provenance | HCAI-4.1 to 4.5 |
 
-Expected-recall gap. Expected recall (%) minus observed reference-set recall (%), in percentage points. Positive means overestimation; negative means underestimation. An 80% estimate and 62.5% recall yield +17.5 pp. Do not substitute confidence in success or the probability of finding every defect. Report per-session gaps and their distribution before considering aggregation.
+Each criterion states a requirement and explains how to check it, with examples of a pass and a failure. The software checks record structure and decision rules. A human reviewer must judge the evidence itself: a correctly linked file may still contain an inadequate test.
 
-Handoff recovery coverage. Applicable required recovery scenarios that are specified and walkthrough verified / all applicable required recovery scenarios. Unassessed required scenarios stay in the denominator. Zero applicable scenarios yields N/A with documented applicability reasoning. Preserve implementation and runtime-test status separately.
+A pass establishes that the supplied record satisfies the encoded rules and includes the required human judgments. It does not independently establish that the evidence is true, complete, adequately tested, or consistent with each criterion's intent. A human evidence-quality reviewer must examine those questions and retain the basis for the review. Agent-only review is insufficient. Both the machine result and the readable report state these limits.
 
-Requirements completeness recognition. Correctly identified predefined requirement omissions / all predefined reference omissions. This measures the evaluator. Separately report artifact requirements coverage: mandatory requirements specified and walkthrough verified / all mandatory requirements. The two measures have different numerators, denominators and interpretations.
+### Include people affected by the workflow
 
-No weighted total or universal pass percentage is used. Recall and expectation concern the evaluator. Coverage and critical issues concern the artifact. Strong recall cannot make a deficient artifact eligible. A false-ready rate is not the fraction of Ready judgments that were wrong, which uses a different denominator.
+Name affected roles beyond the purchaser or operator. Within question 2, screen access/usability, privacy/security, unequal effects, and human agency. Connect applicable concerns to requirements and validation. For example: can a requester correct a generated record, use an alternative channel, understand an error, and reach a person with authority to help?
 
+Keep unknown items unresolved. A not-applicable item requires an owner, reason and evidence; human use and control cannot be excluded. This screen identifies concerns for review. It does not certify fairness, privacy, security or accessibility. Seek specialist review where the effects exceed the team's competence.
 
-### Companion measures and interpretation
+## Establish the baseline and trace the evidence
 
-False-ready acceptance must be accompanied by abstention, missingness and decision coverage. Decision coverage on criterion-nonready instances is (Ready + Not ready judgments) / all observed judgments on those instances. Decisive false-ready acceptance is Ready / (Ready + Not ready) on criterion-nonready instances. When all judgments abstain, the original false-ready rate is zero, decision coverage is zero, and decisive false-ready acceptance is N/A. This is not evidence of useful discrimination.
+The current-state map records connected steps, actors, triggers, actions, data handling, branches, and endpoints. Distinguish observed steps from reported exceptions. Record cycle time separately from labor time; elapsed waiting is not labor savings.
 
-Include independently adjudicated criterion-ready control cases when studying effectiveness. Report Not ready judgments / all observed judgments on criterion-ready cases as the false hold rate, alongside the ready-case abstention rate and missing count. These complements are descriptive diagnostics, not new constructs or an aggregate score. Do not claim superiority by reducing acceptance through universal refusal or abstention.
+Need evidence must come from actual work records or end-user discussions, with distinct source origins. Two renamed copies of the same interview are one source. General reports and correspondence informing this protocol do not establish the need for a particular workflow.
 
-The expected-recall gap is a session-level signed discrepancy. It is not a validated general measure of metacognitive ability or probability calibration. Report absolute discrepancies as an additional descriptive statistic if needed; signed gaps can cancel across sessions. Pre-specify aggregation and retain per-session values. Recall can increase through indiscriminate reporting, so also retain unsupported, duplicate and unresolved finding counts, adjudication burden and elapsed time.
+Traceability means **requirement → artifact revision → test/validation**. Describe form (what is shown), fit (how it connects to the surrounding workflow), and function (what it does). A visual demonstration can support design intent; it cannot establish implementation behavior. A code change after testing requires fresh evidence for affected requirements.
 
-## 5. Decide, report and reproduce
+Each validation also records a requirement/context fingerprint covering acceptance criteria, scope, linked states, reference revisions, dependencies and action boundaries. A changed requirement invalidates the affected pass even if the code is unchanged. Repeat the affected checks; replacing an old hash is not retesting. Current and proposed state maps must have connected paths and a reachable endpoint. These graph checks establish possible paths, but cannot show that a running system always terminates or recovers.
 
-Hold for remediation: a documented failure or unresolved critical issue prevents the gate from being met. Insufficient evidence: mandatory checks or required records remain incomplete without an established qualifying pass. Eligible for handoff review: all gate conditions are met. The named owner must still record approval or refusal and date. The workbook reports gate eligibility, not automatic handoff approval.
+## Risk changes the required evidence
 
-The workbook uses manual, adjudicated counts for one session and a separate batch table for criterion-conditioned judgments. Reconcile every count to CSV records. Blank means missing; zero means assessed and none. Enter 0.80 (80%) for an expected recall of 80%, not 80. Counts must be whole and nonnegative. Every numerator must fit its denominator. Detected omissions must be a subset of detected reference defects, and detected non-omissions cannot exceed the non-omission reference set. In the gate inputs, verified checks + documented failed checks + unassessed checks must equal all mandatory requirement and applicable recovery rows. Count each row in exactly one status. Requirement and recovery rows are distinct checks even when they share a defect. Open critical defects are a separate count. Workbook B36 records documented failed checks; a missing required count yields Not evaluated.
+Classify impact, importance, complexity, failure consequence, irreversibility, and mission criticality before choosing the path. The highest known dimension sets the minimum depth. An unknown dimension prevents a low-risk shortcut.
 
-Retain the frozen brief; requirement/recovery matrix; reference key; raw findings; pre-key judgment; adjudication; decision and revision record. The supplied CSV headers define stable record IDs and evidence locations. Copy the template for each new assessment. The batch workbook supports 20 records; for larger studies use exported records and an explicitly reviewed aggregation script rather than silently exceeding its range.
+Four context answers set additional minimums: safety/rights impact or irreversible external action → **high**; sensitive data or untrusted input capable of triggering actions → **at least moderate**. Any unknown answer prevents QUICK-6. The highest dimension or context minimum wins. These conservative author-defined routing rules are not a validated risk taxonomy; see the full profile for definitions.
 
-Report artifact population, criterion/version, actual sample, roles, relationships, missing records, abstentions, reference uncertainty and material deviations. For batch rates, avoid pooling different criteria without stratification. Repeated judgments on an artifact or by an evaluator are not statistically independent observations. Do not present this descriptive workbook as an inferential analysis.
+| Minimum evidence | Low | Moderate | High |
+| --- | --- | --- | --- |
+| Profile | QUICK-6 or FULL | FULL | FULL |
+| Current cases | 1 | 3 | 5 |
+| Distinct need-source origins | 1 | 2 | 2 |
+| Actual end-user discussion | Not mandatory; work evidence still required | Required | Required |
+| Additional review | Owner review | Independent review and evaluation plan | Also hazard, mission, and operational-evaluation planning |
 
-Re-evaluate changes against affected requirements and states. Preserve the prior version and decision. A remediation improvement on one artifact does not isolate a causal effect of this protocol. Publish only original or permitted materials; omit private product data and participant identifiers.
+These counts are provisional minimum completeness rules, **not statistically adequate sample sizes**. All tiers need the same six basic gates. More consequential work may require domain-specific review beyond this profile.
 
-## 6. Worked example and next validation
+## Five measurement layers stay separate
 
-The fictional service-request case has 10 mandatory requirements, 6 applicable recovery scenarios and 8 stipulated reference defects. The synthetic evaluator detects D01, D02, D04, D05 and D07. Three requirements are omitted (R05, R07, R10), of which only R07 is recognized. Expected recall is set to 80%. One critical issue remains open.
+A. **Current state:** cycle time, labor, touches, failure points, review, escalation, rework, volume, and the workflow map.  
+B. **Proposed workflow:** requirements, states, recovery, responsibility, dependencies, acceptance criteria, and action boundaries.  
+C. **Burden:** the cost of running this review, separately from the expected cost of overseeing AI outputs in operation.  
+D. **Engineering evidence:** requirement/artifact/validation links, defects, reviewer findings, residual risks, and the decision record.  
+E. **Operational performance:** measured only after implementation in realistic use. It cannot be inferred from layers A through D.
 
-These inputs yield 5/8 = 62.5% reference recall; 80% - 62.5% = +17.5 pp expected-recall gap; 3/6 = 50.0% recovery coverage; 1/3 = 33.3% omission recognition; and 7/10 = 70.0% artifact requirements coverage. The artifact is held for remediation. Four fictional batch records contain three Ready judgments and one Not ready judgment on criterion-nonready artifacts, giving 3/4 = 75.0% false-ready acceptance.
+Gross labor savings already deduct residual manual work. Net savings also deduct review, correction, escalation and rework; use the disjoint categories and formulas in the full profile. Report recurring and one-time costs separately. ROI is indeterminate without a measurable baseline. Retain any nonpositive net benefit and an explicit rationale for proposed investment.
 
-The example is a constructed, specification-based exercise. It has not been tested with participants, independently validated as a stimulus, or run on an employer product. The five stipulated minor clarity issues do not invalidate their mandatory requirements in this example. A real reference reviewer may disagree and should document the change before evaluation.
+## Research and practice are different activities
 
-First conduct an external desk review of instructions, observability, match rules and spreadsheet use. Log requested changes and disagreements. Before covered participant recruitment or data collection, obtain the institution's applicable research determination. The pilot kit supports a bounded feasibility exercise; it does not claim institutional approval.
+The related proposed study investigates visual fidelity and defect detection while AI authorship is held constant. Perceived handoff readiness and confidence are separate judgments, not proof of correctness. This protocol is a practical response to that review problem, not a validated intervention or a result of the proposed experiment.
 
-A proposed 6-12 practitioner feasibility exercise may examine instruction clarity, duration and adjudication consistency. This is a feasibility target, not a power calculation. A comparative study additionally needs independently reviewed matched cases, prespecified assignment and analysis, and carryover controls. This release supplies one instructional case, not a validated matched pair. Report negative findings and limitations in v0.2.
+Do not give experimental participants criterion hints or answer keys unless the approved study design calls for them. The separate study-review contract captures judgments without issuing an engineering decision. See [research boundaries](../../docs/research-boundary.md).
 
-## 7. Research context and provenance
+## Limitations and release status
 
-The AI RMF provides context for explicit requirements, independent assessment, documented measurement methods and evaluation-method validation [1]. This is a selective conceptual relationship, not conformance certification. The protocol's definitions and provisional handoff gate are application-specific proposals.
+Practitioner correspondence informed refinement; it is not controlled empirical validation, proof of adoption, or an endorsement. No actual external pilot is recorded in this release. Usability, time-to-complete, benefit, and defect-prevention effects remain untested.
 
-The TEVV-Athlon initial draft addresses evaluation design and evidence synthesis [2]. Tak's separate September 6, 2026 comment proposes documenting relevant presentation conditions and examining meaningful divergence between human judgments and independently assessed evidence. The retained sent-email record documents transmission; it does not establish receipt, NIST adoption or endorsement. This protocol was developed as a separate artifact and should not be described as an attachment to that earlier submission.
+Records are private by default. Publish only separately permission-checked material. Hillel Glazer approved attribution; other correspondence is represented by anonymized themes unless explicit permission is documented. Do not upload confidential artifacts simply to complete a field.
 
-[1] National Institute of Standards and Technology. Artificial Intelligence Risk Management Framework (AI RMF 1.0). NIST AI 100-1, January 2023. Core tables, especially MAP 1.6 and MEASURE 1.3, 2.1, 2.3 and 2.13. https://doi.org/10.6028/NIST.AI.100-1
+rc.3 and all six rc.4 candidates remain frozen. H.A.R.D. Protocol 0.2 is a Public Preview with unchanged gates, risk thresholds and calculations. Release review still requires passing regressions and recorded bounded external end-user/advisor use, neither of which proves effectiveness. Research Harness v3 is a separate project.
 
-[2] Phillips, P. J., et al. The TEVV-Athlon Framework for Evaluating AI Systems. NIST AI 200-2 ipd, August 2026. Section 2.4 and Appendix E, Table 7. https://doi.org/10.6028/NIST.AI.200-2.ipd
+Whether this review improves engineering decisions remains untested. See the [deep audit and validation roadmap](../../docs/deep-audit.md) and [claims and governance rules](../../docs/claims-and-governance.md).
 
-Version: 0.1-rc.3, September 8, 2026. Author attribution: Yejun Tak. Development assisted by OpenAI Codex for drafting, packaging and arithmetic checks. Author technical review and external validation remain separate steps. This correction release records AI-assisted literature comparison and technical checks, not an independent expert review or empirical validation. No DOI has been assigned at package preparation.
+See the [linked update log](https://www.takyejun.com/research/ai-readiness/updates) and [migration notes](../../docs/migration-rc3-to-rc4.md).
 
-Reuse: original protocol text, forms and synthetic data are offered under CC BY 4.0; original software under MIT. Third-party references remain under their own terms. Attribution does not imply endorsement. See LICENSE and CITATION.cff. Corrections should identify version, section or stable record ID and explain the proposed change.
-
-
-## 8. Prior work and contribution boundary
-
-This release is an operational synthesis for a narrow engineering-handoff assessment. It does not claim to invent usability inspection, coverage, classification error rates, confidence-performance discrepancy or human-centered AI readiness. Its proposed contribution is the combination of a frozen stage criterion, a judgment locked before reference disclosure, separate evaluator and artifact measures, and retained evidence records in one reusable workflow. Whether that combination improves decisions over a strong existing checklist remains untested.
-
-Nielsen's usability heuristics already address system status, user control, error prevention and recovery [3]. Amershi and colleagues provide 18 human-AI interaction guidelines evaluated with design practitioners [4]. Google's People + AI Guidebook also provides practical treatment of failures, uncertainty and fallback paths [5]. These works ground the content of checks; they are not evidence that this protocol's procedure is new or effective.
-
-The ML Test Score supplies a production-readiness rubric for ML systems [6]. HINT operationalizes predeployment evaluation of AI features with human participants [7]. Lee's 2026 readiness taxonomy covers observable human-AI behavior, calibration and harm [8]. The present profile instead focuses on the evaluator's engineering-handoff judgment about a frozen interface specification. This narrower unit of analysis is a proposed distinction, not a priority claim.
-
-Expected-recall discrepancy draws on established metacognition measurement distinctions [9]. Prior prototype-fidelity research includes both effects under particular conditions and null findings for perceived usability [10, 11]. The synthetic text specification in this release does not manipulate visual polish, establish an AI-specific effect or show that fidelity causes false readiness.
-
-Evaluator disagreement is a known problem in usability assessment [12]. Independent reference preparation, documented match rules and agreement analysis are therefore essential validation work. A completed workbook proves only that specified calculations ran, not that reference defects, severity or gate thresholds are valid.
-
-[3] Nielsen, J. 10 Usability Heuristics for User Interface Design. https://www.nngroup.com/articles/ten-usability-heuristics/
-
-[4] Amershi, S., et al. (2019). Guidelines for Human-AI Interaction. CHI. https://doi.org/10.1145/3290605.3300233 . Author-hosted paper: https://www.microsoft.com/en-us/research/wp-content/uploads/2019/01/Guidelines-for-Human-AI-Interaction-camera-ready.pdf
-
-[5] Google PAIR. People + AI Guidebook, Errors + Graceful Failure. https://pair.withgoogle.com/chapter/errors-failing/
-
-[6] Breck, E., et al. (2017). The ML Test Score: A Rubric for ML Production Readiness and Technical Debt Reduction. IEEE Big Data. https://research.google/pubs/the-ml-test-score-a-rubric-for-ml-production-readiness-and-technical-debt-reduction/
-
-[7] Chen, Q., Schnabel, T., Nushi, B., and Amershi, S. (2022). HINT: Integration Testing for AI-based Features with Humans in the Loop. IUI. https://doi.org/10.1145/3490099.3511141 . Author publication record: https://www.microsoft.com/en-us/research/publication/hint-integration-testing-for-ai-based-features-with-humans-in-the-loop/
-
-[8] Lee, M. H. (2026). From Accuracy to Readiness: Metrics and Benchmarks for Human-AI Decision-Making. arXiv preprint, arXiv:2603.18895v1, March 19, 2026. https://arxiv.org/abs/2603.18895v1
-
-[9] Fleming, S. M., and Lau, H. C. (2014). How to measure metacognition. Frontiers in Human Neuroscience, 8, 443. https://doi.org/10.3389/fnhum.2014.00443
-
-[10] Sauer, J., and Sonderegger, A. (2009). The influence of prototype fidelity and aesthetics of design in usability tests: Effects on user behaviour, subjective evaluation and emotion. Applied Ergonomics, 40(4), 670-677. https://doi.org/10.1016/j.apergo.2008.06.006
-
-[11] Wiklund, M. E., Thurrott, C., and Dumas, J. S. (1992). Does the Fidelity of Software Prototypes Affect the Perception of Usability? Proceedings of the Human Factors and Ergonomics Society Annual Meeting, 36(4). https://doi.org/10.1177/154193129203600429
-
-[12] Hertzum, M., and Jacobsen, N. E. (2001). The Evaluator Effect: A Chilling Fact About Usability Evaluation Methods. International Journal of Human-Computer Interaction, 13(4), 421-443. https://doi.org/10.1207/S15327590IJHC1304_05
+Execution versions: protocol 0.2-preview.2 · MCP 0.2.0rc8 · Skill/contract 0.2.0-rc.8.

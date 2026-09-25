@@ -1,0 +1,103 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Audit findings and the evidence needed for adoption</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
+main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.2-preview-2/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>Audit findings and the evidence needed for adoption</h1>
+<p>H.A.R.D. Protocol 0.2 · Public Preview</p>
+<p>September 24, 2026 · Exact protocol 0.2-preview.2 · Author-defined method</p>
+<h2>Assessment</h2>
+<p>This protocol addresses a specific review problem: an AI-built artifact may appear complete before there is enough evidence to justify further engineering. Its proposed contribution is a structured way to examine that evidence. There is not yet evidence that the method improves defect detection, saves money or changes HCAI practice. Editorial improvements and passing software tests do not establish those effects or the standing of a standard.</p>
+<p>The audit supports retaining a narrow scope: a bounded engineering decision with evidence that reviewers can inspect. Accessibility, human-AI design, security and risk-management practices still have their own requirements. This recommendation is an audit judgment, not an empirical finding or a determination of novelty.</p>
+<h2>Comparison with established guidance</h2>
+<p>The primary sources below provide context on AI risk governance, human-AI interaction and software assurance. This is a targeted comparison, not an exhaustive systematic review. These sources do not establish the protocol's effectiveness or endorsement by their authors.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Reference</th>
+<th>Relevant lesson</th>
+<th>Consequence for this candidate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/">NIST AI RMF 1.0 Core</a></td>
+<td>Risk management involves context, diverse perspectives, and continuing governance across the lifecycle; its functions are not a simple ordered checklist.</td>
+<td>Screen affected people and consequences. Keep this narrower engineering decision distinct from lifecycle risk management.</td>
+</tr>
+<tr>
+<td><a href="https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/">Guidelines for Human-AI Interaction, CHI 2019</a></td>
+<td>The original work reports multiple evaluation rounds, including practitioner application. Guidance and demonstrated applicability are different accomplishments.</td>
+<td>Test whether people can interpret and apply this protocol; do not equate correspondence with comparable evaluation.</td>
+</tr>
+<tr>
+<td><a href="https://www.nist.gov/publications/secure-software-development-practices-generative-ai-and-dual-use-foundation-models-ssdf">NIST SSDF AI community profile, SP 800-218A</a></td>
+<td>The AI-specific profile supplements the SSDF and explicitly defines its scope.</td>
+<td>Route security concerns to appropriate engineering review. This profile does not replace secure development or certify generated code.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The protocol's own reading experience still needs usability evaluation, including use by people with disabilities. HTML is the primary reading alternative to the untagged PDFs. The software tests do not establish accessibility or ease of use.</p>
+<h2>Problems reproduced in the candidate.3 audit</h2>
+<p>The findings below concern the candidate.2 implementation and its correction in candidate.3. Candidate.4 edits the explanation while retaining those corrections and the remaining limitations.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Audit finding in candidate.2</th>
+<th>Candidate.3 correction</th>
+<th>What remains human or untested</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Changing an acceptance criterion preserved an old passing validation.</td>
+<td>Bind validation to both artifact and requirement/context fingerprints. Missing fingerprints block; mismatches require revision.</td>
+<td>A new hash is not a new test. A person must inspect actual execution and test adequacy.</td>
+</tr>
+<tr>
+<td>A proposed state could name an unrelated destination without affecting the decision.</td>
+<td>Require resolvable transitions, entry reachability and possible exit paths.</td>
+<td>Transition guards, bounded retries, runtime termination and full exception coverage.</td>
+</tr>
+<tr>
+<td>An empty action-boundary list could pass.</td>
+<td>Require explicit nonempty authority limits, including draft-only/manual cases.</td>
+<td>Whether implementation actually enforces those limits.</td>
+</tr>
+<tr>
+<td>Risk depended entirely on six self-selected labels.</td>
+<td>Consequential-context flags set deterministic minimum depth; unknown cannot mean no.</td>
+<td>Context answers and risk rationale still require competent judgment. Floors are provisional.</td>
+</tr>
+<tr>
+<td>Human-centered concerns could be omitted while the owner’s efficiency story remained complete.</td>
+<td>Add HCAI-1.4: affected roles, access/use, privacy/security, unequal effects and human agency, linked to requirements.</td>
+<td>This is coverage screening, not assurance that every harm is discovered or mitigated.</td>
+</tr>
+<tr>
+<td>A structural pass could be read as evidence-quality assurance.</td>
+<td>Require a recorded human quality review and distinguish rule checks, supplied judgment and unverified authenticity in outputs.</td>
+<td>The software cannot authenticate that the reviewer performed the inspection.</td>
+</tr>
+<tr>
+<td>Routed pilot records could omit skipped gates and the reason for stopping.</td>
+<td>Reconcile routing, NOT_EVALUATED gates and all follow-up reasons.</td>
+<td>Whether the pilot occurred and what participants actually experienced.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The first three findings were reproduced as PROCEED_TO_ENGINEERING before correction. Regression tests now exercise these and the added boundaries. The examples remain synthetic; this is evidence about implementation behavior only.</p>
+<h2>Burden on participants and facilitators</h2>
+<p>The intended process gives the participant one question at a time and identifies a next action. The facilitator maintains the detailed evidence record. A shared note can support several checks, so a new document is not required for every field. References, criteria and schemas remain available when needed.</p>
+<p>The <a href="/static/research/ai-readiness/hard-0.2-preview-2/WORKSHEET.html">conversation worksheet</a> makes this division explicit. It is not a shortcut around evidence. If evidence must be created from scratch, the short session stops and identifies the discovery work. Preparation, session and capture time remain visible.</p>
+<p>There is a real tradeoff: stronger evidence requirements may make QUICK-6 less attainable. The &lt;=15-minute target is conditional on an available evidence packet and a low-risk case. Do not advertise an end-to-end 15-minute implementation assessment. A pilot should test whether even this narrower target is useful and realistic. If not, revise the process or the target rather than hiding preparation time.</p>
+<h2>Questions for empirical evaluation</h2>
+<p>The proposed hypothesis is that, for a defined review task, the protocol helps reviewers detect consequential gaps or contradictions and choose a justified next step, without disproportionate burden or unnecessary stops on sound proposals.</p>
+<p>Evidence should be gathered in distinct stages:</p>
+<ol>
+<li><strong>Bounded formative use.</strong> Observe a consenting external advisor/end user with a real workflow. Record preparation, elapsed time, stops, evidence difficulty, independent explanation of the result and next action. A declined or incomplete session is informative; do not remove it from the denominator. One eligible run is a release prerequisite, not proof of usability or effectiveness.</li>
+<li><strong>Reproducibility and disagreement.</strong> Have reviewers independently assess the same versioned packets before seeing one another's results. Include adequate, defective and incomplete cases, not only obvious failures. Retain original judgments and reasons, report gate-level agreement and denominators, then adjudicate disputes with an appropriate independent domain reviewer. Do not call the author's preferred answer ground truth without a defensible reference process.</li>
+<li><strong>Comparative effectiveness.</strong> Prespecify a suitable ordinary-review comparator, assignment/order, primary outcome, meaningful effect, burden tradeoff and analysis. Measure consequential omissions, false alarms/unnecessary stops, and appropriateness of the engineering decision as well as satisfaction. Choose sample size from the actual design and uncertainty needs. Keep the proposed visual-fidelity experiment separate unless an approved design explicitly studies this intervention.</li>
+<li><strong>Transfer and maintenance.</strong> Replicate in additional workflows, sectors, accessibility needs and reviewer experience levels. Record adaptations and where the method fails. An English-language owner-led pilot does not establish universal usability. Retest implementations whenever normative rules change.</li>
+</ol>
+<p>No stage above is reported as completed. No sample sizes, effects, adoption totals or endorsements are invented. Registration, participant protections and institutional requirements must be resolved before a controlled study; this roadmap is not research approval.</p>
+<h2>Maintenance and governance</h2>
+<p>Keep public, versioned requirements and examples; a no-install path; interoperable records; clear licenses; correction procedures; and a visible record of disputed interpretations. Allow domain profiles to add checks without weakening mandatory gates. Distinguish a request, a reported problem, a reproduced defect, software verification, actual use and empirical evidence. Do not turn downloads, email replies or interest into adoption metrics.</p>
+<p>Read <a href="/static/research/ai-readiness/hard-0.2-preview-2/claims-and-governance.html">claims and governance</a>, the <a href="https://www.takyejun.com/research/ai-readiness/updates">update log</a>, and the <a href="/static/research/ai-readiness/hard-0.2-preview-2/rc4-test-results.json">current verification record</a>. These records allow others to inspect the work; they do not establish the protocol as an international standard.</p></main></body></html>

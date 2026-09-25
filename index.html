@@ -1,32 +1,120 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>AI Deployment Readiness Protocol — Yejun Tak</title>
-<meta name="description" content="An engineering-handoff evaluation protocol for AI-generated interfaces. Read the method, use the scorecard and workbook, and explore a synthetic worked example.">
-<style>
-:root{--ink:#172b43;--muted:#506179;--paper:#faf9f5;--line:#d6dce2;--accent:#244cac}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.65 system-ui,-apple-system,sans-serif}a{color:var(--accent);text-underline-offset:4px}a:focus-visible{outline:3px solid #df9b25;outline-offset:5px}header,main,footer{max-width:1100px;margin:auto;padding:24px 32px}header{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);font-size:14px}header a{color:var(--ink)}.eyebrow{font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:50px 0 18px}h1{font-size:clamp(37px,5.2vw,64px);line-height:1.08;letter-spacing:-.045em;max-width:900px;margin:0 0 24px;font-weight:650}.lead{font-size:21px;line-height:1.55;max-width:740px;color:var(--muted)}.actions{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 42px}.button{display:inline-block;border:1px solid var(--ink);padding:12px 18px;text-decoration:none;color:var(--ink);border-radius:5px;font-weight:600}.primary{background:var(--ink);color:white}.status{border-left:3px solid #b7822e;padding:10px 20px;background:#f2eee4;font-size:15px;max-width:870px}section{padding:42px 0;border-bottom:1px solid var(--line)}h2{font-size:28px;line-height:1.2;margin:0 0 18px;letter-spacing:-.025em}h3{font-size:19px;margin:0 0 9px}.two{display:grid;grid-template-columns:1fr 1fr;gap:42px}.measure{display:grid;grid-template-columns:52px 1fr;gap:15px;padding:20px 0;border-top:1px solid var(--line)}.num{color:var(--muted);font-size:14px}.measure p{margin:0;color:var(--muted)}ol{padding-left:23px}li{margin-bottom:12px}.files{display:grid;grid-template-columns:1fr 1fr;gap:0 32px}.file{display:block;padding:17px 0;border-top:1px solid var(--line);text-decoration:none;font-weight:600}.file span{display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:4px}footer{font-size:13px;color:var(--muted);padding-top:30px;padding-bottom:44px}.cite{font-size:15px;padding:18px;background:#edf0f3;border-radius:5px}.caption{font-size:14px;color:var(--muted)}@media(max-width:650px){header,main,footer{padding-left:22px;padding-right:22px}.two,.files{grid-template-columns:1fr;gap:20px}.eyebrow{margin-top:32px}.lead{font-size:19px}section{padding:32px 0}.actions .button{width:100%;text-align:center}header{gap:20px}}
-</style></head>
-<body><header><a href="https://takyejun.com">Yejun Tak / Research</a><a href="https://github.com/yejuntak/hcai-deployment-readiness">GitHub repository</a></header>
-<main><p class="eyebrow">Evaluation methods / Engineering-handoff profile</p><h1>Human-Centered AI<br>Deployment Readiness Protocol</h1><p class="lead">Examine the gap between an interface that looks ready and the evidence needed to hand it to engineering.</p>
-<div class="actions"><a class="button primary" href="./Protocol-v0.1.pdf">Read the protocol</a><a class="button" href="./Evaluation-Template.xlsx">Get the evaluation workbook</a></div>
-<div class="status"><strong>v0.1 release candidate · September 2026</strong><br>A proposed method with a synthetic instructional example. External validation and measured effectiveness have not been established. This profile evaluates engineering handoff; it does not authorize production release.</div>
-<section class="two"><div><h2>The problem</h2><p>Interface polish and functional completeness describe different properties. A readiness judgment needs explicit requirements, observable state transitions and recovery evidence.</p></div><div><h2>The approach</h2><p>Freeze the criterion, collect the evaluator’s judgment before showing the reference key, and compare that judgment with documented evidence. Preserve disagreements and missing information.</p></div></section>
-<section><h2>Five distinct measurements</h2>
-<div class="measure"><div class="num">01</div><div><h3>Reference-set defect recall</h3><p>How many frozen reference defects did the evaluator correctly identify?</p></div></div>
-<div class="measure"><div class="num">02</div><div><h3>False-ready acceptance</h3><p>How often was a criterion-nonready artifact judged Ready? Missing judgments and abstentions are reported separately.</p></div></div>
-<div class="measure"><div class="num">03</div><div><h3>Expected-recall gap</h3><p>How far did expected recall differ from observed recall, in percentage points?</p></div></div>
-<div class="measure"><div class="num">04</div><div><h3>Recovery coverage</h3><p>How many applicable recovery scenarios were specified and walkthrough verified?</p></div></div>
-<div class="measure"><div class="num">05</div><div><h3>Requirements-omission recognition</h3><p>How many predefined omissions did the evaluator notice? Artifact requirements coverage is measured separately.</p></div></div>
-<p class="caption">There is no combined score. A high evaluator recall cannot override an unresolved critical issue in the artifact.</p></section>
-<section class="two"><div><h2>Run an assessment</h2><ol><li>Freeze the artifact, task brief and handoff criterion.</li><li>Evaluate and lock findings, expected recall and judgment.</li><li>Reveal the reference and adjudicate matches.</li><li>Calculate, reconcile evidence and record the owner’s decision.</li></ol></div><div><h2>Try the worked example</h2><p>Inspect a fictional service-request specification with ten requirements, six recovery scenarios and a separate reference key. Follow the constructed findings through the completed workbook.</p><a class="button" href="./Worked-Example/artifact.html">Open the fictional artifact</a><p class="caption">The example contains no real participant results or employer product data.</p></div></section>
-<section><h2>Materials</h2><div class="files">
-<a class="file" href="./Protocol-v0.1.pdf">Protocol PDF<span>8 pages · Scope, steps, definitions and limitations</span></a>
-<a class="file" href="./Scorecard.pdf">Evaluator scorecard<span>3 pages · Judgment, findings and decision record</span></a>
-<a class="file" href="./Evaluation-Template.xlsx">Blank evaluation workbook<span>Formula-driven session and batch calculations</span></a>
-<a class="file" href="./Worked-Example/Worked-Example.pdf">Worked example PDF<span>3 pages · Reference records and explained calculations</span></a>
-<a class="file" href="./Worked-Example/Evaluation-Completed.xlsx">Completed example workbook<span>Synthetic inputs with reproducible results</span></a>
-<a class="file" href="https://github.com/yejuntak/hcai-deployment-readiness/tree/main/Pilot-Kit">Feasibility kit and feedback log<span>Templates for actual review, use and revision</span></a>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="canonical" href="https://www.takyejun.com/research/ai-readiness"><title>H.A.R.D. Protocol 0.2</title><link rel="stylesheet" href="https://www.takyejun.com/static/system/tokens.css"><link rel="stylesheet" href="https://www.takyejun.com/static/system/reset.css"><link rel="stylesheet" href="https://www.takyejun.com/static/system/atoms.css"><link rel="stylesheet" href="https://www.takyejun.com/static/system/molecules.css"><link rel="stylesheet" href="https://www.takyejun.com/static/system/organisms.css"><link rel="stylesheet" href="https://www.takyejun.com/static/system/research.css"></head><body class="site-page page-research"><main id="main">
+<section class="o-hero-page research-hero hard-adoption-hero" aria-labelledby="hard-title">
+<div class="research-hero-copy">
+<p class="o-hero-page-eyebrow">Public Preview</p>
+<h1 class="o-hero-page-title" id="hard-title">H.A.R.D. Protocol 0.2</h1>
+<p class="hard-full-name t-body-s">Human-centered AI Readiness and Decision Protocol</p>
+<p class="hard-value t-title-xl">Look beneath the finished screen.</p>
+<p class="t-body-m">AI can produce a convincing prototype while requirements or recovery paths are still undecided. H.A.R.D. helps a team examine those gaps before committing to the next build.</p>
+<div class="m-cta-pair"><a class="button button-primary" data-primary-task data-entry-route href="#start">Choose a review</a><a class="button button-secondary" data-primary-task data-entry-route id="agent-tools" href="https://www.takyejun.com/research/ai-readiness/developers">Protocol Library</a></div>
+</div>
+<nav class="hard-entry-links" aria-label="More ways to use H.A.R.D.">
+<div><span class="t-eyebrow">Get started</span><div class="hard-entry-group"><a class="link" data-entry-route href="#method">How it works</a><a class="link" data-entry-route href="https://www.takyejun.com/research/ai-readiness/developers#rules">Find a rule</a></div></div>
+<div><span class="t-eyebrow">Use your assistant</span><div class="hard-entry-group"><a class="link" data-entry-route data-open-tool="mcp" href="https://www.takyejun.com/research/ai-readiness/developers#setup-mcp">Connect MCP</a><a class="link" data-entry-route href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/ai-ready-0.2.0-rc.8.zip" download>Download Skill</a><a class="link" data-entry-route data-open-tool="jev" href="https://www.takyejun.com/research/ai-readiness/developers#jev">Connect Jev</a></div></div>
+</nav>
+<figure class="hard-generated-figure" aria-labelledby="hard-visual-caption">
+<img src="https://www.takyejun.com/static/research/ai-readiness/visuals/hard-app-review-20260925.jpg" width="1536" height="1024" fetchpriority="high" decoding="async" alt="App concept: a request-review interface beside requirement, recovery and evidence prompts, with a receive, review and resolve workflow below.">
+<figcaption id="hard-visual-caption" class="t-body-s">AI-generated app concept. Review the interface alongside its requirements, recovery paths and evidence.</figcaption>
+</figure>
+</section>
+
+<section class="o-section o-section--bordered" id="method"><div class="o-section-inner hard-method-layout">
+<div class="stack stack-4 hard-method-intro">
+<p class="t-eyebrow">Research motivation</p>
+<h2 class="t-title-xl">Does a finished screen change what we examine?</h2>
+<p class="t-body-l">A polished prototype can show an interface without explaining its requirements, dependencies or recovery paths. The research asks how visual fidelity affects readiness judgments and attention to structural issues.</p>
+<p class="t-body-m">H.A.R.D. provides a structured review of the work behind the interface. It connects the intended outcome to the artifact, the available evidence and the people responsible for the next step.</p>
+<p class="t-body-s">The proposed study has not established an effect. This protocol is a review method, not an image filter or a claim that polished work is defective.</p>
+</div>
+<div class="stack stack-5 hard-method-review" id="scenarios">
+<div class="stack stack-2">
+<p class="t-eyebrow">In practice</p>
+<h3 class="t-title-l">Review the work behind the interface.</h3>
+</div>
+<ol class="hard-method-steps t-body-m" role="list">
+<li><strong>Keep the original artifact.</strong><p>Review the actual design or code revision. Do not blur labels or remove information people need.</p></li>
+<li><strong>Map the structure when useful.</strong><p>In a separate view, map the task, choices, dependencies and recovery paths. Name who acts and mark what is still unknown.</p></li>
+<li><strong>Check requirements and evidence.</strong><p>Check the artifact against its requirements and evidence. A drawing cannot supply a missing test, baseline or human decision.</p></li>
+</ol>
+<p class="t-body-s hard-method-boundary">A separate structure view is optional review guidance, not an extra gate. Keep it separate from the proposed study design.</p>
+</div>
 </div></section>
-<section id="agent-tools"><h2>MCP server + ai-ready Skill</h2><p>MCP v0.1.0 and Skill v0.1.1 support protocol v0.1-rc.3. Prepare a review and calculate descriptive results from supplied records, keeping agent reviews separate from human observations.</p><p><a href="https://github.com/yejuntak/hcai-deployment-readiness/blob/main/docs/agent-tools.md">Install and use the tools</a> · <a href="https://github.com/yejuntak/hcai-deployment-readiness/releases/tag/agent-tools-v0.1.0">Software release</a> · <a href="https://takyejun.com/research/ai-readiness#agent-tools">Project website</a></p></section><section><h2>Related design system</h2><p>The Peter Tak Design System supplies reusable styles, tokens and component specifications for constructing reference cases. It is a separate implementation resource; external adoption and protocol validation have not been established.</p><p><a href="https://github.com/yejuntak/peter-tak-design-system">Explore the design system</a> · <a href="https://github.com/yejuntak/hcai-deployment-readiness/blob/main/docs/design-system-connection.md">Read the connection and documented correction</a></p></section><section class="two"><div><h2>Research context</h2><p>The method relates explicit requirements and human judgments to evaluation evidence. Its NIST references provide context, not certification or endorsement.</p><p><a href="https://doi.org/10.6028/NIST.AI.100-1">NIST AI RMF 1.0</a><br><a href="https://doi.org/10.6028/NIST.AI.200-2.ipd">TEVV-Athlon initial public draft</a></p></div><div><h2>Version and citation</h2><p class="cite">Tak, Y. (2026). <em>Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile</em> (v0.1-rc.3).</p><p>Archived on Zenodo: <a href="https://doi.org/10.5281/zenodo.22667623">10.5281/zenodo.22667623</a>.</p><a href="https://github.com/yejuntak/hcai-deployment-readiness/blob/main/CITATION.cff">Citation metadata</a></div></section>
-</main><footer>Yejun Tak · CC BY 4.0 for original documents and synthetic data; MIT for software.<br>Development assisted by OpenAI Codex. Author review and external validation are separate steps.</footer></body></html>
+
+<section class="o-section o-section--bordered" id="start"><div class="o-section-inner stack stack-5">
+<div class="hard-section-intro"><p class="t-eyebrow">Choose a review or an external pilot</p><h2 class="t-title-xl">One protocol. Three ways to use it.</h2><p class="t-body-l">Start with the path that fits your work. QUICK-6 and Full Profile are assessment profiles; an external pilot is actual use of either profile with participants, not a third scoring system or a new version.</p></div>
+<div class="hard-use-paths" id="downloads">
+<article class="o-card-archetype stack stack-3" data-use-path="quick"><p class="t-eyebrow">Low risk / Baseline available</p><h3 class="t-title-l">QUICK-6</h3><p class="t-body-m">An advisor leads six questions about one workflow. Stop at the first failed or missing gate.</p><p class="t-body-s">The 15-minute target remains untested. Preparation time is recorded separately.</p><a class="button button-secondary" data-primary-task href="https://www.takyejun.com/research/ai-readiness/quick-6">Open QUICK-6</a></article>
+<article class="o-card-archetype stack stack-3" data-use-path="full"><p class="t-eyebrow">Risk-tiered evidence</p><h3 class="t-title-l">Full Profile</h3><p class="t-body-m">Use for moderate, high or unknown risk, missing evidence, or work that needs a longer review. Evidence requirements scale with risk.</p><p class="t-body-s">A longer review is not a failure. Unknown risk prevents a proceed decision.</p><a class="button button-secondary" data-primary-task href="https://www.takyejun.com/research/ai-readiness/full-profile">Open Full Profile</a></article>
+<article class="o-card-archetype stack stack-3" data-use-path="pilot"><p class="t-eyebrow">Bounded use with participants</p><h3 class="t-title-l">External pilot</h3><p class="t-body-m">Apply QUICK-6 or Full Profile to real work with permission. Record effort, confusing questions, missing evidence and the next action.</p><p class="t-body-s">The packet supports planning a pilot. It does not report completed external validation.</p><a class="button button-secondary" data-primary-task href="https://www.takyejun.com/research/ai-readiness/pilot">Get the pilot packet</a></article>
+</div>
+<details class="hard-detail" id="quick-six"><summary class="t-title-m">Preview the six questions</summary>
+<ol class="research-steps hard-six t-body-m">
+<li><strong>What happens today?</strong><p>Record the steps, time, failures and rework.</p></li>
+<li><strong>What needs to improve, for whom?</strong><p>Tie the requirement to an actual need.</p></li>
+<li><strong>What happens when something goes wrong?</strong><p>Define recovery and who may act.</p></li>
+<li><strong>What demonstrates the behavior?</strong><p>Trace the requirement to the artifact and its check.</p></li>
+<li><strong>What work remains for people?</strong><p>Count review, correction and escalation.</p></li>
+<li><strong>Is there enough evidence to fund the next step?</strong><p>Apply the risk depth and name an owner.</p></li>
+</ol><p class="hard-stop-note t-body-s"><strong>Stop at a failed or missing gate.</strong> A good answer elsewhere cannot cancel it out. Without a measurable baseline, ROI stays indeterminate.</p></details>
+<details class="hard-detail"><summary class="t-title-m">Protocol, worksheets and source files</summary><div class="stack stack-3 t-body-m">
+<a class="link" href="https://www.takyejun.com/research/ai-readiness/protocol">Read the complete protocol</a>
+<a class="link" href="https://www.takyejun.com/research/ai-readiness/worksheet">Open the conversation worksheet</a>
+<a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/HARD-Protocol-0.2-preview.2.pdf" download>Protocol PDF</a>
+<a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/HARD-QUICK-6-0.2-preview.2.pdf" download>QUICK-6 PDF</a>
+<a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/HARD-Full-Profile-0.2-preview.2.pdf">Full Profile PDF</a>
+<a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/HARD-Protocol-0.2-preview.2.zip">Complete source package (about 55 MB)</a>
+</div></details>
+</div></section>
+
+<section class="o-section o-section--bordered" id="criteria"><div class="o-section-inner stack stack-5">
+<div class="hard-section-intro"><p class="t-eyebrow">Look across the work</p><h2 class="t-title-xl">Some questions live outside the interface.</h2><p class="t-body-m">Use these four views to bring the right people into the review. They are discussion aids, not extra gates or separate scores.</p></div>
+<div class="o-persona-grid research-role-grid">
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">01</span><div><h3 class="o-persona-card-name">Experience and information</h3><p class="o-persona-card-role">Can people find their way?</p></div></div><p class="o-persona-card-jtbd">Check labels, information hierarchy and competing choices against the task people need to complete.</p></div></article>
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">02</span><div><h3 class="o-persona-card-name">Workflow and architecture</h3><p class="o-persona-card-role">Do the handoffs work?</p></div></div><p class="o-persona-card-jtbd">Follow the dependencies and state changes, including what happens when a step fails.</p></div></article>
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">03</span><div><h3 class="o-persona-card-name">Implementation and evidence</h3><p class="o-persona-card-role">What has been checked?</p></div></div><p class="o-persona-card-jtbd">Distinguish working behavior from simulation. Link each important requirement to a check of the exact artifact.</p></div></article>
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">04</span><div><h3 class="o-persona-card-name">People and operation</h3><p class="o-persona-card-role">Who handles the remaining work?</p></div></div><p class="o-persona-card-jtbd">Name the people responsible for review, correction and support. Include their time when estimating savings.</p></div></article>
+</div>
+<div class="hard-legacy-anchors" aria-hidden="true">
+<span id="HCAI-1.1" class="sr-only">HCAI-1.1</span>
+<span id="HCAI-1.2" class="sr-only">HCAI-1.2</span>
+<span id="HCAI-1.3" class="sr-only">HCAI-1.3</span>
+<span id="HCAI-1.4" class="sr-only">HCAI-1.4</span>
+<span id="HCAI-2.1" class="sr-only">HCAI-2.1</span>
+<span id="HCAI-2.2" class="sr-only">HCAI-2.2</span>
+<span id="HCAI-2.3" class="sr-only">HCAI-2.3</span>
+<span id="HCAI-3.1" class="sr-only">HCAI-3.1</span>
+<span id="HCAI-3.2" class="sr-only">HCAI-3.2</span>
+<span id="HCAI-3.3" class="sr-only">HCAI-3.3</span>
+<span id="HCAI-4.1" class="sr-only">HCAI-4.1</span>
+<span id="HCAI-4.2" class="sr-only">HCAI-4.2</span>
+<span id="HCAI-4.3" class="sr-only">HCAI-4.3</span>
+<span id="HCAI-4.4" class="sr-only">HCAI-4.4</span>
+<span id="HCAI-4.5" class="sr-only">HCAI-4.5</span>
+</div>
+<section class="research-review-output stack stack-4" aria-labelledby="review-output-title"><h3 class="t-title-l" id="review-output-title">What you leave with</h3><div class="research-output-list">
+<article class="o-feature-card"><span class="hard-output-number t-mono-s" aria-hidden="true">01 / Decision</span><h4 class="t-title-m">A recommendation</h4><p class="t-body-m">Proceed to engineering, revise, or gather missing evidence.</p></article>
+<article class="o-feature-card"><span class="hard-output-number t-mono-s" aria-hidden="true">02 / Evidence</span><h4 class="t-title-m">A reason</h4><p class="t-body-m">The evidence checked and the questions still open.</p></article>
+<article class="o-feature-card"><span class="hard-output-number t-mono-s" aria-hidden="true">03 / Responsibility</span><h4 class="t-title-m">A next action</h4><p class="t-body-m">A named owner, a defined task and a resource limit.</p></article>
+</div><p class="t-body-s hard-output-boundary">The owner authorizes engineering separately; deployment requires separate evaluation.</p></section>
+<details class="hard-detail"><summary class="t-title-m">Research question and study boundaries</summary><p class="t-body-m">The proposed study varies visual fidelity while holding content, behavior and defects constant. It does not establish that all AI-built work skips design steps. A separate structure view is a practice aid, not an unplanned intervention for that study.</p><a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/research-boundary.html">Read the research question and limits</a></details>
+</div></section>
+
+<section class="o-section o-section--bordered" id="attribution"><div class="o-section-inner stack stack-4">
+<h2 class="t-title-xl">Attribution</h2><p class="t-body-m">Practitioner feedback informed the protocol. Named credit appears only with permission.</p>
+<table class="research-attribution t-body-m"><caption>Practitioner contributions</caption><thead><tr><th scope="col">Contributor</th><th scope="col">Contribution</th></tr></thead><tbody><tr><th scope="row">Hillel Glazer</th><td>Feedback on tracing artifacts to requirements and the tests or validation that demonstrate them, including reference material and form, fit and function. Attribution approved.</td></tr></tbody></table>
+<p class="t-body-m">To request attribution credit, contact <a class="link" href="mailto:takyejun@gmail.com">takyejun@gmail.com</a> or <a class="link" href="mailto:ytak47189@ucumberlands.edu">ytak47189@ucumberlands.edu</a>.</p>
+<p class="t-body-s">Credit is not endorsement or validation. Other correspondents' identities and private comments are not published.</p>
+</div></section>
+
+<section class="o-section o-section--bordered" id="limitations"><div class="o-section-inner stack stack-4">
+<h2 class="t-title-xl">Evidence and limitations</h2><p class="t-body-m">This is a Public Preview. Practitioner correspondence informed its refinement, but it is not controlled empirical validation. Software tests check implementation behavior. Usability, time savings and effectiveness remain unvalidated.</p>
+<p class="t-body-m">Interested in an external pilot or scheduling an official pilot walkthrough? Email <a class="link" href="mailto:takyejun@gmail.com">takyejun@gmail.com</a> or <a class="link" href="mailto:ytak47189@ucumberlands.edu">ytak47189@ucumberlands.edu</a> with one workflow you would like to review.</p>
+<p class="t-body-s">Exact protocol 0.2-preview.2 · MCP 0.2.0rc8 · Skill/contract 0.2.0-rc.8. Existing commands, API names and HCAI criterion IDs are unchanged.</p>
+<details class="hard-detail"><summary class="t-title-m">About the illustration</summary><p class="t-body-s">The AI-generated app concept illustrates a review context. It is not a working H.A.R.D. application, a participant record or a study result.</p></details>
+<p><a class="link" href="https://www.takyejun.com/research/ai-readiness/updates">Read the update log</a></p>
+<details class="research-connection" id="archive"><summary class="t-title-m">Sources, verification and preserved releases</summary><p class="t-body-m">The earlier previews, rc.3 and all six rc.4 candidates remain unchanged. Past records keep their original names and versions.</p><p class="t-body-m"><a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/decision-naming-migration.html">Migration notes</a> · <a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/rc4-test-results.json">Software test record</a> · <a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/download-manifest.json">Download checksums</a> · <a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-1/HARD-Protocol-0.2-preview.1.zip">Preserved first preview</a></p><p class="t-body-m">Tak, Y. (2026). <em>Human-centered AI Readiness and Decision Protocol</em>. H.A.R.D. Protocol 0.2 · Public Preview. Exact protocol 0.2-preview.2. No DOI is assigned to this preview. <a class="link" href="https://doi.org/10.5281/zenodo.22667623">10.5281/zenodo.22667623</a> identifies rc.3 only.</p><p class="t-body-s">Original text and synthetic data: CC BY 4.0; software: MIT. AI-assisted development. Research Harness v3 is a separate project, not validation evidence. <a class="link" href="https://github.com/yejuntak/hcai-deployment-readiness">Source repository</a>.</p><p class="t-body-m"><a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/editorial-review.html">Editorial review</a> · <a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/deep-audit.html">Deep audit</a> · <a class="link" href="https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-2/claims-and-governance.html">Claims and governance</a></p></details>
+</div></section>
+
+<script defer src="https://www.takyejun.com/static/hard-entry.js"></script>
+
+</main></body></html>

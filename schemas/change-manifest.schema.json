@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "status", "changes"],
+  "properties": {
+    "protocol_version": {"const": "0.2-preview.2"},
+    "status": {"const": "candidate_unvalidated"},
+    "changes": {"type": "array", "minItems": 1, "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "observed_problem", "source_theme_ids", "change", "requirements", "files", "acceptance_tests", "validation_status"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^C[0-9]{2}$"},
+        "observed_problem": {"type": "string", "minLength": 1},
+        "source_theme_ids": {"type": "array", "items": {"type": "string"}},
+        "change": {"type": "string", "minLength": 1},
+        "requirements": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "files": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "acceptance_tests": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "validation_status": {"enum": ["implemented_untested", "software_tests_only", "bounded_use_recorded"]}
+      }
+    }}
+  }
+}

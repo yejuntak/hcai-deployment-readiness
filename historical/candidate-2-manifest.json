@@ -1,0 +1,23 @@
+{
+  "protocol": "0.1-rc.4-candidate.2",
+  "mcp": "0.2.0rc2",
+  "skill": "0.2.0-rc.2",
+  "source_commit": "13e73ce5044591608acbb895d43875120762c615",
+  "note": "The complete historical ZIP retains original source, contracts, documentation and regression report.",
+  "files": {
+    "Pilot-Kit/rc4-candidate-2-external-packet.md": "2b71c1d677ecd793ff7310dad05f9efc447f9cb230ff692014968a027ad97796",
+    "output/pdf/External-Pilot-Packet-v0.1-rc.4-candidate.2.pdf": "6b1db9a1f303ec1ec056a20e33266310898bdc46d2cf7dd77215b490c048bae8",
+    "output/pdf/Full-Profile-v0.1-rc.4-candidate.2.pdf": "38d607b47285a6121f6b07e2053db90de5c11b5821369f5af3f08d8762f4b8d3",
+    "output/pdf/Protocol-v0.1-rc.4-candidate.2.pdf": "0fcf3e46d7ae3bffc9626d988eadead675037a8491a3581bbf58d30bb0681011",
+    "output/pdf/QUICK-6-v0.1-rc.4-candidate.2.pdf": "f3bedc58b50723d941e13faab97867927ec3c11190ce79ee96f688ec563d98e5",
+    "protocol/0.1-rc.4-candidate.2/CRITERIA.md": "50cb498bd2805c6ab556d66807c4f4704f31501837392547ed9302a5876761cb",
+    "protocol/0.1-rc.4-candidate.2/FULL-PROFILE.md": "72a4e69c20fc4638644e905999a37b97f5d1772175b911d34a53f9fa463a6e40",
+    "protocol/0.1-rc.4-candidate.2/PROTOCOL.md": "28fc1b9c97fbc635587b28b0ce2270f423de60b9535e4d6423c2af4e3466c7c5",
+    "protocol/0.1-rc.4-candidate.2/QUICK-6.md": "e5217666ddff3e2ba6557e49c925de6d0723a48375a72bbc0090d0a3447623fb",
+    "protocol/0.1-rc.4-candidate.2/SCENARIOS.md": "70c346be8d8b8ab159c4ce3d7afb95e8a31188689fc33e22e4e9fe3c3c0eed58",
+    "protocol/0.1-rc.4-candidate.2/START-HERE.md": "12ba3f9392d8da2d45f877d2f9397e6f9854476024e83f71f385f8056159c32b",
+    "release/HCAI-v0.1-rc.4-candidate.2.zip": "4463b249871a8c998e7c48191fc4f74433672f8b581db591b6bb111a9c15fce7",
+    "release/ai-ready-0.2.0-rc.2.zip": "425dcb6285a281fb476e807ab19e812f9bca7c6d832ef30c7911ace3c5cf91ef",
+    "release/hcai_readiness_mcp-0.2.0rc2-py3-none-any.whl": "2891d5a3ec78c2f4b3a464af3e0fb5d2a2f263f5e9daf936d34a6eb17bb8f355"
+  }
+}

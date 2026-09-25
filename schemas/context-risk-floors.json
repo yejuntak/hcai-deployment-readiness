@@ -1,0 +1,6 @@
+{
+  "safety_or_rights_impact": "high",
+  "irreversible_external_actions": "high",
+  "sensitive_data": "moderate",
+  "untrusted_input_to_actions": "moderate"
+}

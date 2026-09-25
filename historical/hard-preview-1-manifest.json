@@ -1,0 +1,21 @@
+{
+  "source_commit": "994ae4291ca8c185ca2ddbfba50af2d1482d5ccb",
+  "note": "Frozen before the Decision naming revision. Original source remains at source_commit; never relabel historical runs.",
+  "files": {
+    "Pilot-Kit/hard-0.2-preview-1-external-packet.md": "4b032003be661a09eb303223a17fe3f39434a99c012677f5828df8cdb18f9e0c",
+    "output/pdf/HARD-External-Pilot-Packet-0.2-preview.1.pdf": "c3933ac5526a5947bdb4dea20e37f37755cc80efa7b3ae4c8398ecad434860cc",
+    "output/pdf/HARD-Full-Profile-0.2-preview.1.pdf": "63907eb2381301ce942f3262c63f735e20da587c845cbad4c33aab13859d3910",
+    "output/pdf/HARD-Protocol-0.2-preview.1.pdf": "2a00884f0f7a4db637b803fd8b4f6dc35902e07a1c3ad61b7e357045a24fc58a",
+    "output/pdf/HARD-QUICK-6-0.2-preview.1.pdf": "78ecb31939e7848ce73ee56846b47f3228420f7d3312c9e0ef33758442cafd2d",
+    "protocol/0.2-preview.1/CRITERIA.md": "d6aaa632771f82dcd179f2fb9635ea55f2c964c376257a9a5316ab2e0c1c8e8e",
+    "protocol/0.2-preview.1/FULL-PROFILE.md": "535860dd7e30f265884d34e61292eae08973b13748163d3732a7756c4ddbb226",
+    "protocol/0.2-preview.1/PROTOCOL.md": "150844df4dc0fb073cd3aa41ae6a6d3c4f9548d0bf27d650e9fa47daf25823f2",
+    "protocol/0.2-preview.1/QUICK-6.md": "cf6c7b19bcb61595863ffdb1bd1fc8451867ca81c64e1f58c7233808ba0b53df",
+    "protocol/0.2-preview.1/SCENARIOS.md": "94935c24c83b95132ac224c1381b84367aaf9ae20f805705e17c466190e25893",
+    "protocol/0.2-preview.1/START-HERE.md": "bd7345dac7dce575e35dde32e80b88c92dd8c5abf85f38ca8b1b5ec56fe2da51",
+    "protocol/0.2-preview.1/WORKSHEET.md": "df56010828835d6db26273dde792234eca508144ae9106c586eb03d637a7d8c7",
+    "release/HARD-Protocol-0.2-preview.1.zip": "f90e3dbb10750bab57441348319bc8afdc2f3048704c10bd58f899004f1e7c69",
+    "release/ai-ready-0.2.0-rc.7.zip": "3d88cde503e0e5d2f80fd36c42903ca1dd462812c619d1e03c7c3da83efd6140",
+    "release/hcai_readiness_mcp-0.2.0rc7-py3-none-any.whl": "229d968e5dbf3385f79ad0fee5a6dd3e6fd037372422956a0dcd40a5918428c1"
+  }
+}

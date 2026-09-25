@@ -1,15 +1,12 @@
 cff-version: 1.2.0
-message: "Cite the exact version used. Protocol citation; cite agent-tools-v0.1.0 separately for the MCP/Skill companion software."
+message: "Public Preview. Cite H.A.R.D. Protocol 0.2 with exact protocol 0.2-preview.2, MCP 0.2.0rc8 and Skill 0.2.0-rc.8. The rc.3 DOI does not identify this Public Preview."
 type: software
-title: "Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile"
+title: "H.A.R.D. Protocol 0.2: Human-centered AI Readiness and Decision Protocol"
 authors:
   - family-names: Tak
     given-names: Yejun
-version: "0.1-rc.3"
+version: "0.2-preview.2"
 repository-code: "https://github.com/yejuntak/hcai-deployment-readiness"
 url: "https://github.com/yejuntak/hcai-deployment-readiness"
 license: CC-BY-4.0
-abstract: "A proposed engineering-handoff evaluation protocol with forms, calculation workbooks and a synthetic instructional example. No external validation or measured effectiveness is claimed."
-
-doi: "10.5281/zenodo.22667623"
-date-released: "2026-09-09"
+abstract: "A Public Preview protocol for reviewing evidence before committing engineering resources to a defined workflow. It requires a measured baseline and evidence suited to the risk tier, and reports evaluation costs separately from operational oversight. Verification uses synthetic software fixtures. No controlled empirical validation or operational performance is claimed."

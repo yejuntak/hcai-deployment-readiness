@@ -1,0 +1,2097 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Baseline": {
+      "additionalProperties": false,
+      "properties": {
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/CurrentStep"
+          },
+          "title": "Steps",
+          "type": "array"
+        },
+        "entry_step_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entry Step Id"
+        },
+        "map_review": {
+          "$ref": "#/$defs/Check"
+        },
+        "current_state_summary": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Current State Summary"
+        },
+        "actor_roles": {
+          "anyOf": [
+            {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Actor Roles"
+        },
+        "observation_window": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Observation Window"
+        },
+        "sample_size": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sample Size"
+        },
+        "cycle_minutes_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cycle Minutes Per Case"
+        },
+        "labor_minutes_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Labor Minutes Per Case"
+        },
+        "handoffs_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Handoffs Per Case"
+        },
+        "touches_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Touches Per Case"
+        },
+        "failure_points": {
+          "anyOf": [
+            {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Failure Points"
+        },
+        "manual_review_minutes_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Manual Review Minutes Per Case"
+        },
+        "escalation_minutes_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Escalation Minutes Per Case"
+        },
+        "rework_minutes_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rework Minutes Per Case"
+        },
+        "volume_per_period": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Volume Per Period"
+        },
+        "period": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Period"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "title": "Baseline",
+      "type": "object"
+    },
+    "Check": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "default": "missing",
+          "enum": [
+            "pass",
+            "fail",
+            "missing"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        },
+        "reviewer_role": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewer Role"
+        },
+        "reviewer_kind": {
+          "anyOf": [
+            {
+              "enum": [
+                "human",
+                "ai-assisted-human",
+                "agent",
+                "synthetic"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewer Kind"
+        },
+        "independent_from_artifact_owner": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Independent From Artifact Owner"
+        }
+      },
+      "title": "Check",
+      "type": "object"
+    },
+    "ContextScreen": {
+      "additionalProperties": false,
+      "properties": {
+        "safety_or_rights_impact": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Safety Or Rights Impact"
+        },
+        "irreversible_external_actions": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Irreversible External Actions"
+        },
+        "sensitive_data": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sensitive Data"
+        },
+        "untrusted_input_to_actions": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Untrusted Input To Actions"
+        }
+      },
+      "title": "ContextScreen",
+      "type": "object"
+    },
+    "Costs": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Currency"
+        },
+        "labor_cost_per_hour": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Labor Cost Per Hour"
+        },
+        "baseline_nonlabor_cost_per_period": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Baseline Nonlabor Cost Per Period"
+        },
+        "proposed_recurring_fixed_cost_per_period": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Proposed Recurring Fixed Cost Per Period"
+        },
+        "proposed_nonlabor_cost_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Proposed Nonlabor Cost Per Case"
+        },
+        "one_time_implementation_cost": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "One Time Implementation Cost"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "title": "Costs",
+      "type": "object"
+    },
+    "CurrentStep": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "normal",
+            "edge",
+            "recovery"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "actor_role": {
+          "minLength": 1,
+          "title": "Actor Role",
+          "type": "string"
+        },
+        "trigger": {
+          "minLength": 1,
+          "title": "Trigger",
+          "type": "string"
+        },
+        "action": {
+          "minLength": 1,
+          "title": "Action",
+          "type": "string"
+        },
+        "data_handling": {
+          "minLength": 1,
+          "title": "Data Handling",
+          "type": "string"
+        },
+        "next_step_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Next Step Ids",
+          "type": "array"
+        },
+        "terminal": {
+          "title": "Terminal",
+          "type": "boolean"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "observation_status": {
+          "enum": [
+            "observed",
+            "reported"
+          ],
+          "title": "Observation Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "actor_role",
+        "trigger",
+        "action",
+        "data_handling",
+        "next_step_ids",
+        "terminal",
+        "evidence_ids",
+        "observation_status"
+      ],
+      "title": "CurrentStep",
+      "type": "object"
+    },
+    "EvaluatorBurden": {
+      "additionalProperties": false,
+      "properties": {
+        "preparation_elapsed_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Preparation Elapsed Minutes"
+        },
+        "preparation_person_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Preparation Person Minutes"
+        },
+        "capture_reporting_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Capture Reporting Minutes"
+        },
+        "elapsed_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Elapsed Minutes"
+        },
+        "evaluator_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evaluator Minutes"
+        },
+        "participant_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Participant Minutes"
+        },
+        "participant_count": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Participant Count"
+        },
+        "adjudication_minutes": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Adjudication Minutes"
+        },
+        "review_correction_cycles": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Review Correction Cycles"
+        },
+        "tool_calls": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tool Calls"
+        },
+        "model_calls": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model Calls"
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Tokens"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Tokens"
+        },
+        "tool_model_cost": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Tool Model Cost"
+        },
+        "labor_cost_per_hour": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Labor Cost Per Hour"
+        },
+        "currency": {
+          "anyOf": [
+            {
+              "pattern": "^[A-Z]{3}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Currency"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "title": "EvaluatorBurden",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "locator": {
+          "minLength": 1,
+          "title": "Locator",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "observed",
+            "estimate",
+            "assumption",
+            "synthetic"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "origin_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Origin Id"
+        },
+        "source_type": {
+          "default": "unknown",
+          "enum": [
+            "work_record",
+            "end_user_discussion",
+            "reference",
+            "artifact",
+            "validation_record",
+            "review_record",
+            "estimate",
+            "unknown"
+          ],
+          "title": "Source Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "sha256",
+        "locator",
+        "kind",
+        "description"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "Finding": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "severity": {
+          "enum": [
+            "critical",
+            "major",
+            "minor"
+          ],
+          "title": "Severity",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "accepted"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "severity",
+        "status",
+        "description",
+        "evidence_ids"
+      ],
+      "title": "Finding",
+      "type": "object"
+    },
+    "Handoff": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_quality_review": {
+          "$ref": "#/$defs/Check"
+        },
+        "reference_defect_ids": {
+          "anyOf": [
+            {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Defect Ids"
+        },
+        "reviewer_findings": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/Finding"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewer Findings"
+        },
+        "unresolved_risks": {
+          "anyOf": [
+            {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unresolved Risks"
+        },
+        "reference_review": {
+          "$ref": "#/$defs/Check"
+        },
+        "findings_review": {
+          "$ref": "#/$defs/Check"
+        },
+        "independent_review": {
+          "$ref": "#/$defs/Check"
+        },
+        "hazard_analysis": {
+          "$ref": "#/$defs/Check"
+        },
+        "validation_plan": {
+          "$ref": "#/$defs/Check"
+        },
+        "mission_review": {
+          "$ref": "#/$defs/Check"
+        },
+        "operational_evaluation_plan": {
+          "$ref": "#/$defs/Check"
+        },
+        "risk_acceptance": {
+          "$ref": "#/$defs/Check"
+        },
+        "decision_owner_role": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Decision Owner Role"
+        },
+        "commitment_scope": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Commitment Scope"
+        },
+        "resource_limit": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Resource Limit"
+        },
+        "next_review_trigger": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Next Review Trigger"
+        },
+        "investment_rationale": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Investment Rationale"
+        }
+      },
+      "title": "Handoff",
+      "type": "object"
+    },
+    "ImpactReview": {
+      "additionalProperties": false,
+      "properties": {
+        "domain": {
+          "enum": [
+            "access_usability",
+            "privacy_security",
+            "unequal_effects",
+            "human_agency"
+          ],
+          "title": "Domain",
+          "type": "string"
+        },
+        "applicability": {
+          "default": "unknown",
+          "enum": [
+            "applicable",
+            "not_applicable",
+            "unknown"
+          ],
+          "title": "Applicability",
+          "type": "string"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "owner_role": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Owner Role"
+        },
+        "affected_roles": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Affected Roles",
+          "type": "array"
+        },
+        "requirement_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Requirement Ids",
+          "type": "array"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "domain"
+      ],
+      "title": "ImpactReview",
+      "type": "object"
+    },
+    "Need": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "end_user_role": {
+          "minLength": 1,
+          "title": "End User Role",
+          "type": "string"
+        },
+        "source_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Source Ids",
+          "type": "array"
+        },
+        "discussion_evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Discussion Evidence Ids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "end_user_role",
+        "source_ids"
+      ],
+      "title": "Need",
+      "type": "object"
+    },
+    "OperationalEvidence": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "default": "not_collected",
+          "enum": [
+            "not_collected",
+            "collected_after_implementation"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "implemented_version": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Implemented Version"
+        },
+        "realistic_use_context": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Realistic Use Context"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "metrics": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Metrics",
+          "type": "object"
+        }
+      },
+      "title": "OperationalEvidence",
+      "type": "object"
+    },
+    "Oversight": {
+      "additionalProperties": false,
+      "properties": {
+        "basis": {
+          "default": "estimate",
+          "enum": [
+            "estimate",
+            "measured"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "review_minutes_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Review Minutes Per Case"
+        },
+        "correction_minutes_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Correction Minutes Per Case"
+        },
+        "escalation_minutes_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Escalation Minutes Per Case"
+        },
+        "rework_minutes_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rework Minutes Per Case"
+        },
+        "residual_manual_minutes_per_case": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Residual Manual Minutes Per Case"
+        },
+        "owner_role": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Owner Role"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "title": "Oversight",
+      "type": "object"
+    },
+    "Requirement": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "acceptance_criteria": {
+          "minLength": 1,
+          "title": "Acceptance Criteria",
+          "type": "string"
+        },
+        "form": {
+          "minLength": 1,
+          "title": "Form",
+          "type": "string"
+        },
+        "fit": {
+          "minLength": 1,
+          "title": "Fit",
+          "type": "string"
+        },
+        "function": {
+          "minLength": 1,
+          "title": "Function",
+          "type": "string"
+        },
+        "reference_material_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Reference Material Ids",
+          "type": "array"
+        },
+        "owner_role": {
+          "minLength": 1,
+          "title": "Owner Role",
+          "type": "string"
+        },
+        "need_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Need Ids",
+          "type": "array"
+        },
+        "artifact_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Artifact Ids",
+          "type": "array"
+        },
+        "validation_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Validation Ids",
+          "type": "array"
+        },
+        "behavior_status": {
+          "default": "unknown",
+          "enum": [
+            "specified_only",
+            "simulated",
+            "implemented",
+            "unknown"
+          ],
+          "title": "Behavior Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "acceptance_criteria",
+        "form",
+        "fit",
+        "function",
+        "reference_material_ids",
+        "owner_role",
+        "need_ids",
+        "artifact_ids",
+        "validation_ids"
+      ],
+      "title": "Requirement",
+      "type": "object"
+    },
+    "Risk": {
+      "additionalProperties": false,
+      "properties": {
+        "context": {
+          "$ref": "#/$defs/ContextScreen"
+        },
+        "complexity": {
+          "anyOf": [
+            {
+              "enum": [
+                "low",
+                "moderate",
+                "high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Complexity"
+        },
+        "importance": {
+          "anyOf": [
+            {
+              "enum": [
+                "low",
+                "moderate",
+                "high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Importance"
+        },
+        "impact": {
+          "anyOf": [
+            {
+              "enum": [
+                "low",
+                "moderate",
+                "high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Impact"
+        },
+        "mission": {
+          "anyOf": [
+            {
+              "enum": [
+                "low",
+                "moderate",
+                "high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Mission"
+        },
+        "failure_consequence": {
+          "anyOf": [
+            {
+              "enum": [
+                "low",
+                "moderate",
+                "high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Failure Consequence"
+        },
+        "irreversibility": {
+          "anyOf": [
+            {
+              "enum": [
+                "low",
+                "moderate",
+                "high"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Irreversibility"
+        },
+        "rationale": {
+          "default": "",
+          "title": "Rationale",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        }
+      },
+      "title": "Risk",
+      "type": "object"
+    },
+    "Scope": {
+      "additionalProperties": false,
+      "properties": {
+        "workflow_name": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Workflow Name"
+        },
+        "unit_of_work": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit Of Work"
+        },
+        "starts_when": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Starts When"
+        },
+        "ends_when": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ends When"
+        },
+        "environment": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Environment"
+        },
+        "ai_role": {
+          "anyOf": [
+            {
+              "enum": [
+                "artifact_creation",
+                "in_workflow",
+                "both",
+                "neither"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Ai Role"
+        },
+        "alternatives_considered": {
+          "anyOf": [
+            {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alternatives Considered"
+        },
+        "exclusions": {
+          "anyOf": [
+            {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Exclusions"
+        },
+        "affected_roles": {
+          "anyOf": [
+            {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Affected Roles"
+        }
+      },
+      "title": "Scope",
+      "type": "object"
+    },
+    "State": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "normal",
+            "edge",
+            "recovery"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "trigger": {
+          "minLength": 1,
+          "title": "Trigger",
+          "type": "string"
+        },
+        "behavior": {
+          "minLength": 1,
+          "title": "Behavior",
+          "type": "string"
+        },
+        "resulting_state": {
+          "minLength": 1,
+          "title": "Resulting State",
+          "type": "string"
+        },
+        "data_handling": {
+          "minLength": 1,
+          "title": "Data Handling",
+          "type": "string"
+        },
+        "owner_role": {
+          "minLength": 1,
+          "title": "Owner Role",
+          "type": "string"
+        },
+        "requirement_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Requirement Ids",
+          "type": "array"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "next_state_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Next State Ids",
+          "type": "array"
+        },
+        "terminal": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Terminal"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "trigger",
+        "behavior",
+        "resulting_state",
+        "data_handling",
+        "owner_role",
+        "requirement_ids",
+        "evidence_ids"
+      ],
+      "title": "State",
+      "type": "object"
+    },
+    "Validation": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "requirement_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Requirement Ids",
+          "type": "array"
+        },
+        "artifact_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Artifact Ids",
+          "type": "array"
+        },
+        "method": {
+          "minLength": 1,
+          "title": "Method",
+          "type": "string"
+        },
+        "level": {
+          "enum": [
+            "specified",
+            "walkthrough",
+            "implemented_test"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "pass",
+            "fail",
+            "missing"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Ids",
+          "type": "array"
+        },
+        "tested_artifact_digests": {
+          "additionalProperties": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Tested Artifact Digests",
+          "type": "object"
+        },
+        "tested_requirement_digests": {
+          "additionalProperties": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "title": "Tested Requirement Digests",
+          "type": "object"
+        }
+      },
+      "required": [
+        "id",
+        "requirement_ids",
+        "artifact_ids",
+        "method",
+        "level",
+        "status",
+        "evidence_ids"
+      ],
+      "title": "Validation",
+      "type": "object"
+    },
+    "Versions": {
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "minLength": 1,
+          "title": "Protocol",
+          "type": "string"
+        },
+        "mcp": {
+          "minLength": 1,
+          "title": "Mcp",
+          "type": "string"
+        },
+        "skill": {
+          "minLength": 1,
+          "title": "Skill",
+          "type": "string"
+        },
+        "contract": {
+          "minLength": 1,
+          "title": "Contract",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol",
+        "mcp",
+        "skill",
+        "contract"
+      ],
+      "title": "Versions",
+      "type": "object"
+    },
+    "Workflow": {
+      "additionalProperties": false,
+      "properties": {
+        "outcome": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Outcome"
+        },
+        "needs": {
+          "items": {
+            "$ref": "#/$defs/Need"
+          },
+          "title": "Needs",
+          "type": "array"
+        },
+        "requirements": {
+          "items": {
+            "$ref": "#/$defs/Requirement"
+          },
+          "title": "Requirements",
+          "type": "array"
+        },
+        "states": {
+          "items": {
+            "$ref": "#/$defs/State"
+          },
+          "title": "States",
+          "type": "array"
+        },
+        "entry_state_id": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entry State Id"
+        },
+        "impact_reviews": {
+          "items": {
+            "$ref": "#/$defs/ImpactReview"
+          },
+          "title": "Impact Reviews",
+          "type": "array"
+        },
+        "important_artifact_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Important Artifact Ids",
+          "type": "array"
+        },
+        "validations": {
+          "items": {
+            "$ref": "#/$defs/Validation"
+          },
+          "title": "Validations",
+          "type": "array"
+        },
+        "dependencies": {
+          "anyOf": [
+            {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dependencies"
+        },
+        "dependency_review": {
+          "$ref": "#/$defs/Check"
+        },
+        "state_review": {
+          "$ref": "#/$defs/Check"
+        },
+        "human_control_review": {
+          "$ref": "#/$defs/Check"
+        },
+        "action_boundaries": {
+          "anyOf": [
+            {
+              "items": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action Boundaries"
+        }
+      },
+      "title": "Workflow",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "recorded_at": {
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T.*(?:Z|[+-]\\d{2}:\\d{2})$",
+      "title": "Recorded At",
+      "type": "string"
+    },
+    "versions": {
+      "$ref": "#/$defs/Versions"
+    },
+    "evaluator_kind": {
+      "enum": [
+        "human",
+        "ai-assisted-human",
+        "agent",
+        "synthetic"
+      ],
+      "title": "Evaluator Kind",
+      "type": "string"
+    },
+    "requested_profile": {
+      "enum": [
+        "QUICK6",
+        "FULL"
+      ],
+      "title": "Requested Profile",
+      "type": "string"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "scope": {
+      "$ref": "#/$defs/Scope"
+    },
+    "previous_run_id": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Run Id"
+    },
+    "revision_summary": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Revision Summary"
+    },
+    "baseline": {
+      "$ref": "#/$defs/Baseline"
+    },
+    "risk": {
+      "$ref": "#/$defs/Risk"
+    },
+    "workflow": {
+      "$ref": "#/$defs/Workflow"
+    },
+    "operational_oversight": {
+      "$ref": "#/$defs/Oversight"
+    },
+    "costs": {
+      "$ref": "#/$defs/Costs"
+    },
+    "evaluator_burden": {
+      "$ref": "#/$defs/EvaluatorBurden"
+    },
+    "handoff": {
+      "$ref": "#/$defs/Handoff"
+    },
+    "operational_performance": {
+      "$ref": "#/$defs/OperationalEvidence"
+    }
+  },
+  "required": [
+    "run_id",
+    "recorded_at",
+    "versions",
+    "evaluator_kind",
+    "requested_profile",
+    "evidence"
+  ],
+  "title": "Assessment",
+  "type": "object"
+}

@@ -1,0 +1,642 @@
+{
+  "protocol_version": "0.2-preview.2",
+  "status": "candidate_unvalidated",
+  "changes": [
+    {
+      "id": "C31",
+      "observed_problem": "The author clarified the research origin: polished AI-created artifacts can conceal an unreviewed intermediate layer. The overview duplicated the developer library and exposed too many competing actions while making the library hard to find.",
+      "source_theme_ids": [],
+      "change": "Present H.A.R.D. as initials; introduce a preserved-original structural review aid across experience, architecture, implementation and operation; separate overview and library responsibilities; expose two hero paths and keep detailed tools in the library. Preserve the study boundary and existing gates.",
+      "requirements": ["PURPOSE_CLARITY", "PROGRESSIVE_DISCLOSURE", "CLAIM_BOUNDARY", "DECISION_PARITY"],
+      "files": ["protocol/0.2-preview.2/PROTOCOL.md", "protocol/0.2-preview.2/START-HERE.md", "docs/research-boundary.md", "docs/research-content.gohtml", "src/hcai_readiness/server.py", "skills/ai-ready/SKILL.md"],
+      "acceptance_tests": ["test_overview_links_to_all_canonical_rules_without_duplicating_them", "test_overview_explains_the_missing_layer_without_claiming_a_result", "test_decision_name_preserves_first_preview_method_and_fixtures", "test_stdio_roundtrip"],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C30",
+      "observed_problem": "The author found Deployment too technical and liable to imply release approval, and approved Decision as the new D in HARD.",
+      "source_theme_ids": [],
+      "change": "Use Human-centered AI Readiness and Decision Protocol with a plain next-step question; preserve HARD Protocol 0.2 Public Preview, freeze the first preview, and version new tool packages without changing the method.",
+      "requirements": ["IDENTITY_CONSISTENCY", "VERSION_PROVENANCE", "CLAIM_BOUNDARY", "HISTORY_FROZEN"],
+      "files": ["src/hcai_readiness/versions.py", "protocol/0.2-preview.2/PROTOCOL.md", "skills/ai-ready/SKILL.md", "docs/decision-naming-migration.md", "docs/research-content.gohtml", "historical/hard-preview-1-manifest.json"],
+      "acceptance_tests": ["test_first_hard_preview_and_all_published_assets_remain_frozen", "test_decision_name_preserves_first_preview_method_and_fixtures", "test_decision_identity_scope_and_versioned_guides", "test_hard_public_identity_and_generated_surfaces", "test_editorial_release_preserves_fixture_decisions", "test_stdio_roundtrip"],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C01",
+      "observed_problem": "The historical title and generic ready language can be mistaken for deployment authorization.",
+      "source_theme_ids": [
+        "FB01"
+      ],
+      "change": "Engineering-only decisions and a separate unassessed deployment output.",
+      "requirements": [
+        "DECISION_SCOPE"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py",
+        "protocol/0.1-rc.4-candidate.3/PROTOCOL.md"
+      ],
+      "acceptance_tests": [
+        "test_documentation_pass_never_claims_operational_performance"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C02",
+      "observed_problem": "Documentation/evaluator metrics do not establish operational system performance.",
+      "source_theme_ids": [
+        "FB01"
+      ],
+      "change": "Separate five layers, evaluator cost, operational oversight and post-implementation evidence.",
+      "requirements": [
+        "MEASUREMENT_LAYERS"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_evaluation_expense_is_separate",
+        "test_operational_claims_require_actual_context"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C03",
+      "observed_problem": "A single upstream threshold ignores workflow consequences and available evaluation resources.",
+      "source_theme_ids": [
+        "FB01"
+      ],
+      "change": "Maximum-dimension risk classification changes sample/source/profile/review requirements.",
+      "requirements": [
+        "G6_COMMITMENT"
+      ],
+      "files": [
+        "schemas/risk-depth.json",
+        "protocol/0.1-rc.4-candidate.3/FULL-PROFILE.md"
+      ],
+      "acceptance_tests": [
+        "test_each_risk_dimension_changes_depth",
+        "test_higher_risk_escalates_and_requires_deeper_evidence",
+        "test_depth_changes_baseline_and_need_thresholds"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C04",
+      "observed_problem": "A polished artifact can lack requirement/test connections and form/fit/function references.",
+      "source_theme_ids": [
+        "FB02"
+      ],
+      "change": "Bidirectional important-artifact coverage and requirement/artifact/executed-validation chains.",
+      "requirements": [
+        "G4_TRACEABILITY"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_prototype_without_traceability_revises",
+        "test_important_artifacts_and_reference_material_cannot_be_omitted",
+        "test_test_plan_is_not_executed_evidence"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C05",
+      "observed_problem": "Proposed completeness alone allows a baseline-free improvement claim.",
+      "source_theme_ids": [
+        "FB03"
+      ],
+      "change": "Measured current-state gate; separate elapsed/labor time; missing baseline blocks ROI.",
+      "requirements": [
+        "G1_BASELINE"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py",
+        "schemas/assessment.schema.json"
+      ],
+      "acceptance_tests": [
+        "test_polished_without_baseline_cannot_proceed",
+        "test_assumed_baseline_is_not_measured",
+        "test_cost_and_cycle_time_units"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C06",
+      "observed_problem": "A long self-administered instrument may be impractical for small organizations.",
+      "source_theme_ids": [
+        "FB03"
+      ],
+      "change": "Advisor-led QUICK6, visible stop, no averaging, <=15-minute candidate target and FULL escalation.",
+      "requirements": [
+        "QUICK6_STOP"
+      ],
+      "files": [
+        "protocol/0.1-rc.4-candidate.3/QUICK-6.md",
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_low_risk_quick_is_sufficient",
+        "test_missing_recovery_stops_quick",
+        "test_quick_time_limit_is_enforced"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C07",
+      "observed_problem": "Gross time savings omit new review/correction/escalation/rework burden.",
+      "source_theme_ids": [
+        "FB03"
+      ],
+      "change": "Projected net time/cost, recurring versus one-time cost, separate evaluation expense.",
+      "requirements": [
+        "G5_OVERSIGHT"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py",
+        "examples/rc4/savings-erased.json"
+      ],
+      "acceptance_tests": [
+        "test_gross_savings_can_be_erased_by_oversight",
+        "test_unknown_money_does_not_become_zero",
+        "test_missing_oversight_blocks_and_roi_indeterminate"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C08",
+      "observed_problem": "Outreach and interest cannot establish actual use or program sponsorship.",
+      "source_theme_ids": [
+        "FB04",
+        "FB05"
+      ],
+      "change": "Voluntary short packet, actual discussion/source requirements, pilot records and release prerequisite.",
+      "requirements": [
+        "PILOT_VOLUNTARY",
+        "RELEASE_ACTUAL_USE"
+      ],
+      "files": [
+        "Pilot-Kit/rc4-candidate-3-external-packet.md",
+        "src/hcai_readiness/records.py",
+        "schemas/pilot-run.schema.json"
+      ],
+      "acceptance_tests": [
+        "test_synthetic_pilot_cannot_unlock_release",
+        "test_pilot_exact_versions_and_provenance"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C09",
+      "observed_problem": "Feedback provenance and public attribution permissions need explicit boundaries.",
+      "source_theme_ids": [
+        "FB02",
+        "FB04"
+      ],
+      "change": "Private source ledger retained separately; allowlisted public export and change-to-test mapping.",
+      "requirements": [
+        "FEEDBACK_PERMISSION"
+      ],
+      "files": [
+        "src/hcai_readiness/records.py",
+        "evidence/feedback-ledger.public.json",
+        "schemas/change-manifest.schema.json"
+      ],
+      "acceptance_tests": [
+        "test_feedback_permission_export",
+        "test_change_manifest_maps_to_existing_tests_and_files"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C10",
+      "observed_problem": "Different protocol/software/page copies can silently diverge or overwrite historical evidence.",
+      "source_theme_ids": [
+        "FB01",
+        "FB02",
+        "FB03",
+        "FB05"
+      ],
+      "change": "Frozen hashed history; exact candidate versions; shared MCP/Skill engine; candidate website/download copy.",
+      "requirements": [
+        "VERSION_PARITY",
+        "HISTORY_FROZEN"
+      ],
+      "files": [
+        "scripts/build_candidate_assets.py",
+        "docs/research-page-copy.md",
+        "docs/migration-rc3-to-rc4.md",
+        "historical/baseline-manifest.json"
+      ],
+      "acceptance_tests": [
+        "test_generated_parity_and_json_schemas",
+        "test_portable_skill_matches_engine_all_fixtures",
+        "test_stdio_roundtrip",
+        "test_baseline_history_is_byte_frozen"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C11",
+      "observed_problem": "Current-state prose allowed disconnected or unobserved work to appear complete.",
+      "source_theme_ids": [
+        "FB03"
+      ],
+      "change": "Connected current-state map, scope and observed/reported paths.",
+      "requirements": [
+        "G1_BASELINE",
+        "G2_NEED_REQUIREMENTS"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "protocol/0.1-rc.4-candidate.3/START-HERE.md"
+      ],
+      "acceptance_tests": [
+        "test_current_map_is_required_and_connected",
+        "test_current_map_requires_exit_and_observed_normal"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C12",
+      "observed_problem": "Artifact links did not establish which revision was tested.",
+      "source_theme_ids": [
+        "FB02"
+      ],
+      "change": "Tested digests, behavior-status labels and drill-down reports.",
+      "requirements": [
+        "G4_TRACEABILITY"
+      ],
+      "files": [
+        "src/hcai_readiness/reporting.py"
+      ],
+      "acceptance_tests": [
+        "test_stale_or_missing_tested_revision_never_passes",
+        "test_simulated_behavior_is_not_implemented_test"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C13",
+      "observed_problem": "Multiple records could originate from the same discussion or general reference.",
+      "source_theme_ids": [
+        "FB04"
+      ],
+      "change": "Count distinct actual work/discussion origins.",
+      "requirements": [
+        "G2_NEED_REQUIREMENTS"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_need_sources_are_actual_distinct_origins"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C14",
+      "observed_problem": "Preparation effort and nonpositive benefit could be obscured.",
+      "source_theme_ids": [
+        "FB03"
+      ],
+      "change": "Separate preparation/capture accounting and investment rationale.",
+      "requirements": [
+        "G5_OVERSIGHT",
+        "G6_COMMITMENT"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_preparation_is_costed_not_hidden_or_double_counted",
+        "test_nonpositive_benefit_requires_rationale_and_stays_visible"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C15",
+      "observed_problem": "A technical contract alone does not guide a new reader to a useful action.",
+      "source_theme_ids": [
+        "FB02",
+        "FB03"
+      ],
+      "change": "One-question guide, readable private reports and criterion examples; early routing.",
+      "requirements": [
+        "QUICK6_STOP",
+        "HCAI-4.1"
+      ],
+      "files": [
+        "src/hcai_readiness/guidance.py",
+        "skills/ai-ready/SKILL.md",
+        "docs/updates.md"
+      ],
+      "acceptance_tests": [
+        "test_guided_journey_starts_small_and_never_seeds_facts",
+        "test_report_escapes_artifacts_and_has_drilldown",
+        "test_routing_is_early_and_known_floor_retained"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C16",
+      "observed_problem": "AI coding can obscure whether behavior is simulated or an agent is authorized to act.",
+      "source_theme_ids": [],
+      "change": "Require human-control review/action boundaries; retain critical findings after early stops.",
+      "requirements": [
+        "G3_STATES_RECOVERY",
+        "G6_COMMITMENT"
+      ],
+      "files": [
+        "protocol/0.1-rc.4-candidate.3/SCENARIOS.md",
+        "src/hcai_readiness/criteria.json"
+      ],
+      "acceptance_tests": [
+        "test_human_action_boundaries_required",
+        "test_early_stop_does_not_hide_known_critical_findings",
+        "test_criteria_have_stable_ids_examples_and_gate_mapping"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C17",
+      "observed_problem": "Practical recommendations could be conflated with proposed fidelity-study judgments.",
+      "source_theme_ids": [],
+      "change": "Separate blinded reviewer-side study records and research claims; capture pilot comprehension.",
+      "requirements": [
+        "RESEARCH_BOUNDARY"
+      ],
+      "files": [
+        "docs/research-boundary.md",
+        "schemas/study-review.schema.json"
+      ],
+      "acceptance_tests": [
+        "test_study_judgments_are_not_engineering_decisions_or_answer_keys",
+        "test_pilot_usability_records_are_optional_not_fabricated"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C18",
+      "observed_problem": "A reworked candidate could silently replace the first public candidate.",
+      "source_theme_ids": [],
+      "change": "Freeze first candidate, bump all companions and link revisions.",
+      "requirements": [
+        "HISTORY_FROZEN",
+        "VERSION_PARITY"
+      ],
+      "files": [
+        "historical/candidate-1-manifest.json",
+        "docs/migration-rc3-to-rc4.md"
+      ],
+      "acceptance_tests": [
+        "test_first_candidate_is_byte_frozen",
+        "test_stopped_run_revision_requires_trace",
+        "test_cli_guide_report_and_empty_start"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C19",
+      "observed_problem": "An altered requirement/context could retain a passing old artifact validation.",
+      "source_theme_ids": [],
+      "change": "Bind checks to both artifact and requirement/context fingerprints; targets never stamp a pass.",
+      "requirements": [
+        "G4_TRACEABILITY"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py",
+        "src/hcai_readiness/server.py"
+      ],
+      "acceptance_tests": [
+        "test_changed_requirement_context_invalidates_validation",
+        "test_validation_targets_do_not_stamp_or_verify_evidence"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C20",
+      "observed_problem": "Proposed state descriptions and an empty authority list could pass without a connected executable design.",
+      "source_theme_ids": [],
+      "change": "Require proposed entry/transitions/exits and a nonempty authority inventory.",
+      "requirements": [
+        "G3_STATES_RECOVERY"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_proposed_graph_cannot_pass_disconnected_or_unfinished",
+        "test_empty_authority_inventory_cannot_pass"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C21",
+      "observed_problem": "All-low self-selected labels could bypass deeper review despite consequential context.",
+      "source_theme_ids": [],
+      "change": "Context flags set deterministic minimum tiers; unknown prevents a quick pass.",
+      "requirements": [
+        "G6_COMMITMENT"
+      ],
+      "files": [
+        "schemas/context-risk-floors.json",
+        "src/hcai_readiness/engine.py"
+      ],
+      "acceptance_tests": [
+        "test_context_floors_override_self_declared_low_risk",
+        "test_unknown_context_never_means_no_and_retains_known_floor"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C22",
+      "observed_problem": "An owner efficiency case could omit affected non-operators and human-centered concerns.",
+      "source_theme_ids": [],
+      "change": "Add HCAI-1.4 applicability/affected-role/requirement coverage.",
+      "requirements": [
+        "G2_NEED_REQUIREMENTS"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "src/hcai_readiness/criteria.json"
+      ],
+      "acceptance_tests": [
+        "test_affected_people_and_applicability_cannot_be_skipped",
+        "test_human_use_and_control_cannot_be_declared_inapplicable"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C23",
+      "observed_problem": "A structural pass could be mistaken for evidence-quality assurance.",
+      "source_theme_ids": [],
+      "change": "Require recorded human evidence-quality review and explicit machine/human/authenticity claim boundaries.",
+      "requirements": [
+        "G6_COMMITMENT"
+      ],
+      "files": [
+        "src/hcai_readiness/engine.py",
+        "src/hcai_readiness/reporting.py"
+      ],
+      "acceptance_tests": [
+        "test_evidence_quality_needs_accountable_review",
+        "test_report_distinguishes_rule_checks_from_assurance"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C24",
+      "observed_problem": "Pilot records could omit skipped gates and routing follow-up.",
+      "source_theme_ids": [],
+      "change": "Reconcile routing status, NOT_EVALUATED gates and all follow-up reasons.",
+      "requirements": [
+        "PILOT_PROVENANCE"
+      ],
+      "files": [
+        "src/hcai_readiness/contracts.py",
+        "schemas/pilot-run.schema.json"
+      ],
+      "acceptance_tests": [
+        "test_pilot_preserves_routing_and_unassessed_gates"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C25",
+      "observed_problem": "More polished packaging does not establish impact; upgrades could erase the prior candidate.",
+      "source_theme_ids": [],
+      "change": "Freeze candidate.2; publish a worksheet, deep audit, falsifiable validation roadmap and claim/change-control rules.",
+      "requirements": [
+        "HISTORY_FROZEN",
+        "CLAIM_BOUNDARY"
+      ],
+      "files": [
+        "historical/candidate-2-manifest.json",
+        "docs/deep-audit.md",
+        "docs/claims-and-governance.md",
+        "protocol/0.1-rc.4-candidate.3/WORKSHEET.md"
+      ],
+      "acceptance_tests": [
+        "test_candidate_two_remains_byte_frozen",
+        "test_deep_audit_public_pages_and_references"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C26",
+      "observed_problem": "The author requested revision of repetitive slogans, contrast formulas and compressed explanations across the current writing.",
+      "source_theme_ids": [],
+      "change": "Apply Academic Humanize v2.0.0 with its integrity lock; clarify the existing cost formula in prose, preserve candidate.3 and check unchanged decision behavior.",
+      "requirements": [
+        "EDITORIAL_INTEGRITY",
+        "HISTORY_FROZEN",
+        "CLAIM_BOUNDARY"
+      ],
+      "files": [
+        "docs/editorial-review.md",
+        "protocol/0.1-rc.4-candidate.4/PROTOCOL.md",
+        "docs/research-content.gohtml",
+        "src/hcai_readiness/guidance.py",
+        "src/hcai_readiness/reporting.py",
+        "src/hcai_readiness/server.py",
+        "skills/ai-ready/SKILL.md",
+        "historical/candidate-3-manifest.json"
+      ],
+      "acceptance_tests": [
+        "test_candidate_three_remains_byte_frozen",
+        "test_editorial_release_preserves_core_logic",
+        "test_editorial_release_preserves_fixture_decisions",
+        "test_editorial_release_preserves_criterion_identity",
+        "test_editorial_release_preserves_risk_tables_and_formulas",
+        "test_editorial_release_preserves_external_citations"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C27",
+      "observed_problem": "The author requested removal of every em dash and en dash, including range notation left in candidate.4.",
+      "source_theme_ids": [],
+      "change": "Write ranges with 'to', replace title separators with colons, apply the same authored-output rule to the Skill and preserve frozen candidate.4 artifacts.",
+      "requirements": [
+        "EDITORIAL_INTEGRITY",
+        "HISTORY_FROZEN"
+      ],
+      "files": [
+        "protocol/0.1-rc.4-candidate.5/PROTOCOL.md",
+        "docs/research-boundary.md",
+        "docs/updates.md",
+        "CHANGELOG.md",
+        "skills/ai-ready/SKILL.md",
+        "historical/candidate-4-manifest.json"
+      ],
+      "acceptance_tests": [
+        "test_current_reader_text_has_no_em_or_en_dash",
+        "test_candidate_four_remains_byte_frozen"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C28",
+      "observed_problem": "The author identified an inaccurate external accessibility-standard comparison in the project framing.",
+      "source_theme_ids": [],
+      "change": "Remove the origin claim and related references from current materials, correct the current presentation of earlier log entries, preserve candidate.5 and retain HCAI decision behavior.",
+      "requirements": [
+        "CLAIM_BOUNDARY",
+        "EDITORIAL_INTEGRITY",
+        "HISTORY_FROZEN"
+      ],
+      "files": [
+        "protocol/0.1-rc.4-candidate.6/PROTOCOL.md",
+        "docs/research-content.gohtml",
+        "docs/deep-audit.md",
+        "docs/research-boundary.md",
+        "docs/updates.md",
+        "skills/ai-ready/SKILL.md",
+        "historical/candidate-5-manifest.json"
+      ],
+      "acceptance_tests": [
+        "test_current_materials_do_not_claim_unrelated_standard_origin",
+        "test_candidate_five_remains_byte_frozen",
+        "test_editorial_release_preserves_external_citations",
+        "test_editorial_release_preserves_core_logic",
+        "test_editorial_release_preserves_fixture_decisions"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C29",
+      "observed_problem": "The author requested a shorter protocol name and public version with a separate Public Preview label.",
+      "source_theme_ids": [],
+      "change": "Adopt HARD Protocol 0.2 and Human-centered AI Readiness Deployment Protocol, centralize display identity, retain exact execution provenance and installation interfaces, and freeze candidate.6.",
+      "requirements": [
+        "IDENTITY_CONSISTENCY",
+        "VERSION_PROVENANCE",
+        "CLAIM_BOUNDARY",
+        "HISTORY_FROZEN"
+      ],
+      "files": [
+        "src/hcai_readiness/versions.py",
+        "protocol/0.2-preview.1/PROTOCOL.md",
+        "docs/research-content.gohtml",
+        "src/hcai_readiness/server.py",
+        "src/hcai_readiness/reporting.py",
+        "skills/ai-ready/SKILL.md",
+        "historical/candidate-6-manifest.json"
+      ],
+      "acceptance_tests": [
+        "test_hard_public_identity_and_generated_surfaces",
+        "test_hard_execution_versions_and_legacy_record_boundary",
+        "test_hard_preview_does_not_promote_without_actual_use",
+        "test_candidate_six_remains_byte_frozen",
+        "test_editorial_release_preserves_fixture_decisions",
+        "test_stdio_roundtrip"
+      ],
+      "validation_status": "software_tests_only"
+    }
+  ]
+}

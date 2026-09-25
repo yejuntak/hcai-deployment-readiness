@@ -1,0 +1,2 @@
+# Reproduction
+Run `python3 Source/verify_example.py` with Python 3 standard library to recompute the synthetic CSV arithmetic. The workbook formulas are preserved in the XLSX files and can be recalculated in a compatible spreadsheet application. Source/build_workbook.mjs records the builder and regression checks used with @oai/artifact-tool 2.8.58 and Node.js. Availability of that authoring library is environment-dependent; it is not needed to use the exported workbook. The JSON verification records describe technical checks, not a participant study.

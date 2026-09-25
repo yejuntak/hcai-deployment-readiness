@@ -1,0 +1,148 @@
+[
+  {
+    "id": "FB01",
+    "permission": "private",
+    "changes": [
+      "C01",
+      "C02",
+      "C03",
+      "C10"
+    ],
+    "affected_files": [
+      "protocol/0.1-rc.4-candidate.3/PROTOCOL.md",
+      "src/hcai_readiness/engine.py",
+      "src/hcai_readiness/contracts.py",
+      "schemas/risk-depth.json",
+      "protocol/0.1-rc.4-candidate.3/FULL-PROFILE.md",
+      "scripts/build_candidate_assets.py",
+      "docs/research-page-copy.md",
+      "docs/migration-rc3-to-rc4.md",
+      "historical/baseline-manifest.json"
+    ],
+    "affected_requirements": [
+      "G2_NEED_REQUIREMENTS",
+      "G6_COMMITMENT"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": null,
+    "feedback": null
+  },
+  {
+    "id": "FB02",
+    "permission": "attribution_approved",
+    "changes": [
+      "C04",
+      "C10",
+      "C09",
+      "C12",
+      "C15"
+    ],
+    "affected_files": [
+      "src/hcai_readiness/contracts.py",
+      "src/hcai_readiness/engine.py",
+      "docs/index.html",
+      "src/hcai_readiness/records.py",
+      "evidence/feedback-ledger.public.json",
+      "schemas/change-manifest.schema.json",
+      "scripts/build_candidate_assets.py",
+      "docs/research-page-copy.md",
+      "docs/migration-rc3-to-rc4.md",
+      "historical/baseline-manifest.json",
+      "src/hcai_readiness/reporting.py",
+      "src/hcai_readiness/guidance.py",
+      "skills/ai-ready/SKILL.md",
+      "docs/updates.md"
+    ],
+    "affected_requirements": [
+      "G4_TRACEABILITY"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": "Hillel Glazer",
+    "feedback": "Visual fidelity is insufficient: connect artifacts to requirements and validating tests, with reference material explaining form, fit and function. Make those relationships inspectable without clutter."
+  },
+  {
+    "id": "FB03",
+    "permission": "private",
+    "changes": [
+      "C05",
+      "C06",
+      "C07",
+      "C10",
+      "C11",
+      "C14",
+      "C15"
+    ],
+    "affected_files": [
+      "src/hcai_readiness/engine.py",
+      "protocol/0.1-rc.4-candidate.3/QUICK-6.md",
+      "schemas/assessment.schema.json",
+      "examples/rc4/savings-erased.json",
+      "scripts/build_candidate_assets.py",
+      "docs/research-page-copy.md",
+      "docs/migration-rc3-to-rc4.md",
+      "historical/baseline-manifest.json",
+      "src/hcai_readiness/contracts.py",
+      "protocol/0.1-rc.4-candidate.3/START-HERE.md",
+      "src/hcai_readiness/guidance.py",
+      "skills/ai-ready/SKILL.md",
+      "docs/updates.md"
+    ],
+    "affected_requirements": [
+      "G1_BASELINE",
+      "G5_OVERSIGHT"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": null,
+    "feedback": null
+  },
+  {
+    "id": "FB04",
+    "permission": "private",
+    "changes": [
+      "C08",
+      "C09",
+      "C13"
+    ],
+    "affected_files": [
+      "src/hcai_readiness/records.py",
+      "Pilot-Kit/rc4-candidate-3-external-packet.md",
+      "schemas/pilot-run.schema.json",
+      "Pilot-Kit/rc4-candidate-3-external-packet.md",
+      "evidence/feedback-ledger.public.json",
+      "schemas/change-manifest.schema.json",
+      "src/hcai_readiness/engine.py"
+    ],
+    "affected_requirements": [
+      "G2_NEED_REQUIREMENTS",
+      "RELEASE_ACTUAL_USE"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": null,
+    "feedback": null
+  },
+  {
+    "id": "FB05",
+    "permission": "private",
+    "changes": [
+      "C08",
+      "C10"
+    ],
+    "affected_files": [
+      "Pilot-Kit/rc4-candidate-3-external-packet.md",
+      "docs/research-page-copy.md",
+      "Pilot-Kit/rc4-candidate-3-external-packet.md",
+      "src/hcai_readiness/records.py",
+      "schemas/pilot-run.schema.json",
+      "scripts/build_candidate_assets.py",
+      "docs/migration-rc3-to-rc4.md",
+      "historical/baseline-manifest.json"
+    ],
+    "affected_requirements": [
+      "PILOT_VOLUNTARY",
+      "CLAIMS_BOUNDARY"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": null,
+    "feedback": null
+  }
+]

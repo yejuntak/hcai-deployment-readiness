@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "StudyJudgment": {
+      "additionalProperties": false,
+      "properties": {
+        "requirement_id": {
+          "minLength": 1,
+          "title": "Requirement Id",
+          "type": "string"
+        },
+        "judgment": {
+          "enum": [
+            "defect",
+            "no_defect",
+            "abstain"
+          ],
+          "title": "Judgment",
+          "type": "string"
+        },
+        "confidence_correct": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Confidence Correct"
+        },
+        "finding": {
+          "default": "",
+          "title": "Finding",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requirement_id",
+        "judgment"
+      ],
+      "title": "StudyJudgment",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Reviewer-side lock record. No reference answers or engineering decision are permitted.",
+  "properties": {
+    "study_version": {
+      "minLength": 1,
+      "title": "Study Version",
+      "type": "string"
+    },
+    "participant_id": {
+      "minLength": 1,
+      "title": "Participant Id",
+      "type": "string"
+    },
+    "scenario_id": {
+      "minLength": 1,
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "artifact_version": {
+      "minLength": 1,
+      "title": "Artifact Version",
+      "type": "string"
+    },
+    "artifact_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Artifact Sha256",
+      "type": "string"
+    },
+    "requirement_ids": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Requirement Ids",
+      "type": "array"
+    },
+    "judgments": {
+      "items": {
+        "$ref": "#/$defs/StudyJudgment"
+      },
+      "minItems": 1,
+      "title": "Judgments",
+      "type": "array"
+    },
+    "review_minutes": {
+      "minimum": 0,
+      "title": "Review Minutes",
+      "type": "number"
+    },
+    "perceived_handoff_readiness": {
+      "anyOf": [
+        {
+          "maximum": 7,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Perceived Handoff Readiness"
+    },
+    "global_confidence": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Global Confidence"
+    },
+    "locked_at": {
+      "minLength": 1,
+      "title": "Locked At",
+      "type": "string"
+    },
+    "reference_answers_disclosed": {
+      "const": false,
+      "title": "Reference Answers Disclosed",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "study_version",
+    "participant_id",
+    "scenario_id",
+    "artifact_version",
+    "artifact_sha256",
+    "requirement_ids",
+    "judgments",
+    "review_minutes",
+    "locked_at",
+    "reference_answers_disclosed"
+  ],
+  "title": "StudyReview",
+  "type": "object"
+}
