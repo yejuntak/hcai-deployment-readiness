@@ -30,7 +30,9 @@ def test_overview_links_to_all_canonical_rules_without_duplicating_them():
 def test_overview_explains_the_missing_layer_without_claiming_a_result():
     page = render_research_page()
     assert 'Look beneath the finished screen.' in page
-    assert 'origin anecdote, not evidence of a measured effect' in page
+    assert 'The proposed study has not established an effect.' in page
+    assert 'Research motivation' in page
+    assert 'how visual fidelity affects readiness judgments' in page
     assert 'Payment went through.' not in page
     assert 'review method, not an image filter' in page
     assert 'Do not blur labels or remove information people need' in page
@@ -58,13 +60,15 @@ def test_opening_has_seven_actual_routes_not_just_seven_labels():
 
 def test_conceptual_image_and_current_prose_keep_evidence_boundaries():
     page = render_research_page()
-    assert 'hard-structure-20260925.jpg' in page
+    assert 'hard-app-review-20260925.jpg' in page
     assert 'width="1536" height="1024"' in page
-    assert 'AI-generated conceptual illustration, not a study result.' in page
-    assert 'Where the question began.' in page and 'An architect I knew' in page
-    assert 'hard-watercolor-origin-20260925.jpg' in page
+    assert 'AI-generated app concept.' in page
+    assert 'not a working H.A.R.D. application, a participant record or a study result' in page
+    for retired in ('Where the question began.', 'An architect I knew',
+                    'watercolor', "architect's actual project", 'hard-structure-20260925.jpg'):
+        assert retired not in page
     assert 'class="research-output-list"' in page and '<dt>A recommendation</dt>' not in page
-    assert 'alt="A finished-looking interface' in page
+    assert 'alt="App concept: a request-review interface' in page
     assert 'The 15-minute target remains untested.' in page
     assert 'deployment requires separate evaluation' in page
     assert not any(char in unescape(page) for char in ('\u2013', '\u2014'))
@@ -73,7 +77,7 @@ def test_conceptual_image_and_current_prose_keep_evidence_boundaries():
 def test_repository_mirrors_resolve_public_assets_and_keep_shared_styles():
     page = render_overview_document()
     assert 'href="/' not in page and 'src="/' not in page
-    assert 'https://www.takyejun.com/static/research/ai-readiness/visuals/hard-structure-20260925.jpg' in page
+    assert 'https://www.takyejun.com/static/research/ai-readiness/visuals/hard-app-review-20260925.jpg' in page
     assert 'https://www.takyejun.com/static/system/research.css' in page
     assert 'class="site-page page-research"' in page
     assert 'href="#start"' in page and 'href="#method"' in page
