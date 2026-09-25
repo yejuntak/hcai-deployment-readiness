@@ -2,6 +2,7 @@
 import html
 from .engine import assess, requirement_digest
 from .guidance import decision_card
+from .versions import public_title, PROTOCOL_FULL_NAME, RELEASE_LABEL
 
 
 def traceability(a):
@@ -47,6 +48,8 @@ def render_report(a, format="markdown"):
             sections.append('<div class="table-scroll" tabindex="0" role="region" aria-label="'+esc('Table: '+', '.join(headers))+'"><table><thead><tr>' + ''.join('<th scope="col">'+esc(h)+'</th>' for h in headers) + '</tr></thead><tbody>' + ''.join('<tr>'+''.join('<td>'+esc(c)+'</td>' for c in row)+'</tr>' for row in rows) + '</tbody></table></div>')
         else:
             sections.append('\n'.join(['| '+' | '.join(esc(h) for h in headers)+' |', '| '+' | '.join('---' for _ in headers)+' |', *['| '+' | '.join(esc(c) for c in row)+' |' for row in rows]]))
+    paragraph(public_title()+' · '+RELEASE_LABEL)
+    paragraph(PROTOCOL_FULL_NAME)
     heading(card['headline'], 1)
     paragraph(card['record_privacy'])
     paragraph(f"{a.run_id} · {a.scope.workflow_name or 'Workflow not yet named'} · {a.versions.protocol}")
@@ -116,4 +119,4 @@ def render_report(a, format="markdown"):
     if format == 'markdown':
         return '\n\n'.join(sections)+'\n'
     css = 'body{font:17px/1.6 system-ui,sans-serif;color:#172b43;background:#faf9f6;margin:0}main{max-width:1040px;margin:auto;padding:36px 24px}h1{font-size:36px;line-height:1.15;max-width:850px}h2{margin-top:38px;border-top:1px solid #ccd6df;padding-top:20px}p{max-width:80ch;overflow-wrap:anywhere}table{width:100%;border-collapse:collapse;min-width:540px;font-size:15px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #ccd6df;overflow-wrap:anywhere}th{background:#e8eef4}.table-scroll{overflow:auto}details{border:1px solid #ccd6df;border-radius:8px;padding:16px;margin:12px 0;background:white}summary{cursor:pointer;font-weight:650}summary:focus-visible{outline:3px solid #94580c;outline-offset:4px}@media print{body{background:white}details{break-inside:avoid}.table-scroll{overflow:visible}table{min-width:0;font-size:11px}}'
-    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Private engineering decision record</title><style>'+css+'</style></head><body><main>'+''.join(sections)+'</main></body></html>'
+    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(public_title())+' | Private engineering decision record</title><style>'+css+'</style></head><body><main>'+''.join(sections)+'</main></body></html>'

@@ -1,8 +1,28 @@
 # Protocol update log
 
-Last updated: September 24, 2026. Current: **0.1-rc.4-candidate.6**. MCP 0.2.0rc6; ai-ready Skill/contract 0.2.0-rc.6.
+Last updated: September 24, 2026. Current: **HARD Protocol 0.2** · **Public Preview**.
+
+Human-centered AI Readiness Deployment Protocol. Exact protocol 0.2-preview.1; MCP 0.2.0rc7; Skill/contract 0.2.0-rc.7.
 
 This is a public record of changes, not a validation claim. Earlier versions remain available. No completed external pilot, adoption, endorsement, or performance improvement is claimed.
+
+## September 24, 2026: HARD Protocol 0.2 Public Preview
+
+The project now uses the short name HARD Protocol and the full name Human-centered AI Readiness Deployment Protocol. The public version is 0.2, with Public Preview shown separately. This is a naming and presentation change, not deployment approval or new empirical evidence.
+
+| Identity | Previous release | Current release |
+| --- | --- | --- |
+| Public name | HCAI Engineering-Handoff Profile | HARD Protocol 0.2 |
+| Public status | Candidate | Public Preview |
+| Exact protocol | 0.1-rc.4-candidate.6 | 0.2-preview.1 |
+| MCP package | 0.2.0rc6 | 0.2.0rc7 |
+| Skill and contract | 0.2.0-rc.6 | 0.2.0-rc.7 |
+
+Six gates, fifteen criterion IDs, risk thresholds, calculations and evidence requirements are unchanged. Existing commands, API tool names, resource URIs and the ai-ready invocation remain. New runs record the new exact compatibility set; historical runs are never relabeled. The existing release gate still requires genuine bounded external use before an author can consider a finalized release.
+
+The website address and repository stay the same. Candidate.6 and all earlier originals remain unchanged. C29 in the [change manifest](/static/research/ai-readiness/hard-0.2-preview-1/change-manifest.json) maps this transition to verification. The [migration notes](/static/research/ai-readiness/hard-0.2-preview-1/migration-rc3-to-rc4.html) explain the public and execution versions. The historical rc.3 DOI does not identify this Public Preview.
+
+[Preserved candidate.6 package](/static/research/ai-readiness/rc4-candidate-6/HCAI-v0.1-rc.4-candidate.6.zip).
 
 ## September 24, 2026: candidate.6 corrects the project framing
 

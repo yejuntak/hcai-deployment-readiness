@@ -1,6 +1,8 @@
 # Audit findings and the evidence needed for adoption
 
-September 24, 2026 · Protocol 0.1-rc.4-candidate.6 · Author-defined candidate
+HARD Protocol 0.2 · Public Preview
+
+September 24, 2026 · Exact protocol 0.2-preview.1 · Author-defined method
 
 ## Assessment
 
@@ -40,7 +42,7 @@ The first three findings were reproduced as PROCEED_TO_ENGINEERING before correc
 
 The intended process gives the participant one question at a time and identifies a next action. The facilitator maintains the detailed evidence record. A shared note can support several checks, so a new document is not required for every field. References, criteria and schemas remain available when needed.
 
-The [conversation worksheet](/static/research/ai-readiness/rc4-candidate-6/WORKSHEET.html) makes this division explicit. It is not a shortcut around evidence. If evidence must be created from scratch, the short session stops and identifies the discovery work. Preparation, session and capture time remain visible.
+The [conversation worksheet](/static/research/ai-readiness/hard-0.2-preview-1/WORKSHEET.html) makes this division explicit. It is not a shortcut around evidence. If evidence must be created from scratch, the short session stops and identifies the discovery work. Preparation, session and capture time remain visible.
 
 There is a real tradeoff: stronger evidence requirements may make QUICK-6 less attainable. The <=15-minute target is conditional on an available evidence packet and a low-risk case. Do not advertise an end-to-end 15-minute implementation assessment. A pilot should test whether even this narrower target is useful and realistic. If not, revise the process or the target rather than hiding preparation time.
 
@@ -61,4 +63,4 @@ No stage above is reported as completed. No sample sizes, effects, adoption tota
 
 Keep public, versioned requirements and examples; a no-install path; interoperable records; clear licenses; correction procedures; and a visible record of disputed interpretations. Allow domain profiles to add checks without weakening mandatory gates. Distinguish a request, a reported problem, a reproduced defect, software verification, actual use and empirical evidence. Do not turn downloads, email replies or interest into adoption metrics.
 
-Read [claims and governance](claims-and-governance.md), the [update log](https://www.takyejun.com/research/ai-readiness/updates), and the [current verification record](/static/research/ai-readiness/rc4-candidate-6/rc4-test-results.json). These records allow others to inspect the work; they do not establish the protocol as an international standard.
+Read [claims and governance](claims-and-governance.md), the [update log](https://www.takyejun.com/research/ai-readiness/updates), and the [current verification record](/static/research/ai-readiness/hard-0.2-preview-1/rc4-test-results.json). These records allow others to inspect the work; they do not establish the protocol as an international standard.

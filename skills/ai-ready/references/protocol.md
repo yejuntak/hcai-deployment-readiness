@@ -1,7 +1,7 @@
-# Review AI-built workflows before engineering
+# HARD Protocol 0.2
 
-Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile  
-Protocol 0.1-rc.4-candidate.6 · MCP 0.2.0rc6 · Skill 0.2.0-rc.6
+Human-centered AI Readiness Deployment Protocol  
+HARD Protocol 0.2 · Public Preview
 
 ## What this helps you decide
 
@@ -11,7 +11,7 @@ A booking screen can look complete yet lose a customer's details after a payment
 
 The intended uses include proposed workflows, interface prototypes, and AI-assisted, “vibe-coded,” or agent-built artifacts. Record whether AI helped create the artifact, will act within the service, or both. These applications do not establish that AI authorship causes defects.
 
-Although the historical title contains “Deployment Readiness,” this profile **does not approve deployment**. It neither measures full-system performance nor certifies software quality. The evidence needed to fund engineering differs from the evidence needed to permit operation.
+The name includes deployment, but this protocol **does not approve deployment**. It neither measures full-system performance nor certifies software quality. The evidence needed to fund engineering differs from the evidence needed to permit operation.
 
 ## Choose a reading path
 
@@ -116,8 +116,10 @@ Practitioner correspondence informed refinement; it is not controlled empirical 
 
 Records are private by default. Publish only separately permission-checked material. Hillel Glazer approved attribution; other correspondence is represented by anonymized themes unless explicit permission is documented. Do not upload confidential artifacts simply to complete a field.
 
-rc.3 and candidates.1 through .5 remain frozen. Candidate.6 removes an inaccurate external-standard comparison; gates, risk thresholds and calculations are unchanged. Final rc.4 still requires passing regressions and recorded bounded external end-user/advisor use, neither of which proves effectiveness. Research Harness v3 is a separate project.
+rc.3 and all six rc.4 candidates remain frozen. HARD Protocol 0.2 is a Public Preview with unchanged gates, risk thresholds and calculations. Release review still requires passing regressions and recorded bounded external end-user/advisor use, neither of which proves effectiveness. Research Harness v3 is a separate project.
 
 Whether this review improves engineering decisions remains untested. See the [deep audit and validation roadmap](../../docs/deep-audit.md) and [claims and governance rules](../../docs/claims-and-governance.md).
 
 See the [linked update log](https://www.takyejun.com/research/ai-readiness/updates) and [migration notes](../../docs/migration-rc3-to-rc4.md).
+
+Execution versions: protocol 0.2-preview.1 · MCP 0.2.0rc7 · Skill/contract 0.2.0-rc.7.

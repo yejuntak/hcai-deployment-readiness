@@ -1,4 +1,6 @@
-# Candidate contracts
+# HARD Protocol data contracts
+
+HARD Protocol 0.2 · Public Preview. Exact protocol 0.2-preview.1, MCP 0.2.0rc7, Skill/contract 0.2.0-rc.7. Public version 0.2 is a display label, not an execution-version alias. Field definitions are unchanged. Older records are not automatically relabeled.
 
 These JSON Schema 2020-12 contracts are generated from src/hcai_readiness/contracts.py using Pydantic 2. Records reject unknown fields. The engine also checks version identity, references, reconciled counts, risk tiers, gate rules and consistency between pilot records and assessments.
 

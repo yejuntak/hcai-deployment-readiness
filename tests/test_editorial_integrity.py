@@ -64,7 +64,7 @@ def test_editorial_release_preserves_fixture_decisions(name, tmp_path):
         if isinstance(value, list):
             return [normalize(item) for item in value]
         if isinstance(value, str):
-            return value.replace('0.1-rc.4-candidate.6','0.1-rc.4-candidate.3').replace('0.2.0rc6','0.2.0rc3').replace('0.2.0-rc.6','0.2.0-rc.3')
+            return value.replace('0.2-preview.1','0.1-rc.4-candidate.3').replace('0.2.0rc7','0.2.0rc3').replace('0.2.0-rc.7','0.2.0-rc.3')
         return value
     assert normalize(current) == normalize(old)
 
@@ -79,7 +79,7 @@ def test_editorial_release_preserves_criterion_identity():
 
 def test_editorial_release_preserves_risk_tables_and_formulas():
     old = previous('protocol/0.1-rc.4-candidate.3/FULL-PROFILE.md').decode()
-    current = (ROOT/'protocol/0.1-rc.4-candidate.6/FULL-PROFILE.md').read_text()
+    current = (ROOT/'protocol/0.2-preview.1/FULL-PROFILE.md').read_text()
     def numerical_contract(text):
         return [line for line in text.splitlines() if line.startswith(('|', '- Gross', '- Net', '- Baseline', '- Proposed', '- Recurring', '- Payback'))]
     assert numerical_contract(current) == numerical_contract(old)
@@ -98,7 +98,7 @@ def test_editorial_release_preserves_external_citations():
         return {url for url in urls if any(domain in url for domain in ('w3.org/', 'nist.gov/', 'microsoft.com/', 'doi.org/'))}
     for name in ('docs/deep-audit.md', 'docs/research-boundary.md', 'README.md', 'docs/research-content.gohtml'):
         assert citations((ROOT/name).read_text()) == citations(previous(name).decode()) - removed
-    assert citations((ROOT/'protocol/0.1-rc.4-candidate.6/PROTOCOL.md').read_text()) == citations(previous('protocol/0.1-rc.4-candidate.3/PROTOCOL.md').decode()) - removed
+    assert citations((ROOT/'protocol/0.2-preview.1/PROTOCOL.md').read_text()) == citations(previous('protocol/0.1-rc.4-candidate.3/PROTOCOL.md').decode()) - removed
 
 
 def test_editorial_audit_is_linked_and_candidate_only():

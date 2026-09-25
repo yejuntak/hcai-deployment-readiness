@@ -1,6 +1,10 @@
-# Editorial review: candidates.4 through .6
+# Editorial review and HARD Protocol naming transition
 
-September 24, 2026 · Protocol 0.1-rc.4-candidate.6 · MCP 0.2.0rc6 · Skill/contract 0.2.0-rc.6
+HARD Protocol 0.2 · Public Preview
+
+September 24, 2026 · Exact protocol 0.2-preview.1 · MCP 0.2.0rc7 · Skill/contract 0.2.0-rc.7
+
+The current transition changes the public name and version presentation. The full name is Human-centered AI Readiness Deployment Protocol. It retains the preceding rules and evidence boundaries, freezes candidate.6, and introduces no new humanization, detector result or validation claim.
 
 ## Scope and method
 
@@ -34,4 +38,4 @@ No supported external AI detector was available, so no detector result is report
 
 Software checks cannot determine whether readers prefer the new wording or understand it better. Those questions require actual use. No new pilot, endorsement, measured usability result or effectiveness evidence is added by this revision.
 
-See the [test record](/static/research/ai-readiness/rc4-candidate-6/rc4-test-results.json), [release status](/static/research/ai-readiness/rc4-candidate-6/rc4-release-readiness.json) and [update log](https://www.takyejun.com/research/ai-readiness/updates).
+See the [test record](/static/research/ai-readiness/hard-0.2-preview-1/rc4-test-results.json), [release status](/static/research/ai-readiness/hard-0.2-preview-1/rc4-release-readiness.json) and [update log](https://www.takyejun.com/research/ai-readiness/updates).

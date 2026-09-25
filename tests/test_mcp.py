@@ -12,7 +12,10 @@ async def roundtrip():
     params = StdioServerParameters(command=sys.executable,args=["-m","hcai_readiness.server"])
     async with stdio_client(params) as (read,write):
         async with ClientSession(read,write) as client:
-            await client.initialize()
+            initialized = await client.initialize()
+            assert initialized.serverInfo.name == 'HARD Protocol'
+            assert 'HARD Protocol 0.2' in initialized.instructions
+            assert 'Public Preview' in initialized.instructions
             names={t.name for t in (await client.list_tools()).tools}
             assert names=={"assessment_template","assess_legacy_session","summarize_legacy_batch",
                            "assess_engineering_commitment", "validate_pilot_run", "export_public_feedback",
@@ -31,7 +34,7 @@ async def roundtrip():
             resources=await client.list_resources()
             assert any(str(r.uri)=="hcai://protocol" for r in resources.resources)
             resource=await client.read_resource("hcai://protocol")
-            assert "0.1-rc.4-candidate.6" in resource.contents[0].text
+            assert "0.2-preview.1" in resource.contents[0].text
             for path in (Path(__file__).resolve().parents[1]/"examples/rc4").glob("*.json"):
                 data=json.loads(path.read_text())
                 if path.stem=="pilot-synthetic":
@@ -45,6 +48,8 @@ async def roundtrip():
             assert prompt.messages
             empty=await client.call_tool("new_review_record",{"run_id":"NEW-STDIO","recorded_at":"2026-09-24T12:00:00Z","evaluator_kind":"human"})
             draft=json.loads(empty.content[0].text)
+            assert draft['versions'] == {'protocol':'0.2-preview.1', 'mcp':'0.2.0rc7',
+                                         'skill':'0.2.0-rc.7', 'contract':'0.2.0-rc.7'}
             assert draft["evidence"] == []
             guided=await client.call_tool("review_next_step",{"draft":draft})
             assert json.loads(guided.content[0].text)["decision_card"]["next_step"]["stage"] == "SCOPE"

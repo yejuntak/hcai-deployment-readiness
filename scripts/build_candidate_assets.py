@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 from hcai_readiness.contracts import Assessment, AssessmentResult, FeedbackEntry, PilotRun, StudyReview
 from hcai_readiness.engine import DEPTH, CONTEXT_FLOORS, assess
-from hcai_readiness.versions import versions
+from hcai_readiness.versions import versions, identity, public_title, RELEASE_LABEL
 from hcai_readiness.guidance import criteria_catalog
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -17,15 +17,15 @@ def encoded(value):
 
 
 def generated():
-    output = {"versions.json": encoded(versions()), "schemas/risk-depth.json": encoded(DEPTH), "schemas/context-risk-floors.json": encoded(CONTEXT_FLOORS)}
+    output = {"identity.json": encoded(identity()), "versions.json": encoded(versions()), "schemas/risk-depth.json": encoded(DEPTH), "schemas/context-risk-floors.json": encoded(CONTEXT_FLOORS)}
     for model, name in ((Assessment, "assessment"), (AssessmentResult, "assessment-result"),
                         (FeedbackEntry, "feedback-entry"), (PilotRun, "pilot-run"), (StudyReview, "study-review")):
         output[f"schemas/{name}.schema.json"] = encoded({"$schema": "https://json-schema.org/draft/2020-12/schema", **model.model_json_schema()})
-    protocol = (ROOT / "protocol/0.1-rc.4-candidate.6/PROTOCOL.md").read_bytes()
+    protocol = (ROOT / "protocol/0.2-preview.1/PROTOCOL.md").read_bytes()
     output["src/hcai_readiness/protocol.md"] = protocol
     output["skills/ai-ready/references/protocol.md"] = protocol
     for name in ("QUICK-6.md", "FULL-PROFILE.md", "START-HERE.md", "SCENARIOS.md", "WORKSHEET.md"):
-        output[f"skills/ai-ready/references/{name}"] = (ROOT / "protocol/0.1-rc.4-candidate.6" / name).read_bytes()
+        output[f"skills/ai-ready/references/{name}"] = (ROOT / "protocol/0.2-preview.1" / name).read_bytes()
     for name in ("assessment", "pilot-run", "study-review"):
         output[f"skills/ai-ready/references/{name}.schema.json"] = output[f"schemas/{name}.schema.json"]
     for name in ("__init__.py", "versions.py", "contracts.py", "engine.py", "cli.py", "guidance.py", "reporting.py", "criteria.json"):
@@ -33,7 +33,7 @@ def generated():
     output["skills/ai-ready/references/research-boundary.md"] = (ROOT / "docs/research-boundary.md").read_bytes()
     output["skills/ai-ready/references/claims-and-governance.md"] = (ROOT / "docs/claims-and-governance.md").read_bytes()
     catalog = criteria_catalog()
-    criterion_text = ['# HCAI review criteria', '', 'Protocol '+versions()['protocol']+'; candidate criteria, not certification.', '',
+    criterion_text = ['# HARD Protocol review criteria', '', public_title()+' · '+RELEASE_LABEL, '', 'Exact protocol '+versions()['protocol']+'; preview criteria, not certification.', '',
                       'Use these criteria to review the evidence before an engineering commitment. The software checks record structure and the six gates; a human reviewer must judge the evidence itself. The protocol does not produce an aggregate conformance score.', '']
     for principle in catalog['principles']:
         criterion_text += ['## '+principle['title'], '']
@@ -90,6 +90,7 @@ def generated():
              "participant_feedback": "Synthetic format example, not actual feedback", "observation_evidence_ids": ["E3"]}
     PilotRun.model_validate(pilot)
     output["examples/rc4/pilot-synthetic.json"] = encoded(pilot)
+    output['skills/ai-ready/agents/openai.yaml'] = ('interface:\n  display_name: "'+identity()['name']+'"\n').encode()
     return output
 
 

@@ -9,11 +9,12 @@ import markdown
 from hcai_readiness.contracts import Assessment
 from hcai_readiness.reporting import render_report
 from hcai_readiness.guidance import criteria_catalog
+from hcai_readiness.versions import versions, public_title, PROTOCOL_FULL_NAME, RELEASE_LABEL, DISTRIBUTION_ID
 from build_research_pages import STYLE
 
 ROOT = Path(__file__).resolve().parents[1]
-PREFIX = '/static/research/ai-readiness/rc4-candidate-6/'
-PROTOCOL = ROOT / 'protocol/0.1-rc.4-candidate.6'
+PREFIX = '/static/research/ai-readiness/'+DISTRIBUTION_ID+'/'
+PROTOCOL = ROOT / 'protocol' / versions()['protocol']
 
 def page(title, body):
     return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+html.escape(title)+'</title><style>'+STYLE+'\nmain{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}\n</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="'+PREFIX+'START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav>'+body+'</main></body></html>'
@@ -58,11 +59,13 @@ def main():
                 chunks.append('<p class="t-body-s">Decision gate: '+html.escape(c['gate'])+'. No separate certification is issued.</p></details>')
         chunks.append('</details>')
     template=(ROOT/'docs/research-content.gohtml').read_text().replace('<!-- CRITERIA -->','\n'.join(chunks))
+    for key, value in {'@@HARD_TITLE@@':public_title(), '@@HARD_FULL_NAME@@':PROTOCOL_FULL_NAME, '@@HARD_STATUS@@':RELEASE_LABEL}.items():
+        template=template.replace(key,html.escape(value))
     body=template.replace('{{define "research"}}','').replace('{{end}}','')
     for name in ('index.html','docs/index.html'):
-        (ROOT/name).write_text(page('Review AI-built workflows before engineering',body))
+        (ROOT/name).write_text(page(public_title(),body))
     if args.site_root:
-        target=args.site_root/'static/research/ai-readiness/rc4-candidate-6'
+        target=args.site_root/'static/research/ai-readiness'/DISTRIBUTION_ID
         target.mkdir(parents=True,exist_ok=True)
         for p in output.glob('*.html'):
             shutil.copyfile(p,target/p.name)

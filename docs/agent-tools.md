@@ -1,6 +1,8 @@
-# Use the MCP server or ai-ready Skill
+# HARD Protocol: MCP and Skill
 
-Protocol 0.1-rc.4-candidate.6; MCP 0.2.0rc6; Skill/contract 0.2.0-rc.6. The historical DOI and tags identify earlier releases only.
+HARD Protocol 0.2 · Public Preview
+
+Human-centered AI Readiness Deployment Protocol. Exact protocol 0.2-preview.1; MCP 0.2.0rc7; Skill/contract 0.2.0-rc.7. The displayed MCP and Skill name is HARD Protocol. Existing package names, hcai-readiness commands, hcai:// resources, API fields and the ai-ready invocation are unchanged. The historical DOI and tags identify earlier releases only.
 
 ## Install the MCP server
 

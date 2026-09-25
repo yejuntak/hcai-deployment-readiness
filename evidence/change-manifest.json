@@ -1,5 +1,5 @@
 {
-  "protocol_version": "0.1-rc.4-candidate.6",
+  "protocol_version": "0.2-preview.1",
   "status": "candidate_unvalidated",
   "changes": [
     {
@@ -585,6 +585,36 @@
         "test_editorial_release_preserves_external_citations",
         "test_editorial_release_preserves_core_logic",
         "test_editorial_release_preserves_fixture_decisions"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C29",
+      "observed_problem": "The author requested a shorter protocol name and public version with a separate Public Preview label.",
+      "source_theme_ids": [],
+      "change": "Adopt HARD Protocol 0.2 and Human-centered AI Readiness Deployment Protocol, centralize display identity, retain exact execution provenance and installation interfaces, and freeze candidate.6.",
+      "requirements": [
+        "IDENTITY_CONSISTENCY",
+        "VERSION_PROVENANCE",
+        "CLAIM_BOUNDARY",
+        "HISTORY_FROZEN"
+      ],
+      "files": [
+        "src/hcai_readiness/versions.py",
+        "protocol/0.2-preview.1/PROTOCOL.md",
+        "docs/research-content.gohtml",
+        "src/hcai_readiness/server.py",
+        "src/hcai_readiness/reporting.py",
+        "skills/ai-ready/SKILL.md",
+        "historical/candidate-6-manifest.json"
+      ],
+      "acceptance_tests": [
+        "test_hard_public_identity_and_generated_surfaces",
+        "test_hard_execution_versions_and_legacy_record_boundary",
+        "test_hard_preview_does_not_promote_without_actual_use",
+        "test_candidate_six_remains_byte_frozen",
+        "test_editorial_release_preserves_fixture_decisions",
+        "test_stdio_roundtrip"
       ],
       "validation_status": "software_tests_only"
     }

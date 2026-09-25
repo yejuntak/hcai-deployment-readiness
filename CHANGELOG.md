@@ -1,3 +1,13 @@
+# HARD Protocol 0.2: Public Preview, September 24, 2026
+
+Human-centered AI Readiness Deployment Protocol. Exact protocol 0.2-preview.1; MCP 0.2.0rc7; Skill/contract 0.2.0-rc.7.
+
+## Why 0.2 changed
+
+Adopted the requested shorter name and a separate Public Preview status. Centralized display metadata across the page, documents, reports, MCP server and Skill. Existing installation commands, tool names, resource URIs, data fields and criterion IDs are preserved. New records carry exact execution versions; earlier records are not migrated automatically. All six rc.4 candidates remain frozen. C29 maps this transition to tests.
+
+This is not a new evaluation method, a finalized release or evidence of deployment readiness. Actual external use and empirical effectiveness remain unestablished. The historical DOI identifies rc.3 only.
+
 # Protocol 0.1-rc.4-candidate.6: September 24, 2026
 
 MCP 0.2.0rc6; ai-ready Skill/contract 0.2.0-rc.6. Candidate.5 remains frozen.

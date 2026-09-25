@@ -1,6 +1,8 @@
 # Reporting results and managing changes
 
-Protocol 0.1-rc.4-candidate.6 · Candidate rules, not certification
+HARD Protocol 0.2 · Public Preview
+
+Exact protocol 0.2-preview.1. Preview rules, not certification.
 
 ## Which requirements govern the review?
 
@@ -33,10 +35,10 @@ The author currently maintains the project. It has no independent standards body
 
 ## Version and release policy
 
-- Published artifacts and their hashes are immutable. Correct them by publishing a new candidate with migration notes and linked history.
+- Published artifacts and their hashes are immutable. Correct them by publishing a new versioned preview with migration notes and linked history.
 - A changed required field or decision boundary requires a coordinated protocol, contract, MCP and Skill version advance. An editorial release may also advance these identities to identify the exact distribution, without changing the rules. Existing runs remain old-version evidence; migration cannot create new passes or observed facts.
 - Stable criterion IDs remain attached to their meaning. Explain refinements; use a new ID when the obligation is materially new. Removed obligations would be deprecated explicitly rather than silently reassigned.
-- Changes need regression tests, implementation parity, link/package checks, permission review and readable documentation. A new candidate is allowed while actual-use evidence is missing; final rc.4 is not.
+- Changes need regression tests, implementation parity, link/package checks, permission review and readable documentation. A Public Preview is allowed while actual-use evidence is missing; a finalized release is not. A shorter public version number does not waive this boundary.
 - Current passing regressions and at least one genuine, version-matched bounded external use with feedback make a release eligible for author review, not automatic promotion. The author still evaluates unresolved issues and the adequacy of evidence. One pilot does not validate effectiveness or establish a standard.
 
 Licensing remains as stated in the repository: original text CC BY 4.0, engine code MIT, third-party material subject to its own terms. This document does not grant rights to private practitioner correspondence.

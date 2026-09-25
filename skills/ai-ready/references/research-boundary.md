@@ -1,5 +1,7 @@
 # Research question and practical use
 
+HARD Protocol 0.2 · Public Preview · Exact protocol 0.2-preview.1
+
 The proposed study examines how visual fidelity affects human review of AI-generated interface prototypes. Requirements, content, behavior and embedded defects are held constant, as is AI authorship. The protocol serves a separate practical purpose: reviewing evidence before a team funds engineering. It is neither the experimental treatment nor evidence that the hypothesized effect exists.
 
 ## Definitions and measurement boundaries
