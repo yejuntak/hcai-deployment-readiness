@@ -36,6 +36,9 @@ def render_overview_document():
     """The repository mirror uses the same public assets, not broken root URLs."""
     origin = 'https://www.takyejun.com'
     body = render_research_page().replace('{{define "research"}}', '').replace('{{end}}', '')
+    # The static mirror uses working fallback links; native setup dialogs belong
+    # to the interactive site and are rendered by its shared Go components.
+    body = body.replace('{{template "hard-tool-dialogs" .}}', '')
     body = re.sub(r'((?:href|src)=")/', lambda m: m[1]+origin+'/', body)
     styles = ''.join('<link rel="stylesheet" href="'+origin+'/static/system/'+name+'.css">'
                      for name in ('tokens', 'reset', 'atoms', 'molecules', 'organisms', 'research'))
