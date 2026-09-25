@@ -74,6 +74,21 @@ def test_conceptual_image_and_current_prose_keep_evidence_boundaries():
     assert not any(char in unescape(page) for char in ('\u2013', '\u2014'))
 
 
+def test_method_separates_motivation_from_three_visible_practice_steps():
+    method = render_research_page().split('id="method"', 1)[1].split('</section>', 1)[0]
+    assert 'hard-method-layout' in method and 'hard-feature-row' not in method
+    assert method.index('hard-method-intro') < method.index('hard-method-review')
+    assert '<h3 class="t-title-l">' in method
+    assert method.count('<li>') == 3
+    assert 'role="list"' in method
+    assert 'Do not blur labels or remove information people need' in method
+    assert 'In a separate view' in method
+    assert 'Check the artifact against its requirements and evidence' in method
+    assert 'optional review guidance, not an extra gate' in method
+    assert 'Keep it separate from the proposed study design' in method
+    assert not any(tag in method for tag in ('<a ', '<button', '<details'))
+
+
 def test_repository_mirrors_resolve_public_assets_and_keep_shared_styles():
     page = render_overview_document()
     assert 'href="/' not in page and 'src="/' not in page
