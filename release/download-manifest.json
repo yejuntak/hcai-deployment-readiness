@@ -1,33 +1,33 @@
 {
-  "protocol_version": "0.1-rc.4-candidate.4",
+  "protocol_version": "0.1-rc.4-candidate.5",
   "status": "candidate",
   "files": {
-    "HCAI-v0.1-rc.4-candidate.4.zip": {
-      "sha256": "fa7b359d1387112dff5b8f7f3f92952d5a58ed8f22a520e51ce72fcf8ba3e491",
-      "bytes": 6762958
+    "HCAI-v0.1-rc.4-candidate.5.zip": {
+      "sha256": "40d4f52e783d35feab24d501a0edb35b3eab83b649940b194a209b2baf64e3ac",
+      "bytes": 13631599
     },
-    "ai-ready-0.2.0-rc.4.zip": {
-      "sha256": "dfbb53fd4dface303ad474beb6c4bd5e75cb3a52d3da2a6c90766c999c9aff86",
-      "bytes": 74742
+    "ai-ready-0.2.0-rc.5.zip": {
+      "sha256": "48499339c988bafe3f710e0a0734e83e06a3b62a2db628ff9323426ff5dcb570",
+      "bytes": 74861
     },
-    "hcai_readiness_mcp-0.2.0rc4-py3-none-any.whl": {
-      "sha256": "de284ad56a24fa1ce0cbc796a3d29c0a994439ac40db53ac399a4f0a059318e3",
-      "bytes": 46447
+    "hcai_readiness_mcp-0.2.0rc5-py3-none-any.whl": {
+      "sha256": "6c21b7320db3fb7cb1d93415d5bb1d9d62d92c9adc4b6c4ef8b37ba622e90e3e",
+      "bytes": 46478
     },
-    "QUICK-6-v0.1-rc.4-candidate.4.pdf": {
-      "sha256": "c796c8247be1e9c5fa15ba3ffcf1a0aa1cf2a1349e67254ab1e87fdd5b4625df",
-      "bytes": 6227
+    "QUICK-6-v0.1-rc.4-candidate.5.pdf": {
+      "sha256": "cbe4593f8208b44191fb77b32ecb8af8e7cc184690c41781d05d5450337d71ac",
+      "bytes": 6224
     },
-    "Full-Profile-v0.1-rc.4-candidate.4.pdf": {
-      "sha256": "153316f6728322bbb0273471ebcfc02604a70e1613f38229526e8c9816325749",
-      "bytes": 18920
+    "Protocol-v0.1-rc.4-candidate.5.pdf": {
+      "sha256": "615eb560dd13cca28902236327800dea84d700a655e2b291639958b11439aec5",
+      "bytes": 18008
     },
-    "Protocol-v0.1-rc.4-candidate.4.pdf": {
-      "sha256": "16d48f74f32b00ba0621fee68ba70d11d65bbbebecf51b1e0f7ffbcc1535ff02",
-      "bytes": 18000
+    "Full-Profile-v0.1-rc.4-candidate.5.pdf": {
+      "sha256": "c3785bfaa3c0f274ef2465abc8593c6416a1bf9623e975a249a7794bfca5e9f2",
+      "bytes": 18919
     },
-    "External-Pilot-Packet-v0.1-rc.4-candidate.4.pdf": {
-      "sha256": "a1b6760a9333bb21f9fea7ee25b0cdb2ed008ef4127f8766fa9778f884420cbb",
+    "External-Pilot-Packet-v0.1-rc.4-candidate.5.pdf": {
+      "sha256": "7b2ee2b52e3b317ca0f97aeb6ac3615323a50d6b2297f1a933cac9994183831c",
       "bytes": 3669
     }
   }

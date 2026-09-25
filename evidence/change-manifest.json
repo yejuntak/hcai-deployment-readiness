@@ -1,5 +1,5 @@
 {
-  "protocol_version": "0.1-rc.4-candidate.4",
+  "protocol_version": "0.1-rc.4-candidate.5",
   "status": "candidate_unvalidated",
   "changes": [
     {
@@ -534,6 +534,29 @@
         "test_editorial_release_preserves_criterion_identity",
         "test_editorial_release_preserves_risk_tables_and_formulas",
         "test_editorial_release_preserves_external_citations"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C27",
+      "observed_problem": "The author requested removal of every em dash and en dash, including range notation left in candidate.4.",
+      "source_theme_ids": [],
+      "change": "Write ranges with 'to', replace title separators with colons, apply the same authored-output rule to the Skill and preserve frozen candidate.4 artifacts.",
+      "requirements": [
+        "EDITORIAL_INTEGRITY",
+        "HISTORY_FROZEN"
+      ],
+      "files": [
+        "protocol/0.1-rc.4-candidate.5/PROTOCOL.md",
+        "docs/research-boundary.md",
+        "docs/updates.md",
+        "CHANGELOG.md",
+        "skills/ai-ready/SKILL.md",
+        "historical/candidate-4-manifest.json"
+      ],
+      "acceptance_tests": [
+        "test_current_reader_text_has_no_em_or_en_dash",
+        "test_candidate_four_remains_byte_frozen"
       ],
       "validation_status": "software_tests_only"
     }

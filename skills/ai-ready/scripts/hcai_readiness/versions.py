@@ -1,8 +1,8 @@
 """Exact candidate identities. Historical DOI belongs only to rc.3."""
-PROTOCOL_VERSION = "0.1-rc.4-candidate.4"
-MCP_VERSION = "0.2.0rc4"
-SKILL_VERSION = "0.2.0-rc.4"
-CONTRACT_VERSION = "0.2.0-rc.4"
+PROTOCOL_VERSION = "0.1-rc.4-candidate.5"
+MCP_VERSION = "0.2.0rc5"
+SKILL_VERSION = "0.2.0-rc.5"
+CONTRACT_VERSION = "0.2.0-rc.5"
 
 
 def versions():

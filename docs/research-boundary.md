@@ -21,7 +21,7 @@ The proposed study examines how visual fidelity affects human review of AI-gener
 
 **For a study**, the researcher freezes the requirements, intact and defective items, reference key, artifacts, generation/edit history, study version and assignment schedule. Reviewers do not receive the answer key before their judgments are locked. Do not use the guided practice prompts or public worked example as an unplanned experimental intervention: they could change detection and contaminate the comparison.
 
-The optional `study-review` schema stores one defect/no-defect judgment or abstention per requirement, item-level confidence, review time and separate perceived-readiness/global-confidence fields. The example 1–7 readiness scale is an unvalidated capture convention, not a validated questionnaire. The schema contains no reference key and computes neither engineering readiness nor a treatment effect.
+The optional `study-review` schema stores one defect/no-defect judgment or abstention per requirement, item-level confidence, review time and separate perceived-readiness/global-confidence fields. The example 1 to 7 readiness scale is an unvalidated capture convention, not a validated questionnaire. The schema contains no reference key and computes neither engineering readiness nor a treatment effect.
 
 ## Decisions still needed before a study
 

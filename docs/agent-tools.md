@@ -1,6 +1,6 @@
 # Use the MCP server or ai-ready Skill
 
-Protocol 0.1-rc.4-candidate.4; MCP 0.2.0rc4; Skill/contract 0.2.0-rc.4. The historical DOI and tags identify earlier releases only.
+Protocol 0.1-rc.4-candidate.5; MCP 0.2.0rc5; Skill/contract 0.2.0-rc.5. The historical DOI and tags identify earlier releases only.
 
 ## Install the MCP server
 
@@ -61,6 +61,6 @@ hcai://criteria exposes four principles and fifteen candidate criteria. validate
 
 get_validation_targets (or CLI --validation-targets) returns current artifact and requirement/context fingerprints for a new check. It does not execute a test, modify a record or verify evidence. Never use it to relabel a stale result; repeat the affected validation first. There are thirteen read-only MCP tools, including legacy diagnostics.
 
-Candidate.4 retains the evidence requirements introduced in candidate.3: connected proposed transitions, affected-person impact screening, context risk flags, explicit authority boundaries and recorded human evidence-quality review. Its changes are editorial. The result's assurance object continues to distinguish structural checks, supplied review and unverified authenticity. See [migration](migration-rc3-to-rc4.md) before using old records.
+Candidate.5 retains the evidence requirements introduced in candidate.3: connected proposed transitions, affected-person impact screening, context risk flags, explicit authority boundaries and recorded human evidence-quality review. Candidate.4 revised the wording; candidate.5 removes the remaining em dashes and en dashes. The result's assurance object continues to distinguish structural checks, supplied review and unverified authenticity. See [migration](migration-rc3-to-rc4.md) before using old records.
 
 Preserve a stopped QUICK6 record before continuing in FULL with previous_run_id and revision_summary. Preparation time and capture/reporting are explicit, source origins must be distinct, tests must identify the artifact revision tested, and simulated behavior stays labeled.

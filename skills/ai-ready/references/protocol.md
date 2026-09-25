@@ -1,7 +1,7 @@
 # Review AI-built workflows before engineering
 
 Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile  
-Protocol 0.1-rc.4-candidate.4 · MCP 0.2.0rc4 · Skill 0.2.0-rc.4
+Protocol 0.1-rc.4-candidate.5 · MCP 0.2.0rc5 · Skill 0.2.0-rc.5
 
 ## What this helps you decide
 
@@ -53,10 +53,10 @@ The structure borrows the idea of principles, testable criteria, and practical t
 
 | Principle | Review focus | Criteria |
 | --- | --- | --- |
-| Understand the work before judging the solution | Scope, current workflow, actual need, affected people | HCAI-1.1–1.4 |
-| Make intended behavior and evidence inspectable | Form/fit/function, exact tested revision, simulated versus implemented behavior | HCAI-2.1–2.3 |
-| Keep people able to understand and recover | Failure paths, human control, remaining work | HCAI-3.1–3.3 |
-| Make the commitment accountable | Risk depth, findings, ownership, separate measurements, provenance | HCAI-4.1–4.5 |
+| Understand the work before judging the solution | Scope, current workflow, actual need, affected people | HCAI-1.1 to 1.4 |
+| Make intended behavior and evidence inspectable | Form/fit/function, exact tested revision, simulated versus implemented behavior | HCAI-2.1 to 2.3 |
+| Keep people able to understand and recover | Failure paths, human control, remaining work | HCAI-3.1 to 3.3 |
+| Make the commitment accountable | Risk depth, findings, ownership, separate measurements, provenance | HCAI-4.1 to 4.5 |
 
 Each criterion states a requirement and explains how to check it, with examples of a pass and a failure. The software checks record structure and decision rules. A human reviewer must judge the evidence itself: a correctly linked file may still contain an inadequate test.
 
@@ -116,7 +116,7 @@ Practitioner correspondence informed refinement; it is not controlled empirical 
 
 Records are private by default. Publish only separately permission-checked material. Hillel Glazer approved attribution; other correspondence is represented by anonymized themes unless explicit permission is documented. Do not upload confidential artifacts simply to complete a field.
 
-rc.3 and candidates.1, .2 and .3 remain frozen. Candidate.4 edits the writing; gates, risk thresholds and calculations are unchanged. Final rc.4 still requires passing regressions and recorded bounded external end-user/advisor use, neither of which proves effectiveness. Research Harness v3 is a separate project.
+rc.3 and candidates.1 through .4 remain frozen. Candidate.5 removes em dashes and en dashes; gates, risk thresholds and calculations are unchanged. Final rc.4 still requires passing regressions and recorded bounded external end-user/advisor use, neither of which proves effectiveness. Research Harness v3 is a separate project.
 
 Whether this review improves engineering decisions remains untested. See the [deep audit and validation roadmap](../../docs/deep-audit.md) and [claims and governance rules](../../docs/claims-and-governance.md).
 

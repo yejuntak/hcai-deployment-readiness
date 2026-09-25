@@ -12,7 +12,7 @@ from .records import public_feedback, release_readiness
 from .guidance import GUIDES, new_review, guided_review, criterion_guide, criteria_catalog
 from .reporting import render_report
 
-mcp = FastMCP("HCAI Engineering Commitment", instructions="Protocol 0.1-rc.4-candidate.4. Create a record with new_review_record, ask one question at a time using review_next_step, and return an assessment_report. Use supplied evidence; do not invent answers. The deterministic gates support an upstream engineering recommendation and cannot authorize deployment. Retain exact versions and human/agent provenance. Legacy tools reproduce rc.3 only, which is the release identified by the historical DOI.")
+mcp = FastMCP("HCAI Engineering Commitment", instructions="Protocol 0.1-rc.4-candidate.5. Create a record with new_review_record, ask one question at a time using review_next_step, and return an assessment_report. Use supplied evidence; do not invent answers. The deterministic gates support an upstream engineering recommendation and cannot authorize deployment. Retain exact versions and human/agent provenance. Legacy tools reproduce rc.3 only, which is the release identified by the historical DOI.")
 READ_ONLY = ToolAnnotations(readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
 
 @mcp.tool(annotations=READ_ONLY)

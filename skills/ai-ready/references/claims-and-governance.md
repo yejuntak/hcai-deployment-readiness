@@ -1,6 +1,6 @@
 # Reporting results and managing changes
 
-Protocol 0.1-rc.4-candidate.4 · Candidate rules, not certification
+Protocol 0.1-rc.4-candidate.5 · Candidate rules, not certification
 
 ## Which requirements govern the review?
 

@@ -1,6 +1,10 @@
 # Migrating rc.3 records and tools to rc.4-candidate
 
-## Current editorial release: candidate.4
+## Current punctuation release: candidate.5
+
+Protocol 0.1-rc.4-candidate.5, MCP 0.2.0rc5 and Skill/contract 0.2.0-rc.5 remove em dashes and en dashes from the current text. No required field, gate, risk threshold or calculation changes. Keep old records and exact versions; use the new compatibility set for new runs. Candidate.4 artifacts are preserved in historical/candidate-4-manifest.json and historical/candidate-4-site-manifest.json.
+
+## Previous editorial release: candidate.4
 
 Protocol 0.1-rc.4-candidate.4, MCP 0.2.0rc4 and Skill/contract 0.2.0-rc.4 revise the writing from candidate.3. Gates, required fields, risk thresholds and calculations are unchanged. The coordinated identity advance records the exact distribution used; it does not imply a new validated method.
 

@@ -185,8 +185,8 @@ def test_deep_audit_public_pages_and_references():
         page = (ROOT/'docs/web'/f'{name}.html').read_text()
         assert '<html lang="en">' in page
         assert '<h1>' in page and '<title>' in page
-        assert '0.1-rc.4-candidate.4' in page
-    protocol = (ROOT/'protocol/0.1-rc.4-candidate.4/PROTOCOL.md').read_text()
+        assert '0.1-rc.4-candidate.5' in page
+    protocol = (ROOT/'protocol/0.1-rc.4-candidate.5/PROTOCOL.md').read_text()
     assert '15 review criteria' in protocol and 'not a W3C standard' in protocol
     assert (ROOT/'docs/claims-and-governance.md').read_bytes() == (ROOT/'skills/ai-ready/references/claims-and-governance.md').read_bytes()
 

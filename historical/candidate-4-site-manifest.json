@@ -1,0 +1,32 @@
+{
+  "files": {
+    "static/research/ai-readiness/rc4-candidate-4/CRITERIA.html": "4ed4c3bf6ffa3c0cd4eb5fd901abd6c86c08d36060d5ade3d3f3aa9febed4823",
+    "static/research/ai-readiness/rc4-candidate-4/External-Pilot-Packet-v0.1-rc.4-candidate.4.pdf": "a1b6760a9333bb21f9fea7ee25b0cdb2ed008ef4127f8766fa9778f884420cbb",
+    "static/research/ai-readiness/rc4-candidate-4/FULL-PROFILE.html": "fa793ac409330c58212915da895f6a93282f4f9f4246daa7ef005956d101d92c",
+    "static/research/ai-readiness/rc4-candidate-4/Full-Profile-v0.1-rc.4-candidate.4.pdf": "153316f6728322bbb0273471ebcfc02604a70e1613f38229526e8c9816325749",
+    "static/research/ai-readiness/rc4-candidate-4/HCAI-v0.1-rc.4-candidate.4.zip": "fa7b359d1387112dff5b8f7f3f92952d5a58ed8f22a520e51ce72fcf8ba3e491",
+    "static/research/ai-readiness/rc4-candidate-4/PROTOCOL.html": "0686ec90cc0624c1628c47850665e403977cd8cdb9e9967e023fee3bdd9166b9",
+    "static/research/ai-readiness/rc4-candidate-4/Protocol-v0.1-rc.4-candidate.4.pdf": "16d48f74f32b00ba0621fee68ba70d11d65bbbebecf51b1e0f7ffbcc1535ff02",
+    "static/research/ai-readiness/rc4-candidate-4/QUICK-6-v0.1-rc.4-candidate.4.pdf": "c796c8247be1e9c5fa15ba3ffcf1a0aa1cf2a1349e67254ab1e87fdd5b4625df",
+    "static/research/ai-readiness/rc4-candidate-4/QUICK-6.html": "7c4ac1fb1b374a4d81d92f5f5e47448940ade8ec84f1f42505d5b1c403932207",
+    "static/research/ai-readiness/rc4-candidate-4/SCENARIOS.html": "63b43774d5c3ed056f8978d332c8a9d304843ce6c49a9cf4c876418fdbd8df3a",
+    "static/research/ai-readiness/rc4-candidate-4/START-HERE.html": "275822eba85d54b09f502de9f0915d0fdccb85a1879c894ba75a1d88f8159a55",
+    "static/research/ai-readiness/rc4-candidate-4/WORKSHEET.html": "d08ec738e7fdbd46829c9490a480c38f5520ed1267bb5f2c524f62e1d2272a28",
+    "static/research/ai-readiness/rc4-candidate-4/agent-tools.html": "9ae6a9502b673a7c7306f1bd4d0b429ebf6bb6e2d4429991f1c149b4980598c4",
+    "static/research/ai-readiness/rc4-candidate-4/agent-tools.md": "36bca40eb8bb1d3be5e9c2600a8adcb3ebca8ec07e2c228f153734610bcbab1f",
+    "static/research/ai-readiness/rc4-candidate-4/ai-ready-0.2.0-rc.4.zip": "dfbb53fd4dface303ad474beb6c4bd5e75cb3a52d3da2a6c90766c999c9aff86",
+    "static/research/ai-readiness/rc4-candidate-4/change-manifest.json": "72db224007da27708830ea9355d9f80a568793bc7a248101106697b50dc5b3e0",
+    "static/research/ai-readiness/rc4-candidate-4/claims-and-governance.html": "5666b5ddfab4a8a9eecbe09901f485a85e30a3d5bd067cee051c4f12d4002403",
+    "static/research/ai-readiness/rc4-candidate-4/deep-audit.html": "f64b674da02c284cbfc0a3f582a7fab7149d854b808afcd8e0237574a3527d0a",
+    "static/research/ai-readiness/rc4-candidate-4/download-manifest.json": "c9f950c82e396b9f10f5a74193b29c7bcb04e3379ea87bbff8bb98ae34959187",
+    "static/research/ai-readiness/rc4-candidate-4/editorial-review.html": "5db5d29d086b98d8cee518d97dcbc9ef17be7e4a61ddfb2709eee112d6e29440",
+    "static/research/ai-readiness/rc4-candidate-4/example-report.html": "97fad9f1e4497d8af941c0193c710dc11171530eddedf8267bccec84d6bed3f5",
+    "static/research/ai-readiness/rc4-candidate-4/hcai_readiness_mcp-0.2.0rc4-py3-none-any.whl": "de284ad56a24fa1ce0cbc796a3d29c0a994439ac40db53ac399a4f0a059318e3",
+    "static/research/ai-readiness/rc4-candidate-4/migration-rc3-to-rc4.html": "744c5dae6862db253dcdb65bf13925fe95bd858882a7c82eaba793a174ce500b",
+    "static/research/ai-readiness/rc4-candidate-4/migration-rc3-to-rc4.md": "f7cafa77779034d2ce20de06d8de716dc10ea1a00094a5c7b410fcd08c684876",
+    "static/research/ai-readiness/rc4-candidate-4/rc4-release-readiness.json": "4b9bde2782b644d4f122bd1a34b804f9a46d4822101b4c99de837223047dc38c",
+    "static/research/ai-readiness/rc4-candidate-4/rc4-test-results.json": "769c736dc958e53c94ba23407fa641fe30cb35071117cf8904ace47b7e13352f",
+    "static/research/ai-readiness/rc4-candidate-4/research-boundary.html": "1476e4f2e93d5ee57248f8613d3f6965ae7f1f7f2bd9a331af9abaf785cf00ce",
+    "static/research/ai-readiness/rc4-candidate-4/updates.html": "ede7b7e54db3cf5a58ea6b468d733bcdae4224f227fa2fbaf4d26eda17b64110"
+  }
+}

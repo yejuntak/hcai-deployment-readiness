@@ -96,7 +96,7 @@ def feedback(permission="private"):
     return FeedbackEntry(id="FBTEST", source_person="PRIVATE_NAME_SENTINEL", source_date="2026-09-01",
                          recorded_on="2026-09-24", context="PRIVATE_CONTEXT_SENTINEL", feedback="PRIVATE_FEEDBACK_SENTINEL",
                          permission=permission, permission_basis="PRIVATE_PERMISSION_SENTINEL", changes=["C01"],
-                         affected_files=["protocol/0.1-rc.4-candidate.4/PROTOCOL.md"], affected_requirements=["G6_COMMITMENT"],
+                         affected_files=["protocol/0.1-rc.4-candidate.5/PROTOCOL.md"], affected_requirements=["G6_COMMITMENT"],
                          validation_status="software_tests_only")
 
 
