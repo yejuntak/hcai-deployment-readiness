@@ -9,11 +9,25 @@
     <div class="m-cta-pair u-mt-5"><a class="button button-primary" href="#start">Start with one workflow</a><a class="button button-secondary" href="#scenarios">See an example</a></div>
     <p class="t-body-s u-mt-5">September 24, 2026 · <a class="link" href="/research/ai-readiness/updates">What changed?</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/editorial-review.html">Editorial review</a></p>
   </div>
-  <aside class="research-install" aria-label="What the review gives you">
-    <p class="t-eyebrow">After the review</p><h2 class="t-title-m">A recommendation with reasons.</h2>
-    <div class="research-install-item"><h3 class="t-title-s">What to do next</h3><p class="t-body-m">Consider a bounded engineering step, revise a known problem, or gather missing evidence.</p></div>
-    <div class="research-install-item"><h3 class="t-title-s">Reason and responsibility</h3><p class="t-body-m">A visible reason, an accountable owner, and the evidence needed to continue.</p></div>
-    <div class="research-install-item"><h3 class="t-title-s">What this does not mean</h3><p class="t-body-m">The review cannot approve deployment, certify quality or establish system performance. Its intended benefits still need empirical evaluation.</p></div>
+  <aside class="research-install stack stack-4" aria-label="Download and setup">
+<p class="t-eyebrow">Start using HARD</p><h2 class="t-title-l">Choose your way in.</h2>
+<div class="stack stack-2"><h3 class="t-title-s">Read or print</h3><p class="t-body-s">Start with six questions. No installation.</p><a class="button button-primary" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-Protocol-0.2-preview.1.pdf" download>Download protocol PDF</a><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-QUICK-6-0.2-preview.1.pdf" download>QUICK-6 worksheet PDF</a></div>
+<div class="stack stack-2 hard-setup-part"><h3 class="t-title-s">Connect an assistant</h3><button class="button button-secondary" type="button" data-hard-copy="hard-mcp-config">Copy MCP configuration</button><details class="hard-detail"><summary class="t-body-s">Where to paste it</summary><p class="t-body-s">Add this entry to your assistant's MCP settings, keeping existing servers. Requires uv. The first run downloads the package and dependencies.</p><pre class="code-block"><code id="hard-mcp-config">{
+  "mcpServers": {
+    "hcai-readiness-candidate": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-1/hcai_readiness_mcp-0.2.0rc7-py3-none-any.whl",
+        "hcai-readiness-mcp"
+      ]
+    }
+  }
+}</code></pre></details>
+<a class="button button-secondary" href="/static/research/ai-readiness/hard-0.2-preview-1/ai-ready-0.2.0-rc.7.zip" download>Download Skill</a><details class="hard-detail"><summary class="t-body-s">Set up the Skill</summary><p class="t-body-s">Extract ai-ready into your assistant's Skill directory and invoke ai-ready. Its deterministic runtime requires Python 3.11+ and Pydantic 2. Without the runtime, assessment stays pending.</p></details></div>
+<div class="stack stack-2 hard-setup-part"><h3 class="t-title-s">Review while you work</h3><a class="link-arrow" href="/research/ai-readiness/developers#jev">Set up the Jev companion</a><p class="t-body-s">Optional. Your key, your local workspace, one approved request at a time.</p></div>
+<p class="t-body-s" data-hard-copy-status role="status" aria-live="polite"></p>
+    <p class="t-body-s">The review cannot approve deployment, certify quality or establish system performance.</p>
   </aside>
 </section>
 <nav class="research-jump" aria-label="Review guide sections"><a href="#start">Start here</a><a href="#quick-six">Six questions</a><a href="#scenarios">Scenarios</a><a href="#criteria">Review criteria</a><a href="#agent-tools">MCP + Skill</a><a href="#downloads">Documents</a><a href="/research/ai-readiness/updates">Update log</a></nav>
