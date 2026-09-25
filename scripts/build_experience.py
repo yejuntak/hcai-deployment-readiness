@@ -32,6 +32,20 @@ def render_research_page():
         template = template.replace(key, html.escape(value))
     return template
 
+def render_overview_document():
+    """The repository mirror uses the same public assets, not broken root URLs."""
+    origin = 'https://www.takyejun.com'
+    body = render_research_page().replace('{{define "research"}}', '').replace('{{end}}', '')
+    body = re.sub(r'((?:href|src)=")/', lambda m: m[1]+origin+'/', body)
+    styles = ''.join('<link rel="stylesheet" href="'+origin+'/static/system/'+name+'.css">'
+                     for name in ('tokens', 'reset', 'atoms', 'molecules', 'organisms', 'research'))
+    return ('<!doctype html><html lang="en"><head><meta charset="utf-8">'
+            '<meta name="viewport" content="width=device-width,initial-scale=1">'
+            '<link rel="canonical" href="'+origin+'/research/ai-readiness">'
+            '<title>'+html.escape(public_title())+'</title>'+styles+
+            '</head><body class="site-page page-research"><main id="main">'+body+
+            '</main></body></html>')
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--site-root',type=Path)
@@ -60,10 +74,8 @@ def main():
     synthetic = Assessment.model_validate_json((ROOT/'examples/rc4/low-risk-quick.json').read_text())
     sample = render_report(synthetic,'html').replace('<main>','<main><p><strong>PUBLIC SYNTHETIC EXAMPLE: no real participant or pilot.</strong> The private label below describes the report default; this constructed example contains no confidential participant record.</p><p><a href="/research/ai-readiness">Return to the guide</a></p>')
     (output/'example-report.html').write_text(sample)
-    template = render_research_page()
-    body=template.replace('{{define "research"}}','').replace('{{end}}','')
     for name in ('index.html','docs/index.html'):
-        (ROOT/name).write_text(page(public_title(),body))
+        (ROOT/name).write_text(render_overview_document())
     if args.site_root:
         target=args.site_root/'static/research/ai-readiness'/DISTRIBUTION_ID
         target.mkdir(parents=True,exist_ok=True)

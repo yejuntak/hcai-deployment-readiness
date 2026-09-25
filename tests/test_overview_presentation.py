@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from build_experience import render_research_page
+from build_experience import render_research_page, render_overview_document
 from hcai_readiness.guidance import criteria_catalog
 
 
@@ -64,3 +64,15 @@ def test_conceptual_image_and_current_prose_keep_evidence_boundaries():
     assert 'The 15-minute target remains untested.' in page
     assert 'deployment requires separate evaluation' in page
     assert not any(char in unescape(page) for char in ('\u2013', '\u2014'))
+
+
+def test_repository_mirrors_resolve_public_assets_and_keep_shared_styles():
+    page = render_overview_document()
+    assert 'href="/' not in page and 'src="/' not in page
+    assert 'https://www.takyejun.com/static/research/ai-readiness/visuals/hard-structure-20260925.jpg' in page
+    assert 'https://www.takyejun.com/static/system/research.css' in page
+    assert 'class="site-page page-research"' in page
+    assert 'href="#start"' in page and 'href="#scenarios"' in page
+    assert page.count('data-entry-route') == 7
+    for name in ('index.html', 'docs/index.html'):
+        assert (ROOT/name).read_text() == page
