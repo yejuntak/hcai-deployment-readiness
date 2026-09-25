@@ -1,7 +1,7 @@
 # Review AI-built workflows before engineering
 
 Human-Centered AI Deployment Readiness Protocol: Engineering-Handoff Profile  
-Protocol 0.1-rc.4-candidate.5 · MCP 0.2.0rc5 · Skill 0.2.0-rc.5
+Protocol 0.1-rc.4-candidate.6 · MCP 0.2.0rc6 · Skill 0.2.0-rc.6
 
 ## What this helps you decide
 
@@ -49,7 +49,7 @@ The result explains the recommendation and names a next action. It also retains 
 
 ## Principles and review criteria
 
-The structure borrows the idea of principles, testable criteria, and practical techniques from [WCAG 2.0's layers of guidance](https://www.w3.org/TR/WCAG20/#intro-layers-guidance). This is an author-defined candidate, **not a W3C standard, accessibility conformance claim, or A/AA/AAA certification**.
+Four principles organize the review criteria. Each criterion states the required evidence, a way to check it and examples of adequate and inadequate evidence. This author-defined HCAI protocol supports engineering-commitment reviews; it does not certify a system or approve deployment.
 
 | Principle | Review focus | Criteria |
 | --- | --- | --- |
@@ -116,7 +116,7 @@ Practitioner correspondence informed refinement; it is not controlled empirical 
 
 Records are private by default. Publish only separately permission-checked material. Hillel Glazer approved attribution; other correspondence is represented by anonymized themes unless explicit permission is documented. Do not upload confidential artifacts simply to complete a field.
 
-rc.3 and candidates.1 through .4 remain frozen. Candidate.5 removes em dashes and en dashes; gates, risk thresholds and calculations are unchanged. Final rc.4 still requires passing regressions and recorded bounded external end-user/advisor use, neither of which proves effectiveness. Research Harness v3 is a separate project.
+rc.3 and candidates.1 through .5 remain frozen. Candidate.6 removes an inaccurate external-standard comparison; gates, risk thresholds and calculations are unchanged. Final rc.4 still requires passing regressions and recorded bounded external end-user/advisor use, neither of which proves effectiveness. Research Harness v3 is a separate project.
 
 Whether this review improves engineering decisions remains untested. See the [deep audit and validation roadmap](../../docs/deep-audit.md) and [claims and governance rules](../../docs/claims-and-governance.md).
 

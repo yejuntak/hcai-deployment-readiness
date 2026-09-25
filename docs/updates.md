@@ -1,8 +1,16 @@
 # Protocol update log
 
-Last updated: September 24, 2026. Current: **0.1-rc.4-candidate.5**. MCP 0.2.0rc5; ai-ready Skill/contract 0.2.0-rc.5.
+Last updated: September 24, 2026. Current: **0.1-rc.4-candidate.6**. MCP 0.2.0rc6; ai-ready Skill/contract 0.2.0-rc.6.
 
 This is a public record of changes, not a validation claim. Earlier versions remain available. No completed external pilot, adoption, endorsement, or performance improvement is claimed.
+
+## September 24, 2026: candidate.6 corrects the project framing
+
+At the author's request, removed an inaccurate external accessibility-standard comparison from the current page, protocol and supporting materials. The project is an author-defined HCAI engineering-commitment review. It does not derive its authority or criteria from that comparison.
+
+The current audit and reading copy of earlier log entries have also been corrected; frozen originals remain unchanged. The six gates, fifteen criteria, risk rules, calculations and evidence requirements are unchanged. C28 in the [change manifest](/static/research/ai-readiness/rc4-candidate-6/change-manifest.json) maps this correction to tests. No new empirical result or standard status is claimed.
+
+[Preserved candidate.5 package](/static/research/ai-readiness/rc4-candidate-5/HCAI-v0.1-rc.4-candidate.5.zip).
 
 ## September 24, 2026: candidate.5 punctuation revision
 
@@ -26,7 +34,7 @@ Read the [editorial review](/static/research/ai-readiness/rc4-candidate-4/editor
 
 ## September 24, 2026: candidate.3: challenge the pass, not only improve the presentation
 
-A deeper audit compared the candidate with the structure and evidence boundaries of WCAG, NIST AI RMF, human-AI interaction guidelines and the SSDF AI profile. It also reproduced three false positives in candidate.2: an altered acceptance criterion, an unrelated proposed-state destination, and an empty action-boundary inventory could each preserve PROCEED_TO_ENGINEERING.
+A deeper audit compared the candidate with the scope and evidence boundaries of NIST AI RMF, human-AI interaction guidelines and the SSDF AI profile. It also reproduced three false positives in candidate.2: an altered acceptance criterion, an unrelated proposed-state destination, and an empty action-boundary inventory could each preserve PROCEED_TO_ENGINEERING.
 
 ### Why rc.4 changed
 
@@ -72,7 +80,7 @@ Other correspondents' identities and comments remain private. A separate permiss
 - Usability fields for first use, confusing questions, difficult evidence, facilitator prompts and understanding of the next action.
 - Preserved rc.3 and first-candidate artifacts; no silent replacement or final-release promotion.
 
-The criteria structure takes inspiration from WCAG's principles/criteria/techniques hierarchy. It is not a W3C standard, accessibility certification, or proof of universal usability.
+The guide organizes its HCAI requirements into principles, criteria and practical checks. Its organization is not certification or proof of universal usability.
 
 ### What still needs evidence
 

@@ -1,5 +1,5 @@
 {
-  "protocol_version": "0.1-rc.4-candidate.5",
+  "protocol_version": "0.1-rc.4-candidate.6",
   "status": "candidate_unvalidated",
   "changes": [
     {
@@ -557,6 +557,34 @@
       "acceptance_tests": [
         "test_current_reader_text_has_no_em_or_en_dash",
         "test_candidate_four_remains_byte_frozen"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C28",
+      "observed_problem": "The author identified an inaccurate external accessibility-standard comparison in the project framing.",
+      "source_theme_ids": [],
+      "change": "Remove the origin claim and related references from current materials, correct the current presentation of earlier log entries, preserve candidate.5 and retain HCAI decision behavior.",
+      "requirements": [
+        "CLAIM_BOUNDARY",
+        "EDITORIAL_INTEGRITY",
+        "HISTORY_FROZEN"
+      ],
+      "files": [
+        "protocol/0.1-rc.4-candidate.6/PROTOCOL.md",
+        "docs/research-content.gohtml",
+        "docs/deep-audit.md",
+        "docs/research-boundary.md",
+        "docs/updates.md",
+        "skills/ai-ready/SKILL.md",
+        "historical/candidate-5-manifest.json"
+      ],
+      "acceptance_tests": [
+        "test_current_materials_do_not_claim_unrelated_standard_origin",
+        "test_candidate_five_remains_byte_frozen",
+        "test_editorial_release_preserves_external_citations",
+        "test_editorial_release_preserves_core_logic",
+        "test_editorial_release_preserves_fixture_decisions"
       ],
       "validation_status": "software_tests_only"
     }

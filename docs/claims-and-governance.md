@@ -1,6 +1,6 @@
 # Reporting results and managing changes
 
-Protocol 0.1-rc.4-candidate.5 · Candidate rules, not certification
+Protocol 0.1-rc.4-candidate.6 · Candidate rules, not certification
 
 ## Which requirements govern the review?
 
@@ -15,7 +15,7 @@ Every profile retains the six mandatory gates. QUICK-6 changes how a low-risk re
 | Evidence available | Permitted description | Unsupported shortcut |
 | --- | --- | --- |
 | Regression tests pass | This implementation passes the named synthetic regression suite at these versions. | The protocol is effective or the product is safe. |
-| Required gates and supplied human judgments pass | Evidence supports considering this bounded engineering step, subject to separate owner authorization. | Deployment ready, HCAI certified, or WCAG compliant. |
+| Required gates and supplied human judgments pass | Evidence supports considering this bounded engineering step, subject to separate owner authorization. | Deployment ready, HCAI certified, or compliant with an external standard. |
 | One actual permitted external use | One bounded formative use was recorded, with its scope and limitations. | Validated, widely adopted, or endorsed. |
 | Comparative study with an appropriate design | Describe the measured outcome, sample, comparator, uncertainty and limitations. | Universal benefit or claims outside the tested population/task. |
 

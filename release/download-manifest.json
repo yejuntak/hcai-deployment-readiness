@@ -1,33 +1,33 @@
 {
-  "protocol_version": "0.1-rc.4-candidate.5",
+  "protocol_version": "0.1-rc.4-candidate.6",
   "status": "candidate",
   "files": {
-    "HCAI-v0.1-rc.4-candidate.5.zip": {
-      "sha256": "40d4f52e783d35feab24d501a0edb35b3eab83b649940b194a209b2baf64e3ac",
-      "bytes": 13631599
+    "HCAI-v0.1-rc.4-candidate.6.zip": {
+      "sha256": "2cbe672f7ffcb431cf515e9555460cd5df389022fee74263ee368035637ada84",
+      "bytes": 27361599
     },
-    "ai-ready-0.2.0-rc.5.zip": {
-      "sha256": "48499339c988bafe3f710e0a0734e83e06a3b62a2db628ff9323426ff5dcb570",
-      "bytes": 74861
+    "ai-ready-0.2.0-rc.6.zip": {
+      "sha256": "f44db49e2152a8961be61ef4bd130d868f4c115f883d0864c6772fd7d695bc0c",
+      "bytes": 74754
     },
-    "hcai_readiness_mcp-0.2.0rc5-py3-none-any.whl": {
-      "sha256": "6c21b7320db3fb7cb1d93415d5bb1d9d62d92c9adc4b6c4ef8b37ba622e90e3e",
-      "bytes": 46478
+    "hcai_readiness_mcp-0.2.0rc6-py3-none-any.whl": {
+      "sha256": "0c40f3af1346815eff438134045acea067600f2c4586178d7fa4f8b9d511a43a",
+      "bytes": 46434
     },
-    "QUICK-6-v0.1-rc.4-candidate.5.pdf": {
-      "sha256": "cbe4593f8208b44191fb77b32ecb8af8e7cc184690c41781d05d5450337d71ac",
-      "bytes": 6224
+    "QUICK-6-v0.1-rc.4-candidate.6.pdf": {
+      "sha256": "244643d03eb71809b2e64676a66583911fb8cf757b5244ddc36d1fa3b383c90f",
+      "bytes": 6227
     },
-    "Protocol-v0.1-rc.4-candidate.5.pdf": {
-      "sha256": "615eb560dd13cca28902236327800dea84d700a655e2b291639958b11439aec5",
-      "bytes": 18008
+    "Protocol-v0.1-rc.4-candidate.6.pdf": {
+      "sha256": "6b5c04b70f68adecdfc7a841b0a634109d19883799a05bb27bd2d31708b1bbfd",
+      "bytes": 17445
     },
-    "Full-Profile-v0.1-rc.4-candidate.5.pdf": {
-      "sha256": "c3785bfaa3c0f274ef2465abc8593c6416a1bf9623e975a249a7794bfca5e9f2",
-      "bytes": 18919
+    "Full-Profile-v0.1-rc.4-candidate.6.pdf": {
+      "sha256": "c15043ab57500bc3ebc0c8fc92da59c9ec48e0e7d70bb4ee973e48d89d34b35b",
+      "bytes": 18920
     },
-    "External-Pilot-Packet-v0.1-rc.4-candidate.5.pdf": {
-      "sha256": "7b2ee2b52e3b317ca0f97aeb6ac3615323a50d6b2297f1a933cac9994183831c",
+    "External-Pilot-Packet-v0.1-rc.4-candidate.6.pdf": {
+      "sha256": "1cd04dc0661bc6f79850113afdd362425b12b5857df86cb030961c7132e1c946",
       "bytes": 3669
     }
   }

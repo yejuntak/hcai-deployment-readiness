@@ -1,6 +1,6 @@
-# Editorial review: candidates.4 and .5
+# Editorial review: candidates.4 through .6
 
-September 24, 2026 · Protocol 0.1-rc.4-candidate.5 · MCP 0.2.0rc5 · Skill/contract 0.2.0-rc.5
+September 24, 2026 · Protocol 0.1-rc.4-candidate.6 · MCP 0.2.0rc6 · Skill/contract 0.2.0-rc.6
 
 ## Scope and method
 
@@ -8,7 +8,7 @@ Candidate.4 applied the actual **Academic Humanize v2.0.0** skill (`academic-hum
 
 The skill file used has SHA-256 `859f9a7a6d739dbf6fce054c10360654fecfd9036262e0e88085ab980d622bfc`. It was read in full before editing. No publication venue was specified, so the revision uses general scientific-writing conventions for the research material and plain instructions for practitioner guides.
 
-The scope excludes private correspondence, the supplied topic-approval form, synced reference files, recorded feedback and frozen releases. Earlier changelog entries retain their content; candidate.5 normalizes their punctuation in the current reading copy. Frozen originals remain unchanged. These records must not be rewritten to fit the current author's voice.
+The scope excludes private correspondence, the supplied topic-approval form, synced reference files, recorded feedback and frozen releases. Candidate.5 normalizes punctuation in the current reading copy. Candidate.6 corrects an inaccurate external-standard comparison in the current materials and earlier update entries at the author's request. Frozen originals remain unchanged. These records must not be rewritten to fit the current author's voice.
 
 ## What changed
 
@@ -26,7 +26,7 @@ One cost paragraph could be read as subtracting residual manual work twice. It n
 
 ## Integrity checks
 
-Candidate.4 froze the candidate.3 documents, packages and published web assets. Candidate.5 also freezes candidate.4 and uses its own download path. Tests compare the decision engine, contracts and record logic with the frozen distribution and compare all nine assessment fixtures across versions, allowing only version/provenance identity differences. Criterion IDs, gate mappings and external citations are checked separately.
+Candidate.4 froze the candidate.3 documents, packages and published web assets. Candidate.5 freezes candidate.4; candidate.6 freezes candidate.5. Each has its own download path. Tests compare the decision engine, contracts and record logic with the frozen distribution and compare all nine assessment fixtures across versions, allowing only version/provenance identity differences. Criterion IDs and gate mappings are checked separately. Candidate.6 deliberately removes the unrelated accessibility-standard references; other external citations remain checked against the frozen baseline. This requested framing correction is distinct from the candidate.4 prose edit.
 
 An internal prose audit reviewed generic transitions, inflated claims, repeated sentence patterns, mechanical contrasts, paragraph structure and study-specific detail. Candidate.4 removed stylistic em dashes but retained range notation. At the author's request, candidate.5 also removes every remaining em dash and en dash from current reader-facing text, including ranges. Range endpoints, ordinary hyphens and mathematical minus signs are preserved. Precise requirement lists were retained where their repetition serves the review.
 
@@ -34,4 +34,4 @@ No supported external AI detector was available, so no detector result is report
 
 Software checks cannot determine whether readers prefer the new wording or understand it better. Those questions require actual use. No new pilot, endorsement, measured usability result or effectiveness evidence is added by this revision.
 
-See the [test record](/static/research/ai-readiness/rc4-candidate-5/rc4-test-results.json), [release status](/static/research/ai-readiness/rc4-candidate-5/rc4-release-readiness.json) and [update log](https://www.takyejun.com/research/ai-readiness/updates).
+See the [test record](/static/research/ai-readiness/rc4-candidate-6/rc4-test-results.json), [release status](/static/research/ai-readiness/rc4-candidate-6/rc4-release-readiness.json) and [update log](https://www.takyejun.com/research/ai-readiness/updates).

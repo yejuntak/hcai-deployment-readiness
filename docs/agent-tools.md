@@ -1,6 +1,6 @@
 # Use the MCP server or ai-ready Skill
 
-Protocol 0.1-rc.4-candidate.5; MCP 0.2.0rc5; Skill/contract 0.2.0-rc.5. The historical DOI and tags identify earlier releases only.
+Protocol 0.1-rc.4-candidate.6; MCP 0.2.0rc6; Skill/contract 0.2.0-rc.6. The historical DOI and tags identify earlier releases only.
 
 ## Install the MCP server
 

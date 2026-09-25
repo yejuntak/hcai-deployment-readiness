@@ -1,6 +1,10 @@
 # Migrating rc.3 records and tools to rc.4-candidate
 
-## Current punctuation release: candidate.5
+## Current framing correction: candidate.6
+
+Protocol 0.1-rc.4-candidate.6, MCP 0.2.0rc6 and Skill/contract 0.2.0-rc.6 remove an inaccurate external-standard comparison. No required field, gate, risk threshold or calculation changes. Use this compatibility set for new runs and retain exact versions on previous records. Candidate.5 remains frozen in historical/candidate-5-manifest.json and historical/candidate-5-site-manifest.json.
+
+## Previous punctuation release: candidate.5
 
 Protocol 0.1-rc.4-candidate.5, MCP 0.2.0rc5 and Skill/contract 0.2.0-rc.5 remove em dashes and en dashes from the current text. No required field, gate, risk threshold or calculation changes. Keep old records and exact versions; use the new compatibility set for new runs. Candidate.4 artifacts are preserved in historical/candidate-4-manifest.json and historical/candidate-4-site-manifest.json.
 

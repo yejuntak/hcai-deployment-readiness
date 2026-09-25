@@ -33,6 +33,6 @@ Counterbalance fidelity and order across scenarios. Account for repeated and cro
 
 Restrict conclusions to the bounded task, sampled scenarios and eligible participants with selection limitations. A study of designers' prototype review does not by itself generalize to all software engineers, autonomous agents, business owners or AI oversight. Extending the practice guide to AI-assisted/agentic coding is an application hypothesis to test, not a demonstrated research finding.
 
-## Why the guide borrows a layered structure
+## How to find the detail you need
 
-The guide separates broad principles and stable testable criteria from explanations, examples and techniques. Readers can consult the level of detail their task requires. This is a structural analogy to [W3C WCAG 2.0's layers of guidance](https://www.w3.org/TR/WCAG20/#intro-layers-guidance), not an adaptation of its accessibility requirements. There is no W3C affiliation, A/AA/AAA level, legal compliance claim or HCAI certification. Accessibility, security, privacy, domain safety and deployment assurance still need their own applicable reviews.
+The guide separates broad principles and stable testable criteria from explanations, examples and techniques. Readers can consult the level of detail their task requires. The protocol is an author-defined HCAI engineering-commitment review, not a legal compliance assessment or certification. Accessibility, security, privacy, domain safety and deployment assurance still need their own applicable reviews.

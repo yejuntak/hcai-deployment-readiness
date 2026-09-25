@@ -16,4 +16,4 @@ Candidate.2 introduced scope, connected current-state steps, original evidence o
 
 Candidate.3 added requirement/context fingerprints, connected proposed-state transitions, context risk flags, affected-person impact reviews, recorded human evidence-quality review and complete pilot routing records. Candidate.4 edits the documentation and tool guidance without changing these contracts or the decision rules. Its exact compatibility versions identify the new distribution; existing runs retain their original versions.
 
-Candidate.5 removes em dashes and en dashes from current prose and advances the exact distribution identities. Required fields and decision rules remain unchanged.
+Candidate.5 removes em dashes and en dashes from current prose and advances the exact distribution identities. Candidate.6 corrects an inaccurate external-standard comparison. Required fields and decision rules remain unchanged.

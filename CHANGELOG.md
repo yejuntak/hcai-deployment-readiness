@@ -1,3 +1,11 @@
+# Protocol 0.1-rc.4-candidate.6: September 24, 2026
+
+MCP 0.2.0rc6; ai-ready Skill/contract 0.2.0-rc.6. Candidate.5 remains frozen.
+
+## Why rc.4 changed
+
+Corrected an inaccurate external-standard comparison at the author's request. Removed the origin claim and related references from the current page, protocol, audit, research boundary and Skill materials. The current reading copy of earlier update entries reflects this correction; archived originals remain unchanged. Other citations and all decision rules remain. C28 records this framing correction, not new validation.
+
 # Protocol 0.1-rc.4-candidate.5: September 24, 2026
 
 MCP 0.2.0rc5; ai-ready Skill/contract 0.2.0-rc.5. Candidate.4 remains frozen.

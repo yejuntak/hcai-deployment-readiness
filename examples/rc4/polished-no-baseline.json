@@ -2,10 +2,10 @@
   "run_id": "SYNTHETIC-POLISHED-NO-BASELINE",
   "recorded_at": "2026-09-24T12:00:00-05:00",
   "versions": {
-    "protocol": "0.1-rc.4-candidate.5",
-    "mcp": "0.2.0rc5",
-    "skill": "0.2.0-rc.5",
-    "contract": "0.2.0-rc.5"
+    "protocol": "0.1-rc.4-candidate.6",
+    "mcp": "0.2.0rc6",
+    "skill": "0.2.0-rc.6",
+    "contract": "0.2.0-rc.6"
   },
   "evaluator_kind": "synthetic",
   "requested_profile": "QUICK6",

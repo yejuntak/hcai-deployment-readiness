@@ -1,6 +1,6 @@
 # Audit findings and the evidence needed for adoption
 
-September 24, 2026 · Protocol 0.1-rc.4-candidate.5 · Author-defined candidate
+September 24, 2026 · Protocol 0.1-rc.4-candidate.6 · Author-defined candidate
 
 ## Assessment
 
@@ -10,17 +10,15 @@ The audit supports retaining a narrow scope: a bounded engineering decision with
 
 ## Comparison with established guidance
 
-Exa returned 20 search results across four angles: accessibility standards, AI risk governance, human-AI interaction, and software assurance. Duplicate URLs/DOI versions and superseded drafts were not counted as independent support. The primary sources below ground the comparison; this was a targeted comparison, not an exhaustive systematic review.
+The primary sources below provide context on AI risk governance, human-AI interaction and software assurance. This is a targeted comparison, not an exhaustive systematic review. These sources do not establish the protocol's effectiveness or endorsement by their authors.
 
 | Reference | Relevant lesson | Consequence for this candidate |
 | --- | --- | --- |
-| [WCAG 2.2](https://www.w3.org/TR/WCAG22/) | Technology-independent requirements are separated from supporting explanations and techniques. Its status also reflects a consensus process, not only document structure. | Keep stable criterion IDs, a defined scope and clear requirements. Do not borrow W3C status, A/AA/AAA labels, or certification language. |
-| [W3C guidance on test rules](https://www.w3.org/WAI/WCAG22/Understanding/understanding-act-rules.html) | A passing partial check does not establish every aspect of a success criterion. | State the automated-check boundary in every result; require human evidence-quality review. |
 | [NIST AI RMF 1.0 Core](https://airc.nist.gov/airmf-resources/airmf/5-sec-core/) | Risk management involves context, diverse perspectives, and continuing governance across the lifecycle; its functions are not a simple ordered checklist. | Screen affected people and consequences. Keep this narrower engineering decision distinct from lifecycle risk management. |
 | [Guidelines for Human-AI Interaction, CHI 2019](https://www.microsoft.com/en-us/research/publication/guidelines-for-human-ai-interaction/) | The original work reports multiple evaluation rounds, including practitioner application. Guidance and demonstrated applicability are different accomplishments. | Test whether people can interpret and apply this protocol; do not equate correspondence with comparable evaluation. |
 | [NIST SSDF AI community profile, SP 800-218A](https://www.nist.gov/publications/secure-software-development-practices-generative-ai-and-dual-use-foundation-models-ssdf) | The AI-specific profile supplements the SSDF and explicitly defines its scope. | Route security concerns to appropriate engineering review. This profile does not replace secure development or certify generated code. |
 
-The W3C also distinguishes functional conformance checks from usability testing and recommends involving people with disabilities in usability evaluation. The protocol's own reading experience needs that work too. HTML is the primary reading alternative to the untagged PDFs; no WCAG conformance claim is made. [W3C conformance guidance](https://www.w3.org/WAI/WCAG22/Understanding/conformance)
+The protocol's own reading experience still needs usability evaluation, including use by people with disabilities. HTML is the primary reading alternative to the untagged PDFs. The software tests do not establish accessibility or ease of use.
 
 ## Problems reproduced in the candidate.3 audit
 
@@ -42,7 +40,7 @@ The first three findings were reproduced as PROCEED_TO_ENGINEERING before correc
 
 The intended process gives the participant one question at a time and identifies a next action. The facilitator maintains the detailed evidence record. A shared note can support several checks, so a new document is not required for every field. References, criteria and schemas remain available when needed.
 
-The [conversation worksheet](/static/research/ai-readiness/rc4-candidate-5/WORKSHEET.html) makes this division explicit. It is not a shortcut around evidence. If evidence must be created from scratch, the short session stops and identifies the discovery work. Preparation, session and capture time remain visible.
+The [conversation worksheet](/static/research/ai-readiness/rc4-candidate-6/WORKSHEET.html) makes this division explicit. It is not a shortcut around evidence. If evidence must be created from scratch, the short session stops and identifies the discovery work. Preparation, session and capture time remain visible.
 
 There is a real tradeoff: stronger evidence requirements may make QUICK-6 less attainable. The <=15-minute target is conditional on an available evidence packet and a low-risk case. Do not advertise an end-to-end 15-minute implementation assessment. A pilot should test whether even this narrower target is useful and realistic. If not, revise the process or the target rather than hiding preparation time.
 
@@ -63,4 +61,4 @@ No stage above is reported as completed. No sample sizes, effects, adoption tota
 
 Keep public, versioned requirements and examples; a no-install path; interoperable records; clear licenses; correction procedures; and a visible record of disputed interpretations. Allow domain profiles to add checks without weakening mandatory gates. Distinguish a request, a reported problem, a reproduced defect, software verification, actual use and empirical evidence. Do not turn downloads, email replies or interest into adoption metrics.
 
-Read [claims and governance](claims-and-governance.md), the [update log](https://www.takyejun.com/research/ai-readiness/updates), and the [current verification record](/static/research/ai-readiness/rc4-candidate-5/rc4-test-results.json). These records allow others to inspect the work; they do not establish the protocol as an international standard.
+Read [claims and governance](claims-and-governance.md), the [update log](https://www.takyejun.com/research/ai-readiness/updates), and the [current verification record](/static/research/ai-readiness/rc4-candidate-6/rc4-test-results.json). These records allow others to inspect the work; they do not establish the protocol as an international standard.
