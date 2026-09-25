@@ -2,10 +2,10 @@
   "run_id": "SYNTHETIC-DOCUMENTATION-NO-OPERATIONAL-EVIDENCE",
   "recorded_at": "2026-09-24T12:00:00-05:00",
   "versions": {
-    "protocol": "0.2-preview.1",
-    "mcp": "0.2.0rc7",
-    "skill": "0.2.0-rc.7",
-    "contract": "0.2.0-rc.7"
+    "protocol": "0.2-preview.2",
+    "mcp": "0.2.0rc8",
+    "skill": "0.2.0-rc.8",
+    "contract": "0.2.0-rc.8"
   },
   "evaluator_kind": "synthetic",
   "requested_profile": "FULL",

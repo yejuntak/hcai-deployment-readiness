@@ -54,7 +54,7 @@ def footer(canvas, doc):
 def build(source, destination):
     lines = source.read_text().splitlines()
     body_style = styles["BodyCandidate"]
-    if source.name == "hard-0.2-preview-1-external-packet.md":
+    if source.name == "hard-0.2-preview-2-external-packet.md":
         body_style = ParagraphStyle(name="PacketBody", parent=body_style, fontSize=11, leading=14.5, spaceAfter=5)
     story = []
     i = 0
@@ -117,10 +117,10 @@ def build(source, destination):
 def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     docs = {
-        "protocol/0.2-preview.1/PROTOCOL.md": "HARD-Protocol-0.2-preview.1.pdf",
-        "protocol/0.2-preview.1/QUICK-6.md": "HARD-QUICK-6-0.2-preview.1.pdf",
-        "protocol/0.2-preview.1/FULL-PROFILE.md": "HARD-Full-Profile-0.2-preview.1.pdf",
-        "Pilot-Kit/hard-0.2-preview-1-external-packet.md": "HARD-External-Pilot-Packet-0.2-preview.1.pdf",
+        "protocol/0.2-preview.2/PROTOCOL.md": "HARD-Protocol-0.2-preview.2.pdf",
+        "protocol/0.2-preview.2/QUICK-6.md": "HARD-QUICK-6-0.2-preview.2.pdf",
+        "protocol/0.2-preview.2/FULL-PROFILE.md": "HARD-Full-Profile-0.2-preview.2.pdf",
+        "Pilot-Kit/hard-0.2-preview-2-external-packet.md": "HARD-External-Pilot-Packet-0.2-preview.2.pdf",
     }
     for source, name in docs.items():
         build(ROOT / source, OUTPUT / name)

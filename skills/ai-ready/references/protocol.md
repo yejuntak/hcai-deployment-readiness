@@ -1,17 +1,21 @@
-# HARD Protocol 0.2
+# H.A.R.D. Protocol 0.2
 
-Human-centered AI Readiness Deployment Protocol  
-HARD Protocol 0.2 · Public Preview
+Human-centered AI Readiness and Decision Protocol  
+H.A.R.D. Protocol 0.2 · Public Preview
 
 ## What this helps you decide
 
-**Is there enough evidence to commit engineering resources to this bounded workflow?**
+AI-assisted work can arrive with a convincing visual surface before its underlying decisions have been reviewed. The practical concern is the missing review step: information hierarchy, meaningful choices, dependencies, failure paths, technical evidence and the work left to people. A polished artifact may be correct or defective; appearance alone cannot resolve that question.
+
+**Is this AI-created or AI-enabled workflow ready for the next step?**
+
+Use six questions to decide whether to invest in building it, revise it, or gather missing evidence. Here, the next step means a bounded engineering commitment with a named owner and resource limit.
 
 A booking screen can look complete yet lose a customer's details after a payment failure. A test report can show a pass for code that an agent has since changed. This protocol asks reviewers to examine the evidence for the proposed workflow before the team commits engineering resources.
 
 The intended uses include proposed workflows, interface prototypes, and AI-assisted, “vibe-coded,” or agent-built artifacts. Record whether AI helped create the artifact, will act within the service, or both. These applications do not establish that AI authorship causes defects.
 
-The name includes deployment, but this protocol **does not approve deployment**. It neither measures full-system performance nor certifies software quality. The evidence needed to fund engineering differs from the evidence needed to permit operation.
+Decision refers to this limited next-step recommendation. The protocol **does not approve deployment**. It neither measures full-system performance nor certifies software quality. The evidence needed to fund engineering differs from the evidence needed to permit operation.
 
 ## Choose a reading path
 
@@ -23,6 +27,21 @@ The name includes deployment, but this protocol **does not approve deployment**.
 - Higher risk, missing evidence, or a longer review? Use the [full profile](FULL-PROFILE.md).
 
 An advisor can ask the questions aloud and record answers. Participants need no software installation or knowledge of the data format. When an answer is unknown, record the gap and identify the evidence needed to resolve it.
+
+## Inspect the structure beneath the artifact
+
+Keep the original artifact and its exact revision. When presentation makes the work difficult to discuss, create a separate review view: a task outline, information hierarchy, wireframe, state map or annotated trace. Preserve labels, requirements and known behavior. Mark unspecified parts as unknown; do not invent them to complete a diagram. Blurring a screen is not itself a review method.
+
+Use four views of the same work:
+
+- Experience and information: task hierarchy, labels, competing choices, duplicate actions and alignment with user needs. A preference about style is not a defect without a relevant requirement or evidence.
+- Workflow and architecture: states, dependencies, transitions, data movement, authority and recovery.
+- Implementation and evidence: which behavior is specified, simulated or implemented, and which exact revision each test covers.
+- People and operation: ownership, checking, correction, escalation, support and residual manual work.
+
+These views help collect the existing evidence. They are not four scores or additional gates. Map findings to requirements, the original artifact and the six gates below. Information and affected-person concerns inform G2; workflow and authority inform G3; exact-revision checks inform G4; remaining human work informs G5. G1 supplies the baseline and G6 bounds the commitment. A simplified view cannot replace executed validation or human evidence-quality review.
+
+The architecture-previsualization anecdote described in the [research boundary](../../docs/research-boundary.md) motivated the author's question. It is not empirical support for a watercolor treatment, lower fidelity or this protocol improving review.
 
 ## The six review questions
 
@@ -116,10 +135,10 @@ Practitioner correspondence informed refinement; it is not controlled empirical 
 
 Records are private by default. Publish only separately permission-checked material. Hillel Glazer approved attribution; other correspondence is represented by anonymized themes unless explicit permission is documented. Do not upload confidential artifacts simply to complete a field.
 
-rc.3 and all six rc.4 candidates remain frozen. HARD Protocol 0.2 is a Public Preview with unchanged gates, risk thresholds and calculations. Release review still requires passing regressions and recorded bounded external end-user/advisor use, neither of which proves effectiveness. Research Harness v3 is a separate project.
+rc.3 and all six rc.4 candidates remain frozen. H.A.R.D. Protocol 0.2 is a Public Preview with unchanged gates, risk thresholds and calculations. Release review still requires passing regressions and recorded bounded external end-user/advisor use, neither of which proves effectiveness. Research Harness v3 is a separate project.
 
 Whether this review improves engineering decisions remains untested. See the [deep audit and validation roadmap](../../docs/deep-audit.md) and [claims and governance rules](../../docs/claims-and-governance.md).
 
 See the [linked update log](https://www.takyejun.com/research/ai-readiness/updates) and [migration notes](../../docs/migration-rc3-to-rc4.md).
 
-Execution versions: protocol 0.2-preview.1 · MCP 0.2.0rc7 · Skill/contract 0.2.0-rc.7.
+Execution versions: protocol 0.2-preview.2 · MCP 0.2.0rc8 · Skill/contract 0.2.0-rc.8.

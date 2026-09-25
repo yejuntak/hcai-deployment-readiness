@@ -1,16 +1,18 @@
-# Migrating to HARD Protocol 0.2
+# Migrating to H.A.R.D. Protocol 0.2
 
-HARD Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.2 · Public Preview
 
-## From candidate.6 to HARD Protocol 0.2
+## Current naming revision
 
-The public name is HARD Protocol 0.2; the full name is Human-centered AI Readiness Deployment Protocol. Public Preview is a release-status label, not part of the version number or proof of effectiveness.
+See [the first-preview migration](decision-naming-migration.md) for the change from Deployment to Decision. The first 0.2 preview is preserved alongside candidate.6 and earlier releases.
 
-Use exact versions protocol 0.2-preview.1, MCP 0.2.0rc7 and Skill/contract 0.2.0-rc.7 for new runs. Display version 0.2 is not a valid substitute in an execution record. The schema structure, six gates, fifteen criteria and calculations are unchanged. Existing commands, package names, hcai:// resource URIs, API names, data fields and ai-ready invocation remain.
+The public name is H.A.R.D. Protocol 0.2; the full name is Human-centered AI Readiness and Decision Protocol. Public Preview is a release-status label, not part of the version number or proof of effectiveness.
+
+Use exact versions protocol 0.2-preview.2, MCP 0.2.0rc8 and Skill/contract 0.2.0-rc.8 for new runs. Display version 0.2 is not a valid substitute in an execution record. The schema structure, six gates, fifteen criteria and calculations are unchanged. Existing commands, package names, hcai:// resource URIs, API names, data fields and ai-ready invocation remain.
 
 Keep old records with their original exact versions and original software. The new runtime rejects mismatched versions instead of rewriting them. To continue an older assessment, create a new run with previous_run_id and revision_summary, retaining only evidence that still applies. No new pass, observation or human review is created by this naming transition.
 
-Candidate.6 is preserved in historical/candidate-6-manifest.json and historical/candidate-6-site-manifest.json. New downloads use /static/research/ai-readiness/hard-0.2-preview-1/. Older URLs remain unchanged. The public name and release label are stored separately from the exact execution version set. The internal REMAIN_CANDIDATE release-check value is retained for API compatibility and means Public Preview must remain; it cannot authorize a finalized release.
+Candidate.6 is preserved in historical/candidate-6-manifest.json and historical/candidate-6-site-manifest.json. New downloads use /static/research/ai-readiness/hard-0.2-preview-2/. Older URLs remain unchanged. The public name and release label are stored separately from the exact execution version set. The internal REMAIN_CANDIDATE release-check value is retained for API compatibility and means Public Preview must remain; it cannot authorize a finalized release.
 
 The following notes are historical. They retain the names and versions used at the time.
 

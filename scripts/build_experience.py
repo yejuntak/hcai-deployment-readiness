@@ -22,15 +22,11 @@ def page(title, body):
 def render_research_page():
     """Render the overview only, without rewriting frozen release artifacts."""
     catalogue = criteria_catalog()
-    chunks = []
-    for principle in catalogue['principles']:
-        chunks.append('<div class="o-card-archetype stack stack-3"><h3 class="t-title-m">'+html.escape(principle['title'])+'</h3><ul class="research-rule-links t-body-m">')
-        for criterion in catalogue['criteria']:
-            if criterion['id'].startswith('HCAI-'+principle['id']+'.'):
-                cid = html.escape(criterion['id'])
-                label = html.escape(criterion['id']+' · '+criterion['title'])
-                chunks.append('<li id="'+cid+'"><a class="link" href="/research/ai-readiness/developers#'+cid+'">'+label+'</a></li>')
-        chunks.append('</ul></div>')
+    chunks = ['<div class="hard-legacy-anchors" aria-hidden="true">']
+    for criterion in catalogue['criteria']:
+        cid = html.escape(criterion['id'])
+        chunks.append('<span id="'+cid+'" class="sr-only">'+cid+'</span>')
+    chunks.append('</div>')
     template = (ROOT/'docs/research-content.gohtml').read_text().replace('<!-- CRITERIA -->','\n'.join(chunks))
     for key, value in {'@@HARD_TITLE@@':public_title(), '@@HARD_FULL_NAME@@':PROTOCOL_FULL_NAME, '@@HARD_STATUS@@':RELEASE_LABEL}.items():
         template = template.replace(key, html.escape(value))
@@ -42,7 +38,7 @@ def main():
     args = parser.parse_args()
     output = ROOT/'docs/web'
     output.mkdir(exist_ok=True)
-    sources = list(PROTOCOL.glob('*.md')) + [ROOT/'docs'/name for name in ('updates.md','agent-tools.md','migration-rc3-to-rc4.md','research-boundary.md','deep-audit.md','claims-and-governance.md','editorial-review.md')]
+    sources = list(PROTOCOL.glob('*.md')) + [ROOT/'docs'/name for name in ('updates.md','agent-tools.md','migration-rc3-to-rc4.md','decision-naming-migration.md','research-boundary.md','deep-audit.md','claims-and-governance.md','editorial-review.md')]
     names = {p.name:p.stem+'.html' for p in sources}
     for source in sources:
         text = source.read_text()
@@ -73,10 +69,8 @@ def main():
         target.mkdir(parents=True,exist_ok=True)
         for p in output.glob('*.html'):
             shutil.copyfile(p,target/p.name)
-        path=args.site_root/'templates/research.gohtml'
-        existing=path.read_text()
-        preview=existing[existing.index('{{define "research-preview"}}'):]
-        path.write_text(template+'\n'+preview)
+        # Runtime templates use shared site components. Publishing reading views
+        # must not replace that composition with the standalone HTML version.
     print('Generated linked reading views, criteria, synthetic report and shared research page')
 
 if __name__=='__main__':

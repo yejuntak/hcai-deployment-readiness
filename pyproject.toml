@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hcai-readiness-mcp"
-version = "0.2.0rc7"
-description = "Local MCP tools for HARD Protocol 0.2 Public Preview, an engineering-commitment evidence review"
+version = "0.2.0rc8"
+description = "Local MCP tools for H.A.R.D. Protocol 0.2 Public Preview, an engineering-commitment evidence review"
 readme = "docs/agent-tools.md"
 requires-python = ">=3.11"
 license = "MIT AND CC-BY-4.0"

@@ -7,12 +7,12 @@ from mcp.types import ToolAnnotations
 from .assessment import Session, Judgment, calculate_session, summarize_judgments
 from .contracts import Assessment, PilotRun, FeedbackEntry, StudyReview
 from .engine import assess, DEPTH, CONTEXT_FLOORS, validation_targets
-from .versions import versions, public_title, PROTOCOL_NAME, RELEASE_LABEL
+from .versions import versions, public_title, PROTOCOL_NAME, PROTOCOL_FULL_NAME, RELEASE_LABEL
 from .records import public_feedback, release_readiness
 from .guidance import GUIDES, new_review, guided_review, criterion_guide, criteria_catalog
 from .reporting import render_report
 
-mcp = FastMCP(PROTOCOL_NAME, instructions=f"{public_title()} · {RELEASE_LABEL}. Exact protocol {versions()['protocol']}. Create a record with new_review_record, ask one question at a time using review_next_step, and return an assessment_report. Use supplied evidence; do not invent answers. The deterministic gates support an upstream engineering recommendation and cannot authorize deployment. Retain exact versions and human/agent provenance. Legacy tools reproduce rc.3 only, which is the release identified by the historical DOI.")
+mcp = FastMCP(PROTOCOL_NAME, instructions=f"{public_title()} · {RELEASE_LABEL}. {PROTOCOL_FULL_NAME}. Exact protocol {versions()['protocol']}. Inspect the work beneath a finished-looking artifact: information, workflow, implementation evidence and human responsibilities. A separate structure view can help discussion but cannot invent evidence, pass a gate or be introduced into a study outside its design. Create a record with new_review_record, ask one question at a time using review_next_step, and return an assessment_report. Use supplied evidence; do not invent answers. The deterministic gates support an upstream engineering recommendation and cannot authorize deployment. Retain exact versions and human/agent provenance. Legacy tools reproduce rc.3 only, which is the release identified by the historical DOI.")
 READ_ONLY = ToolAnnotations(readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
 
 @mcp.tool(annotations=READ_ONLY)
@@ -92,7 +92,7 @@ def export_public_feedback(entries: list[FeedbackEntry]) -> list[dict]:
 
 @mcp.resource("hcai://protocol")
 def protocol() -> str:
-    """Current HARD Protocol Public Preview; synthetic cases are stored separately."""
+    """Current H.A.R.D. Protocol Public Preview; synthetic cases are stored separately."""
     return files("hcai_readiness").joinpath("protocol.md").read_text()
 
 @mcp.resource("hcai://criteria")

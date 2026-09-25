@@ -1,8 +1,8 @@
 # Reporting results and managing changes
 
-HARD Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.2 · Public Preview
 
-Exact protocol 0.2-preview.1. Preview rules, not certification.
+Exact protocol 0.2-preview.2. Preview rules, not certification.
 
 ## Which requirements govern the review?
 

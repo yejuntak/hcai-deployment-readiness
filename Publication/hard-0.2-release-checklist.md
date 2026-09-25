@@ -1,6 +1,6 @@
-# HARD Protocol 0.2: Public Preview release checks
+# H.A.R.D. Protocol 0.2: Public Preview release checks
 
-The current distribution is Public Preview. Public version 0.2 is not a finalized-release or empirical-validation claim. Exact protocol 0.2-preview.1, MCP 0.2.0rc7 and Skill/contract 0.2.0-rc.7 identify this compatibility set.
+The current distribution is Public Preview. Public version 0.2 is not a finalized-release or empirical-validation claim. Exact protocol 0.2-preview.2, MCP 0.2.0rc8 and Skill/contract 0.2.0-rc.8 identify this compatibility set.
 
 1. Freeze published predecessor artifacts and verify their hashes.
 2. Check common identity metadata, current protocol copies, generated guides, schemas and examples.

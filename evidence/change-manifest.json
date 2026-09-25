@@ -1,7 +1,27 @@
 {
-  "protocol_version": "0.2-preview.1",
+  "protocol_version": "0.2-preview.2",
   "status": "candidate_unvalidated",
   "changes": [
+    {
+      "id": "C31",
+      "observed_problem": "The author clarified the research origin: polished AI-created artifacts can conceal an unreviewed intermediate layer. The overview duplicated the developer library and exposed too many competing actions while making the library hard to find.",
+      "source_theme_ids": [],
+      "change": "Present H.A.R.D. as initials; introduce a preserved-original structural review aid across experience, architecture, implementation and operation; separate overview and library responsibilities; expose two hero paths and keep detailed tools in the library. Preserve the study boundary and existing gates.",
+      "requirements": ["PURPOSE_CLARITY", "PROGRESSIVE_DISCLOSURE", "CLAIM_BOUNDARY", "DECISION_PARITY"],
+      "files": ["protocol/0.2-preview.2/PROTOCOL.md", "protocol/0.2-preview.2/START-HERE.md", "docs/research-boundary.md", "docs/research-content.gohtml", "src/hcai_readiness/server.py", "skills/ai-ready/SKILL.md"],
+      "acceptance_tests": ["test_overview_links_to_all_canonical_rules_without_duplicating_them", "test_overview_explains_the_missing_layer_without_claiming_a_result", "test_decision_name_preserves_first_preview_method_and_fixtures", "test_stdio_roundtrip"],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C30",
+      "observed_problem": "The author found Deployment too technical and liable to imply release approval, and approved Decision as the new D in HARD.",
+      "source_theme_ids": [],
+      "change": "Use Human-centered AI Readiness and Decision Protocol with a plain next-step question; preserve HARD Protocol 0.2 Public Preview, freeze the first preview, and version new tool packages without changing the method.",
+      "requirements": ["IDENTITY_CONSISTENCY", "VERSION_PROVENANCE", "CLAIM_BOUNDARY", "HISTORY_FROZEN"],
+      "files": ["src/hcai_readiness/versions.py", "protocol/0.2-preview.2/PROTOCOL.md", "skills/ai-ready/SKILL.md", "docs/decision-naming-migration.md", "docs/research-content.gohtml", "historical/hard-preview-1-manifest.json"],
+      "acceptance_tests": ["test_first_hard_preview_and_all_published_assets_remain_frozen", "test_decision_name_preserves_first_preview_method_and_fixtures", "test_decision_identity_scope_and_versioned_guides", "test_hard_public_identity_and_generated_surfaces", "test_editorial_release_preserves_fixture_decisions", "test_stdio_roundtrip"],
+      "validation_status": "software_tests_only"
+    },
     {
       "id": "C01",
       "observed_problem": "The historical title and generic ready language can be mistaken for deployment authorization.",

@@ -19,21 +19,21 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_hard_public_identity_and_generated_surfaces():
     assert identity() == {
-        'name': 'HARD Protocol',
-        'full_name': 'Human-centered AI Readiness Deployment Protocol',
+        'name': 'H.A.R.D. Protocol',
+        'full_name': 'Human-centered AI Readiness and Decision Protocol',
         'display_version': '0.2', 'release_label': 'Public Preview',
-        'distribution_id': 'hard-0.2-preview-1',
+        'distribution_id': 'hard-0.2-preview-2',
     }
     assert json.loads((ROOT/'identity.json').read_text()) == identity()
-    assert public_title() == 'HARD Protocol 0.2'
+    assert public_title() == 'H.A.R.D. Protocol 0.2'
     surfaces = list((ROOT/'protocol'/versions()['protocol']).glob('*.md'))
     surfaces += [ROOT/p for p in ('README.md', 'skills/ai-ready/SKILL.md',
-                  'Pilot-Kit/hard-0.2-preview-1-external-packet.md')]
+                  'Pilot-Kit/hard-0.2-preview-2-external-packet.md')]
     for path in surfaces:
         text = path.read_text()
         assert public_title() in text and 'Public Preview' in text, path
         assert versions()['protocol'] in text, path
-    assert 'display_name: "HARD Protocol"' in (ROOT/'skills/ai-ready/agents/openai.yaml').read_text()
+    assert 'display_name: "H.A.R.D. Protocol"' in (ROOT/'skills/ai-ready/agents/openai.yaml').read_text()
     assert 'name: ai-ready' in (ROOT/'skills/ai-ready/SKILL.md').read_text()
     for path in (ROOT/'index.html', ROOT/'docs/index.html'):
         text = path.read_text()
@@ -48,8 +48,8 @@ def test_hard_public_identity_and_generated_surfaces():
 
 
 def test_hard_execution_versions_and_legacy_record_boundary():
-    exact = {'protocol': '0.2-preview.1', 'mcp': '0.2.0rc7',
-             'skill': '0.2.0-rc.7', 'contract': '0.2.0-rc.7'}
+    exact = {'protocol': '0.2-preview.2', 'mcp': '0.2.0rc8',
+             'skill': '0.2.0-rc.8', 'contract': '0.2.0-rc.8'}
     assert versions() == exact == json.loads((ROOT/'versions.json').read_text())
     assert new_review('HARD-NEW', '2026-09-24T12:00:00Z', 'human')['versions'] == exact
     archive_path = ROOT/'release/HCAI-v0.1-rc.4-candidate.6.zip'

@@ -1,23 +1,23 @@
-# HARD Protocol 0.2
+# H.A.R.D. Protocol 0.2
 
-Human-centered AI Readiness Deployment Protocol  
+Human-centered AI Readiness and Decision Protocol  
 **Public Preview**
 
-Exact execution versions: protocol **0.2-preview.1** · MCP **0.2.0rc7** · Skill/contract **0.2.0-rc.7**. Existing hcai-readiness commands and the ai-ready invocation remain supported.
+Exact execution versions: protocol **0.2-preview.2** · MCP **0.2.0rc8** · Skill/contract **0.2.0-rc.8**. Existing hcai-readiness commands and the ai-ready invocation remain supported.
 
-Use this protocol to review the evidence before committing engineering resources to a defined workflow. Start with the current work, the end-user need and the risks. The result is an engineering recommendation, not deployment approval or a measure of operational performance.
+A polished result can still be unfinished. This protocol helps people inspect the information structure, workflow, technical evidence and human responsibilities underneath an AI-created or AI-enabled artifact. Use six questions to decide whether to invest in building it, revise it, or gather missing evidence. The next step is a bounded engineering commitment, not permission to put a system into use or a measure of its performance.
 
 ## Start here
 
-[Starting guide](protocol/0.2-preview.1/START-HERE.md) · [Worksheet](protocol/0.2-preview.1/WORKSHEET.md) · [Scenarios](protocol/0.2-preview.1/SCENARIOS.md) · [15 review criteria](protocol/0.2-preview.1/CRITERIA.md) · [Public update log](https://www.takyejun.com/research/ai-readiness/updates)
+[Starting guide](protocol/0.2-preview.2/START-HERE.md) · [Worksheet](protocol/0.2-preview.2/WORKSHEET.md) · [Scenarios](protocol/0.2-preview.2/SCENARIOS.md) · [15 review criteria](protocol/0.2-preview.2/CRITERIA.md) · [Public update log](https://www.takyejun.com/research/ai-readiness/updates)
 
-HARD Protocol 0.2 introduces a shorter public name and a separate Public Preview label. The full name is Human-centered AI Readiness Deployment Protocol. All six prior candidates remain frozen. Earlier writing and framing corrections are retained. It retains candidate.3's gates, risk thresholds, calculations and evidence requirements. The [editorial review](docs/editorial-review.md) records the scope and integrity checks. The [deep audit and validation roadmap](docs/deep-audit.md) and [claims/governance rules](docs/claims-and-governance.md) explain what the method still needs to demonstrate.
+This naming revision uses Human-centered AI Readiness and Decision Protocol. The public name H.A.R.D. Protocol 0.2 and separate Public Preview label stay the same. All six prior candidates and the first 0.2 preview remain frozen. Gates, risk thresholds, calculations and evidence requirements are unchanged. Read the [naming migration notes](docs/decision-naming-migration.md) and [editorial review](docs/editorial-review.md). The [deep audit and validation roadmap](docs/deep-audit.md) and [claims/governance rules](docs/claims-and-governance.md) explain what the method still needs to demonstrate.
 
 The review addresses a specific problem: an artifact's finished appearance may exceed the evidence available for its behavior. Four principles organize the criteria for engineering-commitment reviews. The result is a recommendation, not certification. The related fidelity study asks a separate research question; see [research boundaries](docs/research-boundary.md).
 
-- [QUICK-6 advisor profile](protocol/0.2-preview.1/QUICK-6.md): six mandatory gates, a proposed <=15-minute low-risk path, and a visible stop.
-- [External pilot packet](Pilot-Kit/hard-0.2-preview-1-external-packet.md): short, voluntary bounded-use instructions.
-- [Complete protocol](protocol/0.2-preview.1/PROTOCOL.md) and [full risk-tiered profile](protocol/0.2-preview.1/FULL-PROFILE.md).
+- [QUICK-6 advisor profile](protocol/0.2-preview.2/QUICK-6.md): six mandatory gates, a proposed <=15-minute low-risk path, and a visible stop.
+- [External pilot packet](Pilot-Kit/hard-0.2-preview-2-external-packet.md): short, voluntary bounded-use instructions.
+- [Complete protocol](protocol/0.2-preview.2/PROTOCOL.md) and [full risk-tiered profile](protocol/0.2-preview.2/FULL-PROFILE.md).
 - [Install MCP/Skill and run a local assessment](docs/agent-tools.md).
 - [Contracts](schemas/README.md), [change manifest](evidence/change-manifest.json), [public feedback ledger](evidence/feedback-ledger.public.json), [migration](docs/migration-rc3-to-rc4.md).
 

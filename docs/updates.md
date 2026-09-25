@@ -1,10 +1,30 @@
 # Protocol update log
 
-Last updated: September 24, 2026. Current: **HARD Protocol 0.2** · **Public Preview**.
+Last updated: September 25, 2026. Current: **H.A.R.D. Protocol 0.2** · **Public Preview**.
 
-Human-centered AI Readiness Deployment Protocol. Exact protocol 0.2-preview.1; MCP 0.2.0rc7; Skill/contract 0.2.0-rc.7.
+Human-centered AI Readiness and Decision Protocol. Exact protocol 0.2-preview.2; MCP 0.2.0rc8; Skill/contract 0.2.0-rc.8.
 
 This is a public record of changes, not a validation claim. Earlier versions remain available. No completed external pilot, adoption, endorsement, or performance improvement is claimed.
+
+## September 25, 2026: Decision replaces Deployment in the full name
+
+The display uses H.A.R.D. as initials. The overview now starts with the missing review layer beneath a polished artifact, using a constructed booking example. Its two hero paths lead to a workflow review and the Developer Library. Rules and installation are maintained in the library, not repeated as competing actions on the overview.
+
+The practical protocol, MCP and Skill explain how to keep the original artifact and create a separate structural view when useful. Experience, architecture, technical evidence and operating responsibility remain connected to the existing gates. This technique is unvalidated and must not become an unplanned intervention in the fidelity study. C31 records this explanation and navigation change; the author's architecture anecdote is context, not empirical support.
+
+The author found Deployment too technical and easy to mistake for release approval. Decision describes what the review actually supports: deciding whether to invest in building a bounded workflow, revise it, or gather missing evidence. The public name remains H.A.R.D. Protocol 0.2, with Public Preview shown separately.
+
+| Identity | Preserved first preview | Current naming revision |
+| --- | --- | --- |
+| Full name | Human-centered AI Readiness Deployment Protocol | Human-centered AI Readiness and Decision Protocol |
+| Exact protocol | 0.2-preview.1 | 0.2-preview.2 |
+| MCP package | 0.2.0rc7 | 0.2.0rc8 |
+| Skill and contract | 0.2.0-rc.7 | 0.2.0-rc.8 |
+| Optional companion | 0.1.0-preview.1 | 0.1.0-preview.2 |
+
+Six gates, fifteen criteria, risk depth, formulas and evidence requirements are unchanged. Decision still means a bounded engineering recommendation, not operational approval. New runs record the new exact versions; old runs are not automatically relabeled. Existing package names, commands, ai-ready invocation and API identifiers remain supported. No new pilot, endorsement or empirical result is claimed.
+
+Read the [naming migration notes](/static/research/ai-readiness/hard-0.2-preview-2/decision-naming-migration.html), [change manifest](/static/research/ai-readiness/hard-0.2-preview-2/change-manifest.json) and [preserved first-preview package](/static/research/ai-readiness/hard-0.2-preview-1/HARD-Protocol-0.2-preview.1.zip). C30 records the acceptance checks. The historical rc.3 DOI does not identify either 0.2 preview.
 
 ## September 24, 2026: HARD Protocol 0.2 Public Preview
 

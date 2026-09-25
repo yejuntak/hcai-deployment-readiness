@@ -1,133 +1,84 @@
 {{define "research"}}
-<section class="o-hero-page research-hero">
-  <div class="research-hero-copy">
-    <div class="research-hero-intro">
-    <p class="o-hero-page-eyebrow">@@HARD_STATUS@@</p>
-    <h1 class="o-hero-page-title">@@HARD_TITLE@@</h1>
-    <p class="t-body-m u-mt-4">@@HARD_FULL_NAME@@</p>
-    <p class="o-hero-page-lede">A six-question review for teams deciding whether to invest in an AI-created or AI-enabled workflow.</p>
-    <p class="t-body-m u-mt-4">Examine the current work, the proposed behavior and the evidence behind it. Designers, builders, business owners and advisors can use the guide without an AI specialization.</p>
-    <div class="m-cta-pair u-mt-5"><a class="button button-primary" href="#start">Start with one workflow</a><a class="button button-secondary" href="#scenarios">See an example</a></div>
-    </div>
-    <div class="research-review-output">
-      <p class="t-eyebrow">What you leave with</p>
-      <h2 class="t-title-m">A next step you can explain.</h2>
-      <dl class="research-output-list t-body-s">
-        <div><dt>A bounded decision</dt><dd>Proceed to engineering, revise, or gather missing evidence.</dd></div>
-        <div><dt>The basis for it</dt><dd>Requirements, tested artifacts, unresolved risks and human effort.</dd></div>
-        <div><dt>Someone to act</dt><dd>A named owner, the next task and a limit on resources.</dd></div>
-      </dl>
-      <p class="t-body-s">Not deployment approval. Real-world performance needs separate evaluation.</p>
-    </div>
-    <p class="t-body-s u-mt-4">September 24, 2026 · <a class="link" href="/research/ai-readiness/updates">What changed?</a></p>
-  </div>
-  <aside class="research-install stack stack-4" aria-label="Download and setup">
-    <div class="stack stack-2"><p class="t-eyebrow">Start using HARD</p><h2 class="t-title-l">Get the guide or tools.</h2></div>
-<div class="stack stack-2"><p class="t-body-s">Read or print. No installation needed.</p><a class="button button-primary" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-Protocol-0.2-preview.1.pdf" download>Download protocol PDF</a><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-QUICK-6-0.2-preview.1.pdf" download>QUICK-6 worksheet PDF</a></div>
-<div class="stack stack-2 hard-setup-part"><h3 class="t-title-s">Connect an assistant</h3><button class="button button-secondary" type="button" data-hard-copy="hard-mcp-config">Copy MCP configuration</button><details class="hard-detail"><summary class="t-body-s">Where to paste it</summary><p class="t-body-s">Add this entry to your assistant's MCP settings, keeping existing servers. Requires uv. The first run downloads the package and dependencies.</p><pre class="code-block"><code id="hard-mcp-config">{
-  "mcpServers": {
-    "hcai-readiness-candidate": {
-      "command": "uvx",
-      "args": [
-        "--from",
-        "https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-1/hcai_readiness_mcp-0.2.0rc7-py3-none-any.whl",
-        "hcai-readiness-mcp"
-      ]
-    }
-  }
-}</code></pre></details>
-<a class="button button-secondary" href="/static/research/ai-readiness/hard-0.2-preview-1/ai-ready-0.2.0-rc.7.zip" download>Download Skill</a><details class="hard-detail"><summary class="t-body-s">Set up the Skill</summary><p class="t-body-s">Extract ai-ready into your assistant's Skill directory and invoke ai-ready. Its deterministic runtime requires Python 3.11+ and Pydantic 2. Without the runtime, assessment stays pending.</p></details></div>
-<div class="stack stack-2 hard-setup-part"><a class="link-arrow" href="/research/ai-readiness/developers#jev">Optional: connect Jev</a><p class="t-body-s">Model suggestions stay separate from the assessment.</p></div>
-<p class="hard-copy-status t-body-s" data-hard-copy-status role="status" aria-live="polite"></p>
-  </aside>
+<section class="o-hero-page research-hero hard-purpose-hero">
+<div class="research-hero-copy">
+<p class="o-hero-page-eyebrow">@@HARD_STATUS@@</p>
+<h1 class="o-hero-page-title">@@HARD_TITLE@@</h1>
+<p class="t-body-s u-mt-3">@@HARD_FULL_NAME@@</p>
+<p class="o-hero-page-lede">A polished result can still be unfinished.</p>
+<p class="t-body-m u-mt-4">AI can produce a convincing screen before the work behind it has been thought through. This protocol helps people inspect the missing structure before committing to the next build.</p>
+<div class="m-cta-pair u-mt-5"><a class="button button-primary" data-primary-task href="#start">Review one workflow</a><a class="button button-secondary" data-primary-task id="agent-tools" href="/research/ai-readiness/developers">Developer Library</a></div>
+<p class="t-body-s u-mt-4">Start with the questions below. The Developer Library holds all 15 criteria, MCP, Skill and optional Jev setup.</p>
+</div>
+<figure class="o-card-archetype hard-surface-example" aria-labelledby="surface-example-caption">
+<div class="hard-example-window" aria-hidden="true">
+<div class="cluster cluster-2"><span class="tag tag-mono">DEMO / BOOKING</span><span class="hard-example-dot"></span></div>
+<p class="t-title-l u-mt-5">Your next conversation,<br>one click away.</p>
+<p class="t-body-s u-mt-3">Choose a consultation time.</p>
+<div class="hard-example-slots"><span>9:00 AM</span><span>11:00 AM</span><span>2:00 PM</span></div>
+<div class="hard-example-confirm">Confirm booking</div>
+</div>
+<figcaption id="surface-example-caption"><p class="t-eyebrow">Looks finished. Still unanswered.</p><p class="t-body-m">What if payment succeeds, but the booking does not?</p><p class="t-body-s">Constructed illustration, not an interactive service or a pilot result.</p></figcaption>
+</figure>
 </section>
-<nav class="research-jump" aria-label="Review guide sections"><a href="#start">Start here</a><a href="#quick-six">Six questions</a><a href="#scenarios">Scenarios</a><a href="#criteria">Review criteria</a><a href="#agent-tools">MCP + Skill</a><a href="#downloads">Documents</a><a href="/research/ai-readiness/updates">Update log</a></nav>
 
-<section class="o-section o-section--bordered" id="start"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">01 / Getting started</span><h2 class="t-title-xl">Start with a recent case of the work.</h2><p class="t-body-m">An advisor can ask the questions aloud and take notes. Participants can begin without reading the full protocol or filling in technical records.</p></div>
+<section class="o-section o-section--bordered" id="scenarios"><div class="o-section-inner stack stack-5">
+<div class="hard-section-intro"><p class="t-eyebrow">01 / Make the hidden work visible</p><h2 class="t-title-xl">Review the structure, not just the surface.</h2><p class="t-body-l">Take the same booking example out of its polished screen. The happy path is easy to draw. Recovery is where the unanswered decisions appear.</p></div>
+<figure class="o-card-archetype hard-structure-example" aria-labelledby="structure-caption">
+<ol class="hard-flow t-body-m" aria-label="Proposed booking flow"><li><span class="tag tag-mono">1</span><strong>Choose a time</strong><span class="t-body-s">What if it is no longer available?</span></li><li><span class="tag tag-mono">2</span><strong>Take payment</strong><span class="t-body-s">What prevents a duplicate charge?</span></li><li><span class="tag tag-mono">3</span><strong>Create booking</strong><span class="t-body-s">What if this step fails?</span></li></ol>
+<div class="m-callout hard-open-question"><div class="m-callout-body"><p class="t-title-m">Payment taken. No booking. Now what?</p><p class="t-body-m">The recovery path, stored data, refund authority and support owner are not defined in this example. Better typography cannot answer those questions.</p></div></div>
+<figcaption class="t-body-s" id="structure-caption">The simplified view exposes questions; it does not prove a defect, create missing evidence or pass a gate. Check each concern against a requirement and the actual artifact.</figcaption>
+</figure>
+<details class="hard-detail"><summary class="t-title-m">Why this research started</summary><p class="t-body-m">The author's starting observation came from architectural previsualization: an architect described using a watercolor treatment on an intermediate 3D view so clients would discuss the overall structure rather than treat a polished rendering as a finished design. This is an origin anecdote, not evidence of a measured effect.</p><p class="t-body-m">AI-assisted work raises a related question: if the first artifact already looks finished, when do people inspect the decisions underneath? The proposed study tests visual fidelity and defect detection while keeping content, behavior and defects constant. It does not establish that all AI-built work skips design steps.</p><p class="t-body-m">For practical review, preserve the original artifact and create a separate view of its structure. Do not blur labels or remove information people need. A wireframe or diagram helps only if it makes the relevant work inspectable.</p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/research-boundary.html">Research question and limits</a></details>
+</div></section>
+
+<section class="o-section o-section--bordered" id="criteria"><div class="o-section-inner stack stack-5">
+<div class="hard-section-intro"><p class="t-eyebrow">02 / Look across the layers</p><h2 class="t-title-xl">The missing piece may not be visual.</h2><p class="t-body-m">Start with a real need and the work people do today. Then inspect these four views together. They organize the conversation; they are not four new scores or a replacement for the six gates.</p></div>
 <div class="o-persona-grid research-role-grid">
-<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">01</span><div><h3 class="o-persona-card-name">Owner or advisor</h3><p class="o-persona-card-role">Understand the work first</p></div></div><p class="o-persona-card-jtbd">Bring a recent case, its timing and the people who handle it. Start with what happens today, including checking and rework.</p><a class="link-arrow" href="#quick-six">Start the six questions</a></div></article>
-<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">02</span><div><h3 class="o-persona-card-name">Designer or builder</h3><p class="o-persona-card-role">Make behavior checkable</p></div></div><p class="o-persona-card-jtbd">Bring the requirement, proposed artifact and tested revision. Show the failure path as well as the successful demonstration.</p><a class="link-arrow" href="/research/ai-readiness/developers#rules">Find a requirement</a></div></article>
-<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">03</span><div><h3 class="o-persona-card-name">Researcher</h3><p class="o-persona-card-role">Keep study judgments separate</p></div></div><p class="o-persona-card-jtbd">Record experimental judgments separately. Giving participants hints or answer keys can change what the study measures.</p><a class="link-arrow" href="/static/research/ai-readiness/hard-0.2-preview-1/research-boundary.html">Read the research boundary</a></div></article>
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">01</span><div><h3 class="o-persona-card-name">Experience and information</h3><p class="o-persona-card-role">Can people understand the task?</p></div></div><p class="o-persona-card-jtbd">Inspect the hierarchy, labels, choice load, repeated actions and alignment with the user's actual goal. Judge these against a task, not personal taste.</p></div></article>
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">02</span><div><h3 class="o-persona-card-name">Workflow and architecture</h3><p class="o-persona-card-role">Do the parts fit together?</p></div></div><p class="o-persona-card-jtbd">Map states, transitions, dependencies and handoffs. Show where work starts, ends, fails and recovers, including who may act.</p></div></article>
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">03</span><div><h3 class="o-persona-card-name">Implementation and evidence</h3><p class="o-persona-card-role">What has actually been demonstrated?</p></div></div><p class="o-persona-card-jtbd">Connect requirements to the exact artifact and its checks. Separate simulated behavior, implemented behavior and untested assumptions.</p></div></article>
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">04</span><div><h3 class="o-persona-card-name">People and operation</h3><p class="o-persona-card-role">Who carries the remaining work?</p></div></div><p class="o-persona-card-jtbd">Name review, correction, escalation, support and ownership. Keep projected savings separate from actual performance in use.</p></div></article>
 </div>
-<div class="research-example"><h3 class="t-title-m">Begin here: “Walk me through one recent case.”</h3><p class="t-body-m">Where does it start? Who touches it? Where does someone check, fix or chase it? If there is no measurable current-state baseline, stop and observe the work. ROI stays indeterminate.</p><a class="link-arrow" href="/static/research/ai-readiness/hard-0.2-preview-1/START-HERE.html">Read the starting guide</a></div>
-</div></section>
-
-<section class="o-section o-section--bordered" id="quick-six"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">02 / The conversation</span><h2 class="t-title-xl">Work through the six questions.</h2><p class="t-body-m">Check risk first. Low risk with records available can use QUICK-6. Moderate, high or unknown risk goes to FULL before the short review.</p></div>
-<ol class="research-usage-list t-body-m">
-<li><strong>What happens today?</strong> Show the current steps, people, time, touches, failures, review and volume.</li>
-<li><strong>What needs to improve, for whom?</strong> Include people affected by the workflow as well as its operators. Connect access, privacy, unequal effects and human control to testable requirements where applicable.</li>
-<li><strong>What happens when things go wrong?</strong> Explain edge cases, recovery, data preservation, escalation and human/agent authority.</li>
-<li><strong>What demonstrates the important behavior?</strong> Link the exact requirement/context, artifact revision and executed check. Label simulated behavior; changes require a new affected check.</li>
-<li><strong>What work remains for people?</strong> Subtract review, correction, escalation and rework before claiming net savings.</li>
-<li><strong>Is that enough to fund the next step?</strong> Apply risk depth, retain human evidence-quality review, resolve critical findings, and name the scope, owner and resource limit.</li>
-</ol>
-<div class="research-example ds-grid ds-grid-2"><div><h3 class="t-title-m">Record gaps when the answer is unknown.</h3><p class="t-body-m">QUICK-6 stops at the first failed or missing gate and marks later gates as not evaluated. Save the record and name the evidence or repair needed. After addressing the gap, continue in a linked FULL review.</p><p class="t-body-s">The ≤15-minute target remains untested. Session time includes recording answers and explaining the result; preparation is reported separately. Offer breaks and accessible formats as needed.</p></div><figure class="research-preview"><figcaption class="t-eyebrow">Constructed example · not a pilot</figcaption><p class="t-title-m">A polished prototype without a measured baseline</p><p class="t-body-m"><strong>Pause: insufficient evidence.</strong><br>ROI is indeterminate.</p><p class="t-body-m">Next: observe a current case.<br>Owner: the workflow owner.</p></figure></div>
-<p class="u-mt-5"><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/QUICK-6.html">Open QUICK-6</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/FULL-PROFILE.html">Open the full risk-tiered profile</a></p>
-</div></section>
-
-<section class="o-section o-section--bordered" id="scenarios"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">03 / Potential situations</span><h2 class="t-title-xl">How the review applies to common problems</h2><p class="t-body-m">These constructed examples describe intended uses. They are not pilot results and do not show that AI causes the defects.</p></div>
-<div class="ds-grid ds-grid-2">
-<details class="research-connection"><summary class="t-title-m">The booking screen loses details after payment fails</summary><p class="t-body-m">The demonstration covers a successful booking, but not a payment failure. Define who notices the failure, which details are preserved and how the user resumes. Revise the recovery path before commitment.</p></details>
-<details class="research-connection"><summary class="t-title-m">The test report predates the coding agent's latest edit</summary><p class="t-body-m">Compare the tested artifact digest with the current revision. A mismatch blocks the traceability gate; rerun the affected checks. Retain the old report as evidence for the old revision.</p></details>
-<details class="research-connection"><summary class="t-title-m">The agent can send, but nobody defined approval</summary><p class="t-body-m">Document what it may read, change or send; who can approve or stop it; and how to recover. Use a deeper review when the consequences warrant it.</p></details>
-<details class="research-connection"><summary class="t-title-m">Checking the AI output consumes the expected savings</summary><p class="t-body-m">In a fictional case, 15 gross minutes saved minus 15 minutes of review/correction/escalation leaves zero net labor savings. Report the zero net savings alongside any recurring cost.</p></details>
-</div><p class="u-mt-5"><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/SCENARIOS.html">Read all seven scenarios</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/example-report.html">Inspect a synthetic decision report</a></p>
-</div></section>
-
-<section class="o-section o-section--bordered" id="criteria"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">04 / Review requirements</span><h2 class="t-title-xl">Four principles. Fifteen checks.</h2><p class="t-body-m">Choose a principle below, or search the developer library by problem, gate or criterion ID. Each rule there includes the requirement, a way to check it and examples. A human reviewer still judges the evidence.</p></div>
-<div class="ds-grid ds-grid-2 research-principles">
 <!-- CRITERIA -->
-</div><p class="u-mt-5"><a class="button button-secondary" href="/research/ai-readiness/developers#rules">Search all criteria</a></p>
-<details class="research-connection"><summary class="t-title-m">How risk changes the required evidence</summary><p class="t-body-m">Highest of complexity, importance, impact, mission, failure consequence and irreversibility sets depth. Low: at least 1 observed case and 1 need origin. Moderate: at least 3 cases, 2 origins, actual end-user discussion, independent review and validation planning. High: at least 5 cases plus hazard, mission and operational-evaluation planning. Moderate/high require FULL.</p><p class="t-body-s">These are provisional completeness floors, not representative sample sizes or validated safety thresholds.</p></details>
-<details class="research-connection"><summary class="t-title-m">What stays separate in the result</summary><p class="t-body-m">Current-state baseline; proposed workflow; protocol evaluation cost and separately operational oversight burden; engineering-handoff evidence; actual post-implementation performance. No combined readiness score. Preparation and session effort are visible. Gross savings, net operating benefit and one-time cost remain distinct.</p></details>
-<details class="research-connection"><summary class="t-title-m">Consequences can rule out the quick path</summary><p class="t-body-m">Safety/rights effects or irreversible external actions require high-depth FULL. Sensitive data or untrusted input influencing actions require at least moderate FULL. Any unknown context answer prevents QUICK-6, regardless of how simple the interface looks. These are provisional routing floors, not validated risk classifications.</p></details>
-<div class="research-example"><h3 class="t-title-m">What the software can check</h3><p class="t-body-m">The tools check record structure and decision rules. A human must examine whether the evidence is relevant, credible and adequate. This review must be recorded, although the software cannot authenticate that it took place. The owner authorizes engineering separately, and deployment requires its own evaluation.</p><p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/deep-audit.html">Read the deep audit and validation roadmap</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/claims-and-governance.html">Claims and change-control rules</a></p></div>
+<p class="t-body-s">The intended benefit is a next step the team can explain, with fewer unresolved assumptions hidden by appearance. Whether the protocol improves real decisions remains to be tested.</p>
 </div></section>
 
-<section class="o-section o-section--bordered" id="agent-tools"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">05 / Work in your assistant</span><h2 class="t-title-xl">One method, three supporting tools.</h2><p class="t-body-m">Start with the guide alone, or add tools when they help. None supplies missing evidence or authorizes deployment.</p></div>
-<div class="ds-grid ds-grid-3">
-<div class="o-card-archetype stack stack-3"><h3 class="t-title-m">MCP</h3><p class="t-body-m">Connect the deterministic review engine to your assistant. It checks the evidence record against the six gates.</p><a class="link-arrow" href="/research/ai-readiness/developers#setup">Connect MCP</a></div>
-<div class="o-card-archetype stack stack-3"><h3 class="t-title-m">Skill</h3><p class="t-body-m">Guide the conversation and organize the evidence. The included runtime is required for an assessed result.</p><a class="link-arrow" href="/research/ai-readiness/developers#setup">Set up the Skill</a></div>
-<div class="o-card-archetype stack stack-3"><h3 class="t-title-m">Jev companion</h3><p class="t-body-m">Request focused model suggestions beside an authorized excerpt. Optional, fallible and separate from the decision engine.</p><a class="link-arrow" href="/research/ai-readiness/developers#jev">Explore the companion</a></div>
-</div></div></section>
-
-<section class="o-section o-section--bordered" id="downloads"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">06 / Read, print or try</span><h2 class="t-title-xl">Guides, worksheets and downloads</h2></div>
-<p class="t-body-m"><a class="link-arrow" href="/static/research/ai-readiness/hard-0.2-preview-1/WORKSHEET.html">Use the conversation worksheet</a> to record the six questions, the reason for the result and the next action's owner. No installation is required; the advisor maintains the detailed evidence record.</p>
-<div class="ds-grid ds-grid-3">
-<div class="o-card-archetype"><h3 class="t-title-m">Start a short review</h3><p class="t-body-m">Questions for an advisor-led, low-risk review.</p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-QUICK-6-0.2-preview.1.pdf">QUICK-6 PDF</a></div>
-<div class="o-card-archetype"><h3 class="t-title-m">Read the complete method</h3><p class="t-body-m">The protocol's scope, requirements and limits.</p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/PROTOCOL.html">Read in your browser</a><p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-Protocol-0.2-preview.1.pdf">Protocol PDF</a></p></div>
-<div class="o-card-archetype"><h3 class="t-title-m">Try one bounded external use</h3><p class="t-body-m">Instructions for voluntary use and feedback. No endorsement is requested.</p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-External-Pilot-Packet-0.2-preview.1.pdf">Pilot packet PDF</a></div>
-</div>
-<details class="research-connection"><summary class="t-title-m">Full profile, package and verification records</summary><p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-Full-Profile-0.2-preview.1.pdf">Full-profile PDF</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-Protocol-0.2-preview.1.zip">Complete Public Preview package</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/rc4-test-results.json">Software test results</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/change-manifest.json">Change-to-test mapping</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/download-manifest.json">Download checksums</a></p></details>
+<section class="o-section o-section--bordered" id="start"><div class="o-section-inner stack stack-5">
+<div class="hard-section-intro"><p class="t-eyebrow">03 / Start small</p><h2 class="t-title-xl">One workflow. One review. One next action.</h2><p class="t-body-l">Bring a recent case of today's work, the proposed artifact and someone who knows the work. An advisor can ask the questions and take notes. No installation is needed.</p></div>
+<div id="quick-six"><ol class="research-steps hard-six t-body-m">
+<li><strong>What happens today?</strong><p>Show the people, steps, time, failures and rework in a recent case. Missing baseline means stop; ROI stays indeterminate.</p></li>
+<li><strong>What needs to improve, for whom?</strong><p>Name an actual need and a result you can check, including people affected by the workflow.</p></li>
+<li><strong>How does it work, including failure?</strong><p>Use a structure view to inspect information, choices, states, recovery and human or agent authority.</p></li>
+<li><strong>What demonstrates the behavior?</strong><p>Connect each important requirement to an exact artifact revision and a relevant test or validation.</p></li>
+<li><strong>What work remains for people?</strong><p>Count checking, correction, escalation and manual work before claiming savings.</p></li>
+<li><strong>What next step does the evidence support?</strong><p>Apply the risk depth and record the recommendation, owner, resource limit and reason to revisit it.</p></li>
+</ol></div>
+<p class="t-body-m">Check risk first. QUICK-6 is for low-risk work with records available. Moderate, high or unknown risk needs the full profile. A failed or missing gate stops the short review; it cannot be averaged away. The 15-minute target remains untested.</p>
+<div class="m-cta-pair" id="downloads"><a class="button button-primary" data-primary-task href="/static/research/ai-readiness/hard-0.2-preview-2/HARD-QUICK-6-0.2-preview.2.pdf" download>Download QUICK-6</a><a class="button button-secondary" data-primary-task href="/static/research/ai-readiness/hard-0.2-preview-2/PROTOCOL.html">Read the full protocol</a></div>
+<details class="hard-detail"><summary class="t-title-m">Other documents and downloads</summary><div class="stack stack-3 t-body-m">
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/HARD-Protocol-0.2-preview.2.pdf" download>Download protocol PDF</a>
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/WORKSHEET.html">Conversation worksheet</a>
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/HARD-Full-Profile-0.2-preview.2.pdf">Full risk-tiered profile PDF</a>
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/HARD-External-Pilot-Packet-0.2-preview.2.pdf">External pilot packet PDF</a>
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/HARD-Protocol-0.2-preview.2.zip">Source package</a>
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/SCENARIOS.html">More constructed scenarios</a>
+</div></details>
+<div class="research-review-output"><h3 class="t-title-m">What you leave with</h3><dl class="research-output-list t-body-m"><div><dt>A recommendation</dt><dd>Proceed to engineering, revise, or gather missing evidence.</dd></div><div><dt>A reason</dt><dd>What was checked, what is unresolved and what remains untested.</dd></div><div><dt>A next action</dt><dd>Someone accountable for a defined task and resource limit.</dd></div></dl><p class="t-body-s">The owner authorizes engineering separately; deployment requires separate evaluation.</p></div>
 </div></section>
 
-<section class="o-section o-section--bordered" id="attribution"><div class="o-section-inner">
-<h2 class="t-title-xl">Attribution</h2>
-<p class="t-body-m">Thank you to the practitioners whose feedback helped refine the protocol. Named credit is published with permission.</p>
-<table class="research-attribution t-body-m">
-<caption>Practitioner contributions</caption>
-<thead><tr><th scope="col">Contributor</th><th scope="col">Contribution</th></tr></thead>
-<tbody><tr><th scope="row">Hillel Glazer</th><td>Feedback on tracing artifacts to requirements and the tests or validation that demonstrate them, including reference material and form, fit and function. This helped strengthen the protocol's traceability criteria beyond visual polish. Attribution approved.</td></tr></tbody>
-</table>
-<p class="t-body-m">To request attribution credit for your contribution, contact <a class="link" href="mailto:takyejun@gmail.com">takyejun@gmail.com</a> or <a class="link" href="mailto:ytak47189@ucumberlands.edu">ytak47189@ucumberlands.edu</a>.</p>
-<p class="t-body-s">Credit acknowledges a contribution, not endorsement or validation of the protocol. Other feedback is summarized without publishing private identities or comments.</p>
+
+<section class="o-section o-section--bordered" id="attribution"><div class="o-section-inner stack stack-4">
+<h2 class="t-title-xl">Attribution</h2><p class="t-body-m">Practitioner feedback helped refine the protocol. Named credit is published with permission.</p>
+<table class="research-attribution t-body-m"><caption>Practitioner contributions</caption><thead><tr><th scope="col">Contributor</th><th scope="col">Contribution</th></tr></thead><tbody><tr><th scope="row">Hillel Glazer</th><td>Feedback on tracing artifacts to requirements and the tests or validation that demonstrate them, including reference material and form, fit and function. Attribution approved.</td></tr></tbody></table>
+<p class="t-body-m">To request attribution credit, contact <a class="link" href="mailto:takyejun@gmail.com">takyejun@gmail.com</a> or <a class="link" href="mailto:ytak47189@ucumberlands.edu">ytak47189@ucumberlands.edu</a>.</p>
+<p class="t-body-s">Credit is not endorsement or validation. Other feedback is summarized without publishing private identities or comments.</p>
 </div></section>
 
-<section class="o-section o-section--bordered" id="limitations"><div class="o-section-inner">
-<h2 class="t-title-xl">Evidence and limitations</h2>
-<p class="t-body-m">The protocol proposes a repeatable review of evidence before committing engineering resources. The deep audit identified and corrected software defects. Whether the method improves real decisions still requires comparative evidence; this release does not establish a universal AI standard.</p>
-<p class="t-body-m">Practitioner correspondence informed refinement. It is not controlled empirical validation. See <a class="link" href="#attribution">Attribution</a> for contributions shared with permission. No endorsement is implied.</p>
-<p class="t-body-m">The proposed research studies visual fidelity and reviewers' defect detection while AI authorship stays constant. Perceived readiness and confidence are separate judgments. It does not yet establish that AI coding causes these problems or that this protocol prevents them.</p>
-<h3 class="t-title-m u-mt-5">External pilots and official pilot walkthroughs</h3>
-<p class="t-body-m">Interested in participating in an external pilot or scheduling an official pilot walkthrough? Contact <a class="link" href="mailto:takyejun@gmail.com">takyejun@gmail.com</a> or <a class="link" href="mailto:ytak47189@ucumberlands.edu">ytak47189@ucumberlands.edu</a>. Bring one workflow you would like to review. We can discuss the scope, evidence needed and a suitable time before you decide to participate.</p>
-<p class="t-body-m">Usability, the time target, risk thresholds and effectiveness remain unvalidated. Public Preview status remains until current regressions and recorded bounded end-user/advisor use support an author release review. The owner separately authorizes engineering; deployment requires separate evaluation.</p>
-<p class="u-mt-5"><a class="button button-secondary" href="/research/ai-readiness/updates">Read the update log</a></p>
-<details class="research-connection" id="archive"><summary class="t-title-m">Frozen history, citation and reuse</summary><p class="t-body-m"><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/editorial-review.html">Editorial review</a> records the published candidate wording audit.</p><p class="t-body-m">rc.3 and all six rc.4 candidates remain available, unchanged. <a class="link" href="/static/research/ai-readiness/Protocol-v0.1.pdf">Historical rc.3 PDF</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate/HCAI-v0.1-rc.4-candidate.zip">First-candidate package</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/migration-rc3-to-rc4.html">Migration notes</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate-2/HCAI-v0.1-rc.4-candidate.2.zip">Candidate.2 package</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate-3/HCAI-v0.1-rc.4-candidate.3.zip">Candidate.3 package</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate-4/HCAI-v0.1-rc.4-candidate.4.zip">Candidate.4 package</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate-5/HCAI-v0.1-rc.4-candidate.5.zip" >Candidate.5 package</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate-6/HCAI-v0.1-rc.4-candidate.6.zip">Candidate.6 package</a>.</p><p class="t-body-m">Tak, Y. (2026). <em>Human-centered AI Readiness Deployment Protocol</em>. HARD Protocol 0.2 · Public Preview. Exact protocol 0.2-preview.1. MCP 0.2.0rc7; Skill 0.2.0-rc.7. No DOI is assigned to this Public Preview. <a class="link" href="https://doi.org/10.5281/zenodo.22667623">10.5281/zenodo.22667623</a> identifies rc.3 only.</p><p class="t-body-s">Original text and synthetic data: CC BY 4.0; software: MIT. AI-assisted development. Research Harness v3 is a separate project, not validation evidence for this protocol. <a class="link" href="https://github.com/yejuntak/hcai-deployment-readiness">Source repository</a>.</p></details>
+<section class="o-section o-section--bordered" id="limitations"><div class="o-section-inner stack stack-4">
+<h2 class="t-title-xl">Evidence and limitations</h2><p class="t-body-m">Public Preview. Practitioner correspondence informed refinement. It is not controlled empirical validation. The research question, the practical protocol and software regression results are different kinds of evidence. Usability, time savings and effectiveness remain unvalidated.</p>
+<p class="t-body-m">Interested in participating in an external pilot or scheduling an official pilot walkthrough? Contact <a class="link" href="mailto:takyejun@gmail.com">takyejun@gmail.com</a> or <a class="link" href="mailto:ytak47189@ucumberlands.edu">ytak47189@ucumberlands.edu</a> with one workflow you would like to review.</p>
+<p class="t-body-s">Exact protocol 0.2-preview.2 · MCP 0.2.0rc8 · Skill/contract 0.2.0-rc.8. Existing commands, API names and HCAI criterion IDs are unchanged.</p>
+<p><a class="link" href="/research/ai-readiness/updates">What changed? Read the update log</a></p>
+<details class="research-connection" id="archive"><summary class="t-title-m">Sources, verification and preserved releases</summary><p class="t-body-m">The first 0.2 preview, rc.3 and all six rc.4 candidates remain unchanged. Past records keep their original names and versions.</p><p class="t-body-m"><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/decision-naming-migration.html">Migration notes</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/rc4-test-results.json">Software test record</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/download-manifest.json">Download checksums</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-Protocol-0.2-preview.1.zip">Preserved first preview</a></p><p class="t-body-m">Tak, Y. (2026). <em>@@HARD_FULL_NAME@@</em>. @@HARD_TITLE@@ · @@HARD_STATUS@@. Exact protocol 0.2-preview.2. No DOI is assigned to this preview. <a class="link" href="https://doi.org/10.5281/zenodo.22667623">10.5281/zenodo.22667623</a> identifies rc.3 only.</p><p class="t-body-s">Original text and synthetic data: CC BY 4.0; software: MIT. AI-assisted development. Research Harness v3 is a separate project, not validation evidence. <a class="link" href="https://github.com/yejuntak/hcai-deployment-readiness">Source repository</a>.</p><p class="t-body-m"><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/editorial-review.html">Editorial review</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/deep-audit.html">Deep audit</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/claims-and-governance.html">Claims and governance</a></p></details>
 </div></section>
 {{end}}

@@ -1,11 +1,11 @@
 cff-version: 1.2.0
-message: "Public Preview. Cite HARD Protocol 0.2 with exact protocol 0.2-preview.1, MCP 0.2.0rc7 and Skill 0.2.0-rc.7. The rc.3 DOI does not identify this Public Preview."
+message: "Public Preview. Cite H.A.R.D. Protocol 0.2 with exact protocol 0.2-preview.2, MCP 0.2.0rc8 and Skill 0.2.0-rc.8. The rc.3 DOI does not identify this Public Preview."
 type: software
-title: "HARD Protocol 0.2: Human-centered AI Readiness Deployment Protocol"
+title: "H.A.R.D. Protocol 0.2: Human-centered AI Readiness and Decision Protocol"
 authors:
   - family-names: Tak
     given-names: Yejun
-version: "0.2-preview.1"
+version: "0.2-preview.2"
 repository-code: "https://github.com/yejuntak/hcai-deployment-readiness"
 url: "https://github.com/yejuntak/hcai-deployment-readiness"
 license: CC-BY-4.0

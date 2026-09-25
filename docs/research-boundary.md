@@ -1,10 +1,14 @@
 # Research question and practical use
 
-HARD Protocol 0.2 · Public Preview · Exact protocol 0.2-preview.1
+H.A.R.D. Protocol 0.2 · Public Preview · Exact protocol 0.2-preview.2
 
 The proposed study examines how visual fidelity affects human review of AI-generated interface prototypes. Requirements, content, behavior and embedded defects are held constant, as is AI authorship. The protocol serves a separate practical purpose: reviewing evidence before a team funds engineering. It is neither the experimental treatment nor evidence that the hypothesized effect exists.
 
 ## Definitions and measurement boundaries
+
+The author's originating anecdote concerns architectural previsualization: an architect described presenting an intermediate 3D view with a watercolor treatment to invite discussion of overall structure. No firm or individual is identified here. The anecdote motivates a question; it does not establish the treatment's effect.
+
+The practical protocol asks teams to inspect a missing intermediate layer when a finished-looking AI-created artifact arrives before its information structure, workflow, technical evidence or operating responsibilities have been reviewed. This is an application hypothesis, not a finding that AI always skips those steps. In practice a separate structural view may expose questions. It should preserve relevant information and label unknowns, not merely blur the original.
 
 | Construct | Meaning in this work | Do not substitute |
 | --- | --- | --- |

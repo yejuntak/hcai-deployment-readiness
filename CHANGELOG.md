@@ -1,3 +1,23 @@
+# H.A.R.D. Protocol 0.2: Decision naming revision, September 25, 2026
+
+Human-centered AI Readiness and Decision Protocol. Public Preview. Exact protocol 0.2-preview.2; MCP 0.2.0rc8; Skill/contract 0.2.0-rc.8.
+
+## Why the name changed
+
+The public display now uses H.A.R.D. to read as initials rather than the adjective hard. The full name retains Readiness and Decision; the review is broader than a visual-design test.
+
+The author found Deployment too technical and easy to mistake for a release-approval claim. Decision describes the actual purpose: decide whether to invest in building a bounded workflow, revise it, or gather missing evidence. The short name H.A.R.D. Protocol 0.2 stays the same. The homepage and guide introduce this question in ordinary language.
+
+The six gates, fifteen criteria, risk depth, formulas and evidence boundaries are unchanged. This is a naming revision, not a new evaluation method or validation result. New packages and runs use a new exact compatibility set. The first 0.2 preview, its tools and all earlier website downloads remain byte-frozen. Old runs are never automatically relabeled. C30 maps this revision to preservation, version and decision-parity checks.
+
+The optional Jev companion is repackaged as 0.1.0-preview.2 to record the new compatibility set. Its rubric and advisory-only boundary are unchanged. No live provider evaluation or external pilot is claimed. The historical rc.3 DOI still identifies rc.3 only.
+
+## Why the explanation and navigation changed
+
+The author clarified the project's origin in architectural previsualization and the missing intermediate review layer in finished-looking AI artifacts. The protocol, MCP instructions and Skill now explain a separate structural review aid across experience, workflow, technical evidence and operation. Original revisions and unknowns must be preserved. The aid is not a new gate or a validated intervention; research sessions retain their controlled design.
+
+The overview explains the problem with one constructed booking example and has two hero paths: begin a review or enter the Developer Library. Detailed criteria and installation live in the library instead of being repeated on the main page. Setup options unfold on demand. Old criterion fragments continue to their canonical reference entries. C31 maps this refinement to tests; no usability improvement is claimed as measured.
+
 # HARD Protocol 0.2: Public Preview, September 24, 2026
 
 Human-centered AI Readiness Deployment Protocol. Exact protocol 0.2-preview.1; MCP 0.2.0rc7; Skill/contract 0.2.0-rc.7.

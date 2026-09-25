@@ -1,215 +1,103 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HARD Protocol 0.2</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>H.A.R.D. Protocol 0.2</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
 main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
-</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.2-preview-1/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav>
-<section class="o-hero-page research-hero">
-  <div class="research-hero-copy">
-    <p class="o-hero-page-eyebrow">Public Preview</p>
-    <h1 class="o-hero-page-title">HARD Protocol 0.2</h1>
-    <p class="t-body-m u-mt-4">Human-centered AI Readiness Deployment Protocol</p>
-    <p class="o-hero-page-lede">A six-question review for teams deciding whether to invest in an AI-created or AI-enabled workflow.</p>
-    <p class="t-body-m u-mt-4">Examine the current work, the proposed behavior and the evidence behind it. Designers, builders, business owners and advisors can use the guide without an AI specialization.</p>
-    <div class="m-cta-pair u-mt-5"><a class="button button-primary" href="#start">Start with one workflow</a><a class="button button-secondary" href="#scenarios">See an example</a></div>
-    <p class="t-body-s u-mt-5">September 24, 2026 · <a class="link" href="/research/ai-readiness/updates">What changed?</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/editorial-review.html">Editorial review</a></p>
-  </div>
-  <aside class="research-install" aria-label="What the review gives you">
-    <p class="t-eyebrow">After the review</p><h2 class="t-title-m">A recommendation with reasons.</h2>
-    <div class="research-install-item"><h3 class="t-title-s">What to do next</h3><p class="t-body-m">Consider a bounded engineering step, revise a known problem, or gather missing evidence.</p></div>
-    <div class="research-install-item"><h3 class="t-title-s">Reason and responsibility</h3><p class="t-body-m">A visible reason, an accountable owner, and the evidence needed to continue.</p></div>
-    <div class="research-install-item"><h3 class="t-title-s">What this does not mean</h3><p class="t-body-m">The review cannot approve deployment, certify quality or establish system performance. Its intended benefits still need empirical evaluation.</p></div>
-  </aside>
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.2-preview-2/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav>
+<section class="o-hero-page research-hero hard-purpose-hero">
+<div class="research-hero-copy">
+<p class="o-hero-page-eyebrow">Public Preview</p>
+<h1 class="o-hero-page-title">H.A.R.D. Protocol 0.2</h1>
+<p class="t-body-s u-mt-3">Human-centered AI Readiness and Decision Protocol</p>
+<p class="o-hero-page-lede">A polished result can still be unfinished.</p>
+<p class="t-body-m u-mt-4">AI can produce a convincing screen before the work behind it has been thought through. This protocol helps people inspect the missing structure before committing to the next build.</p>
+<div class="m-cta-pair u-mt-5"><a class="button button-primary" data-primary-task href="#start">Review one workflow</a><a class="button button-secondary" data-primary-task id="agent-tools" href="/research/ai-readiness/developers">Developer Library</a></div>
+<p class="t-body-s u-mt-4">Start with the questions below. The Developer Library holds all 15 criteria, MCP, Skill and optional Jev setup.</p>
+</div>
+<figure class="o-card-archetype hard-surface-example" aria-labelledby="surface-example-caption">
+<div class="hard-example-window" aria-hidden="true">
+<div class="cluster cluster-2"><span class="tag tag-mono">DEMO / BOOKING</span><span class="hard-example-dot"></span></div>
+<p class="t-title-l u-mt-5">Your next conversation,<br>one click away.</p>
+<p class="t-body-s u-mt-3">Choose a consultation time.</p>
+<div class="hard-example-slots"><span>9:00 AM</span><span>11:00 AM</span><span>2:00 PM</span></div>
+<div class="hard-example-confirm">Confirm booking</div>
+</div>
+<figcaption id="surface-example-caption"><p class="t-eyebrow">Looks finished. Still unanswered.</p><p class="t-body-m">What if payment succeeds, but the booking does not?</p><p class="t-body-s">Constructed illustration, not an interactive service or a pilot result.</p></figcaption>
+</figure>
 </section>
-<nav class="research-jump" aria-label="Review guide sections"><a href="#start">Start here</a><a href="#quick-six">Six questions</a><a href="#scenarios">Scenarios</a><a href="#criteria">Review criteria</a><a href="#agent-tools">MCP + Skill</a><a href="#downloads">Documents</a><a href="/research/ai-readiness/updates">Update log</a></nav>
 
-<section class="o-section o-section--bordered" id="start"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">01 / Getting started</span><h2 class="t-title-xl">Start with a recent case of the work.</h2><p class="t-body-m">An advisor can ask the questions aloud and take notes. Participants can begin without reading the full protocol or filling in technical records.</p></div>
-<div class="ds-grid ds-grid-3">
-<div class="o-card-archetype"><h3 class="t-title-m">Owner or advisor?</h3><p class="t-body-m">Bring a recent example of today's work and someone who knows where it gets stuck. Start with time, people and rework.</p></div>
-<div class="o-card-archetype"><h3 class="t-title-m">Designer or builder?</h3><p class="t-body-m">Bring the proposed artifact and its requirements. Show the failure path, the test, and the exact revision tested.</p></div>
-<div class="o-card-archetype"><h3 class="t-title-m">Studying human review?</h3><p class="t-body-m">Use a separate record for experimental judgments. Providing the guide's hints or answer keys can change what the study measures.</p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/research-boundary.html">Read the research boundary</a></div>
+<section class="o-section o-section--bordered" id="scenarios"><div class="o-section-inner stack stack-5">
+<div class="hard-section-intro"><p class="t-eyebrow">01 / Make the hidden work visible</p><h2 class="t-title-xl">Review the structure, not just the surface.</h2><p class="t-body-l">Take the same booking example out of its polished screen. The happy path is easy to draw. Recovery is where the unanswered decisions appear.</p></div>
+<figure class="o-card-archetype hard-structure-example" aria-labelledby="structure-caption">
+<ol class="hard-flow t-body-m" aria-label="Proposed booking flow"><li><span class="tag tag-mono">1</span><strong>Choose a time</strong><span class="t-body-s">What if it is no longer available?</span></li><li><span class="tag tag-mono">2</span><strong>Take payment</strong><span class="t-body-s">What prevents a duplicate charge?</span></li><li><span class="tag tag-mono">3</span><strong>Create booking</strong><span class="t-body-s">What if this step fails?</span></li></ol>
+<div class="m-callout hard-open-question"><div class="m-callout-body"><p class="t-title-m">Payment taken. No booking. Now what?</p><p class="t-body-m">The recovery path, stored data, refund authority and support owner are not defined in this example. Better typography cannot answer those questions.</p></div></div>
+<figcaption class="t-body-s" id="structure-caption">The simplified view exposes questions; it does not prove a defect, create missing evidence or pass a gate. Check each concern against a requirement and the actual artifact.</figcaption>
+</figure>
+<details class="hard-detail"><summary class="t-title-m">Why this research started</summary><p class="t-body-m">The author's starting observation came from architectural previsualization: an architect described using a watercolor treatment on an intermediate 3D view so clients would discuss the overall structure rather than treat a polished rendering as a finished design. This is an origin anecdote, not evidence of a measured effect.</p><p class="t-body-m">AI-assisted work raises a related question: if the first artifact already looks finished, when do people inspect the decisions underneath? The proposed study tests visual fidelity and defect detection while keeping content, behavior and defects constant. It does not establish that all AI-built work skips design steps.</p><p class="t-body-m">For practical review, preserve the original artifact and create a separate view of its structure. Do not blur labels or remove information people need. A wireframe or diagram helps only if it makes the relevant work inspectable.</p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/research-boundary.html">Research question and limits</a></details>
+</div></section>
+
+<section class="o-section o-section--bordered" id="criteria"><div class="o-section-inner stack stack-5">
+<div class="hard-section-intro"><p class="t-eyebrow">02 / Look across the layers</p><h2 class="t-title-xl">The missing piece may not be visual.</h2><p class="t-body-m">Start with a real need and the work people do today. Then inspect these four views together. They organize the conversation; they are not four new scores or a replacement for the six gates.</p></div>
+<div class="o-persona-grid research-role-grid">
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">01</span><div><h3 class="o-persona-card-name">Experience and information</h3><p class="o-persona-card-role">Can people understand the task?</p></div></div><p class="o-persona-card-jtbd">Inspect the hierarchy, labels, choice load, repeated actions and alignment with the user's actual goal. Judge these against a task, not personal taste.</p></div></article>
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">02</span><div><h3 class="o-persona-card-name">Workflow and architecture</h3><p class="o-persona-card-role">Do the parts fit together?</p></div></div><p class="o-persona-card-jtbd">Map states, transitions, dependencies and handoffs. Show where work starts, ends, fails and recovers, including who may act.</p></div></article>
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">03</span><div><h3 class="o-persona-card-name">Implementation and evidence</h3><p class="o-persona-card-role">What has actually been demonstrated?</p></div></div><p class="o-persona-card-jtbd">Connect requirements to the exact artifact and its checks. Separate simulated behavior, implemented behavior and untested assumptions.</p></div></article>
+<article class="o-persona-card"><div class="o-persona-card-summary"><div class="o-persona-card-head"><span class="m-avatar" aria-hidden="true">04</span><div><h3 class="o-persona-card-name">People and operation</h3><p class="o-persona-card-role">Who carries the remaining work?</p></div></div><p class="o-persona-card-jtbd">Name review, correction, escalation, support and ownership. Keep projected savings separate from actual performance in use.</p></div></article>
 </div>
-<div class="research-example"><h3 class="t-title-m">Begin here: “Walk me through one recent case.”</h3><p class="t-body-m">Where does it start? Who touches it? Where does someone check, fix or chase it? If there is no measurable current-state baseline, stop and observe the work. ROI stays indeterminate.</p><a class="link-arrow" href="/static/research/ai-readiness/hard-0.2-preview-1/START-HERE.html">Read the starting guide</a></div>
-</div></section>
-
-<section class="o-section o-section--bordered" id="quick-six"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">02 / The conversation</span><h2 class="t-title-xl">Work through the six questions.</h2><p class="t-body-m">Check risk first. Low risk with records available can use QUICK-6. Moderate, high or unknown risk goes to FULL before the short review.</p></div>
-<ol class="research-usage-list t-body-m">
-<li><strong>What happens today?</strong> Show the current steps, people, time, touches, failures, review and volume.</li>
-<li><strong>What needs to improve, for whom?</strong> Include people affected by the workflow as well as its operators. Connect access, privacy, unequal effects and human control to testable requirements where applicable.</li>
-<li><strong>What happens when things go wrong?</strong> Explain edge cases, recovery, data preservation, escalation and human/agent authority.</li>
-<li><strong>What demonstrates the important behavior?</strong> Link the exact requirement/context, artifact revision and executed check. Label simulated behavior; changes require a new affected check.</li>
-<li><strong>What work remains for people?</strong> Subtract review, correction, escalation and rework before claiming net savings.</li>
-<li><strong>Is that enough to fund the next step?</strong> Apply risk depth, retain human evidence-quality review, resolve critical findings, and name the scope, owner and resource limit.</li>
-</ol>
-<div class="research-example ds-grid ds-grid-2"><div><h3 class="t-title-m">Record gaps when the answer is unknown.</h3><p class="t-body-m">QUICK-6 stops at the first failed or missing gate and marks later gates as not evaluated. Save the record and name the evidence or repair needed. After addressing the gap, continue in a linked FULL review.</p><p class="t-body-s">The ≤15-minute target remains untested. Session time includes recording answers and explaining the result; preparation is reported separately. Offer breaks and accessible formats as needed.</p></div><figure class="research-preview"><figcaption class="t-eyebrow">Constructed example · not a pilot</figcaption><p class="t-title-m">A polished prototype without a measured baseline</p><p class="t-body-m"><strong>Pause: insufficient evidence.</strong><br>ROI is indeterminate.</p><p class="t-body-m">Next: observe a current case.<br>Owner: the workflow owner.</p></figure></div>
-<p class="u-mt-5"><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/QUICK-6.html">Open QUICK-6</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/FULL-PROFILE.html">Open the full risk-tiered profile</a></p>
-</div></section>
-
-<section class="o-section o-section--bordered" id="scenarios"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">03 / Potential situations</span><h2 class="t-title-xl">How the review applies to common problems</h2><p class="t-body-m">These constructed examples describe intended uses. They are not pilot results and do not show that AI causes the defects.</p></div>
-<div class="ds-grid ds-grid-2">
-<details class="research-connection"><summary class="t-title-m">The booking screen loses details after payment fails</summary><p class="t-body-m">The demonstration covers a successful booking, but not a payment failure. Define who notices the failure, which details are preserved and how the user resumes. Revise the recovery path before commitment.</p></details>
-<details class="research-connection"><summary class="t-title-m">The test report predates the coding agent's latest edit</summary><p class="t-body-m">Compare the tested artifact digest with the current revision. A mismatch blocks the traceability gate; rerun the affected checks. Retain the old report as evidence for the old revision.</p></details>
-<details class="research-connection"><summary class="t-title-m">The agent can send, but nobody defined approval</summary><p class="t-body-m">Document what it may read, change or send; who can approve or stop it; and how to recover. Use a deeper review when the consequences warrant it.</p></details>
-<details class="research-connection"><summary class="t-title-m">Checking the AI output consumes the expected savings</summary><p class="t-body-m">In a fictional case, 15 gross minutes saved minus 15 minutes of review/correction/escalation leaves zero net labor savings. Report the zero net savings alongside any recurring cost.</p></details>
-</div><p class="u-mt-5"><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/SCENARIOS.html">Read all seven scenarios</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/example-report.html">Inspect a synthetic decision report</a></p>
-</div></section>
-
-<section class="o-section o-section--bordered" id="criteria"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">04 / Review requirements</span><h2 class="t-title-xl">The principles and criteria behind the questions</h2><p class="t-body-m">Four principles organize fifteen criteria. Open a principle to find the requirements, ways to check them and examples of failure. A human reviewer must judge whether the evidence satisfies each criterion.</p></div>
-<details class="research-connection"><summary class="t-title-m">Understand the work before judging the solution</summary>
-<details class="research-criterion" id="HCAI-1.1"><summary class="t-title-s">HCAI-1.1 · Bound the task</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Name the workflow, one unit of work, start and end boundaries, context, AI role, exclusions and a current/manual/non-AI alternative.</p>
-<p class="t-body-m"><strong>How to check:</strong> Ask a second person to describe the review&#x27;s boundaries, then compare their answer with the scope record.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> Review one intake request from receipt to advisor confirmation; exclude live sending.</p>
-<p class="t-body-m"><strong>Common failure:</strong> Make our business AI-ready without naming a task.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Required fields plus accountable human scope review</p>
-<p class="t-body-s">Decision gate: G2_NEED_REQUIREMENTS. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-1.2"><summary class="t-title-s">HCAI-1.2 · Observe the current workflow</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Retain an observed baseline and a connected current-state map with actors, normal work, exceptions, recovery, time, volume and an endpoint. Mark reported paths separately.</p>
-<p class="t-body-m"><strong>How to check:</strong> Follow a recent case through every step; reconcile elapsed time, labor and the sampling window. Inspect where work changes hands or returns for correction.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> A work log supports measured labor; a separate operator account describes an exception not observed in that sample.</p>
-<p class="t-body-m"><strong>Common failure:</strong> The owner guesses hours saved without knowing today&#x27;s steps or work volume.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Graph and numeric checks plus direct observation review</p>
-<p class="t-body-s">Decision gate: G1_BASELINE. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-1.3"><summary class="t-title-s">HCAI-1.3 · Connect requirements to an actual need</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Connect each need to an owned, checkable requirement. Use distinct original work or end-user sources at the required risk depth.</p>
-<p class="t-body-m"><strong>How to check:</strong> Ask whose difficulty the requirement resolves, what would count as success, and whether two sources share the same origin.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> An operator discussion and a work record independently support preserving data after cancellation.</p>
-<p class="t-body-m"><strong>Common failure:</strong> Two summaries of one conversation are presented as two independent customers.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Reference, origin and source-kind checks plus human relevance judgment</p>
-<p class="t-body-s">Decision gate: G2_NEED_REQUIREMENTS. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-1.4"><summary class="t-title-s">HCAI-1.4 · Include the people who bear the consequences</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Name affected roles, including non-operators. Screen access/usability, privacy/security, unequal effects and human agency. Link applicable concerns to requirements and validation; justify inapplicable items with an owner and evidence. Human use/control cannot be excluded.</p>
-<p class="t-body-m"><strong>How to check:</strong> Ask who might be unable to use, correct, decline or challenge the workflow, and who could be affected without operating it. Inspect the linked success conditions and supporting evidence; a checked box alone is insufficient.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> A requester and an advisor can correct an intake; the requirement specifies retained data, readable error feedback and a human escalation path.</p>
-<p class="t-body-m"><strong>Common failure:</strong> The owner saves time, but a requester cannot correct a wrong generated record and nobody evaluated that effect.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Deterministic coverage and applicability checks plus human/context-specific review; not an accessibility, fairness, privacy or security certification</p>
-<p class="t-body-s">Decision gate: G2_NEED_REQUIREMENTS. No separate certification is issued.</p></details>
-</details>
-<details class="research-connection"><summary class="t-title-m">Make intended behavior and evidence inspectable</summary>
-<details class="research-criterion" id="HCAI-2.1"><summary class="t-title-s">HCAI-2.1 · Explain form, fit and function</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Every requirement names what is represented, how it fits the surrounding workflow, what it must do and the reference material used to judge it.</p>
-<p class="t-body-m"><strong>How to check:</strong> Compare the artifact with its reference material to judge whether its role and behavior meet the requirement.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> A review form is linked to required intake fields, advisor responsibilities and cancellation rules.</p>
-<p class="t-body-m"><strong>Common failure:</strong> A finished-looking screen is accepted without knowing its purpose or reference requirements.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Structured references plus human interpretation</p>
-<p class="t-body-s">Decision gate: G4_TRACEABILITY. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-2.2"><summary class="t-title-s">HCAI-2.2 · Trace the exact artifact to a check</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Each important requirement/artifact pair has an executed check bound to both its exact artifact digest and its requirement/context fingerprint. A change to acceptance criteria, scope, linked states, references, dependencies or authority invalidates the affected check.</p>
-<p class="t-body-m"><strong>How to check:</strong> Compare both fingerprints with the record captured when the check ran. Repeat the affected check after a change; computing a new hash does not constitute retesting.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> A cancellation walkthrough records the exact screen revision and the field-preservation result.</p>
-<p class="t-body-m"><strong>Common failure:</strong> An agent edits error handling after tests ran, but the old test pass is reused.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Deterministic chain and revision checks plus inspection of execution evidence</p>
-<p class="t-body-s">Decision gate: G4_TRACEABILITY. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-2.3"><summary class="t-title-s">HCAI-2.3 · Distinguish simulated from implemented behavior</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Label each requirement&#x27;s behavior as specified only, simulated or implemented. Do not label a walkthrough of a simulation as an implementation test.</p>
-<p class="t-body-m"><strong>How to check:</strong> Identify the connected components and the mocks. Judge functionality from evidence of behavior, independently of visual polish.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> The export button is simulated; the review checks the intended recovery behavior and funds only implementation of that behavior.</p>
-<p class="t-body-m"><strong>Common failure:</strong> A mock success screen is presented as proof that a payment or export completed.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Behavior-status and test-level consistency plus human inspection</p>
-<p class="t-body-s">Decision gate: G4_TRACEABILITY. No separate certification is issued.</p></details>
-</details>
-<details class="research-connection"><summary class="t-title-m">Keep people able to understand and recover</summary>
-<details class="research-criterion" id="HCAI-3.1"><summary class="t-title-s">HCAI-3.1 · Cover normal, edge and recovery states</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Represent connected normal, edge and recovery paths with an entry, resolvable next-state IDs, reachable endpoints, data treatment, ownership and requirement links. Review transition conditions, dependency failures and bounded retry/exit behavior.</p>
-<p class="t-body-m"><strong>How to check:</strong> Try missing input, empty results, delay, unavailable dependency, cancellation and resumption where relevant. Document which cases apply.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> A failed save keeps entered data and explains how to retry or return to manual work.</p>
-<p class="t-body-m"><strong>Common failure:</strong> The happy path works but a failed save silently discards the user&#x27;s input.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> State/reference checks plus context-specific human walkthrough</p>
-<p class="t-body-s">Decision gate: G3_STATES_RECOVERY. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-3.2"><summary class="t-title-s">HCAI-3.2 · Make human and automated authority explicit</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Record what people and automated components may access, change or send. Review approval, interruption, escalation and recovery boundaries. If AI only created the artifact, say so.</p>
-<p class="t-body-m"><strong>How to check:</strong> For an agent action, ask who authorizes it, how to stop it, what happens after partial completion and who resolves exceptions.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> A draft-only agent cannot send; an advisor approves changes and can return to a saved record.</p>
-<p class="t-body-m"><strong>Common failure:</strong> An agent may delete or message externally without a stated owner, approval boundary or recovery path.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Required boundary review plus specialist verification when risk demands it</p>
-<p class="t-body-s">Decision gate: G3_STATES_RECOVERY. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-3.3"><summary class="t-title-s">HCAI-3.3 · Count human oversight work</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Estimate disjoint review, correction, escalation, rework and residual manual minutes with an owner and basis. Distinguish gross from net benefit.</p>
-<p class="t-body-m"><strong>How to check:</strong> Subtract every oversight component from gross labor savings. Keep waiting time and labor time separate. Leave missing baseline ROI indeterminate.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> Fifteen minutes of gross savings and fifteen minutes of oversight are reported as zero net time savings.</p>
-<p class="t-body-m"><strong>Common failure:</strong> Only generation speed is counted while a person must check and rewrite every output.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Required fields and arithmetic plus human estimate review</p>
-<p class="t-body-s">Decision gate: G5_OVERSIGHT. No separate certification is issued.</p></details>
-</details>
-<details class="research-connection"><summary class="t-title-m">Make the commitment accountable</summary>
-<details class="research-criterion" id="HCAI-4.1"><summary class="t-title-s">HCAI-4.1 · Scale depth before starting</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Classify six risk dimensions and four consequential-context flags. Use the highest dimension or context floor. Safety/rights impact or irreversible external action sets high; sensitive data or untrusted input to actions sets at least moderate. Any unknown prevents QUICK6.</p>
-<p class="t-body-m"><strong>How to check:</strong> Review consequence, reversibility, complexity, importance, impact and mission before choosing the path. Do not lower the classification to fit the meeting&#x27;s length.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> A consequential allocation workflow goes to FULL even when its interface has only one screen.</p>
-<p class="t-body-m"><strong>Common failure:</strong> A simple-looking UI is treated as low risk despite an irreversible outcome.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Deterministic routing plus competent human risk classification</p>
-<p class="t-body-s">Decision gate: G6_COMMITMENT. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-4.2"><summary class="t-title-s">HCAI-4.2 · Resolve findings at the required depth</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Review reference defects, findings and unresolved risks. Unresolved critical findings cannot be waived. Add independent review and deeper plans when the risk tier requires them. A recorded human evidence-quality review must address relevance, completeness, authenticity and test adequacy; agent-only assertions cannot replace it.</p>
-<p class="t-body-m"><strong>How to check:</strong> Inspect each unresolved finding; passing other gates cannot offset it. Verify reviewer independence for moderate/high risk.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> A critical data-loss defect stays visible even when the baseline is also missing.</p>
-<p class="t-body-m"><strong>Common failure:</strong> A critical finding is marked accepted to obtain a favorable readiness result.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Finding status and evidence checks plus reviewer judgment</p>
-<p class="t-body-s">Decision gate: G6_COMMITMENT. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-4.3"><summary class="t-title-s">HCAI-4.3 · Limit the engineering commitment</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Record an owner, bounded engineering step, resource limit and next review trigger. Explain any investment despite a nonpositive net estimate; obtain separate owner authorization.</p>
-<p class="t-body-m"><strong>How to check:</strong> Ask what the team may build next and what it may not do yet. Retain a separate dated owner decision.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> One engineer-day for a disposable prototype, with no live sending and a review before further work.</p>
-<p class="t-body-m"><strong>Common failure:</strong> A gate pass is treated as permission for unrestricted building or deployment.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Recorded bounds and rationale; authorization remains a separate human act</p>
-<p class="t-body-s">Decision gate: G6_COMMITMENT. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-4.4"><summary class="t-title-s">HCAI-4.4 · Separate effort from performance</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Record preparation, timed-session and reporting burden. Keep protocol cost, projected operating oversight, reviewer judgments and actual system performance separate.</p>
-<p class="t-body-m"><strong>How to check:</strong> Check units and which activity each number measures. Do not infer operational accuracy, safety or readiness from document completeness.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> An expensive evaluation is reported separately from the workflow&#x27;s projected operating cost.</p>
-<p class="t-body-m"><strong>Common failure:</strong> A high checklist score is reported as evidence that the implemented system works.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Separate contract fields and arithmetic; no combined score</p>
-<p class="t-body-s">Decision gate: G6_COMMITMENT. No separate certification is issued.</p></details>
-<details class="research-criterion" id="HCAI-4.5"><summary class="t-title-s">HCAI-4.5 · Preserve evidence and disclosure boundaries</summary>
-<p class="t-body-m"><strong>Requirement:</strong> Retain exact versions, source origins, digests and previous-run links. Preserve missing and stopped records. Keep private identities/comments out of public materials without permission.</p>
-<p class="t-body-m"><strong>How to check:</strong> Check whether another reviewer could reconstruct the run and whether each proposed disclosure is permitted. Retain the old record when creating a new run.</p>
-<p class="t-body-m"><strong>Meets the intent:</strong> A new FULL record links to the stopped QUICK6 record; private notes remain outside the public package.</p>
-<p class="t-body-m"><strong>Common failure:</strong> A synthetic example is relabeled as an actual pilot or private feedback is published as an endorsement.</p>
-<p class="t-body-m"><strong>Verification boundary:</strong> Structural provenance checks plus human permission review; hashes alone do not prove truth</p>
-<p class="t-body-s">Decision gate: G6_COMMITMENT. No separate certification is issued.</p></details>
-</details>
-<p class="t-body-s u-mt-5">Each criterion states what evidence to inspect and how to check it. Passing the review supports an engineering recommendation, not certification or deployment approval.</p>
-<details class="research-connection"><summary class="t-title-m">How risk changes the required evidence</summary><p class="t-body-m">Highest of complexity, importance, impact, mission, failure consequence and irreversibility sets depth. Low: at least 1 observed case and 1 need origin. Moderate: at least 3 cases, 2 origins, actual end-user discussion, independent review and validation planning. High: at least 5 cases plus hazard, mission and operational-evaluation planning. Moderate/high require FULL.</p><p class="t-body-s">These are provisional completeness floors, not representative sample sizes or validated safety thresholds.</p></details>
-<details class="research-connection"><summary class="t-title-m">What stays separate in the result</summary><p class="t-body-m">Current-state baseline; proposed workflow; protocol evaluation cost and separately operational oversight burden; engineering-handoff evidence; actual post-implementation performance. No combined readiness score. Preparation and session effort are visible. Gross savings, net operating benefit and one-time cost remain distinct.</p></details>
-<details class="research-connection"><summary class="t-title-m">Consequences can rule out the quick path</summary><p class="t-body-m">Safety/rights effects or irreversible external actions require high-depth FULL. Sensitive data or untrusted input influencing actions require at least moderate FULL. Any unknown context answer prevents QUICK-6, regardless of how simple the interface looks. These are provisional routing floors, not validated risk classifications.</p></details>
-<div class="research-example"><h3 class="t-title-m">What the software can check</h3><p class="t-body-m">The tools check record structure and decision rules. A human must examine whether the evidence is relevant, credible and adequate. This review must be recorded, although the software cannot authenticate that it took place. The owner authorizes engineering separately, and deployment requires its own evaluation.</p><p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/deep-audit.html">Read the deep audit and validation roadmap</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/claims-and-governance.html">Claims and change-control rules</a></p></div>
-</div></section>
-
-<section class="o-section o-section--bordered" id="agent-tools"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">05 / Optional tools</span><h2 class="t-title-xl">Use the same method with an assistant.</h2><p class="t-body-m">The HARD Protocol MCP server and Skill share the same deterministic gates. Their exact versions are listed in setup details. The guided path asks one question at a time and produces a readable report that is private by default.</p></div>
-<div class="ds-grid ds-grid-2">
-<details class="research-connection"><summary class="t-title-m">Set up HARD Protocol MCP</summary><p class="t-body-s">MCP 0.2.0rc7 · Protocol 0.2-preview.1</p><p class="t-body-m">Requires uv. The first run downloads the versioned wheel and dependencies. It runs locally without a model key; your assistant host can see supplied records. Do not submit confidential data without permission.</p><pre class="research-config"><code id="mcp-config">{
-  "mcpServers": {
-    "hcai-readiness-candidate": {
-      "command": "uvx",
-      "args": ["--from", "https://www.takyejun.com/static/research/ai-readiness/hard-0.2-preview-1/hcai_readiness_mcp-0.2.0rc7-py3-none-any.whl", "hcai-readiness-mcp"]
-    }
-  }
-}</code></pre><button type="button" class="button button-secondary" data-copy-target="mcp-config">Copy MCP configuration</button><p class="t-body-m">Start with new_review_record, continue with review_next_step, then assessment_report. Get one criterion with get_review_criterion. The tools do not supply evidence or grant authorization.</p></details>
-<details class="research-connection"><summary class="t-title-m">Set up the HARD Protocol Skill</summary><p class="t-body-s">Skill/contract 0.2.0-rc.7 · Invocation: ai-ready</p><p class="t-body-m">The Skill guides the conversation and includes a portable Python engine. Requires Python 3.11+ and Pydantic 2 for deterministic assessment. Without the runtime, it prepares evidence and reports assessment pending.</p><a class="button button-secondary" href="/static/research/ai-readiness/hard-0.2-preview-1/ai-ready-0.2.0-rc.7.zip">Download HARD Protocol Skill</a><p class="t-body-m">Extract the ai-ready folder into your assistant's Skill directory. Follow its included instructions. This does not authorize contacting people or publishing private records.</p></details>
-</div><p class="research-copy-status t-body-s" role="status" aria-live="polite"></p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/agent-tools.html">Full setup and tool reference</a>
-</div></section>
-
-<section class="o-section o-section--bordered" id="downloads"><div class="o-section-inner">
-<div class="m-eyebrow-title"><span class="m-eyebrow-title-eyebrow">06 / Read, print or try</span><h2 class="t-title-xl">Guides, worksheets and downloads</h2></div>
-<p class="t-body-m"><a class="link-arrow" href="/static/research/ai-readiness/hard-0.2-preview-1/WORKSHEET.html">Use the conversation worksheet</a> to record the six questions, the reason for the result and the next action's owner. No installation is required; the advisor maintains the detailed evidence record.</p>
-<div class="ds-grid ds-grid-3">
-<div class="o-card-archetype"><h3 class="t-title-m">Start a short review</h3><p class="t-body-m">Questions for an advisor-led, low-risk review.</p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-QUICK-6-0.2-preview.1.pdf">QUICK-6 PDF</a></div>
-<div class="o-card-archetype"><h3 class="t-title-m">Read the complete method</h3><p class="t-body-m">The protocol's scope, requirements and limits.</p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/PROTOCOL.html">Read in your browser</a><p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-Protocol-0.2-preview.1.pdf">Protocol PDF</a></p></div>
-<div class="o-card-archetype"><h3 class="t-title-m">Try one bounded external use</h3><p class="t-body-m">Instructions for voluntary use and feedback. No endorsement is requested.</p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-External-Pilot-Packet-0.2-preview.1.pdf">Pilot packet PDF</a></div>
+<div class="hard-legacy-anchors" aria-hidden="true">
+<span id="HCAI-1.1" class="sr-only">HCAI-1.1</span>
+<span id="HCAI-1.2" class="sr-only">HCAI-1.2</span>
+<span id="HCAI-1.3" class="sr-only">HCAI-1.3</span>
+<span id="HCAI-1.4" class="sr-only">HCAI-1.4</span>
+<span id="HCAI-2.1" class="sr-only">HCAI-2.1</span>
+<span id="HCAI-2.2" class="sr-only">HCAI-2.2</span>
+<span id="HCAI-2.3" class="sr-only">HCAI-2.3</span>
+<span id="HCAI-3.1" class="sr-only">HCAI-3.1</span>
+<span id="HCAI-3.2" class="sr-only">HCAI-3.2</span>
+<span id="HCAI-3.3" class="sr-only">HCAI-3.3</span>
+<span id="HCAI-4.1" class="sr-only">HCAI-4.1</span>
+<span id="HCAI-4.2" class="sr-only">HCAI-4.2</span>
+<span id="HCAI-4.3" class="sr-only">HCAI-4.3</span>
+<span id="HCAI-4.4" class="sr-only">HCAI-4.4</span>
+<span id="HCAI-4.5" class="sr-only">HCAI-4.5</span>
 </div>
-<details class="research-connection"><summary class="t-title-m">Full profile, package and verification records</summary><p><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-Full-Profile-0.2-preview.1.pdf">Full-profile PDF</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-Protocol-0.2-preview.1.zip">Complete Public Preview package</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/rc4-test-results.json">Software test results</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/change-manifest.json">Change-to-test mapping</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/download-manifest.json">Download checksums</a></p></details>
+<p class="t-body-s">The intended benefit is a next step the team can explain, with fewer unresolved assumptions hidden by appearance. Whether the protocol improves real decisions remains to be tested.</p>
 </div></section>
 
-<section class="o-section o-section--bordered" id="limitations"><div class="o-section-inner">
-<h2 class="t-title-xl">Evidence and limitations</h2>
-<p class="t-body-m">The protocol proposes a repeatable review of evidence before committing engineering resources. The deep audit identified and corrected software defects. Whether the method improves real decisions still requires comparative evidence; this release does not establish a universal AI standard.</p>
-<p class="t-body-m">Practitioner correspondence informed refinement. It is not controlled empirical validation. Hillel Glazer approved attribution for his traceability feedback; other themes are summarized without publishing private identities or comments. No endorsement is implied.</p>
-<p class="t-body-m">The proposed research studies visual fidelity and reviewers' defect detection while AI authorship stays constant. Perceived readiness and confidence are separate judgments. It does not yet establish that AI coding causes these problems or that this protocol prevents them.</p>
-<p class="t-body-m">No actual external pilot is recorded. Usability, the time target, risk thresholds and effectiveness remain unvalidated. Public Preview status remains until current regressions and recorded bounded end-user/advisor use support an author release review. The owner separately authorizes engineering; deployment requires separate evaluation.</p>
-<p class="u-mt-5"><a class="button button-secondary" href="/research/ai-readiness/updates">Read the update log</a></p>
-<details class="research-connection" id="archive"><summary class="t-title-m">Frozen history, citation and reuse</summary><p class="t-body-m">rc.3 and all six rc.4 candidates remain available, unchanged. <a class="link" href="/static/research/ai-readiness/Protocol-v0.1.pdf">Historical rc.3 PDF</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate/HCAI-v0.1-rc.4-candidate.zip">First-candidate package</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/migration-rc3-to-rc4.html">Migration notes</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate-2/HCAI-v0.1-rc.4-candidate.2.zip">Candidate.2 package</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate-3/HCAI-v0.1-rc.4-candidate.3.zip">Candidate.3 package</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate-4/HCAI-v0.1-rc.4-candidate.4.zip">Candidate.4 package</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate-5/HCAI-v0.1-rc.4-candidate.5.zip" >Candidate.5 package</a> · <a class="link" href="/static/research/ai-readiness/rc4-candidate-6/HCAI-v0.1-rc.4-candidate.6.zip">Candidate.6 package</a>.</p><p class="t-body-m">Tak, Y. (2026). <em>Human-centered AI Readiness Deployment Protocol</em>. HARD Protocol 0.2 · Public Preview. Exact protocol 0.2-preview.1. MCP 0.2.0rc7; Skill 0.2.0-rc.7. No DOI is assigned to this Public Preview. <a class="link" href="https://doi.org/10.5281/zenodo.22667623">10.5281/zenodo.22667623</a> identifies rc.3 only.</p><p class="t-body-s">Original text and synthetic data: CC BY 4.0; software: MIT. AI-assisted development. Research Harness v3 is a separate project, not validation evidence for this protocol. <a class="link" href="https://github.com/yejuntak/hcai-deployment-readiness">Source repository</a>.</p></details>
+<section class="o-section o-section--bordered" id="start"><div class="o-section-inner stack stack-5">
+<div class="hard-section-intro"><p class="t-eyebrow">03 / Start small</p><h2 class="t-title-xl">One workflow. One review. One next action.</h2><p class="t-body-l">Bring a recent case of today's work, the proposed artifact and someone who knows the work. An advisor can ask the questions and take notes. No installation is needed.</p></div>
+<div id="quick-six"><ol class="research-steps hard-six t-body-m">
+<li><strong>What happens today?</strong><p>Show the people, steps, time, failures and rework in a recent case. Missing baseline means stop; ROI stays indeterminate.</p></li>
+<li><strong>What needs to improve, for whom?</strong><p>Name an actual need and a result you can check, including people affected by the workflow.</p></li>
+<li><strong>How does it work, including failure?</strong><p>Use a structure view to inspect information, choices, states, recovery and human or agent authority.</p></li>
+<li><strong>What demonstrates the behavior?</strong><p>Connect each important requirement to an exact artifact revision and a relevant test or validation.</p></li>
+<li><strong>What work remains for people?</strong><p>Count checking, correction, escalation and manual work before claiming savings.</p></li>
+<li><strong>What next step does the evidence support?</strong><p>Apply the risk depth and record the recommendation, owner, resource limit and reason to revisit it.</p></li>
+</ol></div>
+<p class="t-body-m">Check risk first. QUICK-6 is for low-risk work with records available. Moderate, high or unknown risk needs the full profile. A failed or missing gate stops the short review; it cannot be averaged away. The 15-minute target remains untested.</p>
+<div class="m-cta-pair" id="downloads"><a class="button button-primary" data-primary-task href="/static/research/ai-readiness/hard-0.2-preview-2/HARD-QUICK-6-0.2-preview.2.pdf" download>Download QUICK-6</a><a class="button button-secondary" data-primary-task href="/static/research/ai-readiness/hard-0.2-preview-2/PROTOCOL.html">Read the full protocol</a></div>
+<details class="hard-detail"><summary class="t-title-m">Other documents and downloads</summary><div class="stack stack-3 t-body-m">
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/HARD-Protocol-0.2-preview.2.pdf" download>Download protocol PDF</a>
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/WORKSHEET.html">Conversation worksheet</a>
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/HARD-Full-Profile-0.2-preview.2.pdf">Full risk-tiered profile PDF</a>
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/HARD-External-Pilot-Packet-0.2-preview.2.pdf">External pilot packet PDF</a>
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/HARD-Protocol-0.2-preview.2.zip">Source package</a>
+<a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/SCENARIOS.html">More constructed scenarios</a>
+</div></details>
+<div class="research-review-output"><h3 class="t-title-m">What you leave with</h3><dl class="research-output-list t-body-m"><div><dt>A recommendation</dt><dd>Proceed to engineering, revise, or gather missing evidence.</dd></div><div><dt>A reason</dt><dd>What was checked, what is unresolved and what remains untested.</dd></div><div><dt>A next action</dt><dd>Someone accountable for a defined task and resource limit.</dd></div></dl><p class="t-body-s">The owner authorizes engineering separately; deployment requires separate evaluation.</p></div>
+</div></section>
+
+
+<section class="o-section o-section--bordered" id="attribution"><div class="o-section-inner stack stack-4">
+<h2 class="t-title-xl">Attribution</h2><p class="t-body-m">Practitioner feedback helped refine the protocol. Named credit is published with permission.</p>
+<table class="research-attribution t-body-m"><caption>Practitioner contributions</caption><thead><tr><th scope="col">Contributor</th><th scope="col">Contribution</th></tr></thead><tbody><tr><th scope="row">Hillel Glazer</th><td>Feedback on tracing artifacts to requirements and the tests or validation that demonstrate them, including reference material and form, fit and function. Attribution approved.</td></tr></tbody></table>
+<p class="t-body-m">To request attribution credit, contact <a class="link" href="mailto:takyejun@gmail.com">takyejun@gmail.com</a> or <a class="link" href="mailto:ytak47189@ucumberlands.edu">ytak47189@ucumberlands.edu</a>.</p>
+<p class="t-body-s">Credit is not endorsement or validation. Other feedback is summarized without publishing private identities or comments.</p>
+</div></section>
+
+<section class="o-section o-section--bordered" id="limitations"><div class="o-section-inner stack stack-4">
+<h2 class="t-title-xl">Evidence and limitations</h2><p class="t-body-m">Public Preview. Practitioner correspondence informed refinement. It is not controlled empirical validation. The research question, the practical protocol and software regression results are different kinds of evidence. Usability, time savings and effectiveness remain unvalidated.</p>
+<p class="t-body-m">Interested in participating in an external pilot or scheduling an official pilot walkthrough? Contact <a class="link" href="mailto:takyejun@gmail.com">takyejun@gmail.com</a> or <a class="link" href="mailto:ytak47189@ucumberlands.edu">ytak47189@ucumberlands.edu</a> with one workflow you would like to review.</p>
+<p class="t-body-s">Exact protocol 0.2-preview.2 · MCP 0.2.0rc8 · Skill/contract 0.2.0-rc.8. Existing commands, API names and HCAI criterion IDs are unchanged.</p>
+<p><a class="link" href="/research/ai-readiness/updates">What changed? Read the update log</a></p>
+<details class="research-connection" id="archive"><summary class="t-title-m">Sources, verification and preserved releases</summary><p class="t-body-m">The first 0.2 preview, rc.3 and all six rc.4 candidates remain unchanged. Past records keep their original names and versions.</p><p class="t-body-m"><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/decision-naming-migration.html">Migration notes</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/rc4-test-results.json">Software test record</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/download-manifest.json">Download checksums</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-1/HARD-Protocol-0.2-preview.1.zip">Preserved first preview</a></p><p class="t-body-m">Tak, Y. (2026). <em>Human-centered AI Readiness and Decision Protocol</em>. H.A.R.D. Protocol 0.2 · Public Preview. Exact protocol 0.2-preview.2. No DOI is assigned to this preview. <a class="link" href="https://doi.org/10.5281/zenodo.22667623">10.5281/zenodo.22667623</a> identifies rc.3 only.</p><p class="t-body-s">Original text and synthetic data: CC BY 4.0; software: MIT. AI-assisted development. Research Harness v3 is a separate project, not validation evidence. <a class="link" href="https://github.com/yejuntak/hcai-deployment-readiness">Source repository</a>.</p><p class="t-body-m"><a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/editorial-review.html">Editorial review</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/deep-audit.html">Deep audit</a> · <a class="link" href="/static/research/ai-readiness/hard-0.2-preview-2/claims-and-governance.html">Claims and governance</a></p></details>
 </div></section>
 
 </main></body></html>

@@ -4,7 +4,7 @@
   "additionalProperties": false,
   "required": ["protocol_version", "status", "changes"],
   "properties": {
-    "protocol_version": {"const": "0.2-preview.1"},
+    "protocol_version": {"const": "0.2-preview.2"},
     "status": {"const": "candidate_unvalidated"},
     "changes": {"type": "array", "minItems": 1, "items": {
       "type": "object", "additionalProperties": false,
