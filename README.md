@@ -32,7 +32,12 @@ Published version directories and earlier runs remain frozen. Root Templates, Wo
 
 [DOI 10.5281/zenodo.22667623](https://doi.org/10.5281/zenodo.22667623) identifies the historical rc.3 release only. It does not identify this preview. The [baseline manifest](historical/baseline-manifest.json) preserves historical artifact identity. Research Harness v3 is separate and supplies no validation evidence here.
 
+The compact current-version ZIP includes the runnable tools, current documents, templates and worked examples. It omits frozen historical releases and Git metadata. Run the full regression and release-building commands below from a repository clone with historical tags; archive-identity checks are not standalone ZIP checks. For a downloaded bundle, use the CSV verification commands in [Source/README.md](Source/README.md).
+
 ```sh
+git clone https://github.com/yejuntak/hcai-deployment-readiness.git
+cd hcai-deployment-readiness
+git fetch --tags
 uv sync --group dev
 uv run python scripts/build_candidate_assets.py --check
 uv run pytest -q
