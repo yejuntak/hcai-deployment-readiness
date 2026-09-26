@@ -1,0 +1,6 @@
+session_id,finding_id,reference_id,matched_duplicate_unsupported_novel_unresolved,rationale,adjudicator,disagreement,adjudicated_at
+EX-1,F01,D01,matched,Identify the return/navigation label as ambiguous.,Synthetic adjudicator,none stipulated,2026-09-08T10:05:00Z
+EX-1,F02,D02,matched,Identify the nonspecific field-error wording.,Synthetic adjudicator,none stipulated,2026-09-08T10:05:00Z
+EX-1,F03,D04,matched,"Identify formatting inconsistency, not absence of a unique ID.",Synthetic adjudicator,none stipulated,2026-09-08T10:05:00Z
+EX-1,F04,D05,matched,Identify missing retry/preserved-data behavior after timeout.,Synthetic adjudicator,none stipulated,2026-09-08T10:05:00Z
+EX-1,F05,D07,matched,Identify unclear Leave label before submission.,Synthetic adjudicator,none stipulated,2026-09-08T10:05:00Z

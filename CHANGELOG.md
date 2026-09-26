@@ -1,3 +1,13 @@
+# 0.2-preview.3 / 0.2.0rc9 / 0.2.0-rc.9
+
+- Connect consequential choices to purpose, alternatives, rationale provenance, tradeoffs, evidence and accountable human decisions.
+- Add a stage-bounded Artifact Review for plans, prototypes and code, with optional independent-evaluation eligibility.
+- Require machine-readable artifact population; reject mixed or unknown pooled diagnostics.
+- Unify CSV template/example contracts, four evidence stages, locking and adjudication fields; add a synthetic runtime-AI specification case.
+- Retain unassessed checks, clarify severity/deferred scope and role-overlap N/A rules.
+- Remove the optional model integration from current distribution and website. Regenerate portable Skill, MCP schemas, readable pages and PDFs together.
+- Preserve historical protocol releases and DOI identity. Practitioner feedback is improvement input, not evidence of effectiveness.
+
 # H.A.R.D. Protocol 0.2: Decision naming revision, September 25, 2026
 
 Human-centered AI Readiness and Decision Protocol. Public Preview. Exact protocol 0.2-preview.2; MCP 0.2.0rc8; Skill/contract 0.2.0-rc.8.

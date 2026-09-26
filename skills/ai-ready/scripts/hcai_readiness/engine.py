@@ -2,6 +2,7 @@
 import hashlib
 import json
 from .contracts import Assessment, AssessmentResult, Gate
+from .artifact_review import choice_gaps
 from .versions import versions
 
 RISK_FIELDS = ("complexity", "importance", "impact", "mission", "failure_consequence", "irreversibility")
@@ -63,6 +64,11 @@ def requirement_digest(a, requirement):
     evidence = {e.id: e for e in a.evidence}
     return canonical_digest({
         "requirement": requirement.model_dump(), "scope": a.scope.model_dump(),
+        "artifact_population": a.artifact_population,
+        "consequential_choices": [c.model_dump(exclude={"human_decision", "human_decision_owner",
+                                   "human_decision_evidence_locations", "verification_evidence_locations", "follow_up", "follow_up_owner"})
+                                  for c in a.choice_ledger if c.id in a.important_choice_ids
+                                  and (not c.affected_check_ids or requirement.id in c.affected_check_ids)],
         "states": [s.model_dump() for s in a.workflow.states if requirement.id in s.requirement_ids],
         "entry_state_id": a.workflow.entry_state_id, "dependencies": a.workflow.dependencies,
         "action_boundaries": a.workflow.action_boundaries,
@@ -163,6 +169,11 @@ def assess(a: Assessment) -> dict:
     evidence = {e.id: e for e in a.evidence}
     gates = []
     b, w, h, o = a.baseline, a.workflow, a.handoff, a.operational_oversight
+    choices = {c.id: c for c in a.choice_ledger}
+    choice_issues = {key: choice_gaps(choices[key]) if key in choices else ["important_choice_record_missing"]
+                     for key in a.important_choice_ids}
+    choice_issues = {key: gaps for key, gaps in choice_issues.items() if gaps}
+    revised_choices = [key for key in a.important_choice_ids if key in choices and choices[key].human_decision == "revise"]
     g = GateBuilder("G1_BASELINE")
     for field in BaselineFields:
         g.require(getattr(b, field) is not None, f"baseline.{field}: missing")
@@ -200,6 +211,14 @@ def assess(a: Assessment) -> dict:
     gates.append(g.result())
 
     g = GateBuilder("G2_NEED_REQUIREMENTS")
+    g.require(a.artifact_population != "unknown", "artifact_population: explicitly classify AI-generated, runtime AI, both or neither; unknown cannot qualify")
+    g.require(bool(a.important_choice_ids), "Identify consequential choices in important_choice_ids; an empty inventory is not a completed choice review")
+    for key in a.important_choice_ids:
+        choice = choices.get(key)
+        g.require(choice is not None, f"{key}: consequential choice record missing")
+        if choice is not None:
+            for gap in ("observed_choice_missing", "observed_evidence_locations_missing", "criteria_missing", "alternatives_review_missing"):
+                g.require(gap not in choice_issues.get(key, []), f"{key}: {gap}")
     g.require(bool(w.outcome), "Explicit intended outcome required")
     g.require(bool(w.needs) and bool(w.requirements), "End-user need and requirements required")
     for key in type(a.scope).model_fields:
@@ -255,6 +274,9 @@ def assess(a: Assessment) -> dict:
     gates.append(g.result())
 
     g = GateBuilder("G4_TRACEABILITY")
+    for key in a.important_choice_ids:
+        if key in choices:
+            g.require(bool(choices[key].verification_evidence_locations), f"{key}: consequential choice needs verification evidence for this revision")
     g.require(bool(w.important_artifact_ids), "Important artifact/behavior inventory required")
     g.require(bool(w.requirements) and bool(w.validations), "Requirement and validation records required")
     validations = {v.id: v for v in w.validations}
@@ -297,6 +319,11 @@ def assess(a: Assessment) -> dict:
     gates.append(g.result())
 
     g = GateBuilder("G6_COMMITMENT")
+    for key, gaps in choice_issues.items():
+        for gap in gaps:
+            g.require(False, f"{key}: {gap}; resolve the consequential choice before commitment")
+    for key in revised_choices:
+        g.fail(True, f"{key}: accountable reviewer requires revision of this consequential choice")
     g.require(tier != "unknown", "All six risk dimensions must be classified")
     g.require(all(v is not None for v in a.risk.context.model_dump().values()), "Answer every consequential-context question; unknown cannot be treated as no")
     g.require(bool(a.risk.rationale.strip()) and bool(a.risk.evidence_ids), "Risk rationale and evidence required")
@@ -361,12 +388,19 @@ def assess(a: Assessment) -> dict:
                  for f in h.reviewer_findings or [] if f.severity == "critical" and f.status != "resolved"]
     if attention:
         decision = "REVISE"
+    for key in sorted(set(choice_issues) | set(revised_choices)):
+        attention.append({"kind": "consequential_choice", "id": key,
+                          "message": "Consequential choice requires revision." if key in revised_choices else "Consequential choice remains unresolved: " + ", ".join(choice_issues[key]),
+                          "action": "Inspect purpose, decision criteria and current evidence with an accountable human; record the disposition and follow-up."})
+    if revised_choices:
+        decision = "REVISE"
     if nonpositive:
         attention.append({"kind": "nonpositive_benefit", "id": "OPERATING_BENEFIT",
                           "message": "Oversight or recurring costs erase the claimed benefit.",
                           "action": "Revise the business case or record an explicit nonfinancial/learning rationale."})
     result = AssessmentResult(
-        run_id=a.run_id, versions=versions(), evaluator_kind=a.evaluator_kind, decision=decision,
+        run_id=a.run_id, artifact_population=a.artifact_population,
+        versions=versions(), evaluator_kind=a.evaluator_kind, decision=decision,
         decision_scope="bounded_engineering_commitment", risk_tier=tier, requested_profile=a.requested_profile,
         required_profile="FULL" if depth["profile"] == "FULL" or (a.requested_profile == "QUICK6" and stop) else a.requested_profile,
         escalation_required=a.requested_profile == "QUICK6" and (depth["profile"] == "FULL" or bool(stop)),
@@ -375,6 +409,10 @@ def assess(a: Assessment) -> dict:
         operational_performance={**a.operational_performance.model_dump(), "deployment_decision": "NOT_ASSESSED",
                                  "interpretation": "Supplied post-implementation observations only; no performance is inferred from upstream gates."},
         handoff_record={**h.model_dump(), "recommendation": decision, "owner_authorization": "PENDING_SEPARATE_RECORDED_DECISION"},
+        choice_review={"important_choice_ids": a.important_choice_ids,
+                       "records": [c.model_dump() for c in a.choice_ledger],
+                       "gaps": choice_issues, "revision_required_ids": revised_choices,
+                       "interpretation": "Current human justification can retain an existing choice. New rationale and proposed alternatives are not evidence of historical AI reasoning. No seventh gate or aggregate score is added."},
         provenance={"input_sha256": canonical_digest(a.model_dump()), "artifacts": [e.model_dump() for e in a.evidence],
                     "digest_verification": "Supplied artifact digests are format-checked, not independently fetched/verified by this offline engine."},
         limitations=["Engineering commitment recommendation only; never deployment certification.",

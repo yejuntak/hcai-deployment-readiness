@@ -1,3 +1,5 @@
+Current distribution: H.A.R.D. Protocol 0.2-preview.3 Public Preview. The historical review below is retained as a dated record; see [current migration](migration-preview-3.md) for changed contracts and current checks.
+
 # H.A.R.D. Protocol 0.2: naming migration
 
 Human-centered AI Readiness and Decision Protocol · Public Preview

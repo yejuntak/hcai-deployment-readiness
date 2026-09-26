@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 from pydantic import ValidationError
 from .contracts import Assessment
+from .artifact_review import ArtifactReview, review_artifact
 from .engine import assess, validation_targets
 from .guidance import new_review, guided_review
 from .reporting import render_report
@@ -19,15 +20,21 @@ def main():
     parser.add_argument("--run-id")
     parser.add_argument("--recorded-at")
     parser.add_argument("--evaluator-kind", choices=("human", "ai-assisted-human", "agent", "synthetic"))
+    parser.add_argument("--artifact-review", action="store_true", help="Assess a stage-bounded artifact review JSON record")
+    parser.add_argument("--artifact-population", choices=("ai_generated", "runtime_ai", "both", "neither", "unknown"), default="unknown")
     parser.add_argument("--profile", choices=("QUICK6", "FULL"), default="QUICK6")
     args = parser.parse_args()
     try:
-        if args.new:
+        if args.artifact_review:
+            if args.new or args.guide or args.validation_targets or args.input is None or args.format != "json":
+                parser.error("--artifact-review requires an input and JSON output; it cannot combine with engineering guidance")
+            result = review_artifact(ArtifactReview.model_validate_json(args.input.read_text()))
+        elif args.new:
             if args.input or args.guide or args.validation_targets or args.format != "json":
                 parser.error("--new cannot be combined with an input, --guide or a report format")
             if not (args.run_id and args.recorded_at and args.evaluator_kind):
                 parser.error("--new requires --run-id, --recorded-at and --evaluator-kind")
-            result = new_review(args.run_id, args.recorded_at, args.evaluator_kind, args.profile)
+            result = new_review(args.run_id, args.recorded_at, args.evaluator_kind, args.profile, artifact_population=args.artifact_population)
         else:
             if args.input is None:
                 parser.error("Supply an assessment JSON file, or use --new")

@@ -1,6 +1,6 @@
 # HARD Protocol data contracts
 
-HARD Protocol 0.2 · Public Preview. Exact protocol 0.2-preview.1, MCP 0.2.0rc7, Skill/contract 0.2.0-rc.7. Public version 0.2 is a display label, not an execution-version alias. Field definitions are unchanged. Older records are not automatically relabeled.
+HARD Protocol 0.2 · Public Preview. Exact protocol 0.2-preview.3, MCP 0.2.0rc9, Skill/contract 0.2.0-rc.9. Public version 0.2 is a display label, not an execution-version alias. Preview.3 adds required artifact population and review mode, choice records, stage-bounded artifact review and evaluator eligibility. Older records are not automatically relabeled.
 
 These JSON Schema 2020-12 contracts are generated from src/hcai_readiness/contracts.py using Pydantic 2. Records reject unknown fields. The engine also checks version identity, references, reconciled counts, risk tiers, gate rules and consistency between pilot records and assessments.
 
@@ -19,3 +19,7 @@ Candidate.2 introduced scope, connected current-state steps, original evidence o
 Candidate.3 added requirement/context fingerprints, connected proposed-state transitions, context risk flags, affected-person impact reviews, recorded human evidence-quality review and complete pilot routing records. Candidate.4 edits the documentation and tool guidance without changing these contracts or the decision rules. Its exact compatibility versions identify the new distribution; existing runs retain their original versions.
 
 Candidate.5 removes em dashes and en dashes from current prose and advances the exact distribution identities. Candidate.6 corrects an inaccurate external-standard comparison. Required fields and decision rules remain unchanged.
+
+## Preview.3 additions
+
+artifact-review.schema.json describes the small-team route with four independently recorded evidence levels. diagnostic-session.schema.json and diagnostic-judgment.schema.json preserve historical formulas while requiring population and explicit evaluator eligibility. csv-contract.json is authoritative for both templates and worked examples. A missing or mixed population blocks pooled inference. Unknown eligibility produces null research metrics and reason codes, not zero. Current full-assessment and portable Skill schema/code are generated together; prior-version inputs require explicit review and a new record, never relabeling.

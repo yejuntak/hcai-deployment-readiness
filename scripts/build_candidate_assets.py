@@ -4,6 +4,8 @@ import copy
 import importlib.util
 import json
 from pathlib import Path
+from hcai_readiness.artifact_review import ArtifactReview
+from hcai_readiness.assessment import Session, Judgment
 from hcai_readiness.contracts import Assessment, AssessmentResult, FeedbackEntry, PilotRun, StudyReview
 from hcai_readiness.engine import DEPTH, CONTEXT_FLOORS, assess
 from hcai_readiness.versions import versions, identity, public_title, RELEASE_LABEL
@@ -18,17 +20,17 @@ def encoded(value):
 
 def generated():
     output = {"identity.json": encoded(identity()), "versions.json": encoded(versions()), "schemas/risk-depth.json": encoded(DEPTH), "schemas/context-risk-floors.json": encoded(CONTEXT_FLOORS)}
-    for model, name in ((Assessment, "assessment"), (AssessmentResult, "assessment-result"),
+    for model, name in ((ArtifactReview, "artifact-review"), (Session, "diagnostic-session"), (Judgment, "diagnostic-judgment"), (Assessment, "assessment"), (AssessmentResult, "assessment-result"),
                         (FeedbackEntry, "feedback-entry"), (PilotRun, "pilot-run"), (StudyReview, "study-review")):
         output[f"schemas/{name}.schema.json"] = encoded({"$schema": "https://json-schema.org/draft/2020-12/schema", **model.model_json_schema()})
-    protocol = (ROOT / "protocol/0.2-preview.2/PROTOCOL.md").read_bytes()
+    protocol = (ROOT / "protocol/0.2-preview.3/PROTOCOL.md").read_bytes()
     output["src/hcai_readiness/protocol.md"] = protocol
     output["skills/ai-ready/references/protocol.md"] = protocol
-    for name in ("QUICK-6.md", "FULL-PROFILE.md", "START-HERE.md", "SCENARIOS.md", "WORKSHEET.md"):
-        output[f"skills/ai-ready/references/{name}"] = (ROOT / "protocol/0.2-preview.2" / name).read_bytes()
-    for name in ("assessment", "pilot-run", "study-review"):
+    for name in ("QUICK-6.md", "FULL-PROFILE.md", "START-HERE.md", "SCENARIOS.md", "WORKSHEET.md", "ARTIFACT-REVIEW.md", "DECISION-REVIEW.md", "INDEPENDENT-EVALUATION.md"):
+        output[f"skills/ai-ready/references/{name}"] = (ROOT / "protocol/0.2-preview.3" / name).read_bytes()
+    for name in ("assessment", "pilot-run", "study-review", "artifact-review", "diagnostic-session", "diagnostic-judgment"):
         output[f"skills/ai-ready/references/{name}.schema.json"] = output[f"schemas/{name}.schema.json"]
-    for name in ("__init__.py", "versions.py", "contracts.py", "engine.py", "cli.py", "guidance.py", "reporting.py", "criteria.json"):
+    for name in ("__init__.py", "artifact_review.py", "assessment.py", "versions.py", "contracts.py", "engine.py", "cli.py", "guidance.py", "reporting.py", "criteria.json"):
         output[f"skills/ai-ready/scripts/hcai_readiness/{name}"] = (ROOT / "src/hcai_readiness" / name).read_bytes()
     output["skills/ai-ready/references/research-boundary.md"] = (ROOT / "docs/research-boundary.md").read_bytes()
     output["skills/ai-ready/references/claims-and-governance.md"] = (ROOT / "docs/claims-and-governance.md").read_bytes()

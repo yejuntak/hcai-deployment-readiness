@@ -7,7 +7,7 @@ from pathlib import Path
 from hcai_readiness.contracts import Assessment
 from hcai_readiness.guidance import GUIDES, criteria_catalog
 from hcai_readiness.reporting import render_report
-from hcai_readiness.versions import versions
+from hcai_readiness.versions import identity, versions
 
 ROOT = Path(__file__).resolve().parents[1]
 FORBIDDEN = (chr(0x2013), chr(0x2014))
@@ -20,7 +20,7 @@ def test_current_reader_text_has_no_em_or_en_dash():
     paths += list((ROOT/'skills/ai-ready/references').glob('*.md'))
     paths += [ROOT/name for name in ('README.md', 'CHANGELOG.md', 'docs/research-content.gohtml',
                                      'skills/ai-ready/SKILL.md', 'schemas/README.md', 'index.html',
-                                     'docs/index.html', 'Pilot-Kit/hard-0.2-preview-2-external-packet.md')]
+                                     'docs/index.html', f"Pilot-Kit/{identity()['distribution_id']}-external-packet.md")]
     failures = [str(p.relative_to(ROOT)) for p in paths if any(c in html.unescape(p.read_text()) for c in FORBIDDEN)]
     assert not failures, failures
     assert all(c not in json.dumps(GUIDES, ensure_ascii=False) for c in FORBIDDEN)

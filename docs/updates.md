@@ -1,10 +1,30 @@
 # Protocol update log
 
-Last updated: September 25, 2026. Current: **H.A.R.D. Protocol 0.2** · **Public Preview**.
+Last updated: September 26, 2026. Current: **H.A.R.D. Protocol 0.2** · **Public Preview**.
 
-Human-centered AI Readiness and Decision Protocol. Exact protocol 0.2-preview.2; MCP 0.2.0rc8; Skill/contract 0.2.0-rc.8.
+Human-centered AI Readiness and Decision Protocol. Exact protocol 0.2-preview.3; MCP 0.2.0rc9; Skill/contract 0.2.0-rc.9.
 
-This is a public record of changes, not a validation claim. Earlier versions remain available. No completed external pilot, adoption, endorsement, or performance improvement is claimed.
+This is a record of changes, not a validation claim. Historical versions remain available. Formative reported use does not establish a conformant independent evaluation, adoption, endorsement or performance improvement.
+
+## September 26, 2026: inspect choices and support small-team artifact review
+
+The author's rationale places choices at the center of the review. Starting from a completed result, reviewers connect purpose, criteria, alternatives, rationale, tradeoffs, verification and remaining human judgment. Documented historical reasons remain distinct from current new explanations. A justified original choice can be retained.
+
+The preview adds a formal artifact_review route for a solo practitioner or small team, including specifications with no code. It does not require a measured baseline or ROI and does not grant an engineering gate pass. QUICK6/FULL retain the six gates, fifteen criteria, risk floors and engineering formulas. Targeted deepening describes additional inspection, not a new validated scoring profile.
+
+| Feedback or rationale | Revision | Evidence limit |
+| --- | --- | --- |
+| Results conceal choices and expert judgment | Choice records connect purpose, alternatives, rationale provenance, tradeoffs, verification and actual human disposition. | Does not recover private model reasoning or prove improved decisions. |
+| Templates and examples diverged | Current templates, complete examples and verification use consistent four-level evidence records. | Historical archives remain unchanged; software checks cover the revised implementation. |
+| Artifact population was omitted from aggregation | Required artifact_population accompanies criterion and evaluator population in batch handling. | Stratification alone does not establish a valid comparison. |
+| Independent roles are impractical for small teams | Minimum artifact route plus metric-specific eligibility and N/A reasons. | Solo and agent findings are not independent human-performance evidence. |
+| Severity and deferred scope were ambiguous | Require applicability, evidence, failure mechanism and consequence; retain proposed versus adjudicated severity. | Private source attachments were not independently examined; no reported finding is asserted as verified. |
+
+The optional companion integration is removed from the active distribution and navigation. Preserved historical releases retain their original contents and identities.
+
+The additional feedback was agent-mediated and lacked the controls required for independent evaluation. It informs usability and consistency fixes. Public summaries omit private names and quotations. The proposed fidelity study remains separate, and no efficacy or deployment claim is added.
+
+Read the [migration notes](/static/research/ai-readiness/hard-0.2-preview-3/migration-preview-3.html), [artifact-review guide](/static/research/ai-readiness/hard-0.2-preview-3/ARTIFACT-REVIEW.html), [decision review](/static/research/ai-readiness/hard-0.2-preview-3/DECISION-REVIEW.html) and [metric eligibility](/static/research/ai-readiness/hard-0.2-preview-3/INDEPENDENT-EVALUATION.html).
 
 ## September 25, 2026: Decision replaces Deployment in the full name
 

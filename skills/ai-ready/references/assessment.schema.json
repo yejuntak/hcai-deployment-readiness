@@ -1,6 +1,29 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$defs": {
+    "Alternative": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Locations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "description"
+      ],
+      "title": "Alternative",
+      "type": "object"
+    },
     "Baseline": {
       "additionalProperties": false,
       "properties": {
@@ -298,6 +321,196 @@
         }
       },
       "title": "Check",
+      "type": "object"
+    },
+    "ChoiceRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "purpose": {
+          "minLength": 1,
+          "title": "Purpose",
+          "type": "string"
+        },
+        "criteria": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Criteria",
+          "type": "array"
+        },
+        "observed_choice": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Observed Choice"
+        },
+        "observed_evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Observed Evidence Locations",
+          "type": "array"
+        },
+        "historical_alternatives": {
+          "items": {
+            "$ref": "#/$defs/Alternative"
+          },
+          "title": "Historical Alternatives",
+          "type": "array"
+        },
+        "proposed_alternatives": {
+          "items": {
+            "$ref": "#/$defs/Alternative"
+          },
+          "title": "Proposed Alternatives",
+          "type": "array"
+        },
+        "alternatives_review": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alternatives Review"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rationale"
+        },
+        "rationale_provenance": {
+          "enum": [
+            "documented",
+            "reported",
+            "new",
+            "unknown"
+          ],
+          "title": "Rationale Provenance",
+          "type": "string"
+        },
+        "rationale_evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Rationale Evidence Locations",
+          "type": "array"
+        },
+        "impacts_and_tradeoffs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Impacts And Tradeoffs",
+          "type": "array"
+        },
+        "affected_check_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Affected Check Ids",
+          "type": "array"
+        },
+        "human_decision": {
+          "default": "pending",
+          "enum": [
+            "accepted",
+            "revise",
+            "pending"
+          ],
+          "title": "Human Decision",
+          "type": "string"
+        },
+        "human_decision_owner": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Human Decision Owner"
+        },
+        "human_decision_evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Human Decision Evidence Locations",
+          "type": "array"
+        },
+        "verification_evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Verification Evidence Locations",
+          "type": "array"
+        },
+        "follow_up": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Follow Up"
+        },
+        "follow_up_owner": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Follow Up Owner"
+        }
+      },
+      "required": [
+        "id",
+        "purpose",
+        "observed_choice",
+        "rationale",
+        "rationale_provenance"
+      ],
+      "title": "ChoiceRecord",
       "type": "object"
     },
     "ContextScreen": {
@@ -1992,6 +2205,23 @@
   },
   "additionalProperties": false,
   "properties": {
+    "mode": {
+      "const": "engineering_commitment",
+      "default": "engineering_commitment",
+      "title": "Mode",
+      "type": "string"
+    },
+    "artifact_population": {
+      "enum": [
+        "ai_generated",
+        "runtime_ai",
+        "both",
+        "neither",
+        "unknown"
+      ],
+      "title": "Artifact Population",
+      "type": "string"
+    },
     "run_id": {
       "minLength": 1,
       "title": "Run Id",
@@ -2032,6 +2262,21 @@
     },
     "scope": {
       "$ref": "#/$defs/Scope"
+    },
+    "important_choice_ids": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Important Choice Ids",
+      "type": "array"
+    },
+    "choice_ledger": {
+      "items": {
+        "$ref": "#/$defs/ChoiceRecord"
+      },
+      "title": "Choice Ledger",
+      "type": "array"
     },
     "previous_run_id": {
       "anyOf": [
@@ -2085,6 +2330,7 @@
     }
   },
   "required": [
+    "artifact_population",
     "run_id",
     "recorded_at",
     "versions",

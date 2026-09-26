@@ -2,8 +2,6 @@
 
 September 25, 2026. The public site uses the label Protocol Library and shows QUICK-6, Full Profile and an external pilot as three use paths. The pilot applies either assessment profile; it is not a new scoring system.
 
-The introduction retains seven links. MCP and optional Jev setup are available directly, while the Skill remains a direct download. The original links work without JavaScript.
-
 The architect's watercolor story now supplies the introduction's research motivation. The original artifact remains intact during review; a separate structure view is optional guidance, not an extra gate or a research intervention. Conceptual images do not establish a result.
 
 The website adds shared-design reading routes for the protocol, QUICK-6, Full Profile, worksheet and start-here guide. Their text is loaded from the frozen publication and tested for word parity. Old static editions and downloads remain unchanged.

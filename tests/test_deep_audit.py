@@ -10,6 +10,7 @@ from pydantic import ValidationError
 from hcai_readiness.contracts import Assessment, PilotRun
 from hcai_readiness.engine import assess, validation_targets, CONTEXT_FLOORS
 from hcai_readiness.reporting import render_report
+from hcai_readiness.versions import versions
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -185,13 +186,15 @@ def test_deep_audit_public_pages_and_references():
         page = (ROOT/'docs/web'/f'{name}.html').read_text()
         assert '<html lang="en">' in page
         assert '<h1>' in page and '<title>' in page
-        assert '0.2-preview.2' in page
-    protocol = (ROOT/'protocol/0.2-preview.2/PROTOCOL.md').read_text()
-    assert '15 review criteria' in protocol and 'does not certify a system' in protocol
+        assert versions()['protocol'] in page
+    protocol = (ROOT/'protocol'/versions()['protocol']/'PROTOCOL.md').read_text()
+    assert 'six gates and fifteen criteria' in protocol
+    assert 'No result approves deployment or certifies software quality.' in protocol
     assert (ROOT/'docs/claims-and-governance.md').read_bytes() == (ROOT/'skills/ai-ready/references/claims-and-governance.md').read_bytes()
 
 def test_worksheet_writing_spaces_remain_literal_and_tables_focusable():
     page = (ROOT/'docs/web/WORKSHEET.html').read_text()
-    assert 'Workflow / one completed case: ______' in page
+    assert 'Artifact / revision / date: ______' in page
+    assert 'Observed current case, connected steps, time, touches, failures, review, escalation, rework, volume and observation window: ______' in page
     assert '<em>' not in page
     assert 'tabindex="0" role="region"' in page

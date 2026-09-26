@@ -1,5 +1,5 @@
-assessment_id,artifact_id,criterion_version,criterion_status,evaluator_judgment
-EX-1,SR-01,Handoff-v0.1,Nonready,Ready
-EX-2,SR-01,Handoff-v0.1,Nonready,Ready
-EX-3,SR-01,Handoff-v0.1,Nonready,Ready
-EX-4,SR-01,Handoff-v0.1,Nonready,Not ready
+assessment_id,artifact_id,artifact_population,evaluator_kind,mode,stage,criterion_version,criterion_status,evaluator_judgment
+EX-1,SR-01,ai_generated,synthetic,independent_evaluation,specification_handoff,Handoff-v0.1,nonready,ready
+EX-2,SR-01,ai_generated,synthetic,independent_evaluation,specification_handoff,Handoff-v0.1,nonready,ready
+EX-3,SR-01,ai_generated,synthetic,independent_evaluation,specification_handoff,Handoff-v0.1,nonready,ready
+EX-4,SR-01,ai_generated,synthetic,independent_evaluation,specification_handoff,Handoff-v0.1,nonready,not_ready

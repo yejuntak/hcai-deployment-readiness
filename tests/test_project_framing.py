@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 from hcai_readiness.guidance import GUIDES, criteria_catalog
-from hcai_readiness.versions import versions
+from hcai_readiness.versions import identity, versions
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -27,8 +27,9 @@ def test_current_materials_do_not_claim_unrelated_standard_origin():
     for content in (GUIDES, criteria_catalog()):
         assert not any(token in json.dumps(content).lower() for token in tokens)
     protocol = (ROOT/'protocol'/versions()['protocol']/'PROTOCOL.md').read_text()
-    assert 'HCAI' in protocol and 'engineering-commitment' in protocol
-    assert 'does not certify a system or approve deployment' in protocol
+    assert identity()['full_name'] in protocol
+    assert '`artifact_review`' in protocol and '`engineering_commitment`' in protocol
+    assert 'No result approves deployment or certifies software quality.' in protocol
 
 
 def test_candidate_five_remains_byte_frozen():

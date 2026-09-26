@@ -1,43 +1,76 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>H.A.R.D. Protocol: MCP and Skill</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
 main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
-</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.2-preview-2/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>H.A.R.D. Protocol: MCP and Skill</h1>
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.2-preview-3/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>H.A.R.D. Protocol: MCP and Skill</h1>
 <p>H.A.R.D. Protocol 0.2 · Public Preview</p>
-<p>Human-centered AI Readiness and Decision Protocol. Exact protocol 0.2-preview.2; MCP 0.2.0rc8; Skill/contract 0.2.0-rc.8. The displayed MCP and Skill name is H.A.R.D. Protocol. Existing package names, hcai-readiness commands, hcai:// resources, API fields and the ai-ready invocation are unchanged. The historical DOI and tags identify earlier releases only.</p>
-<h2>Install the MCP server</h2>
-<p>From this candidate checkout, use Python 3.11+ and uv:</p>
+<p>Human-centered AI Readiness and Decision Protocol</p>
+<p>Exact protocol 0.2-preview.3; MCP 0.2.0rc9; Skill/contract 0.2.0-rc.9. The ArtifactReview versions object requires exact protocol, mcp, skill and contract values. Package names, hcai-readiness commands and the ai-ready invocation remain supported. Use the exact versions returned by the installed tools; old records are not silently migrated.</p>
+<h2>Install locally</h2>
+<p>Use Python 3.11+ and uv from this checkout:</p>
 <pre><code class="language-sh">uv sync --group dev
 uv run hcai-readiness-mcp
 </code></pre>
-<p>Configure a local stdio MCP server using the absolute candidate checkout path. Replace /ABSOLUTE/PATH/readiness-rc4 with your path; it is a placeholder.</p>
-<pre><code class="language-json">{&quot;mcpServers&quot;:{&quot;hcai-readiness-candidate&quot;:{&quot;command&quot;:&quot;uv&quot;,&quot;args&quot;:[&quot;--directory&quot;,&quot;/ABSOLUTE/PATH/readiness-rc4&quot;,&quot;run&quot;,&quot;hcai-readiness-mcp&quot;]}}}
+<p>Configure a stdio MCP server, replacing the placeholder with the absolute checkout or extracted distribution path:</p>
+<pre><code class="language-json">{&quot;mcpServers&quot;:{&quot;hard-protocol&quot;:{&quot;command&quot;:&quot;uv&quot;,&quot;args&quot;:[&quot;--directory&quot;,&quot;/ABSOLUTE/PATH/hard-protocol&quot;,&quot;run&quot;,&quot;hcai-readiness-mcp&quot;]}}}
 </code></pre>
-<p>For an extracted candidate distribution, use its root directory instead. No candidate Git tag or package-index release is assumed. Call assessment_template to verify exact versions/schema/depth. Call assess_engineering_commitment with the assessment object. The tool checks the supplied record against the protocol's rules. It does not crawl files, verify facts, authorize engineering, deploy or send results. No model or model key is used, though your assistant host may receive the data you supply.</p>
-<h2>Install the Skill</h2>
-<p>Copy skills/ai-ready into your assistant's Skill directory. Protocol, profiles, schemas and deterministic Python engine are bundled. Install scripts/requirements.txt in your Python environment (Pydantic 2). The Skill requires Python 3.11+; without a runtime it can prepare evidence but must report assessment pending.</p>
-<pre><code class="language-sh">python skills/ai-ready/scripts/assess.py examples/rc4/low-risk-quick.json
-uv run hcai-readiness examples/rc4/low-risk-quick.json
+<p>No package-index publication is assumed. The server checks supplied records; it does not crawl private files, authenticate evidence, send reports or authorize deployment. No model key is required by the deterministic server. Your assistant host may receive the data you choose to supply.</p>
+<p>To install the Skill, copy skills/ai-ready to a Skill directory supported by your assistant and install its scripts/requirements.txt into Python 3.11+. The references, schemas and deterministic code are bundled. Without a runtime, the Skill can prepare evidence and must state that deterministic assessment is pending.</p>
+<h2>Choose the record that matches the task</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Need</th>
+<th>Tools and contract</th>
+<th>Boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inspect a specification, prototype or code at its declared stage</td>
+<td><code>artifact_review_template</code>, then <code>assess_artifact_review</code> with the ArtifactReview record</td>
+<td>No baseline or ROI prerequisite. Stage-bounded evidence result, not engineering permission.</td>
+</tr>
+<tr>
+<td>Fund a bounded engineering step</td>
+<td><code>assessment_template</code> or <code>new_review_record</code>, <code>review_next_step</code>, then <code>assess_engineering_commitment</code></td>
+<td>QUICK6/FULL preserve all six gates and risk rules.</td>
+</tr>
+<tr>
+<td>Capture a research participant's judgments</td>
+<td><code>validate_study_review</code></td>
+<td>Reviewer-side judgments only; no answer key or engineering recommendation.</td>
+</tr>
+<tr>
+<td>Calculate supplied reference metrics under explicit eligibility</td>
+<td>Corrected <code>assess_legacy_session</code> and <code>summarize_legacy_batch</code> diagnostic tools</td>
+<td>Amended implementation of historical measures, not a frozen rc.3 run or current engineering gate pass.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Use artifact_review mode for a solo/small-team inspection. independent_evaluation is an optional layer requiring reference, timing and role eligibility. Merely selecting that mode does not establish independence. ArtifactReview has no adjudicated reference counts, so its reviewer metrics remain null with the reason adjudicated_reference_counts_not_supplied; use the diagnostic Session only when the eligible counts and reference records actually exist.</p>
+<p>The current server exposes fifteen read-only tools. The artifact route is also available through <code>--artifact-review</code>; this route currently emits JSON only and cannot combine with engineering guidance or report-format flags:</p>
+<pre><code class="language-sh">uv run hcai-readiness /ABSOLUTE/PATH/artifact-review.json --artifact-review
+python skills/ai-ready/scripts/assess.py /ABSOLUTE/PATH/artifact-review.json --artifact-review
 </code></pre>
-<p>These repository-relative examples are synthetic, not pilots. A portable installation uses its own input path.</p>
-<h2>Operations and boundaries</h2>
-<ul>
-<li>Prepare: Skill collects current-state evidence, classifies risk and walks QUICK6/FULL; it visibly stops at an unmet gate.</li>
-<li>Evaluate: MCP assess_engineering_commitment and the Skill script use byte-identical contracts/engine logic.</li>
-<li>Record use: validate_pilot_run checks versions, gates/decision and evidence references; it does not prove a session occurred.</li>
-<li>Export feedback: export_public_feedback strips private names, comments, dates, context and permission evidence. Review change/file metadata for inadvertent private content before publication.</li>
-<li>Legacy: assess_legacy_session and summarize_legacy_batch retain rc.3 formulas/identity. They cannot establish a candidate pass. Old assess_session/summarize_batch names are replaced to avoid mixing contracts.</li>
-</ul>
-<p>Unknown/dangling IDs, malformed digests, inconsistent counts, nonfinite/negative numbers, booleans in numeric fields and version mismatches are rejected. Missing nullable/defaultable evidence produces unmet gates. QUICK6 marks later gates NOT_EVALUATED; FULL reports all gates.</p>
-<p>Keep evaluator_burden, operational_oversight, roi, operational_performance, gates and provenance as separate outputs. They must not be combined into a deployment claim or weighted score. Unknown costs/tokens are null. Regenerate and parity-check copies with scripts/build_candidate_assets.py; tests include actual stdio MCP and a separate portable Skill subprocess.</p>
-<h2>Run a guided review</h2>
-<p>Call new_review_record with a caller-supplied ID, timestamp and evaluator provenance. It returns a record with no evidence filled in. Use review_next_step for the next question, responsible role and action. The assistant should show the short question first and retain the returned detail for the facilitator.</p>
-<p>get_gate_guide explains one gate. get_review_criterion retrieves a stable HCAI criterion and examples. assessment_report returns private Markdown or offline HTML with expandable requirement/artifact/test chains. Invalid drafts return field paths without echoing sensitive input values.</p>
-<pre><code class="language-sh">uv run hcai-readiness --new --run-id MY-REVIEW --recorded-at 2026-09-24T12:00:00Z --evaluator-kind human
+<h2>Artifact review fields</h2>
+<p>Retain exact versions, run_id, artifact_version, criterion_version, artifact_kind, stage, mode, evaluator_kind, criteria_timing and artifact_population. Population is ai_generated, runtime_ai, both, neither or unknown; unknown remains an evidence gap. Review stages are specification_handoff, prototype_handoff, implementation_review and runtime_release_review. A release-stage label does not authorize release.</p>
+<p>Every current requirement and recovery row has specified, walkthrough, implemented and runtime_tested EvidenceCheck objects. Status is pass, fail, unassessed or not_applicable. Pass/fail needs a source location; not_applicable needs a reason. Current unassessed items remain in the denominator. A required-stage not_applicable cannot count as pass. Deferred/excluded items need a reason and cannot hide a current dependency.</p>
+<p>Specification/prototype stage requires specified plus walkthrough evidence. Implementation review adds implemented evidence; runtime review adds execution evidence. The result exposes every level separately. Aggregate diagnostic counts have criterion_scope supplied_aggregate_checks and stage_handoff_eligibility null; satisfying them does not establish stage handoff without choice and four-level records. A plan can be inspected without code, with useful findings even when its walkthrough is incomplete.</p>
+<p>ChoiceRecord captures purpose, criteria, observed choice/evidence, historical and newly proposed alternatives, rationale provenance, tradeoffs, verification, human decision and follow-up. Use documented/reported only with historical source evidence. New is a present rationale, not reconstructed private reasoning. Important choices need actual human acceptance or revision evidence; an agent cannot supply human confirmation on its own.</p>
+<p>Findings preserve recognition, current applicability, proposed and adjudicated severity, evidence and resolution. Critical needs a supported failure mechanism and consequence. Future work and absent disclaimer text do not automatically establish current critical defects.</p>
+<h2>Engineering tools and readable reports</h2>
+<p><code>new_review_record</code> takes caller-supplied metadata and returns a draft without invented evidence. <code>review_next_step</code> presents the next missing question. <code>get_gate_guide</code> and <code>get_review_criterion</code> explain the existing gates and stable criteria.</p>
+<pre><code class="language-sh">uv run hcai-readiness --new --run-id MY-REVIEW --recorded-at 2026-09-26T12:00:00Z --evaluator-kind human
 uv run hcai-readiness examples/rc4/low-risk-quick.json --guide
 uv run hcai-readiness examples/rc4/low-risk-quick.json --format html
 python skills/ai-ready/scripts/assess.py examples/rc4/low-risk-quick.json --format markdown
 </code></pre>
-<p>Replace the example ID/time with actual metadata. Commands print to stdout and do not save records automatically. The HTML report is private by default, not a public export. It never loads artifact URLs or executes their content.</p>
-<p>hcai://criteria exposes four principles and fifteen candidate criteria. validate_study_review is separate: it validates a locked reviewer-side record without keys, effect calculations or an engineering recommendation. A confidence field is not a validated scale.</p>
-<p>get_validation_targets (or CLI --validation-targets) returns current artifact and requirement/context fingerprints for a new check. It does not execute a test, modify a record or verify evidence. Never use it to relabel a stale result; repeat the affected validation first. There are thirteen read-only MCP tools, including legacy diagnostics.</p>
-<p>Candidate.5 retains the evidence requirements introduced in candidate.3: connected proposed transitions, affected-person impact screening, context risk flags, explicit authority boundaries and recorded human evidence-quality review. Candidate.4 revised the wording; candidate.5 removes the remaining em dashes and en dashes. The result's assurance object continues to distinguish structural checks, supplied review and unverified authenticity. See <a href="/static/research/ai-readiness/hard-0.2-preview-2/migration-rc3-to-rc4.html">migration</a> before using old records.</p>
-<p>Preserve a stopped QUICK6 record before continuing in FULL with previous_run_id and revision_summary. Preparation time and capture/reporting are explicit, source origins must be distinct, tests must identify the artifact revision tested, and simulated behavior stays labeled.</p></main></body></html>
+<p>Replace example metadata with actual metadata. Repository examples are synthetic. These commands print to stdout and do not save automatically. <code>assessment_report</code> offers a private Markdown or offline HTML engineering report. It does not load artifact URLs or execute their content.</p>
+<p><code>get_validation_targets</code> and CLI --validation-targets compute current artifact and requirement/context fingerprints. They do not execute validation or renew a stale pass. Repeat affected checks after a change and retain the old record.</p>
+<h2>Eligibility and population consistency</h2>
+<p>The diagnostic tools retain the historical metric definitions while correcting role/lock eligibility and population handling in this implementation. A current diagnostic result must identify that amended method/version. Existing archived rc.3 inputs and outputs remain historical evidence; do not relabel them.</p>
+<p>Independent metrics require a prospectively frozen reference independent of findings, an evaluator who did not author the artifact or reference, and locks before reference access. Self-adjudicated matches require independent confirmation. Expected-recall gap additionally requires an actual locked expectation; omission recognition requires a frozen omission subset. False-ready acceptance requires an independently established criterion and locked judgment. See the <a href="/static/research/ai-readiness/hard-0.2-preview-3/INDEPENDENT-EVALUATION.html">eligibility table</a>.</p>
+<p>Batch metrics stratify by criterion version, evaluator kind and artifact_population. Preserve stage, mode and remaining eligibility distinctions before comparing results. Agent or synthetic results cannot be presented as observed independent human results. Unknown is not neither.</p>
+<h2>Operations and limits</h2>
+<p>Use <code>validate_pilot_run</code> only for an actual bounded engineering use record with the required evidence. Formative feedback or an artifact-only review is not automatically such a run. Keep role deviations, routing and skipped gates visible. <code>export_public_feedback</code> supports privacy-conscious summaries; inspect the result before publication. Do not publish private names, source artifacts or quotations by default.</p>
+<p>The software rejects malformed or contradictory records and checks arithmetic, references and encoded rules. A structurally valid file can still contain false or inadequate evidence. Human evidence-quality review and real owner authorization remain separate. Do not combine artifact coverage, evaluator metrics, review burden, projected operating benefit and actual performance into a readiness percentage.</p>
+<p>Regenerate bundled copies with scripts/build_candidate_assets.py and test MCP/Skill parity. Tests cover implementation behavior, not empirical effectiveness. See <a href="/static/research/ai-readiness/hard-0.2-preview-3/claims-and-governance.html">claims and governance</a> and <a href="/static/research/ai-readiness/hard-0.2-preview-3/migration-preview-3.html">preview.3 migration</a>.</p></main></body></html>

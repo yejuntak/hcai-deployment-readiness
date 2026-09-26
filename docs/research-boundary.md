@@ -1,14 +1,14 @@
 # Research question and practical use
 
-H.A.R.D. Protocol 0.2 · Public Preview · Exact protocol 0.2-preview.2
+H.A.R.D. Protocol 0.2 · Public Preview · Exact protocol 0.2-preview.3
 
-The proposed study examines how visual fidelity affects human review of AI-generated interface prototypes. Requirements, content, behavior and embedded defects are held constant, as is AI authorship. The protocol serves a separate practical purpose: reviewing evidence before a team funds engineering. It is neither the experimental treatment nor evidence that the hypothesized effect exists.
+The proposed study examines how visual fidelity affects human review of AI-generated interface prototypes. Requirements, content, behavior and embedded defects are held constant, as is AI authorship. The protocol serves a separate practical purpose: inspecting choices and evidence in an artifact, and, through QUICK6/FULL, reviewing evidence before a team funds engineering. It is neither the experimental treatment nor evidence that the hypothesized effect exists.
 
 ## Definitions and measurement boundaries
 
 The author's originating anecdote concerns architectural previsualization: an architect described presenting an intermediate 3D view with a watercolor treatment to invite discussion of overall structure. No firm or individual is identified here. The anecdote motivates a question; it does not establish the treatment's effect.
 
-The practical protocol asks teams to inspect a missing intermediate layer when a finished-looking AI-created artifact arrives before its information structure, workflow, technical evidence or operating responsibilities have been reviewed. This is an application hypothesis, not a finding that AI always skips those steps. In practice a separate structural view may expose questions. It should preserve relevant information and label unknowns, not merely blur the original.
+The practical protocol starts from a finished-looking artifact and works backward through its choices: product purpose, criteria, alternatives, rationale, tradeoffs, verification and missing human judgment. The original choice can be retained when justified. This inspection can reveal questions about information structure, workflow, technical evidence or operating responsibility that have not yet been resolved. This is an application hypothesis, not a finding that AI always skips those steps. In practice a separate structural view may expose questions. It should preserve relevant information and label unknowns, not merely blur the original.
 
 | Construct | Meaning in this work | Do not substitute |
 | --- | --- | --- |
@@ -23,11 +23,21 @@ The practical protocol asks teams to inspect a missing intermediate layer when a
 
 ## Practice reviews and research sessions
 
-**In practice**, an owner or advisor uses the six gates, provides references, inspects behavior and records a bounded engineering recommendation. Designers, developers and small-business advisors are intended users. Usability and benefit across those groups remain untested.
+**In practice**, a solo practitioner or small team can use artifact_review at a declared specification, prototype, implementation or runtime-review stage. It produces a bounded evidence record and next action, without requiring financial measurements or independent research roles. QUICK6/FULL separately retain the six gates for a bounded engineering recommendation. Neither route establishes runtime performance from specification completeness.
+
+**For optional independent evaluation**, apply the [metric eligibility rules](../protocol/0.2-preview.3/INDEPENDENT-EVALUATION.md). Role overlap does not eliminate useful artifact findings, but it can make evaluator-performance measures N/A. Agent, human and assisted-human populations remain distinct, as do AI-generated, runtime AI, both and neither artifact populations. Stratification is necessary but does not itself establish a sound study design.
+
+The rationale draws on a proposed common pattern of expert work: interpret purpose, define criteria, compare alternatives, choose in context and verify the result. This is a design premise, not a demonstrated theory of expertise across domains. A newly generated reason is not evidence of the creator's historical reasoning, and no private chain-of-thought reconstruction is claimed. Designers, developers and small-business advisors are intended users; usability and benefit remain unvalidated.
 
 **For a study**, the researcher freezes the requirements, intact and defective items, reference key, artifacts, generation/edit history, study version and assignment schedule. Reviewers do not receive the answer key before their judgments are locked. Do not use the guided practice prompts or public worked example as an unplanned experimental intervention: they could change detection and contaminate the comparison.
 
 The optional `study-review` schema stores one defect/no-defect judgment or abstention per requirement, item-level confidence, review time and separate perceived-readiness/global-confidence fields. The example 1 to 7 readiness scale is an unvalidated capture convention, not a validated questionnaire. The schema contains no reference key and computes neither engineering readiness nor a treatment effect.
+
+## What the additional feedback can establish
+
+A practitioner reported agent-mediated use and identified template/example schema friction, an omitted population axis and difficulty applying independent-reviewer metrics with overlapping roles. Such feedback informs usability and implementation consistency. It does not establish performance improvement, protocol compliance, adoption or endorsement.
+
+The underlying private artifact, CSVs and execution attachments were not independently examined for this release. Reported findings, numerical results and severity are not treated as verified. Public documentation uses separate constructed examples and omits private names and quotes. A missing disclosure is not automatically critical; deferred scope is not automatically a current defect. See the [finding-recognition rules](../protocol/0.2-preview.3/ARTIFACT-REVIEW.md).
 
 ## Decisions still needed before a study
 

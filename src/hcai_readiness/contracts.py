@@ -1,6 +1,7 @@
 """Candidate contracts. Unknown evidence remains nullable; invalid data never passes."""
 from typing import Annotated, Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
+from .artifact_review import ArtifactPopulation, ChoiceRecord
 from .versions import versions
 
 Text = Annotated[str, Field(min_length=1)]
@@ -298,6 +299,8 @@ class OperationalEvidence(Record):
 
 
 class Assessment(Record):
+    mode: Literal["engineering_commitment"] = "engineering_commitment"
+    artifact_population: ArtifactPopulation
     run_id: Text
     recorded_at: Annotated[str, Field(pattern=r"^\d{4}-\d{2}-\d{2}T.*(?:Z|[+-]\d{2}:\d{2})$")]
     versions: Versions
@@ -305,6 +308,8 @@ class Assessment(Record):
     requested_profile: Profile
     evidence: list[Evidence]
     scope: Scope = Field(default_factory=Scope)
+    important_choice_ids: list[Text] = Field(default_factory=list)
+    choice_ledger: list[ChoiceRecord] = Field(default_factory=list)
     previous_run_id: Text | None = None
     revision_summary: Text | None = None
     baseline: Baseline = Field(default_factory=Baseline)
@@ -322,11 +327,17 @@ class Assessment(Record):
         datetime.fromisoformat(self.recorded_at.replace("Z", "+00:00"))
         if self.versions.model_dump() != versions():
             raise ValueError("Exact protocol/MCP/Skill/contract candidate versions required; migrate explicitly")
+        population_by_role = {"artifact_creation": "ai_generated", "in_workflow": "runtime_ai",
+                              "both": "both", "neither": "neither"}
+        if (self.scope.ai_role is not None and self.artifact_population != "unknown"
+                and population_by_role[self.scope.ai_role] != self.artifact_population):
+            raise ValueError("artifact_population conflicts with scope.ai_role; classify the same artifact consistently")
         if bool(self.previous_run_id) != bool(self.revision_summary) or self.previous_run_id == self.run_id:
             raise ValueError("A revision needs a different previous_run_id and a revision_summary")
         groups = {"evidence": self.evidence, "need": self.workflow.needs,
                   "requirement": self.workflow.requirements, "state": self.workflow.states,
-                  "validation": self.workflow.validations, "finding": self.handoff.reviewer_findings or []}
+                  "validation": self.workflow.validations, "finding": self.handoff.reviewer_findings or [],
+                  "choice": self.choice_ledger}
         ids = {}
         for name, group in groups.items():
             keys = [x.id for x in group]
@@ -347,6 +358,10 @@ class Assessment(Record):
                 for item in value:
                     evidence_refs(item)
         evidence_refs(self.model_dump())
+        if len(self.important_choice_ids) != len(set(self.important_choice_ids)):
+            raise ValueError("Duplicate important choice IDs")
+        for choice in self.choice_ledger:
+            refs(choice.affected_check_ids, "requirement")
         for requirement in self.workflow.requirements:
             refs(requirement.need_ids, "need")
             refs(requirement.validation_ids, "validation")
@@ -392,6 +407,8 @@ class Gate(Record):
 
 
 class AssessmentResult(Record):
+    mode: Literal["engineering_commitment"] = "engineering_commitment"
+    artifact_population: ArtifactPopulation
     run_id: Text
     versions: Versions
     evaluator_kind: Text
@@ -408,6 +425,7 @@ class AssessmentResult(Record):
     operational_oversight: dict
     operational_performance: dict
     handoff_record: dict
+    choice_review: dict
     provenance: dict
     limitations: list[str]
     routing: dict

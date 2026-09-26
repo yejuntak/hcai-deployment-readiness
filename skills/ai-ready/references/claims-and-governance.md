@@ -2,28 +2,42 @@
 
 H.A.R.D. Protocol 0.2 · Public Preview
 
-Exact protocol 0.2-preview.2. Preview rules, not certification.
+Human-centered AI Readiness and Decision Protocol.
+
+Exact protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9. Preview rules, not certification.
 
 ## Which requirements govern the review?
 
-The full profile's required fields, gate rules, risk/context floors, decision boundaries and version contract define the candidate procedure. The criteria describe the intended human review obligations. Quick guidance, examples, scenarios and test fixtures explain the procedure; an example is not a mandatory solution or a substitute for evidence.
+The artifact-review contract defines stage-bounded artifact results. The full profile's required fields, gate rules, risk/context floors, decision boundaries and version contract separately define the engineering-commitment procedure. The criteria describe the intended human review obligations. Quick guidance, examples, scenarios and test fixtures explain the procedure; an example is not a mandatory solution or a substitute for evidence.
 
 The engine enforces the encoded structural and decision rules. A human reviewer must judge whether the evidence meets each criterion's intent. If code, schema and normative text disagree, record a defect, preserve the disputed run and do not issue a favorable recommendation based on the disagreement. Resolve it in a new version with a regression fixture.
 
-Every profile retains the six mandatory gates. QUICK-6 changes how a low-risk review is conducted; it is not a weaker certification level. No gate can be marked not applicable. Inapplicability is available only for the explicitly scoped impact-screen items, with evidence, owner and rationale. Domain profiles may add requirements; they may not waive mandatory gates or use the base version identity for changed logic.
+Every engineering-commitment profile retains the six mandatory gates. The separate minimum artifact_review route does not claim to pass, waive or replace them. QUICK-6 changes how a low-risk review is conducted; it is not a weaker certification level. No gate can be marked not applicable. Inapplicability is available only for the explicitly scoped impact-screen items, with evidence, owner and rationale. Domain profiles may add requirements; they may not waive mandatory gates or use the base version identity for changed logic.
 
 ## Match the claim to the evidence
 
 | Evidence available | Permitted description | Unsupported shortcut |
 | --- | --- | --- |
+| Source-cited solo or agent-assisted artifact inspection | Descriptive findings and evidence coverage for the declared revision and stage, with role and uncertainty disclosure. | Independent human detection effectiveness or engineering authorization. |
+| Reported agent-mediated use with missing independence or timing controls | Formative usability feedback and reproducible material-consistency issues where reproduced. | A conformant pilot, verified unseen attachments, adoption or performance validation. |
 | Regression tests pass | This implementation passes the named synthetic regression suite at these versions. | The protocol is effective or the product is safe. |
 | Required gates and supplied human judgments pass | Evidence supports considering this bounded engineering step, subject to separate owner authorization. | Deployment ready, HCAI certified, or compliant with an external standard. |
 | One actual permitted external use | One bounded formative use was recorded, with its scope and limitations. | Validated, widely adopted, or endorsed. |
 | Comparative study with an appropriate design | Describe the measured outcome, sample, comparator, uncertainty and limitations. | Universal benefit or claims outside the tested population/task. |
 
-A claim record must identify date, exact protocol/MCP/Skill/contract versions, workflow boundaries, requested/required profile, risk and context triggers, gate outcomes including skipped gates, evidence provenance, human-review basis, limitations, and the owner’s separate decision if one was made. Reusing the same artifact does not preserve a claim after scope, requirements, context or relevant evidence changes.
+A claim record must identify route, artifact stage/population, choice rationale provenance, role overlap, metric eligibility/N/A reasons, date, exact protocol/MCP/Skill/contract versions, workflow boundaries, requested/required profile, risk and context triggers, gate outcomes including skipped gates, evidence provenance, human-review basis, limitations, and the owner’s separate decision if one was made. Reusing the same artifact does not preserve a claim after scope, requirements, context or relevant evidence changes.
 
 Do not issue a badge or a percentage that compresses evidence completeness, evaluator cost, operating oversight and actual system performance into one result. Do not describe an implementation parity check as independent certification.
+
+## Decision and finding integrity
+
+Distinguish the observed choice, documented historical reason, current proposed rationale and a person's actual new disposition. No plausible explanation proves an unrecorded creation process. Record the human owner and decision evidence; do not grant an agent authority by labeling its output human approval. Retaining a justified original choice is valid.
+
+A finding needs a current applicable criterion or supported novel risk, source evidence and a clear difference between expected and observed conditions. Keep proposed and adjudicated severity separate. Critical requires a supported failure mechanism and serious consequence; absence of disclaimer wording alone is insufficient. Deferred work is not a current failure unless a current dependency or claim requires it. Unknown scope or severity stays unresolved.
+
+Four evidence levels remain separate. Passing a required-stage record means its supplied evidence satisfies the encoded conditions, not that the system is universally reliable. An aggregate diagnostic count cannot establish stage handoff eligibility without the artifact's choice and four-level records.
+
+Optional evaluator metrics require the declared roles, frozen reference, lock order and population conditions. Disclosing overlap does not cure it. N/A is a valid result with a specific reason. Useful agent or solo findings can remain in the artifact record without a human-performance claim.
 
 ## Contribution and correction process
 
@@ -40,5 +54,7 @@ The author currently maintains the project. It has no independent standards body
 - Stable criterion IDs remain attached to their meaning. Explain refinements; use a new ID when the obligation is materially new. Removed obligations would be deprecated explicitly rather than silently reassigned.
 - Changes need regression tests, implementation parity, link/package checks, permission review and readable documentation. A Public Preview is allowed while actual-use evidence is missing; a finalized release is not. A shorter public version number does not waive this boundary.
 - Current passing regressions and at least one genuine, version-matched bounded external use with feedback make a release eligible for author review, not automatic promotion. The author still evaluates unresolved issues and the adequacy of evidence. One pilot does not validate effectiveness or establish a standard.
+
+See [preview.3 migration](migration-preview-3.md) for the new route, required population field and corrected diagnostic/CSV contracts. Historical archives remain immutable; corrected current templates and diagnostics do not claim identical historical behavior.
 
 Licensing remains as stated in the repository: original text CC BY 4.0, engine code MIT, third-party material subject to its own terms. This document does not grant rights to private practitioner correspondence.

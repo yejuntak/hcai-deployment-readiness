@@ -3,37 +3,34 @@
 Human-centered AI Readiness and Decision Protocol  
 **Public Preview**
 
-Exact execution versions: protocol **0.2-preview.2** · MCP **0.2.0rc8** · Skill/contract **0.2.0-rc.8**. Existing hcai-readiness commands and the ai-ready invocation remain supported.
+Exact execution versions: protocol **0.2-preview.3** · MCP **0.2.0rc9** · Skill/contract **0.2.0-rc.9**. Existing hcai-readiness commands and the ai-ready invocation remain supported.
 
-A polished result can still be unfinished. This protocol helps people inspect the information structure, workflow, technical evidence and human responsibilities underneath an AI-created or AI-enabled artifact. Use six questions to decide whether to invest in building it, revise it, or gather missing evidence. The next step is a bounded engineering commitment, not permission to put a system into use or a measure of its performance.
+AI can deliver a result before people have examined the decisions inside it. H.A.R.D. starts with a plan, prototype or implementation and works backward: what was chosen, what purpose it serves, what alternatives matter, what tradeoffs it creates, what evidence supports it and which human decisions remain. A justified existing choice can be retained. A new explanation is never presented as the creator's unrecorded reasoning.
 
-## Start here
+## Start with the decision you need
 
-[Starting guide](protocol/0.2-preview.2/START-HERE.md) · [Worksheet](protocol/0.2-preview.2/WORKSHEET.md) · [Scenarios](protocol/0.2-preview.2/SCENARIOS.md) · [15 review criteria](protocol/0.2-preview.2/CRITERIA.md) · [Public update log](https://www.takyejun.com/research/ai-readiness/updates)
+| Your task | Route |
+| --- | --- |
+| Inspect one artifact, including a plan with no code, alone or in a small team | [Minimum artifact review](protocol/0.2-preview.3/ARTIFACT-REVIEW.md). No baseline or ROI prerequisite. |
+| Examine choices and missing expert judgment | [Decision review](protocol/0.2-preview.3/DECISION-REVIEW.md) and [worksheet](protocol/0.2-preview.3/WORKSHEET.md). |
+| Decide whether to fund bounded engineering work | [QUICK-6](protocol/0.2-preview.3/QUICK-6.md) or [FULL](protocol/0.2-preview.3/FULL-PROFILE.md). All six gates and [fifteen criteria](protocol/0.2-preview.3/CRITERIA.md) remain. |
+| Measure reviewer performance | [Optional independent evaluation](protocol/0.2-preview.3/INDEPENDENT-EVALUATION.md). Metric-specific independence, reference and timing rules apply. |
 
-This naming revision uses Human-centered AI Readiness and Decision Protocol. The public name H.A.R.D. Protocol 0.2 and separate Public Preview label stay the same. All six prior candidates and the first 0.2 preview remain frozen. Gates, risk thresholds, calculations and evidence requirements are unchanged. Read the [naming migration notes](docs/decision-naming-migration.md) and [editorial review](docs/editorial-review.md). The [deep audit and validation roadmap](docs/deep-audit.md) and [claims/governance rules](docs/claims-and-governance.md) explain what the method still needs to demonstrate.
+Read [Start here](protocol/0.2-preview.3/START-HERE.md), the [complete protocol](protocol/0.2-preview.3/PROTOCOL.md), [constructed software/SaaS scenarios](protocol/0.2-preview.3/SCENARIOS.md), [MCP/Skill setup](docs/agent-tools.md) or the [external-use packet](Pilot-Kit/hard-0.2-preview-3-external-packet.md).
 
-The review addresses a specific problem: an artifact's finished appearance may exceed the evidence available for its behavior. Four principles organize the criteria for engineering-commitment reviews. The result is a recommendation, not certification. The related fidelity study asks a separate research question; see [research boundaries](docs/research-boundary.md).
+## What this preview changes
 
-- [QUICK-6 advisor profile](protocol/0.2-preview.2/QUICK-6.md): six mandatory gates, a proposed <=15-minute low-risk path, and a visible stop.
-- [External pilot packet](Pilot-Kit/hard-0.2-preview-2-external-packet.md): short, voluntary bounded-use instructions.
-- [Complete protocol](protocol/0.2-preview.2/PROTOCOL.md) and [full risk-tiered profile](protocol/0.2-preview.2/FULL-PROFILE.md).
-- [Install MCP/Skill and run a local assessment](docs/agent-tools.md).
-- [Contracts](schemas/README.md), [change manifest](evidence/change-manifest.json), [public feedback ledger](evidence/feedback-ledger.public.json), [migration](docs/migration-rc3-to-rc4.md).
+The minimum artifact route is now explicit. It keeps specified, walkthrough, implemented and runtime-tested evidence separate, retains unassessed requirements in denominators, records artifact population and supports choice-level rationale and human disposition. Templates, examples and verification must use the same schema. Optional reviewer metrics state N/A reasons when role, reference or lock conditions are not met.
 
-The six gates cover the measured baseline, need and requirements, states and recovery, traceability, operational oversight, and evidence for engineering commitment at the required risk depth. Results are PROCEED_TO_ENGINEERING, REVISE or INSUFFICIENT_EVIDENCE. A missing baseline prevents a qualifying decision and leaves ROI indeterminate. Evaluation cost, projected operating oversight and actual operational performance are reported separately, without a combined score.
+Targeted deepening lets a reviewer examine an unresolved choice before expanding the review; it is not a new validated scoring profile. Engineering commitment still requires measured current work, actual need, recovery, exact-revision validation, remaining human work and accountable limits. Results remain PROCEED_TO_ENGINEERING, REVISE or INSUFFICIENT_EVIDENCE. A missing baseline blocks a qualifying engineering recommendation and leaves ROI indeterminate, while a limited artifact review can still identify useful gaps.
 
-## Candidate status
+Public summaries of practitioner feedback describe formative usability and consistency concerns. They do not reproduce private identities or quotes, verify unseen attachments or establish effectiveness. The related visual-fidelity study remains separate. No result certifies a product or approves deployment. See [research boundaries](docs/research-boundary.md), [claims and governance](docs/claims-and-governance.md) and the [update log](docs/updates.md) and [preview.3 migration](docs/migration-preview-3.md).
 
-Practitioner correspondence informed the revisions, but is not controlled empirical validation. The time target and risk thresholds remain untested, and no actual external pilot is recorded. Software tests establish behavior only for the implementation cases they cover. Promotion requires current passing regressions and recorded bounded external use reviewed by the author; the release checker cannot promote or publish automatically.
+## Versions and verification
 
-## Frozen history
+Published version directories and earlier runs remain frozen. Root Templates, Worked-Example and Source/verify_example.py provide the current corrected interoperable record path; historical copies remain under the preserved baseline and previous distributions. Current corrected diagnostic tools must identify their amended implementation instead of claiming byte-identical historical behavior.
 
-[Baseline manifest](historical/baseline-manifest.json) hashes the inspected rc.3 repository and original archive. [Frozen artifacts](historical/rc3-baseline/) and historical software tags are preserved. Root PDFs/workbooks, Source/Protocol-v0.1.md, Templates and Worked-Example remain legacy materials, not rc.4 gate implementations. Candidate PDFs live under output/pdf.
-
-[DOI 10.5281/zenodo.22667623](https://doi.org/10.5281/zenodo.22667623) identifies rc.3 only. Research Harness v3 is a separate project and supplies no validation evidence here.
-
-## Verify
+[DOI 10.5281/zenodo.22667623](https://doi.org/10.5281/zenodo.22667623) identifies the historical rc.3 release only. It does not identify this preview. The [baseline manifest](historical/baseline-manifest.json) preserves historical artifact identity. Research Harness v3 is separate and supplies no validation evidence here.
 
 ```sh
 uv sync --group dev
@@ -42,4 +39,6 @@ uv run pytest -q
 uv run python scripts/verify_candidate.py
 ```
 
-Verification reports are under Verification/rc4-*.json. Original method/Skill text and synthetic data: CC BY 4.0, Yejun Tak. Original software: MIT. Development and technical checks were AI-assisted; author review and external validation remain separate.
+Software tests establish implementation behavior for the tested cases. They do not establish usability, review time, decision improvement or defect prevention. Finalized release consideration still requires current regressions and actual version-matched bounded external use reviewed by the author. This preview is not automatically promoted by the build.
+
+Original method/Skill text and synthetic data: CC BY 4.0, Yejun Tak. Original software: MIT. Development and checks were AI-assisted; author judgment and external validation remain separate.

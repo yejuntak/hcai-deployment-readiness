@@ -1,0 +1,7 @@
+requirement_id,mandatory_yes_no,acceptance_check,scope,exclusion_reason,current_dependency_yes_no,scope_owner
+P01,yes,Retrieve only the authorized selected ticket.,current,,no,Synthetic scope reviewer
+P02,yes,Keep sending under human control.,current,,no,Synthetic scope reviewer
+P03,yes,Return to the unchanged ticket on rejection.,current,,no,Synthetic scope reviewer
+P04,yes,Specify ticket-service timeout and failure behavior.,current,,no,Synthetic scope reviewer
+P05,yes,Specify how suspected misleading draft output is reported and held.,current,,no,Synthetic scope reviewer
+P06,no,Compute sentiment analytics over historical tickets.,deferred,Phase 3 only; no dependency or present claim.,no,Synthetic scope reviewer

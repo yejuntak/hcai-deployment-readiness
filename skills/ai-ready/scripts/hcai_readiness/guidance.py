@@ -14,10 +14,10 @@ GUIDES = {
         "do_not": "Do not replace observations with the proposed process or recollected savings estimates."},
     "G2_NEED_REQUIREMENTS": {
         "title": "Name the need and success condition", "question": "Whose difficulty are we solving, and what observable result would satisfy them?",
-        "owner": "product/workflow owner", "fields": ["scope", "workflow.outcome", "workflow.needs", "workflow.requirements"],
-        "action": "Use work records or an end-user discussion to define success and its owner. Include affected non-users and review access, privacy/security, unequal effects and human control. Compare a non-AI option.",
+        "owner": "product/workflow owner", "fields": ["artifact_population", "scope", "workflow.outcome", "workflow.needs", "workflow.requirements", "choice_ledger"],
+        "action": "Classify the artifact population. Use work records or an end-user discussion to define success and its owner. Inspect consequential choices in the artifact against that purpose and explicit criteria. Separate recorded historical alternatives from alternatives proposed in this review. Include affected non-users and review access, privacy/security, unequal effects and human control. Compare a non-AI option.",
         "example": "Illustration only: after cancellation, the advisor can reopen all previously entered contact fields.",
-        "do_not": "Do not count two copies of one source, general industry articles, or feedback about this protocol as independent customer need evidence."},
+        "do_not": "Do not count two copies of one source, general industry articles, or feedback about this protocol as independent customer need evidence. Do not present a reconstruction of AI reasoning as a historical record."},
     "G3_STATES_RECOVERY": {
         "title": "Walk through normal work, failure and recovery", "question": "When the proposed workflow cannot finish, who notices and how do they recover?",
         "owner": "workflow designer and operator", "fields": ["workflow.states", "workflow.state_review", "workflow.dependencies", "workflow.dependency_review", "workflow.action_boundaries", "workflow.human_control_review"],
@@ -26,8 +26,8 @@ GUIDES = {
         "do_not": "Do not infer an error or recovery path from a polished happy-path screen."},
     "G4_TRACEABILITY": {
         "title": "Check the requirement and tested revision", "question": "Show the requirement, the exact artifact revision and the check that tested it together.",
-        "owner": "requirement owner and reviewer", "fields": ["workflow.important_artifact_ids", "workflow.requirements", "workflow.validations", "evidence"],
-        "action": "Check each requirement -> artifact -> executed-check link. Compare both the artifact and requirement/context fingerprints. After a change, repeat the affected check; replacing the hash does not establish a new pass.",
+        "owner": "requirement owner and reviewer", "fields": ["workflow.important_artifact_ids", "workflow.requirements", "workflow.validations", "choice_ledger", "evidence"],
+        "action": "Check each requirement -> artifact -> executed-check link and the evidence verifying its consequential choices. Compare both the artifact and requirement/context fingerprints. After a choice, requirement or artifact changes, repeat the affected check; replacing the hash does not establish a new pass.",
         "example": "Illustration only: requirement R1 -> saved-intake screen revision 2 -> recorded cancellation walkthrough of that exact file.",
         "do_not": "Do not count a planned test, an old artifact revision, or visual fidelity as a passing check."},
     "G5_OVERSIGHT": {
@@ -38,8 +38,8 @@ GUIDES = {
         "do_not": "Do not count the same minute twice or convert unknown money, time or token usage into zero."},
     "G6_COMMITMENT": {
         "title": "Bound the engineering decision", "question": "Which engineering step does this evidence support, how much may it use, and when should it be reviewed again?",
-        "owner": "engineering decision owner", "fields": ["handoff", "evaluator_burden"],
-        "action": "Resolve blocking findings and complete the reviews required for this risk tier. Record preparation and session effort, then name the scope, owner, resource cap and revisit trigger.",
+        "owner": "engineering decision owner", "fields": ["handoff", "evaluator_burden", "choice_ledger"],
+        "action": "Resolve blocking findings and consequential choices and complete the reviews required for this risk tier. Retain the current choice when an accountable human review supplies adequate justification and verification; missing historical rationale alone does not require replacement. Record preparation and session effort, then name the scope, owner, resource cap and revisit trigger.",
         "example": "Illustration only: one engineer-day for a disposable prototype; no live sending; review the cancellation path before any further spend.",
         "do_not": "Do not treat this recommendation as owner authorization or deployment approval. Explain funding despite nonpositive benefit."},
 }
@@ -61,10 +61,11 @@ def criterion_guide(criterion_id):
             "claim_limit": "This candidate criterion requires human evidence review as well as structural checks. Neither establishes system performance."}
 
 
-def new_review(run_id, recorded_at, evaluator_kind, requested_profile="QUICK6"):
+def new_review(run_id, recorded_at, evaluator_kind, requested_profile="QUICK6", artifact_population="unknown"):
     """Only user-supplied metadata and declared versions are populated; all evidence is empty."""
     return Assessment(run_id=run_id, recorded_at=recorded_at, evaluator_kind=evaluator_kind,
-                      requested_profile=requested_profile, versions=versions(), evidence=[]).model_dump()
+                      requested_profile=requested_profile, artifact_population=artifact_population,
+                      versions=versions(), evidence=[]).model_dump()
 
 
 def next_step(a, result=None):
@@ -91,6 +92,7 @@ def next_step(a, result=None):
 def decision_card(a, result=None):
     r = result or assess(a)
     return {"headline": LABELS[r["decision"]], "decision": r["decision"], "run_id": a.run_id,
+            "mode": a.mode, "artifact_population": a.artifact_population,
             "versions": versions(), "workflow": a.scope.workflow_name, "unit_of_work": a.scope.unit_of_work,
             "risk": r["risk_tier"], "required_profile": r["required_profile"], "routing": r["routing"],
             "stop_at": r["stop_at_gate"], "next_step": next_step(a, r), "attention_items": r["attention_items"], "assurance": r['assurance'],
@@ -98,6 +100,7 @@ def decision_card(a, result=None):
                        "criteria_ids": [c["id"] for c in criteria_catalog()["criteria"] if c["gate"] == g["id"]]} for g in r["gates"]],
             "operating_benefit": r["roi"], "protocol_evaluation_burden": r["evaluator_burden"],
             "operating_oversight": r["operational_oversight"], "operational_performance": r["operational_performance"],
+            "choice_review": r["choice_review"],
             "engineering_scope": a.handoff.commitment_scope, "resource_limit": a.handoff.resource_limit,
             "owner": a.handoff.decision_owner_role, "revisit_when": a.handoff.next_review_trigger,
             "boundary": "Engineering recommendation only. Owner authorization and deployment evaluation are separate.",

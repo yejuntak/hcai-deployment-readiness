@@ -1,0 +1,261 @@
+{
+  "contract_version": "1.0.0",
+  "description": "Current canonical CSV transport contract. Frozen historical release files are not migrated. Empty files with headers are templates, not completed reviews. Stage evidence is independent; execution cannot be inferred from a document.",
+  "evidence_statuses": [
+    "pass",
+    "fail",
+    "unassessed",
+    "not_applicable"
+  ],
+  "artifact_populations": [
+    "ai_generated",
+    "runtime_ai",
+    "both",
+    "neither",
+    "unknown"
+  ],
+  "stages": {
+    "specification_handoff": [
+      "specified",
+      "walkthrough"
+    ],
+    "prototype_handoff": [
+      "specified",
+      "walkthrough"
+    ],
+    "implementation_review": [
+      "specified",
+      "walkthrough",
+      "implemented"
+    ],
+    "runtime_release_review": [
+      "specified",
+      "walkthrough",
+      "implemented",
+      "runtime_tested"
+    ]
+  },
+  "scopes": [
+    "current",
+    "deferred",
+    "excluded"
+  ],
+  "files": {
+    "requirements.csv": {
+      "columns": [
+        "requirement_id",
+        "mandatory_yes_no",
+        "acceptance_check",
+        "scope",
+        "exclusion_reason",
+        "current_dependency_yes_no",
+        "scope_owner",
+        "specified_status",
+        "specified_evidence_location",
+        "specified_reason",
+        "walkthrough_status",
+        "walkthrough_evidence_location",
+        "walkthrough_reason",
+        "implemented_status",
+        "implemented_evidence_location",
+        "implemented_reason",
+        "runtime_tested_status",
+        "runtime_tested_evidence_location",
+        "runtime_tested_reason",
+        "assessor",
+        "assessed_at",
+        "rationale"
+      ]
+    },
+    "recovery.csv": {
+      "columns": [
+        "scenario_id",
+        "applicable_yes_no",
+        "trigger",
+        "expected_state_and_preserved_data",
+        "scope",
+        "exclusion_reason",
+        "current_dependency_yes_no",
+        "scope_owner",
+        "specified_status",
+        "specified_evidence_location",
+        "specified_reason",
+        "walkthrough_status",
+        "walkthrough_evidence_location",
+        "walkthrough_reason",
+        "implemented_status",
+        "implemented_evidence_location",
+        "implemented_reason",
+        "runtime_tested_status",
+        "runtime_tested_evidence_location",
+        "runtime_tested_reason",
+        "assessor",
+        "assessed_at",
+        "rationale"
+      ]
+    },
+    "findings.csv": {
+      "columns": [
+        "session_id",
+        "finding_id",
+        "requirement_or_scenario_id",
+        "steps",
+        "observed",
+        "expected",
+        "proposed_severity",
+        "evidence_location",
+        "uncertainty",
+        "locked_at",
+        "scope_status",
+        "severity",
+        "severity_basis",
+        "exposure_and_consequence",
+        "reference_id",
+        "adjudication",
+        "adjudicator",
+        "adjudicated_at",
+        "rationale",
+        "resolution_status",
+        "failure_mechanism",
+        "remediation_evidence_location"
+      ]
+    },
+    "adjudication.csv": {
+      "columns": [
+        "session_id",
+        "finding_id",
+        "reference_id",
+        "matched_duplicate_unsupported_novel_unresolved",
+        "rationale",
+        "adjudicator",
+        "disagreement",
+        "adjudicated_at"
+      ]
+    },
+    "reference-key.csv": {
+      "columns": [
+        "reference_version",
+        "defect_id",
+        "requirement_or_scenario_id",
+        "category",
+        "severity",
+        "deficiency",
+        "match_rule",
+        "reference_omission_yes_no",
+        "evidence_location",
+        "reference_reviewer",
+        "verified_at",
+        "criterion_basis",
+        "failure_mechanism",
+        "consequence"
+      ]
+    },
+    "requirements-brief.csv": {
+      "columns": [
+        "requirement_id",
+        "mandatory_yes_no",
+        "acceptance_check",
+        "scope",
+        "exclusion_reason",
+        "current_dependency_yes_no",
+        "scope_owner"
+      ]
+    },
+    "recovery-brief.csv": {
+      "columns": [
+        "scenario_id",
+        "applicable_yes_no",
+        "trigger",
+        "expected_state_and_preserved_data",
+        "scope",
+        "exclusion_reason",
+        "current_dependency_yes_no",
+        "scope_owner"
+      ]
+    },
+    "decision.csv": {
+      "columns": [
+        "session_id",
+        "artifact_version",
+        "artifact_population",
+        "evaluator_kind",
+        "mode",
+        "stage",
+        "criterion_version",
+        "disposition",
+        "critical_open",
+        "mandatory_unassessed",
+        "owner",
+        "decision_date",
+        "conditions",
+        "reevaluation_trigger",
+        "expected_recall",
+        "judgment_locked_before_reference",
+        "artifact_kind",
+        "criteria_timing",
+        "important_choice_ids",
+        "zero_recovery_reason",
+        "reference_frozen_before_evaluation",
+        "reference_independent_of_findings",
+        "evaluator_authored_artifact",
+        "evaluator_authored_reference",
+        "evaluator_is_adjudicator",
+        "matches_independently_confirmed",
+        "findings_locked_before_reference",
+        "expected_recall_locked_before_reference",
+        "omission_subset_frozen",
+        "criterion_independently_established"
+      ]
+    },
+    "batch.csv": {
+      "columns": [
+        "assessment_id",
+        "artifact_id",
+        "artifact_population",
+        "evaluator_kind",
+        "mode",
+        "stage",
+        "criterion_version",
+        "criterion_status",
+        "evaluator_judgment"
+      ]
+    },
+    "choice-review.csv": {
+      "columns": [
+        "choice_id",
+        "purpose",
+        "selection_criteria",
+        "criteria_provenance",
+        "chosen_approach",
+        "alternatives",
+        "alternative_provenance",
+        "recorded_rationale",
+        "rationale_provenance",
+        "assumptions",
+        "foreseeable_impacts",
+        "requirement_or_scenario_ids",
+        "human_owner",
+        "disposition",
+        "evidence_location",
+        "followup",
+        "followup_owner",
+        "human_decision_evidence_location",
+        "verification_evidence_location",
+        "current_justification",
+        "current_justification_evidence_location"
+      ]
+    }
+  },
+  "evaluator_validity_fields": [
+    "reference_frozen_before_evaluation",
+    "reference_independent_of_findings",
+    "evaluator_authored_artifact",
+    "evaluator_authored_reference",
+    "evaluator_is_adjudicator",
+    "matches_independently_confirmed",
+    "findings_locked_before_reference",
+    "expected_recall_locked_before_reference",
+    "omission_subset_frozen",
+    "criterion_independently_established"
+  ]
+}

@@ -1,0 +1,112 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Inspect the decisions inside the result</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
+main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.2-preview-3/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>Inspect the decisions inside the result</h1>
+<p>H.A.R.D. Protocol 0.2 · Public Preview</p>
+<p>AI-assisted creation can compress the path from a request to a finished-looking artifact. A useful review makes the choices in that path discussable: their purpose, alternatives, reasons, tradeoffs, evidence and unresolved human judgment. It does not pretend to recover an unrecorded generation process.</p>
+<h2>Record a consequential choice</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Record</th>
+<th>Prompt</th>
+<th>Evidence boundary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Observed choice and location</td>
+<td>What does this revision actually do or propose?</td>
+<td>Cite the artifact; separate observation from interpretation.</td>
+</tr>
+<tr>
+<td>Purpose and affected people</td>
+<td>What outcome should this choice serve, and for whom?</td>
+<td>Use a supplied requirement or record a purpose that needs confirmation.</td>
+</tr>
+<tr>
+<td>Historical reason</td>
+<td>Is there a dated rationale or decision record?</td>
+<td>Cite it or state that none was found. Never fabricate creator intent.</td>
+</tr>
+<tr>
+<td>Alternatives</td>
+<td>What materially different approach could meet the same purpose?</td>
+<td>Separate documented past alternatives from options proposed during this review.</td>
+</tr>
+<tr>
+<td>Tradeoffs and assumptions</td>
+<td>What does each option gain, cost, constrain or put at risk?</td>
+<td>Label assumptions; identify the evidence that could resolve them.</td>
+</tr>
+<tr>
+<td>Supporting and conflicting evidence</td>
+<td>Why retain or question this choice?</td>
+<td>Include counterevidence and missing checks, not just a persuasive explanation.</td>
+</tr>
+<tr>
+<td>Missing human judgment</td>
+<td>Which value, risk, authority or scope decision requires a person?</td>
+<td>An agent may frame the question; it cannot invent approval.</td>
+</tr>
+<tr>
+<td>Current disposition</td>
+<td>Keep, change, investigate or defer? Who decides, and when should this be revisited?</td>
+<td>This is a new decision, even if it retains the original choice.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The machine record uses <code>rationale_provenance</code>: <code>documented</code>, <code>reported</code>, <code>new</code> or <code>unknown</code>. Historical alternatives require source evidence; newly proposed alternatives have their own list. Unknown historical rationale remains null. A reviewer may propose a current justification using <code>new</code>, with its supporting evidence, while retaining the absence of a historical record.</p>
+<p>Record <code>human_decision</code> as <code>accepted</code>, <code>revise</code> or <code>pending</code>, with an accountable owner and <code>human_decision_evidence_locations</code> recording the actual human confirmation. Keeping the existing choice maps to accepted when a human has actually accepted it. Investigation or unresolved deferral remains pending, with a follow-up and owner. Accepted is a current disposition, not proof that the original creation process was reviewed. Important choices need explicit criteria, observation, alternatives review, tradeoffs, verification evidence and a next action or revisit plan.</p>
+<p>Historical rationale, reviewer inference, proposed alternative and current decision are distinct record types. A reason produced after the fact is a candidate explanation unless evidence shows it was recorded at the time. Ask for concise, verifiable reasons and tradeoffs, not private model chain-of-thought.</p>
+<h2>A practical sequence</h2>
+<p>First identify the purpose and observed choice. Then ask whether any preserved rationale explains it. When the reason is absent, record the gap and consider plausible options explicitly as new analysis. Compare only alternatives that could materially change the decision. An exhaustive list of hypothetical choices is not required.</p>
+<p>Check assumptions using the smallest relevant evidence: a source line, dependency contract, state walkthrough, code revision, observed execution or an affected person's account. If the existing choice is well supported, retain it and explain why. If information is missing, state what would change the decision rather than forcing a redesign.</p>
+<p>Record a disposition, owner, next action and revisit trigger. Do not automatically rewrite the artifact. A review finding and permission to implement a change are separate acts.</p>
+<h2>Software and SaaS examples</h2>
+<p>These are constructed examples, not measured results.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Observed choice</th>
+<th>Review question</th>
+<th>Useful next evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Synchronous external API call</td>
+<td>Does the user need an immediate complete answer, or would queued work preserve reliability?</td>
+<td>Latency budget, dependency behavior, cancellation and partial-failure specification</td>
+</tr>
+<tr>
+<td>Automatic retry after payment timeout</td>
+<td>Can the first charge have succeeded before its response was lost?</td>
+<td>Provider idempotency contract, transaction state and duplicate-action test</td>
+</tr>
+<tr>
+<td>Client-side tenant filter</td>
+<td>Where is tenant isolation enforced, and what happens if the client request changes?</td>
+<td>Server authorization logic and a cross-tenant test at the cited revision</td>
+</tr>
+<tr>
+<td>Model-generated report delivered directly</td>
+<td>What uncertainty is acceptable, who may contest it, and when is human review needed?</td>
+<td>Intended use, output constraints, escalation requirements and representative failure cases</td>
+</tr>
+<tr>
+<td>Shared mutable cache</td>
+<td>What consistency and isolation does this use case require?</td>
+<td>Invalidation policy, access boundaries and concurrent execution evidence</td>
+</tr>
+<tr>
+<td>Detailed visual interface</td>
+<td>Which actions, information and recovery steps serve the user's task?</td>
+<td>Task requirement, interaction map and walkthrough, not appearance alone</td>
+</tr>
+</tbody>
+</table></div>
+<p>The original choice may be right in each example. Asynchronous work, more prompts or additional automation are not universal improvements. An appropriate review preserves what is justified and exposes where an accountable decision is still missing.</p>
+<h2>Relation to the other routes</h2>
+<p>Minimum artifact review can use this record without financial measurements. Engineering commitment maps relevant evidence into the existing gates: purpose and alternatives into G2, dependencies and authority into G3, revision-specific checks into G4, human work into G5, and the bounded decision into G6. G1 remains necessary when making that engineering recommendation.</p>
+<p>This review technique is unvalidated. Do not add its prompts or alternative lists to a controlled fidelity study unless the approved study design explicitly includes them.</p>
+<p>Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.</p></main></body></html>

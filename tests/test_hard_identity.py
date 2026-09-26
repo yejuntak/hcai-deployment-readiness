@@ -2,6 +2,7 @@
 import hashlib
 import json
 from pathlib import Path
+import re
 import tomllib
 import zipfile
 
@@ -22,13 +23,13 @@ def test_hard_public_identity_and_generated_surfaces():
         'name': 'H.A.R.D. Protocol',
         'full_name': 'Human-centered AI Readiness and Decision Protocol',
         'display_version': '0.2', 'release_label': 'Public Preview',
-        'distribution_id': 'hard-0.2-preview-2',
+        'distribution_id': 'hard-'+versions()['protocol'].replace('preview.', 'preview-'),
     }
     assert json.loads((ROOT/'identity.json').read_text()) == identity()
     assert public_title() == 'H.A.R.D. Protocol 0.2'
     surfaces = list((ROOT/'protocol'/versions()['protocol']).glob('*.md'))
     surfaces += [ROOT/p for p in ('README.md', 'skills/ai-ready/SKILL.md',
-                  'Pilot-Kit/hard-0.2-preview-2-external-packet.md')]
+                  f"Pilot-Kit/{identity()['distribution_id']}-external-packet.md")]
     for path in surfaces:
         text = path.read_text()
         assert public_title() in text and 'Public Preview' in text, path
@@ -48,17 +49,22 @@ def test_hard_public_identity_and_generated_surfaces():
 
 
 def test_hard_execution_versions_and_legacy_record_boundary():
-    exact = {'protocol': '0.2-preview.2', 'mcp': '0.2.0rc8',
-             'skill': '0.2.0-rc.8', 'contract': '0.2.0-rc.8'}
-    assert versions() == exact == json.loads((ROOT/'versions.json').read_text())
+    exact = versions()
+    assert exact == json.loads((ROOT/'versions.json').read_text())
+    assert re.fullmatch(r'0\.2-preview\.\d+', exact['protocol'])
+    release = re.fullmatch(r'0\.2\.0rc(\d+)', exact['mcp'])
+    assert release
+    assert exact['skill'] == exact['contract'] == '0.2.0-rc.'+release[1]
     assert new_review('HARD-NEW', '2026-09-24T12:00:00Z', 'human')['versions'] == exact
     archive_path = ROOT/'release/HCAI-v0.1-rc.4-candidate.6.zip'
     before = hashlib.sha256(archive_path.read_bytes()).hexdigest()
     with zipfile.ZipFile(archive_path) as archive:
         legacy = json.loads(archive.read('HCAI-v0.1-rc.4-candidate.6/examples/rc4/low-risk-quick.json'))
     original = json.dumps(legacy, sort_keys=True)
-    with pytest.raises(ValidationError, match='Exact protocol/MCP/Skill/contract'):
+    with pytest.raises(ValidationError):
         Assessment.model_validate(legacy)
+    with pytest.raises(ValidationError, match='Exact protocol/MCP/Skill/contract'):
+        Assessment.model_validate({**legacy, 'artifact_population': 'ai_generated'})
     assert json.dumps(legacy, sort_keys=True) == original
     assert legacy['versions']['protocol'] == '0.1-rc.4-candidate.6'
     assert hashlib.sha256(archive_path.read_bytes()).hexdigest() == before

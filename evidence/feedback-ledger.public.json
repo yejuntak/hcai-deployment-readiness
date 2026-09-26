@@ -144,5 +144,27 @@
     "validation_status": "software_tests_only",
     "source_person": null,
     "feedback": null
+  },
+  {
+    "id": "FB_PREVIEW3",
+    "permission": "private",
+    "changes": [
+      "C32"
+    ],
+    "affected_files": [
+      "Source/verify_example.py",
+      "src/hcai_readiness/artifact_review.py",
+      "src/hcai_readiness/assessment.py",
+      "schemas/csv-contract.json"
+    ],
+    "affected_requirements": [
+      "CHOICE_TRACEABILITY",
+      "SMALL_TEAM_REVIEW",
+      "POPULATION_STRATIFICATION",
+      "CSV_SCHEMA_PARITY"
+    ],
+    "validation_status": "software_tests_only",
+    "source_person": null,
+    "feedback": null
   }
 ]

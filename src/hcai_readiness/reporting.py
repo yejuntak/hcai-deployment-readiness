@@ -54,6 +54,7 @@ def render_report(a, format="markdown"):
     paragraph(card['record_privacy'])
     paragraph(f"{a.run_id} · {a.scope.workflow_name or 'Workflow not yet named'} · {a.versions.protocol}")
     paragraph(card['boundary'])
+    paragraph('Review mode: '+a.mode+'; artifact population: '+a.artifact_population+'. Population remains separate from evaluator provenance.')
     table(['Decision', 'Profile needed', 'Risk', 'First stop'], [[card['decision'], card['required_profile'], card['risk'], card['stop_at'] or 'No gate stop']])
     paragraph('The software checks structure and decision rules. Recorded human evidence-quality review: '+r['assurance']['human_quality_review']+'. The software does not independently verify evidence authenticity or certify criterion conformance.')
     heading('Next action')
@@ -87,6 +88,30 @@ def render_report(a, format="markdown"):
         paragraph('Risk floor: '+trigger['field']+' requires at least '+trigger['minimum_tier']+' depth.')
     heading('Proposed workflow - connected paths')
     table(['State', 'Behavior', 'Next / endpoint'], [[s.id, s.behavior, ', '.join(s.next_state_ids) or ('Endpoint' if s.terminal else 'Unresolved')] for s in a.workflow.states])
+    heading('Consequential choices and accountable review')
+    paragraph('This ledger examines choices visible in the artifact against its purpose and criteria. Historical alternatives need source records. Proposed alternatives and new rationale belong to the current review. A justified existing choice can remain; replacement is not a prerequisite.')
+    paragraph('Declared consequential choice IDs: '+(', '.join(a.important_choice_ids) or 'Not recorded'))
+    for choice in a.choice_ledger:
+        heading(choice.id+': '+choice.purpose, 3)
+        paragraph('Decision criteria: '+('; '.join(choice.criteria) or 'Not recorded'))
+        paragraph('Observed choice: '+display(choice.observed_choice))
+        paragraph('Observed evidence locations: '+('; '.join(choice.observed_evidence_locations) or 'Not recorded'))
+        table(['Alternative category', 'Description', 'Source evidence'],
+              [['Historical', alt.description, '; '.join(alt.evidence_locations)] for alt in choice.historical_alternatives]
+              + [['Proposed in this review', alt.description, '; '.join(alt.evidence_locations) or 'Proposal; not historical evidence'] for alt in choice.proposed_alternatives])
+        paragraph('Alternatives review: '+display(choice.alternatives_review))
+        paragraph('Rationale provenance: '+choice.rationale_provenance+'; justification: '+display(choice.rationale))
+        paragraph('Rationale evidence: '+('; '.join(choice.rationale_evidence_locations) or 'No historical rationale evidence recorded'))
+        paragraph('Impacts and tradeoffs: '+('; '.join(choice.impacts_and_tradeoffs) or 'Not recorded'))
+        paragraph('Affected requirements: '+(', '.join(choice.affected_check_ids) or 'Global choice context'))
+        paragraph('Human disposition: '+choice.human_decision+'; accountable owner: '+display(choice.human_decision_owner))
+        paragraph('Human disposition evidence: '+('; '.join(choice.human_decision_evidence_locations) or 'Not recorded'))
+        paragraph('Verification evidence: '+('; '.join(choice.verification_evidence_locations) or 'Not recorded'))
+        paragraph('Follow-up: '+display(choice.follow_up)+'; owner: '+display(choice.follow_up_owner))
+        paragraph('Unresolved gaps: '+('; '.join(r['choice_review']['gaps'].get(choice.id, [])) or 'No recorded structural gaps'))
+    for key, gaps in r['choice_review']['gaps'].items():
+        if key not in {choice.id for choice in a.choice_ledger}:
+            paragraph(key+': '+', '.join(gaps))
     heading('Inspect requirement -> artifact -> check')
     for row in traceability(a):
         req = row['requirement']

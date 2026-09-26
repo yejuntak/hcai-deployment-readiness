@@ -1,1 +1,1 @@
-requirement_id,mandatory_yes_no,acceptance_check
+requirement_id,mandatory_yes_no,acceptance_check,scope,exclusion_reason,current_dependency_yes_no,scope_owner

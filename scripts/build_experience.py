@@ -55,7 +55,7 @@ def main():
     args = parser.parse_args()
     output = ROOT/'docs/web'
     output.mkdir(exist_ok=True)
-    sources = list(PROTOCOL.glob('*.md')) + [ROOT/'docs'/name for name in ('updates.md','agent-tools.md','migration-rc3-to-rc4.md','decision-naming-migration.md','research-boundary.md','deep-audit.md','claims-and-governance.md','editorial-review.md')]
+    sources = list(PROTOCOL.glob('*.md')) + [ROOT/'docs'/name for name in ('updates.md','agent-tools.md','migration-rc3-to-rc4.md','decision-naming-migration.md','research-boundary.md','deep-audit.md','claims-and-governance.md','editorial-review.md','migration-preview-3.md')]
     names = {p.name:p.stem+'.html' for p in sources}
     for source in sources:
         text = source.read_text()
@@ -83,6 +83,8 @@ def main():
         target=args.site_root/'static/research/ai-readiness'/DISTRIBUTION_ID
         target.mkdir(parents=True,exist_ok=True)
         for p in output.glob('*.html'):
+            shutil.copyfile(p,target/p.name)
+        for p in sources:
             shutil.copyfile(p,target/p.name)
         # Runtime templates use shared site components. Publishing reading views
         # must not replace that composition with the standalone HTML version.

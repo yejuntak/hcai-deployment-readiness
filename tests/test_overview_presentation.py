@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 from build_experience import render_research_page, render_overview_document
 from hcai_readiness.guidance import criteria_catalog
+from hcai_readiness.versions import versions
 
 
 def test_overview_links_to_all_canonical_rules_without_duplicating_them():
@@ -29,40 +30,47 @@ def test_overview_links_to_all_canonical_rules_without_duplicating_them():
 
 def test_overview_explains_the_missing_layer_without_claiming_a_result():
     page = render_research_page()
-    assert 'Look beneath the finished screen.' in page
+    assert 'Review the choices inside the result.' in page
     assert 'The proposed study has not established an effect.' in page
     assert 'Research motivation' in page
-    assert 'how visual fidelity affects readiness judgments' in page
+    assert 'varies visual fidelity while holding content, behavior and defects constant' in page
+    assert 'Separate a recorded earlier rationale from a new explanation.' in page
+    assert 'A well-supported existing choice can stay.' in page
     assert 'Payment went through.' not in page
     assert 'review method, not an image filter' in page
     assert 'Do not blur labels or remove information people need' in page
     for label in ('Experience and information', 'Workflow and architecture',
                   'Implementation and evidence', 'People and operation'):
         assert label in page
-    protocol = (ROOT/'protocol/0.2-preview.2/PROTOCOL.md').read_text()
-    assert 'not four scores or additional gates' in protocol
+    protocol = (ROOT/'protocol'/versions()['protocol']/'PROTOCOL.md').read_text()
+    assert 'Inspect four connected aspects' in protocol
+    assert 'Do not combine them into a weighted readiness percentage.' in protocol
+    assert 'The minimum artifact route cannot waive or pass any of these gates.' in protocol
     skill = (ROOT/'skills/ai-ready/SKILL.md').read_text()
-    assert 'Never introduce this view into a research session' in skill
+    assert 'Do not introduce guided prompts, alternative suggestions, structural views or answer keys unless the study design specifies them.' in skill
 
 
 def test_opening_has_seven_actual_routes_not_just_seven_labels():
+    # Historical test name is retained for change-manifest links. Removal of
+    # the retired integration leaves six distinct routes, with no dead label.
     hero = render_research_page().split('</section>')[0]
     links = re.findall(r'<a\b[^>]*href="([^"]+)"', hero)
-    assert len(links) == len(set(links)) == 7
-    assert hero.count('data-entry-route') == 7
+    assert len(links) == len(set(links)) == 6
+    assert hero.count('data-entry-route') == 6
     assert hero.count('data-primary-task') == 2
     assert '<button' not in hero
     assert 'aria-label="More ways to use H.A.R.D."' in hero
     assert all(label in hero for label in (
         'Choose a review', 'Protocol Library', 'How it works',
-        'Find a rule', 'Connect MCP', 'Download Skill', 'Connect Jev'))
+        'Find a rule', 'Connect MCP', 'Download Skill'))
+    assert 'jev' not in hero.lower()
 
 
 def test_conceptual_image_and_current_prose_keep_evidence_boundaries():
     page = render_research_page()
     assert 'hard-app-review-20260925.jpg' in page
     assert 'width="1536" height="1024"' in page
-    assert 'AI-generated app concept.' in page
+    assert 'AI-generated app concept' in page
     assert 'not a working H.A.R.D. application, a participant record or a study result' in page
     for retired in ('Where the question began.', 'An architect I knew',
                     'watercolor', "architect's actual project", 'hard-structure-20260925.jpg'):
@@ -82,8 +90,9 @@ def test_method_separates_motivation_from_three_visible_practice_steps():
     assert method.count('<li>') == 3
     assert 'role="list"' in method
     assert 'Do not blur labels or remove information people need' in method
-    assert 'In a separate view' in method
-    assert 'Check the artifact against its requirements and evidence' in method
+    assert 'Keep the original artifact.' in method
+    assert 'Distinguish documented earlier alternatives from options proposed in this review.' in method
+    assert 'specified, walkthrough-checked, implemented and runtime-tested separately' in method
     assert 'optional review guidance, not an extra gate' in method
     assert 'Keep it separate from the proposed study design' in method
     assert not any(tag in method for tag in ('<a ', '<button', '<details'))
@@ -97,20 +106,34 @@ def test_repository_mirrors_resolve_public_assets_and_keep_shared_styles():
     assert 'class="site-page page-research"' in page
     assert 'href="#start"' in page and 'href="#method"' in page
     assert '{{template' not in page
-    assert page.count('data-entry-route') == 7
+    assert page.count('data-entry-route') == 6
     for name in ('index.html', 'docs/index.html'):
         assert (ROOT/name).read_text() == page
 
 
 def test_three_use_paths_are_not_three_assessment_versions():
     page = render_research_page()
-    for path in ('quick', 'full', 'pilot'):
+    for path in ('artifact', 'quick', 'independent'):
         assert f'data-use-path="{path}"' in page
-    assert 'not a third scoring system or a new version' in page
-    assert 'actual use of either profile' in page
-    assert 'The packet supports planning a pilot' in page
+    assert 'Artifact Review' in page
+    assert 'A plan can support a specification handoff. It cannot establish runtime readiness.' in page
+    assert 'Ineligible measures stay N/A with reasons.' in page
+    assert 'Agent results remain separate from human results.' in page
     assert 'Choose a review' in page
     assert 'href="/research/ai-readiness/developers#rules"' in page
-    assert 'data-open-tool="mcp"' in page and 'data-open-tool="jev"' in page
-    for slug in ('quick-6', 'full-profile', 'pilot', 'protocol', 'worksheet'):
+    assert 'data-open-tool="mcp"' in page
+    assert 'jev' not in page.lower()
+    for slug in ('artifact-review', 'quick-6', 'full-profile', 'independent-evaluation',
+                 'decision-review', 'pilot', 'protocol', 'worksheet'):
         assert f'href="/research/ai-readiness/{slug}"' in page
+
+
+def test_artifact_route_does_not_remove_engineering_gate_or_evidence_boundaries():
+    page = render_research_page()
+    assert 'Artifact Review' in page
+    assert 'QUICK-6' in page and 'Full Profile' in page
+    assert 'deployment requires separate evaluation' in page
+    assert {item['gate'] for item in criteria_catalog()['criteria']} == {
+        'G1_BASELINE', 'G2_NEED_REQUIREMENTS', 'G3_STATES_RECOVERY',
+        'G4_TRACEABILITY', 'G5_OVERSIGHT', 'G6_COMMITMENT',
+    }

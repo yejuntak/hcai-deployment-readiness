@@ -1,13 +1,18 @@
-# SR-01: fictional service-request interface
+# SR-01: fictional service-request specification
 
-This is a specification-based instructional exercise, with synthetic evaluator records and no participant data. It is not an independently validated benchmark.
+This is a synthetic instructional exercise, not a participant study or independently validated benchmark. The artifact is an AI-assisted specification with no runtime AI. `artifact_population=ai_generated`, `stage=specification_handoff`, and `evaluator_kind=synthetic` are retained in machine-readable decision and batch records.
 
-1. Start with the separate `Evaluator-Packet/` training folder. Do not show the completed reference materials before locking the record.
-2. Complete the blank scorecard without looking at the key.
-3. Reveal `reference-key.csv`, `requirements.csv` and `recovery.csv` after locking findings.
-4. Read `findings.csv` for the stipulated example responses, not expected responses from a real person.
-5. Open `Evaluation-Completed.xlsx` and reconcile its results with `Worked-Example.pdf`.
+1. Open the separate `Evaluator-Packet/` folder for a practice attempt. Keep the completed outcomes and reference key out of view until the judgment is locked.
+2. Inspect `artifact.html` against the outcome-free briefs.
+3. After the lock, inspect `walkthrough.md`, the completed requirements and recovery matrices, the reference key and findings.
+4. Run `python3 Source/verify_example.py --json` from the repository root.
 
-All four records in batch.csv are fictional assessment instances of SR-01 under Handoff-v0.1. They illustrate the batch denominator only. They are not independent observations or a research sample. Five minor clarity issues are stipulated; their validity and severity need independent review before research use.
+`requirements.csv`, `recovery.csv`, `findings.csv` and the other current CSV files use exactly the same headers as `Templates/`. Each evidence stage is separate. The specified and specification-walkthrough columns record the stipulated observations; implementation and runtime remain unassessed. No status is promoted from a screenshot or a plan to implemented behavior.
 
-The v0.1-rc.2 workbook adds four documented failed checks (R05, R07, R10, S03). The counts are ten verified (seven requirements and three recovery checks), four failed and two unassessed, totaling sixteen. Companion batch measures show 100% decision coverage and 75% decisive false-ready acceptance; there are no criterion-ready controls, so ready-case measures are N/A.
+The synthetic counts are requirements 7/10 and recovery 3/6. The sixteen current mandatory/applicable checks reconcile to ten verified, four failed and two unassessed. All current checks remain in the denominator. One stipulated Critical reference issue remains open, so the recorded result is Hold for remediation. The instruction-only evaluator records reproduce 5/8 reference recall, a 17.5-point expected-recall gap and 1/3 omission recognition. The four synthetic batch rows give 3/4 false-ready events; they are not independent observations or empirical evidence.
+
+`choice-review.csv` illustrates the reasoning review around a submission token. The artifact does not retain its original choice rationale, so that rationale is explicitly unknown. Listed alternatives are proposals for review, not claims about the creator's past thought process.
+
+For a plan containing runtime AI and the official minimal artifact-review route, open [`runtime-ai-plan/README.md`](runtime-ai-plan/README.md). That example also illustrates a proposed Critical rating that is not accepted without support and a properly deferred future-phase item.
+
+The pre-existing PDF/XLSX files are historical release companions. They do not encode the current four-stage CSV contract and must not be used as the current schema or runtime evidence. Frozen historical releases remain unchanged.

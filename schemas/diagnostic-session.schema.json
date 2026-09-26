@@ -1,0 +1,416 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Checks": {
+      "additionalProperties": false,
+      "properties": {
+        "total": {
+          "title": "Total",
+          "type": "integer"
+        },
+        "verified": {
+          "title": "Verified",
+          "type": "integer"
+        },
+        "failed": {
+          "title": "Failed",
+          "type": "integer"
+        },
+        "unassessed": {
+          "title": "Unassessed",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total",
+        "verified",
+        "failed",
+        "unassessed"
+      ],
+      "title": "Checks",
+      "type": "object"
+    },
+    "EvaluatorValidity": {
+      "additionalProperties": false,
+      "description": "Unknown role/order facts are ineligible, not silently assumed independent.",
+      "properties": {
+        "reference_frozen_before_evaluation": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Frozen Before Evaluation"
+        },
+        "reference_independent_of_findings": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Independent Of Findings"
+        },
+        "evaluator_authored_artifact": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evaluator Authored Artifact"
+        },
+        "evaluator_authored_reference": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evaluator Authored Reference"
+        },
+        "evaluator_is_adjudicator": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evaluator Is Adjudicator"
+        },
+        "matches_independently_confirmed": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Matches Independently Confirmed"
+        },
+        "findings_locked_before_reference": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Findings Locked Before Reference"
+        },
+        "expected_recall_locked_before_reference": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Recall Locked Before Reference"
+        },
+        "omission_subset_frozen": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Omission Subset Frozen"
+        },
+        "criterion_independently_established": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Criterion Independently Established"
+        }
+      },
+      "title": "EvaluatorValidity",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "session_id": {
+      "minLength": 1,
+      "title": "Session Id",
+      "type": "string"
+    },
+    "artifact_version": {
+      "minLength": 1,
+      "title": "Artifact Version",
+      "type": "string"
+    },
+    "criterion_version": {
+      "minLength": 1,
+      "title": "Criterion Version",
+      "type": "string"
+    },
+    "artifact_population": {
+      "enum": [
+        "ai_generated",
+        "runtime_ai",
+        "both",
+        "neither",
+        "unknown"
+      ],
+      "title": "Artifact Population",
+      "type": "string"
+    },
+    "stage": {
+      "default": "unspecified",
+      "enum": [
+        "specification_handoff",
+        "prototype_handoff",
+        "implementation_review",
+        "runtime_release_review",
+        "unspecified"
+      ],
+      "title": "Stage",
+      "type": "string"
+    },
+    "mode": {
+      "default": "legacy_diagnostic",
+      "enum": [
+        "artifact_review",
+        "independent_evaluation",
+        "legacy_diagnostic"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "evaluator_kind": {
+      "enum": [
+        "human",
+        "ai-assisted-human",
+        "agent",
+        "synthetic"
+      ],
+      "title": "Evaluator Kind",
+      "type": "string"
+    },
+    "evaluator_validity": {
+      "$ref": "#/$defs/EvaluatorValidity"
+    },
+    "reference_defects": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Reference Defects"
+    },
+    "detected_reference_defects": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Detected Reference Defects"
+    },
+    "reference_omissions": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Reference Omissions"
+    },
+    "detected_reference_omissions": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Detected Reference Omissions"
+    },
+    "expected_recall_percent": {
+      "anyOf": [
+        {
+          "maximum": 100,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Expected Recall Percent"
+    },
+    "requirements": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Checks"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "recovery": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Checks"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "zero_recovery_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Zero Recovery Reason"
+    },
+    "unresolved_critical": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Unresolved Critical"
+    },
+    "evidence_complete": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Evidence Complete"
+    },
+    "judgment": {
+      "anyOf": [
+        {
+          "enum": [
+            "Ready",
+            "Not ready",
+            "Unable to assess"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Judgment"
+    },
+    "judgment_locked_before_reference": {
+      "title": "Judgment Locked Before Reference",
+      "type": "boolean"
+    },
+    "reference_basis": {
+      "minLength": 1,
+      "title": "Reference Basis",
+      "type": "string"
+    },
+    "unsupported_findings": {
+      "title": "Unsupported Findings",
+      "type": "integer"
+    },
+    "duplicate_findings": {
+      "title": "Duplicate Findings",
+      "type": "integer"
+    },
+    "novel_genuine_findings": {
+      "title": "Novel Genuine Findings",
+      "type": "integer"
+    },
+    "unresolved_findings": {
+      "title": "Unresolved Findings",
+      "type": "integer"
+    },
+    "elapsed_minutes": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Elapsed Minutes"
+    }
+  },
+  "required": [
+    "session_id",
+    "artifact_version",
+    "criterion_version",
+    "artifact_population",
+    "evaluator_kind",
+    "reference_defects",
+    "detected_reference_defects",
+    "reference_omissions",
+    "detected_reference_omissions",
+    "expected_recall_percent",
+    "requirements",
+    "recovery",
+    "unresolved_critical",
+    "evidence_complete",
+    "judgment",
+    "judgment_locked_before_reference",
+    "reference_basis",
+    "unsupported_findings",
+    "duplicate_findings",
+    "novel_genuine_findings",
+    "unresolved_findings",
+    "elapsed_minutes"
+  ],
+  "title": "Session",
+  "type": "object"
+}

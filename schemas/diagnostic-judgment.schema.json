@@ -1,0 +1,245 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "EvaluatorValidity": {
+      "additionalProperties": false,
+      "description": "Unknown role/order facts are ineligible, not silently assumed independent.",
+      "properties": {
+        "reference_frozen_before_evaluation": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Frozen Before Evaluation"
+        },
+        "reference_independent_of_findings": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Independent Of Findings"
+        },
+        "evaluator_authored_artifact": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evaluator Authored Artifact"
+        },
+        "evaluator_authored_reference": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evaluator Authored Reference"
+        },
+        "evaluator_is_adjudicator": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evaluator Is Adjudicator"
+        },
+        "matches_independently_confirmed": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Matches Independently Confirmed"
+        },
+        "findings_locked_before_reference": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Findings Locked Before Reference"
+        },
+        "expected_recall_locked_before_reference": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Recall Locked Before Reference"
+        },
+        "omission_subset_frozen": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Omission Subset Frozen"
+        },
+        "criterion_independently_established": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Criterion Independently Established"
+        }
+      },
+      "title": "EvaluatorValidity",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "instance_id": {
+      "minLength": 1,
+      "title": "Instance Id",
+      "type": "string"
+    },
+    "artifact_version": {
+      "minLength": 1,
+      "title": "Artifact Version",
+      "type": "string"
+    },
+    "criterion_version": {
+      "minLength": 1,
+      "title": "Criterion Version",
+      "type": "string"
+    },
+    "artifact_population": {
+      "enum": [
+        "ai_generated",
+        "runtime_ai",
+        "both",
+        "neither",
+        "unknown"
+      ],
+      "title": "Artifact Population",
+      "type": "string"
+    },
+    "stage": {
+      "default": "unspecified",
+      "enum": [
+        "specification_handoff",
+        "prototype_handoff",
+        "implementation_review",
+        "runtime_release_review",
+        "unspecified"
+      ],
+      "title": "Stage",
+      "type": "string"
+    },
+    "mode": {
+      "default": "legacy_diagnostic",
+      "enum": [
+        "artifact_review",
+        "independent_evaluation",
+        "legacy_diagnostic"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "evaluator_kind": {
+      "enum": [
+        "human",
+        "ai-assisted-human",
+        "agent",
+        "synthetic"
+      ],
+      "title": "Evaluator Kind",
+      "type": "string"
+    },
+    "evaluator_validity": {
+      "$ref": "#/$defs/EvaluatorValidity"
+    },
+    "judgment_locked_before_reference": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Judgment Locked Before Reference"
+    },
+    "criterion_status": {
+      "enum": [
+        "ready",
+        "nonready",
+        "unknown"
+      ],
+      "title": "Criterion Status",
+      "type": "string"
+    },
+    "judgment": {
+      "anyOf": [
+        {
+          "enum": [
+            "Ready",
+            "Not ready",
+            "Unable to assess"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Judgment"
+    }
+  },
+  "required": [
+    "instance_id",
+    "artifact_version",
+    "criterion_version",
+    "artifact_population",
+    "evaluator_kind",
+    "criterion_status",
+    "judgment"
+  ],
+  "title": "Judgment",
+  "type": "object"
+}

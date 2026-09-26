@@ -46,7 +46,7 @@ def footer(canvas, doc):
     canvas.line(44, 39, 568, 39)
     canvas.setFillColor(colors.HexColor("#506179"))
     canvas.setFont("Helvetica", 8)
-    canvas.drawString(44, 26, f"{public_title()} | {RELEASE_LABEL} | {PROTOCOL_VERSION} | Engineering commitment only")
+    canvas.drawString(44, 26, f"{public_title()} | {RELEASE_LABEL} | {PROTOCOL_VERSION} | Scope applies; no deployment approval")
     canvas.drawString(44, 15, f"MCP {MCP_VERSION} | Skill/contract {SKILL_VERSION}")
     canvas.drawRightString(568, 26, str(doc.page))
 
@@ -54,8 +54,8 @@ def footer(canvas, doc):
 def build(source, destination):
     lines = source.read_text().splitlines()
     body_style = styles["BodyCandidate"]
-    if source.name == "hard-0.2-preview-2-external-packet.md":
-        body_style = ParagraphStyle(name="PacketBody", parent=body_style, fontSize=11, leading=14.5, spaceAfter=5)
+    if source.name == "hard-0.2-preview-3-external-packet.md":
+        body_style = ParagraphStyle(name="PacketBody", parent=body_style, fontSize=10.5, leading=12.2, spaceAfter=2)
     story = []
     i = 0
     while i < len(lines):
@@ -90,15 +90,13 @@ def build(source, destination):
                                        ("BOTTOMPADDING", (0, 0), (-1, -1), 7)]))
             if len(story) >= 2 and isinstance(story[-2], Paragraph) and story[-2].style.name == "HeadingCandidate":
                 paragraph, heading = story.pop(), story.pop()
-                story.extend([KeepTogether([heading, paragraph, table]), Spacer(1, 9)])
+                story.extend([heading, paragraph, table, Spacer(1, 9)])
             else:
-                story.extend([KeepTogether([table]), Spacer(1, 9)])
+                story.extend([table, Spacer(1, 9)])
             continue
         if line.startswith("# "):
             story.append(Paragraph(inline(line[2:]), styles["TitleCandidate"]))
         elif line.startswith("##"):
-            if source.name == "FULL-PROFILE.md" and line.startswith("## 9."):
-                story.append(PageBreak())
             story.append(Paragraph(inline(line.lstrip("# ")), styles["HeadingCandidate"]))
         else:
             text = line
@@ -110,17 +108,18 @@ def build(source, destination):
             story.append(Paragraph(inline(text), body_style))
         i += 1
     SimpleDocTemplate(str(destination), pagesize=letter, leftMargin=44, rightMargin=44,
-                      topMargin=43, bottomMargin=53, title=public_title() + " | " + RELEASE_LABEL + " | " + source.stem,
+                      topMargin=32 if source.name.endswith("external-packet.md") else 43, bottomMargin=53, title=public_title() + " | " + RELEASE_LABEL + " | " + source.stem,
                       author="Yejun Tak").build(story, onFirstPage=footer, onLaterPages=footer)
 
 
 def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     docs = {
-        "protocol/0.2-preview.2/PROTOCOL.md": "HARD-Protocol-0.2-preview.2.pdf",
-        "protocol/0.2-preview.2/QUICK-6.md": "HARD-QUICK-6-0.2-preview.2.pdf",
-        "protocol/0.2-preview.2/FULL-PROFILE.md": "HARD-Full-Profile-0.2-preview.2.pdf",
-        "Pilot-Kit/hard-0.2-preview-2-external-packet.md": "HARD-External-Pilot-Packet-0.2-preview.2.pdf",
+        "protocol/0.2-preview.3/PROTOCOL.md": "HARD-Protocol-0.2-preview.3.pdf",
+        "protocol/0.2-preview.3/ARTIFACT-REVIEW.md": "HARD-Artifact-Review-0.2-preview.3.pdf",
+        "protocol/0.2-preview.3/QUICK-6.md": "HARD-QUICK-6-0.2-preview.3.pdf",
+        "protocol/0.2-preview.3/FULL-PROFILE.md": "HARD-Full-Profile-0.2-preview.3.pdf",
+        "Pilot-Kit/hard-0.2-preview-3-external-packet.md": "HARD-External-Pilot-Packet-0.2-preview.3.pdf",
     }
     for source, name in docs.items():
         build(ROOT / source, OUTPUT / name)

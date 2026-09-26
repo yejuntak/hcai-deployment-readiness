@@ -71,6 +71,23 @@
   },
   "additionalProperties": false,
   "properties": {
+    "mode": {
+      "const": "engineering_commitment",
+      "default": "engineering_commitment",
+      "title": "Mode",
+      "type": "string"
+    },
+    "artifact_population": {
+      "enum": [
+        "ai_generated",
+        "runtime_ai",
+        "both",
+        "neither",
+        "unknown"
+      ],
+      "title": "Artifact Population",
+      "type": "string"
+    },
     "run_id": {
       "minLength": 1,
       "title": "Run Id",
@@ -171,6 +188,11 @@
       "title": "Handoff Record",
       "type": "object"
     },
+    "choice_review": {
+      "additionalProperties": true,
+      "title": "Choice Review",
+      "type": "object"
+    },
     "provenance": {
       "additionalProperties": true,
       "title": "Provenance",
@@ -203,6 +225,7 @@
     }
   },
   "required": [
+    "artifact_population",
     "run_id",
     "versions",
     "evaluator_kind",
@@ -219,6 +242,7 @@
     "operational_oversight",
     "operational_performance",
     "handoff_record",
+    "choice_review",
     "provenance",
     "limitations",
     "routing",

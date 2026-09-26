@@ -1,1 +1,1 @@
-scenario_id,applicable_yes_no,trigger,acceptance_check
+scenario_id,applicable_yes_no,trigger,expected_state_and_preserved_data,scope,exclusion_reason,current_dependency_yes_no,scope_owner

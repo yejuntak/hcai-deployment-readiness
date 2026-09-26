@@ -4,6 +4,7 @@ from typing import Literal
 from pydantic import ValidationError
 from mcp.server.fastmcp import FastMCP
 from mcp.types import ToolAnnotations
+from .artifact_review import ArtifactReview, review_artifact, ArtifactPopulation
 from .assessment import Session, Judgment, calculate_session, summarize_judgments
 from .contracts import Assessment, PilotRun, FeedbackEntry, StudyReview
 from .engine import assess, DEPTH, CONTEXT_FLOORS, validation_targets
@@ -12,18 +13,29 @@ from .records import public_feedback, release_readiness
 from .guidance import GUIDES, new_review, guided_review, criterion_guide, criteria_catalog
 from .reporting import render_report
 
-mcp = FastMCP(PROTOCOL_NAME, instructions=f"{public_title()} · {RELEASE_LABEL}. {PROTOCOL_FULL_NAME}. Exact protocol {versions()['protocol']}. Inspect the work beneath a finished-looking artifact: information, workflow, implementation evidence and human responsibilities. A separate structure view can help discussion but cannot invent evidence, pass a gate or be introduced into a study outside its design. Create a record with new_review_record, ask one question at a time using review_next_step, and return an assessment_report. Use supplied evidence; do not invent answers. The deterministic gates support an upstream engineering recommendation and cannot authorize deployment. Retain exact versions and human/agent provenance. Legacy tools reproduce rc.3 only, which is the release identified by the historical DOI.")
+mcp = FastMCP(PROTOCOL_NAME, instructions=f"{public_title()} · {RELEASE_LABEL}. {PROTOCOL_FULL_NAME}. Exact protocol {versions()['protocol']}. Start with artifact_review for a plan, prototype or code artifact: inspect consequential choices, purpose, alternatives, rationale provenance, tradeoffs and human decisions. QUICK6/FULL remains a separate engineering-commitment purpose. Inspect the work beneath a finished-looking artifact: information, workflow, implementation evidence and human responsibilities. A separate structure view can help discussion but cannot invent evidence, pass a gate or be introduced into a study outside its design. Create a record with new_review_record, ask one question at a time using review_next_step, and return an assessment_report. Use supplied evidence; do not invent answers. The deterministic gates support an upstream engineering recommendation and cannot authorize deployment. Retain exact versions and human/agent provenance. Legacy diagnostics preserve rc.3 formulas with explicit population and eligibility corrections; outputs identify current software. Historical DOI identifies rc.3 only.")
 READ_ONLY = ToolAnnotations(readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
 
 @mcp.tool(annotations=READ_ONLY)
 def assess_legacy_session(session: Session) -> dict:
-    """Frozen rc.3 arithmetic only. Cannot establish an rc.4 engineering-commitment pass. Null is missing; zero is assessed none."""
+    """Historical formulas with current population and evaluator-eligibility safeguards. Cannot establish engineering commitment. Null is missing; zero is assessed none."""
     return calculate_session(session)
 
 @mcp.tool(annotations=READ_ONLY)
 def summarize_legacy_batch(records: list[Judgment]) -> dict:
-    """Frozen rc.3 evaluator diagnostics, never candidate gate decisions. Stratify criteria and populations."""
+    """Historical evaluator formulas with current population/eligibility safeguards. Stratify criterion, evaluator, artifact population, mode and stage."""
     return summarize_judgments(records)
+
+@mcp.tool(annotations=READ_ONLY)
+def artifact_review_template() -> dict:
+    """Return the small-team record schema; no supplied evidence or human decision is invented."""
+    return {"versions": versions(), "schema": ArtifactReview.model_json_schema(),
+            "purpose": "Stage-bounded artifact review; optional independent evaluator diagnostics remain separate."}
+
+@mcp.tool(annotations=READ_ONLY)
+def assess_artifact_review(review: ArtifactReview) -> dict:
+    """Review choice and four-stage evidence for a plan, prototype or code artifact. No deployment authorization."""
+    return review_artifact(review)
 
 @mcp.tool(annotations=READ_ONLY)
 def assessment_template() -> dict:
@@ -44,9 +56,9 @@ def get_validation_targets(assessment: Assessment) -> dict:
     return validation_targets(assessment)
 
 @mcp.tool(annotations=READ_ONLY)
-def new_review_record(run_id: str, recorded_at: str, evaluator_kind: Literal["human", "ai-assisted-human", "agent", "synthetic"], requested_profile: Literal["QUICK6", "FULL"] = "QUICK6") -> dict:
+def new_review_record(run_id: str, recorded_at: str, evaluator_kind: Literal["human", "ai-assisted-human", "agent", "synthetic"], requested_profile: Literal["QUICK6", "FULL"] = "QUICK6", artifact_population: ArtifactPopulation = "unknown") -> dict:
     """Return an empty, versioned in-memory record. Caller supplies ID/time/provenance; no file is saved and no facts are prefilled."""
-    return new_review(run_id, recorded_at, evaluator_kind, requested_profile)
+    return new_review(run_id, recorded_at, evaluator_kind, requested_profile, artifact_population=artifact_population)
 
 @mcp.tool(annotations=READ_ONLY)
 def review_next_step(draft: dict, include_assessment: bool = False) -> dict:

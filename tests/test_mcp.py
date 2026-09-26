@@ -17,10 +17,18 @@ async def roundtrip():
             assert 'H.A.R.D. Protocol 0.2' in initialized.instructions
             assert 'Public Preview' in initialized.instructions
             names={t.name for t in (await client.list_tools()).tools}
-            assert names=={"assessment_template","assess_legacy_session","summarize_legacy_batch",
+            assert names=={"artifact_review_template", "assess_artifact_review", "assessment_template","assess_legacy_session","summarize_legacy_batch",
                            "assess_engineering_commitment", "validate_pilot_run", "export_public_feedback",
                            "new_review_record", "review_next_step", "get_gate_guide", "assessment_report",
                            "get_review_criterion", "validate_study_review", "get_validation_targets"}
+            artifact_schema=await client.call_tool("artifact_review_template",{})
+            assert not artifact_schema.isError
+            from test_artifact_review import fixture as artifact_fixture
+            from hcai_readiness.artifact_review import ArtifactReview, review_artifact
+            small=artifact_fixture()
+            small_result=await client.call_tool("assess_artifact_review",{"review":small})
+            assert not small_result.isError
+            assert json.loads(small_result.content[0].text)==review_artifact(ArtifactReview.model_validate(small))
             template=await client.call_tool("assessment_template",{})
             assert not template.isError
             d=json.loads((Path(__file__).resolve().parents[1]/"examples/session.json").read_text())
@@ -34,7 +42,7 @@ async def roundtrip():
             resources=await client.list_resources()
             assert any(str(r.uri)=="hcai://protocol" for r in resources.resources)
             resource=await client.read_resource("hcai://protocol")
-            assert "0.2-preview.2" in resource.contents[0].text
+            assert "0.2-preview.3" in resource.contents[0].text
             for path in (Path(__file__).resolve().parents[1]/"examples/rc4").glob("*.json"):
                 data=json.loads(path.read_text())
                 if path.stem=="pilot-synthetic":
@@ -48,8 +56,8 @@ async def roundtrip():
             assert prompt.messages
             empty=await client.call_tool("new_review_record",{"run_id":"NEW-STDIO","recorded_at":"2026-09-24T12:00:00Z","evaluator_kind":"human"})
             draft=json.loads(empty.content[0].text)
-            assert draft['versions'] == {'protocol':'0.2-preview.2', 'mcp':'0.2.0rc8',
-                                         'skill':'0.2.0-rc.8', 'contract':'0.2.0-rc.8'}
+            assert draft['versions'] == {'protocol':'0.2-preview.3', 'mcp':'0.2.0rc9',
+                                         'skill':'0.2.0-rc.9', 'contract':'0.2.0-rc.9'}
             assert draft["evidence"] == []
             guided=await client.call_tool("review_next_step",{"draft":draft})
             assert json.loads(guided.content[0].text)["decision_card"]["next_step"]["stage"] == "SCOPE"

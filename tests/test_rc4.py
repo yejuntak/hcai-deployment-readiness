@@ -96,7 +96,7 @@ def feedback(permission="private"):
     return FeedbackEntry(id="FBTEST", source_person="PRIVATE_NAME_SENTINEL", source_date="2026-09-01",
                          recorded_on="2026-09-24", context="PRIVATE_CONTEXT_SENTINEL", feedback="PRIVATE_FEEDBACK_SENTINEL",
                          permission=permission, permission_basis="PRIVATE_PERMISSION_SENTINEL", changes=["C01"],
-                         affected_files=["protocol/0.2-preview.2/PROTOCOL.md"], affected_requirements=["G6_COMMITMENT"],
+                         affected_files=[f"protocol/{versions()['protocol']}/PROTOCOL.md"], affected_requirements=["G6_COMMITMENT"],
                          validation_status="software_tests_only")
 
 
@@ -108,7 +108,11 @@ def test_feedback_permission_export():
     assert approved["source_person"] == "PRIVATE_NAME_SENTINEL"
     assert "permission_basis" not in approved
     ledger = json.loads((ROOT / "evidence/feedback-ledger.public.json").read_text())
-    assert len(ledger) == 5
+    by_id = {entry['id']: entry for entry in ledger}
+    assert len(by_id) == len(ledger)
+    assert {'FB01', 'FB02', 'FB03', 'FB04', 'FB05', 'FB_PREVIEW3'} <= set(by_id)
+    assert by_id['FB_PREVIEW3']['permission'] == 'private'
+    assert by_id['FB_PREVIEW3']['validation_status'] == 'software_tests_only'
     assert [x["source_person"] for x in ledger if x["source_person"]] == ["Hillel Glazer"]
     assert all(x["feedback"] is None for x in ledger if x["permission"] == "private")
 

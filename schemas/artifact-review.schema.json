@@ -1,0 +1,789 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Alternative": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Locations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "description"
+      ],
+      "title": "Alternative",
+      "type": "object"
+    },
+    "ArtifactCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "acceptance_check": {
+          "minLength": 1,
+          "title": "Acceptance Check",
+          "type": "string"
+        },
+        "scope": {
+          "default": "current",
+          "enum": [
+            "current",
+            "deferred",
+            "excluded"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "exclusion_reason": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Exclusion Reason"
+        },
+        "current_dependency": {
+          "default": false,
+          "title": "Current Dependency",
+          "type": "boolean"
+        },
+        "specified": {
+          "$ref": "#/$defs/EvidenceCheck"
+        },
+        "walkthrough": {
+          "$ref": "#/$defs/EvidenceCheck"
+        },
+        "implemented": {
+          "$ref": "#/$defs/EvidenceCheck"
+        },
+        "runtime_tested": {
+          "$ref": "#/$defs/EvidenceCheck"
+        }
+      },
+      "required": [
+        "id",
+        "acceptance_check"
+      ],
+      "title": "ArtifactCheck",
+      "type": "object"
+    },
+    "ArtifactFinding": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "acceptance": {
+          "enum": [
+            "matched_reference",
+            "novel_accepted",
+            "unsupported",
+            "duplicate",
+            "unresolved"
+          ],
+          "title": "Acceptance",
+          "type": "string"
+        },
+        "scope": {
+          "default": "current",
+          "enum": [
+            "current",
+            "deferred",
+            "unclear"
+          ],
+          "title": "Scope",
+          "type": "string"
+        },
+        "current_dependency": {
+          "default": false,
+          "title": "Current Dependency",
+          "type": "boolean"
+        },
+        "scope_reason": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scope Reason"
+        },
+        "proposed_severity": {
+          "default": "undetermined",
+          "enum": [
+            "critical",
+            "major",
+            "minor",
+            "undetermined"
+          ],
+          "title": "Proposed Severity",
+          "type": "string"
+        },
+        "adjudicated_severity": {
+          "default": "undetermined",
+          "enum": [
+            "critical",
+            "major",
+            "minor",
+            "undetermined"
+          ],
+          "title": "Adjudicated Severity",
+          "type": "string"
+        },
+        "criterion_or_novel_risk": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Criterion Or Novel Risk"
+        },
+        "failure_mechanism": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Failure Mechanism"
+        },
+        "consequence": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Consequence"
+        },
+        "evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Locations",
+          "type": "array"
+        },
+        "resolution": {
+          "default": "open",
+          "enum": [
+            "open",
+            "remediated",
+            "accepted_risk"
+          ],
+          "title": "Resolution",
+          "type": "string"
+        },
+        "remediation_evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Remediation Evidence Locations",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "acceptance"
+      ],
+      "title": "ArtifactFinding",
+      "type": "object"
+    },
+    "ArtifactVersions": {
+      "additionalProperties": false,
+      "properties": {
+        "protocol": {
+          "minLength": 1,
+          "title": "Protocol",
+          "type": "string"
+        },
+        "mcp": {
+          "minLength": 1,
+          "title": "Mcp",
+          "type": "string"
+        },
+        "skill": {
+          "minLength": 1,
+          "title": "Skill",
+          "type": "string"
+        },
+        "contract": {
+          "minLength": 1,
+          "title": "Contract",
+          "type": "string"
+        }
+      },
+      "required": [
+        "protocol",
+        "mcp",
+        "skill",
+        "contract"
+      ],
+      "title": "ArtifactVersions",
+      "type": "object"
+    },
+    "ChoiceRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "purpose": {
+          "minLength": 1,
+          "title": "Purpose",
+          "type": "string"
+        },
+        "criteria": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Criteria",
+          "type": "array"
+        },
+        "observed_choice": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Observed Choice"
+        },
+        "observed_evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Observed Evidence Locations",
+          "type": "array"
+        },
+        "historical_alternatives": {
+          "items": {
+            "$ref": "#/$defs/Alternative"
+          },
+          "title": "Historical Alternatives",
+          "type": "array"
+        },
+        "proposed_alternatives": {
+          "items": {
+            "$ref": "#/$defs/Alternative"
+          },
+          "title": "Proposed Alternatives",
+          "type": "array"
+        },
+        "alternatives_review": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alternatives Review"
+        },
+        "rationale": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rationale"
+        },
+        "rationale_provenance": {
+          "enum": [
+            "documented",
+            "reported",
+            "new",
+            "unknown"
+          ],
+          "title": "Rationale Provenance",
+          "type": "string"
+        },
+        "rationale_evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Rationale Evidence Locations",
+          "type": "array"
+        },
+        "impacts_and_tradeoffs": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Impacts And Tradeoffs",
+          "type": "array"
+        },
+        "affected_check_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Affected Check Ids",
+          "type": "array"
+        },
+        "human_decision": {
+          "default": "pending",
+          "enum": [
+            "accepted",
+            "revise",
+            "pending"
+          ],
+          "title": "Human Decision",
+          "type": "string"
+        },
+        "human_decision_owner": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Human Decision Owner"
+        },
+        "human_decision_evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Human Decision Evidence Locations",
+          "type": "array"
+        },
+        "verification_evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Verification Evidence Locations",
+          "type": "array"
+        },
+        "follow_up": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Follow Up"
+        },
+        "follow_up_owner": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Follow Up Owner"
+        }
+      },
+      "required": [
+        "id",
+        "purpose",
+        "observed_choice",
+        "rationale",
+        "rationale_provenance"
+      ],
+      "title": "ChoiceRecord",
+      "type": "object"
+    },
+    "EvaluatorValidity": {
+      "additionalProperties": false,
+      "description": "Unknown role/order facts are ineligible, not silently assumed independent.",
+      "properties": {
+        "reference_frozen_before_evaluation": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Frozen Before Evaluation"
+        },
+        "reference_independent_of_findings": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reference Independent Of Findings"
+        },
+        "evaluator_authored_artifact": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evaluator Authored Artifact"
+        },
+        "evaluator_authored_reference": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evaluator Authored Reference"
+        },
+        "evaluator_is_adjudicator": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evaluator Is Adjudicator"
+        },
+        "matches_independently_confirmed": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Matches Independently Confirmed"
+        },
+        "findings_locked_before_reference": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Findings Locked Before Reference"
+        },
+        "expected_recall_locked_before_reference": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expected Recall Locked Before Reference"
+        },
+        "omission_subset_frozen": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Omission Subset Frozen"
+        },
+        "criterion_independently_established": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Criterion Independently Established"
+        }
+      },
+      "title": "EvaluatorValidity",
+      "type": "object"
+    },
+    "EvidenceCheck": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "default": "unassessed",
+          "enum": [
+            "pass",
+            "fail",
+            "unassessed",
+            "not_applicable"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Locations",
+          "type": "array"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        }
+      },
+      "title": "EvidenceCheck",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "versions": {
+      "$ref": "#/$defs/ArtifactVersions"
+    },
+    "run_id": {
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "artifact_version": {
+      "minLength": 1,
+      "title": "Artifact Version",
+      "type": "string"
+    },
+    "criterion_version": {
+      "minLength": 1,
+      "title": "Criterion Version",
+      "type": "string"
+    },
+    "artifact_population": {
+      "enum": [
+        "ai_generated",
+        "runtime_ai",
+        "both",
+        "neither",
+        "unknown"
+      ],
+      "title": "Artifact Population",
+      "type": "string"
+    },
+    "artifact_kind": {
+      "enum": [
+        "specification",
+        "prototype",
+        "code"
+      ],
+      "title": "Artifact Kind",
+      "type": "string"
+    },
+    "stage": {
+      "enum": [
+        "specification_handoff",
+        "prototype_handoff",
+        "implementation_review",
+        "runtime_release_review"
+      ],
+      "title": "Stage",
+      "type": "string"
+    },
+    "mode": {
+      "enum": [
+        "artifact_review",
+        "independent_evaluation"
+      ],
+      "title": "Mode",
+      "type": "string"
+    },
+    "evaluator_kind": {
+      "enum": [
+        "human",
+        "ai-assisted-human",
+        "agent",
+        "synthetic"
+      ],
+      "title": "Evaluator Kind",
+      "type": "string"
+    },
+    "criteria_timing": {
+      "enum": [
+        "prospective",
+        "retrospective",
+        "unknown"
+      ],
+      "title": "Criteria Timing",
+      "type": "string"
+    },
+    "requirements": {
+      "items": {
+        "$ref": "#/$defs/ArtifactCheck"
+      },
+      "minItems": 1,
+      "title": "Requirements",
+      "type": "array"
+    },
+    "recovery": {
+      "items": {
+        "$ref": "#/$defs/ArtifactCheck"
+      },
+      "title": "Recovery",
+      "type": "array"
+    },
+    "zero_recovery_reason": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Zero Recovery Reason"
+    },
+    "important_choice_ids": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Important Choice Ids",
+      "type": "array"
+    },
+    "choices": {
+      "items": {
+        "$ref": "#/$defs/ChoiceRecord"
+      },
+      "title": "Choices",
+      "type": "array"
+    },
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/ArtifactFinding"
+      },
+      "title": "Findings",
+      "type": "array"
+    },
+    "evaluator_validity": {
+      "$ref": "#/$defs/EvaluatorValidity"
+    },
+    "judgment_locked_before_reference": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Judgment Locked Before Reference"
+    }
+  },
+  "required": [
+    "versions",
+    "run_id",
+    "artifact_version",
+    "criterion_version",
+    "artifact_population",
+    "artifact_kind",
+    "stage",
+    "mode",
+    "evaluator_kind",
+    "criteria_timing",
+    "requirements",
+    "recovery",
+    "important_choice_ids",
+    "choices"
+  ],
+  "title": "ArtifactReview",
+  "type": "object"
+}

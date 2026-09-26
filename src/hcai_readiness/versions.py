@@ -3,11 +3,11 @@ PROTOCOL_NAME = "H.A.R.D. Protocol"
 PROTOCOL_FULL_NAME = "Human-centered AI Readiness and Decision Protocol"
 DISPLAY_VERSION = "0.2"
 RELEASE_LABEL = "Public Preview"
-DISTRIBUTION_ID = "hard-0.2-preview-2"
-PROTOCOL_VERSION = "0.2-preview.2"
-MCP_VERSION = "0.2.0rc8"
-SKILL_VERSION = "0.2.0-rc.8"
-CONTRACT_VERSION = "0.2.0-rc.8"
+DISTRIBUTION_ID = "hard-0.2-preview-3"
+PROTOCOL_VERSION = "0.2-preview.3"
+MCP_VERSION = "0.2.0rc9"
+SKILL_VERSION = "0.2.0-rc.9"
+CONTRACT_VERSION = "0.2.0-rc.9"
 
 
 def public_title():

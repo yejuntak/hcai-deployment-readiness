@@ -1,4 +1,4 @@
-"""The editorial release must preserve decision behavior and historical evidence."""
+"""Frozen editorial evidence and established decision/economic behavior survive new releases."""
 import hashlib
 import json
 import os
@@ -39,9 +39,11 @@ def test_candidate_three_remains_byte_frozen():
 
 
 def test_editorial_release_preserves_core_logic():
-    for name in ('engine.py', 'contracts.py', 'records.py', 'assessment.py'):
-        path = 'src/hcai_readiness/'+name
-        assert (ROOT/path).read_bytes() == previous(path)
+    # The frozen executable must still contain the exact published source used
+    # in the regression comparison below. Current feature work may change it.
+    with zipfile.ZipFile(OLD_WHEEL) as wheel:
+        for name in ('engine.py', 'contracts.py', 'records.py', 'assessment.py'):
+            assert wheel.read('hcai_readiness/'+name) == previous('src/hcai_readiness/'+name)
 
 
 @pytest.mark.parametrize('name', [
@@ -58,15 +60,22 @@ def test_editorial_release_preserves_fixture_decisions(name, tmp_path):
     env = {**os.environ, 'PYTHONPATH': str(OLD_WHEEL)}
     old = json.loads(subprocess.check_output([sys.executable, '-c', program],
                                             input=json.dumps(old_record), text=True, cwd=tmp_path, env=env))
-    def normalize(value):
-        if isinstance(value, dict):
-            return {key: normalize(item) for key, item in value.items() if key != 'input_sha256'}
-        if isinstance(value, list):
-            return [normalize(item) for item in value]
-        if isinstance(value, str):
-            return value.replace('0.2-preview.2','0.1-rc.4-candidate.3').replace('0.2.0rc8','0.2.0rc3').replace('0.2.0-rc.8','0.2.0-rc.3')
-        return value
-    assert normalize(current) == normalize(old)
+    # Compare the entire historical result, including empty metric/evidence
+    # dictionaries. Only these three explicit top-level additions are allowed;
+    # a generic subset comparison could hide invented operational results.
+    added_fields = {'mode', 'artifact_population', 'choice_review'}
+    assert set(current) - set(old) == added_fields
+    assert not set(old) - set(current)
+    def historical_result(value):
+        output = json.loads(json.dumps(value))
+        for field in added_fields | {'versions'}:
+            output.pop(field, None)
+        output['provenance'].pop('input_sha256')
+        return output
+    assert historical_result(current) == historical_result(old)
+    assert current['versions'] == versions()
+    assert current['mode'] == 'engineering_commitment'
+    assert current['artifact_population'] == record['artifact_population']
 
 
 def test_editorial_release_preserves_criterion_identity():
@@ -79,7 +88,7 @@ def test_editorial_release_preserves_criterion_identity():
 
 def test_editorial_release_preserves_risk_tables_and_formulas():
     old = previous('protocol/0.1-rc.4-candidate.3/FULL-PROFILE.md').decode()
-    current = (ROOT/'protocol/0.2-preview.2/FULL-PROFILE.md').read_text()
+    current = (ROOT/'protocol'/versions()['protocol']/'FULL-PROFILE.md').read_text()
     def numerical_contract(text):
         return [line for line in text.splitlines() if line.startswith(('|', '- Gross', '- Net', '- Baseline', '- Proposed', '- Recurring', '- Payback'))]
     assert numerical_contract(current) == numerical_contract(old)
@@ -98,7 +107,7 @@ def test_editorial_release_preserves_external_citations():
         return {url for url in urls if any(domain in url for domain in ('w3.org/', 'nist.gov/', 'microsoft.com/', 'doi.org/'))}
     for name in ('docs/deep-audit.md', 'docs/research-boundary.md', 'README.md', 'docs/research-content.gohtml'):
         assert citations((ROOT/name).read_text()) == citations(previous(name).decode()) - removed
-    assert citations((ROOT/'protocol/0.2-preview.2/PROTOCOL.md').read_text()) == citations(previous('protocol/0.1-rc.4-candidate.3/PROTOCOL.md').decode()) - removed
+    assert citations((ROOT/'protocol'/versions()['protocol']/'PROTOCOL.md').read_text()) == citations(previous('protocol/0.1-rc.4-candidate.3/PROTOCOL.md').decode()) - removed
 
 
 def test_editorial_audit_is_linked_and_candidate_only():

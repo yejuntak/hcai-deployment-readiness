@@ -1,0 +1,76 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Optional independent evaluation</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
+main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.2-preview-3/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>Optional independent evaluation</h1>
+<p>H.A.R.D. Protocol 0.2 · Public Preview</p>
+<p>The <code>independent_evaluation</code> layer measures reviewer judgments against an independently prepared reference under declared conditions. It is optional. A team can complete an artifact review and act on supported findings without collecting any reviewer-performance metric.</p>
+<p>A metric is eligible only when its reference, timing, role and population conditions are satisfied. Disclosure does not restore independence. A warning must not be followed by presenting the affected number as a valid independent-performance result.</p>
+<h2>Roles and order</h2>
+<p>The artifact owner supplies the revision and requirements. A reference author prepares a frozen criterion and defect/omission set. An evaluator reviews without access to that answer key and locks judgments before reference access. An adjudicator matches findings and resolves disputes. A decision owner acts on the resulting evidence.</p>
+<p>Record identities privately or stable role IDs, all overlaps, timing, reference access, criterion version, artifact population and evaluator kind. State when a role was absent. A single person cannot be made independent by assigning several role names.</p>
+<p>The reference author and adjudicator may be the same person if the reference was frozen before evaluator access, matches follow prespecified rules and disputed items receive a documented independent resolution before entering a claimed metric. Reference preparation is not itself independent evidence that the key is correct. A team needing a stronger inference may require additional separation and key-quality checks.</p>
+<h2>Metric eligibility</h2>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Measure or claim</th>
+<th>Minimum eligible conditions</th>
+<th>Overlap or deviation and required treatment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Artifact requirements coverage</td>
+<td>Declared current inventory, exact revision, source-cited independent evidence columns and reconciled counts</td>
+<td>Artifact owner may also review. Report self-review or agent provenance. No independent-performance claim.</td>
+</tr>
+<tr>
+<td>Artifact recovery coverage</td>
+<td>Declared applicable scenarios, evidence level or specified-plus-walkthrough definition, counted unassessed items</td>
+<td>Role overlap does not itself invalidate descriptive coverage. Missing inventory or denominator makes the measure N/A.</td>
+</tr>
+<tr>
+<td>Unresolved critical findings</td>
+<td>Supported applicability, severity basis and disposition at the declared stage</td>
+<td>Role overlap is disclosed. A proposed or disputed severity remains identified as such; it is not converted into independent confirmation.</td>
+</tr>
+<tr>
+<td>Reference-set defect recall</td>
+<td>Frozen eligible defect set, evaluator independent of artifact creation and key preparation, judgments locked before key access, valid finding matches</td>
+<td>Evaluator equals artifact author or reference author: N/A for independent recall. Evaluator also adjudicates: N/A unless finding matches receive independent confirmation. Missing lock, prior key access or unresolved disputed matches: N/A until eligible prospective data exist.</td>
+</tr>
+<tr>
+<td>Expected-recall gap</td>
+<td>Eligible reference recall plus a genuinely recorded expected percentage before the review/reference reveal</td>
+<td>If recall is ineligible or expectation was reconstructed afterward: N/A with that reason. A confidence rating is not an expected-recall estimate.</td>
+</tr>
+<tr>
+<td>Requirement-omission recognition</td>
+<td>Frozen predefined omission set, independently locked evaluator findings, valid matches and a positive eligible denominator</td>
+<td>Same evaluator/reference/author/adjudicator overlap limits as recall. New omissions are reported separately rather than added to the frozen denominator.</td>
+</tr>
+<tr>
+<td>False-ready acceptance</td>
+<td>Independent locked readiness judgments, independently established criterion status, a prespecified common criterion and eligible population</td>
+<td>Shared evaluator/key or artifact-author role, reference leakage, missing lock, mixed criteria/populations or unresolved eligibility blocks the independent rate. Preserve raw judgments as descriptive records.</td>
+</tr>
+<tr>
+<td>Measured operating performance</td>
+<td>Exact implemented version, realistic-use context, observed retained execution evidence and relevant metrics</td>
+<td>A specification, walkthrough, criterion pass or evaluator metric cannot substitute.</td>
+</tr>
+</tbody>
+</table></div>
+<p>A human who uses an agent is not automatically an independent human evaluator. Record what the agent saw, whether it had reference access, and who made and locked the judgment. Agent-only observations form an agent population. They may be examined separately under a declared agent protocol; they do not supply independent human-performance claims.</p>
+<p>When machine support is stricter than a narrowly qualified design in this guide, retain N/A for the supported implementation. Do not manually override eligibility to obtain a number. A future expanded analysis requires an explicit versioned method, not a hidden exception.</p>
+<h2>Denominators and interpretation</h2>
+<p>Reference recall is unique correctly matched frozen reference defects divided by eligible reference defects. Requirement-omission recognition uses the predefined eligible omission subset. Novel genuine findings can change the artifact disposition but do not silently change either frozen denominator. Preserve unsupported, duplicate and unresolved findings and the effort spent adjudicating them.</p>
+<p>Expected-recall gap is expected recall percentage minus observed reference recall percentage, in percentage points. It is a descriptive signed discrepancy, not a validated general measure of metacognition or probability calibration. Report per-review values; opposite gaps can cancel in an average.</p>
+<p>False-ready acceptance conditions on criterion-nonready instances: Ready judgments divided by observed judgments for those instances. An observed abstention stays in the denominator and is also reported. Missing judgments and unknown criterion status are counted separately. It is not the fraction of all Ready judgments that were wrong.</p>
+<p>Unknown or zero eligible denominators produce N/A with a reason. A missing metric is not zero. Keep the raw counts and eligibility reasons available. Minimum artifact review does not require these metrics to complete.</p>
+<h2>Separate populations before aggregation</h2>
+<p>At minimum, stratify by exact criterion version, evaluator kind and <code>artifact_population</code>. <code>ai_generated</code>, <code>runtime_ai</code>, <code>both</code> and <code>neither</code> cannot be pooled as though they were interchangeable. <code>unknown</code> cannot be silently combined with a known population. Preserve stage, review mode, eligibility and deviations; do not compare specification handoff with runtime evidence without an explicit justified analysis.</p>
+<p>Different artifacts judged by one evaluator and repeated judgments on one artifact are not independent samples. A descriptive batch calculation does not supply an inferential analysis or an effectiveness claim. Performance comparisons require an appropriate study design and uncertainty analysis.</p>
+<h2>What the formative feedback supports</h2>
+<p>A practitioner reported trying the materials through an agent, with role overlap, no blinded participants, no prospectively frozen criterion and no comparison condition. This supports identifying possible use barriers and consistency defects in the materials. It does not establish detection improvement or protocol effectiveness. The private source artifact, judgments and execution attachments were not independently examined in this release, so their reported findings and calculations are not verified here.</p>
+<p>The proposed visual-fidelity study is a separate research activity. Keep its locked reviewer record and reference key separate, and do not introduce this guided practice procedure without an explicit study design. See <a href="/static/research/ai-readiness/hard-0.2-preview-3/research-boundary.html">research boundaries</a>.</p>
+<p>Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.</p></main></body></html>
