@@ -201,6 +201,22 @@ def test_failed_challenge_holds_and_generated_reason_cannot_erase_it():
     assert "challenge_CH1_failed" in result["choice_issues"]["C1"]
 
 
+def test_assumption_is_first_class_and_challenge_level_is_not_inferred():
+    data = fixture()
+    data["choices"][0]["assumptions"][0].update(status="unassessed", evidence_locations=[])
+    result = review_artifact(ArtifactReview(**data))
+    assert result["disposition"] == "Insufficient evidence"
+    assert "assumption_A1_unassessed" in result["choice_issues"]["C1"]
+    data = fixture()
+    data["choices"][0]["assumptions"][0]["status"] = "conflicted"
+    result = review_artifact(ArtifactReview(**data))
+    assert result["disposition"] == "Hold for remediation"
+    missing_level = choice()
+    missing_level["challenge_scenarios"][0].pop("evidence_level")
+    with pytest.raises(ValidationError, match="evidence level"):
+        ChoiceRecord(**missing_level)
+
+
 def test_choice_revision_holds_even_with_complete_checks():
     data = fixture(); data["choices"][0]["human_decision"] = "revise"
     result = review_artifact(ArtifactReview(**data))
