@@ -10,8 +10,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: hard-preview-${{ github.ref }}
-  cancel-in-progress: true
+  group: hard-preview-${{ github.sha }}
+  cancel-in-progress: false
 
 jobs:
   build:
