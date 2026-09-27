@@ -174,7 +174,8 @@ def test_html_escapes_subject_and_evidence_copy():
     assert "<script>alert(1)</script>" not in output
     assert "&lt;script&gt;alert(1)&lt;/script&gt;" in output
     assert "Product Signal Grade" in output
-    assert "NOT VERIFIED" in output\n    assert "H.A.R.D. Grade" not in output
+    assert "NOT VERIFIED" in output
+    assert "H.A.R.D. Grade" not in output
 
 
 def test_markdown_says_grade_is_not_hard_score():
