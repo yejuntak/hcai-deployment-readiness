@@ -14,7 +14,7 @@ Participation is voluntary. This is formative use, not certification, an endorse
 
 For a solo practitioner or small team, begin with artifact_review. A plan without code is in scope. State its revision, intended use, current scope and review stage. No measured baseline, ROI or independently staffed evaluation is required.
 
-Inspect one consequential choice: what was selected, what purpose it serves, the alternatives, reasons, assumptions, tradeoffs, evidence and human decision still needed. Explicitly record whether engineering deepening applies and why. If it does, inspect only the relevant truth, ownership, state, boundary/contract, failure, time/ordering and assumption surfaces and name one bounded condition that could disconfirm the choice. Separate documented past reasons from current new proposals. Keep the original choice when justified. Record specified, walkthrough, implemented and runtime-tested evidence separately for the current requirements and recovery paths.
+Inspect one consequential choice: what was selected, what purpose it serves, the alternatives, reasons, assumptions, tradeoffs, evidence and human decision still needed. Explicitly record whether engineering deepening applies and why. If it does, inspect only the relevant truth, ownership, state, boundary/contract, failure and time/ordering surfaces. Record consequential assumptions separately with consequence-if-false, evidence needed and a revisit trigger, then name one bounded condition that could disconfirm the choice or assumption. Separate documented past reasons from current new proposals. Keep the original choice when justified. Record specified, walkthrough, implemented and runtime-tested evidence separately for the current requirements and recovery paths.
 
 If your goal is funding engineering, use QUICK6/FULL with all six gates. QUICK6 is for low risk with evidence available; its <=15-minute target is untested. Higher or unknown risk requires FULL. Preserve missing evidence and stopped gates. A minimum artifact review does not mean these gates passed.
 
@@ -24,7 +24,7 @@ If your goal is measuring reviewer performance, first plan independent_evaluatio
 
 - Exact versions, artifact kind/revision, stage, population, route, role overlap and whether criteria were set before review.
 - Preparation and session effort if actually recorded, confusing questions and evidence that was hard to find.
-- Choices kept or questioned, engineering-deepening disposition, relevant decision surfaces/challenges, evidence gaps, stage result or engineering gates, next action and owner.
+- Choices kept or questioned, engineering-deepening disposition, relevant decision surfaces, assumption lifecycles and challenge evidence levels, evidence gaps, stage result or engineering gates, next action and owner.
 - Ineligible metrics and the reason for each N/A. Do not invent before/after judgments or timings retrospectively.
 - Whether you understood what the result allows and what remains undecided.
 - Your disclosure choice: private, permission-checked anonymous summary or separately approved attribution.
