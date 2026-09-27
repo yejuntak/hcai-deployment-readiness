@@ -481,6 +481,17 @@ def render_grade_report(report: ReportGradeInput, format: Literal["markdown", "h
                 f"**{item['title']}** (-{item['points']} signal points)",
                 item["summary"] or "Resolve this observed product-surface finding.",
             ]
+            trace = item.get("developer_trace")
+            if trace:
+                lines += [
+                    "",
+                    "### Developer view",
+                    f"- Observed: {trace['observed']}",
+                    f"- Decision underneath: {trace['decision_underneath']}",
+                    f"- What must be true: {trace['must_be_true']}",
+                    f"- If it fails: {trace['if_wrong']}",
+                    f"- Prove next: {trace['prove_next']}",
+                ]
         unknowns = [f for f in report.findings if f.status == "unknown"]
         if unknowns:
             lines += ["", "## Verify next"]
@@ -498,25 +509,37 @@ def render_grade_report(report: ReportGradeInput, format: Literal["markdown", "h
         return html.escape(str(value), quote=True)
 
     module_rows = "".join(
-        "<tr><th scope=\"row\">"
+        "<div class=\"signal-row\"><div class=\"signal-copy\"><strong>"
         + esc(module["label"])
-        + "</th><td>"
-        + ("N/A" if module["score"] is None else esc(module["score"]))
-        + "</td><td>"
+        + "</strong><span>"
         + esc(module["coverage"])
-        + "%</td><td>"
+        + "% coverage · "
         + esc(module["confidence"])
-        + "%</td></tr>"
+        + "% confidence</span></div><div class=\"signal-score\">"
+        + ("N/A" if module["score"] is None else esc(module["score"]))
+        + "</div></div>"
         for module in result["modules"]
     )
 
     priority = ""
     if result["top_priority"]:
         item = result["top_priority"]
+        trace = item.get("developer_trace")
+        trace_html = ""
+        if trace:
+            trace_html = (
+                "<div class=\"developer-view\"><p class=\"eyebrow\">Developer view</p>"
+                "<div class=\"trace-grid\">"
+                "<div><span>Observed</span><p>" + esc(trace["observed"]) + "</p></div>"
+                "<div><span>Decision underneath</span><p>" + esc(trace["decision_underneath"]) + "</p></div>"
+                "<div><span>What must be true?</span><p>" + esc(trace["must_be_true"]) + "</p></div>"
+                "<div><span>If it fails</span><p>" + esc(trace["if_wrong"]) + "</p></div>"
+                "</div><div class=\"prove-next\"><span>Prove next</span><strong>" + esc(trace["prove_next"]) + "</strong></div></div>"
+            )
         priority = (
-            "<section class=\"priority\"><p class=\"eyebrow\">Fix first</p><div class=\"priority-grid\"><div>"
+            "<section class=\"priority\"><p class=\"eyebrow\">The one thing to fix first</p><div class=\"priority-grid\"><div>"
             "<h2>" + esc(item["title"]) + "</h2><p>" + esc(item["summary"] or "Resolve this observed product-surface finding.") + "</p></div>"
-            "<div class=\"deduction\">-" + esc(item["points"]) + "</div></div></section>"
+            "<div class=\"deduction\">-" + esc(item["points"]) + "</div></div>" + trace_html + "</section>"
         )
 
     unknowns = [finding for finding in report.findings if finding.status == "unknown"]
@@ -560,13 +583,13 @@ def render_grade_report(report: ReportGradeInput, format: Literal["markdown", "h
 h1{font-size:18px;font-weight:600;margin:0 0 14px}.verdict{font-size:30px;line-height:1.15;letter-spacing:-.025em;max-width:25ch;margin:0}
 .posture{display:flex;gap:10px;align-items:center;margin-top:22px;padding:12px 14px;border-radius:12px;background:#f0f0ec;font-size:14px}
 .posture strong{font-size:12px;letter-spacing:.06em}.posture.blocking{border:1px solid #111}.posture.evidence{border:1px dashed #777}
-.meta,.counts{font-size:13px;margin-top:14px}.counts{margin-top:8px}table{width:100%;border-collapse:collapse;margin-top:34px}
-th,td{text-align:left;padding:15px 0;border-top:1px solid #e5e5df;font-size:14px}thead th{font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.meta,.counts{font-size:13px;margin-top:14px}.counts{margin-top:8px}
+.signal-list{margin-top:34px;border-top:1px solid #e5e5df}.signal-row{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:17px 0;border-bottom:1px solid #e5e5df}.signal-copy{display:flex;flex-direction:column;gap:4px}.signal-copy strong{font-size:15px}.signal-copy span{font-size:12px;color:#666}.signal-score{font-size:26px;font-weight:720;letter-spacing:-.03em}
 .priority,.verify,.aux{margin-top:18px;padding:28px}.priority-grid{display:grid;grid-template-columns:1fr auto;gap:24px}.priority h2,.verify h2{font-size:24px;line-height:1.2;margin:0 0 8px}
-.priority p,.verify span{font-size:14px;line-height:1.5}.deduction{font-size:38px;font-weight:720;letter-spacing:-.04em}
+.priority p,.verify span{font-size:14px;line-height:1.5}.deduction{font-size:38px;font-weight:720;letter-spacing:-.04em}.developer-view{border-top:1px solid #e5e5df;margin-top:24px;padding-top:22px}.trace-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}.trace-grid>div{border-top:1px solid #ecece7;padding:14px 0}.trace-grid span,.prove-next span{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#666}.trace-grid p{margin:6px 0 0}.prove-next{margin-top:10px;padding:16px;background:#111;color:white;border-radius:12px}.prove-next span{color:#cfcfc8;margin-bottom:5px}.prove-next strong{font-size:15px;line-height:1.4}
 .verify ul{list-style:none;padding:0;margin:18px 0 0}.verify li{display:grid;grid-template-columns:minmax(150px,.7fr) 1fr;gap:18px;padding:12px 0;border-top:1px solid #e5e5df}.verify li span{display:block}
 .aux div{display:flex;gap:20px;flex-wrap:wrap;font-size:14px}.boundary{font-size:12px;line-height:1.55;margin:22px 4px 0;max-width:86ch}
-@media(max-width:700px){main{padding:28px 16px 56px}.card{padding:24px}.hero{grid-template-columns:1fr}.grade{font-size:80px}.verdict{font-size:25px}.priority-grid,.verify li{grid-template-columns:1fr}.deduction{font-size:30px}}
+@media(max-width:700px){main{padding:28px 16px 56px}.card{padding:24px}.hero{grid-template-columns:1fr}.grade{font-size:80px}.verdict{font-size:25px}.priority-grid,.verify li,.trace-grid{grid-template-columns:1fr}.deduction{font-size:30px}.signal-row{padding:14px 0}}
 </style></head><body><main>
 <section class="card">
 <p class="eyebrow">H.A.R.D. Readiness Report</p>
@@ -575,7 +598,7 @@ th,td{text-align:left;padding:15px 0;border-top:1px solid #e5e5df;font-size:14px
 <div class="""" + posture_class + """"><strong>""" + esc(hard["status"]) + """</strong><span>""" + esc(hard["label"]) + """</span></div>
 <p class="meta">Evidence confidence <strong>""" + esc(result["confidence"]) + """%</strong> · Coverage <strong>""" + esc(result["coverage"]) + """%</strong></p>
 <p class="counts">""" + esc(result["counts"]["critical"]) + """ critical · """ + esc(result["counts"]["warnings"]) + """ warnings · """ + esc(result["counts"]["passed"]) + """ passed · """ + esc(result["counts"]["unknown"]) + """ unknown</p></div></div>
-<table><thead><tr><th>Area</th><th>Signal score</th><th>Coverage</th><th>Confidence</th></tr></thead><tbody>""" + module_rows + """</tbody></table>
+<div class="signal-list" aria-label="Product signal breakdown">""" + module_rows + """</div>
 </section>""" + priority + verify + auxiliary + """
 <p class="boundary">""" + esc(result["boundary"]) + """</p>
 </main></body></html>"""
