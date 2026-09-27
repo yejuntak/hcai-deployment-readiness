@@ -20,7 +20,8 @@ async def roundtrip():
             assert names=={"artifact_review_template", "assess_artifact_review", "assessment_template","assess_legacy_session","summarize_legacy_batch",
                            "assess_engineering_commitment", "validate_pilot_run", "export_public_feedback",
                            "new_review_record", "review_next_step", "get_gate_guide", "assessment_report",
-                           "get_review_criterion", "validate_study_review", "get_validation_targets"}
+                           "get_review_criterion", "validate_study_review", "get_validation_targets",
+                           "product_signal_grade_template", "calculate_product_signal_grade", "product_signal_report"}
             artifact_schema=await client.call_tool("artifact_review_template",{})
             assert not artifact_schema.isError
             from test_artifact_review import fixture as artifact_fixture
