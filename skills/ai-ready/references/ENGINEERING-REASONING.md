@@ -86,22 +86,22 @@ Record detection, containment, recovery and ownership when relevant. "Retry" is 
 
 Use this surface when timing affects correctness. Relevant questions can include idempotency, concurrency, stale reads, cancellation races and delayed external responses.
 
-### Assumption
+## Assumptions are first-class claims
 
-**Question:** What must be true for the current decision to remain reasonable?
+An assumption is not a miscellaneous note and is not a substitute for a decision surface. Give each consequential assumption its own ID and record:
 
-Every consequential assumption records:
-
-- the current assumption,
-- consequence if it is false,
+- the statement that must remain true for the current choice to be reasonable,
+- status: supported, conflicted or unassessed,
+- consequence if the statement is false,
 - evidence needed,
+- retained evidence when supported or conflicted,
 - and the trigger that should reopen it.
 
-An assumption is not made true by writing it down.
+Do not collapse several materially different assumptions into one sentence merely to complete the record. A supported assumption remains scoped and revisitable. An assumption is not made true by writing it down.
 
-## Status vocabulary
+## Decision-surface status vocabulary
 
-Each surface is recorded independently:
+Each system surface is recorded independently:
 
 - **supported:** retained evidence supports the current model within the declared scope;
 - **conflicted:** retained evidence contradicts the current model;
@@ -126,7 +126,8 @@ Then record:
 4. the consequence if mishandled,
 5. the affected requirement or recovery item,
 6. the evidence needed,
-7. and the observed result when it has actually been checked.
+7. the observed result when it has actually been checked,
+8. and the evidence level: walkthrough, implemented or runtime-tested.
 
 Useful challenge shapes include, when relevant:
 
@@ -157,7 +158,7 @@ H.A.R.D. retains the four evidence stages:
 | Implemented | The cited implementation contains the relevant behavior. |
 | Runtime tested | A retained execution checks the exact implementation in the named context. |
 
-A supported source-of-truth model may be supported by a specification at specification handoff. It does not imply the implementation enforces it. A passing walkthrough does not become a runtime test.
+A supported source-of-truth model may be supported by a specification at specification handoff. It does not imply the implementation enforces it. Every assessed challenge carries its evidence level explicitly. A passing walkthrough does not become an implementation check or runtime test.
 
 Changes to consequential choices, their decision surfaces, state context, dependencies, authority or challenge conditions are part of the requirement/context fingerprint. Existing checks cannot be relabeled after those changes.
 
@@ -204,7 +205,8 @@ Relevant surfaces:
 - state: pending, accepted, revoked and expired;
 - time/ordering: accept versus revoke, repeat acceptance;
 - contract: what token verification guarantees;
-- assumption: when billing or seat allocation should change.
+Assumption:
+- seat or billing allocation occurs at the intended lifecycle transition; if false, access and billing may diverge. The evidence and revisit trigger are recorded independently from the surfaces above.
 
 Challenge:
 - condition: revoke and accept occur nearly together;

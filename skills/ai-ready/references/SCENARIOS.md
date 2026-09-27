@@ -71,7 +71,7 @@ Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3
 
 The implementation has a team-members table, invitation token and accept endpoint. It does not say which record is authoritative before acceptance, whether a revoked invitation can race an accept request, or when a billing seat is consumed.
 
-**Review:** artifact_review with ai_generated population. Decompress the observed schema and endpoint choices. Engineering deepening is warranted because the feature mutates persistent membership and authorization state. Record truth, ownership, state, time/ordering and assumption surfaces. Challenge duplicate acceptance and revoke/accept ordering. Do not infer a race-condition defect unless the code or execution supports it; an unassessed transition remains an evidence gap.
+**Review:** artifact_review with ai_generated population. Decompress the observed schema and endpoint choices. Engineering deepening is warranted because the feature mutates persistent membership and authorization state. Record the relevant truth, ownership, state and time/ordering surfaces. Record the seat-allocation and invitation-validity assumptions separately with consequence-if-false, evidence and revisit triggers. Challenge duplicate acceptance and revoke/accept ordering, and label any assessed challenge with its evidence level. Do not infer a race-condition defect unless the code or execution supports it; an unassessed transition remains an evidence gap.
 
 ## 12. AI generated a synchronous report workflow around an external service
 

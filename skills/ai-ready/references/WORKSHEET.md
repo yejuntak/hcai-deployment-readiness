@@ -97,7 +97,13 @@ Complete this section for each consequential choice only after recording whether
 
 **Trigger(s):** state mutation / external side effect / irreversible action / privileged or tenant boundary / unreliable dependency / repeat or concurrent execution / money or data loss / material scale or cost assumption / current promise depends on deferred work / ambiguous source of truth / other
 
-For each relevant surface, record the current model and status. Leave unsupported claims unassessed.
+Record each consequential assumption separately before the surface table. Leave unsupported claims unassessed.
+
+| Assumption ID | Statement | Status | Consequence if false | Evidence needed / retained evidence | Revisit trigger |
+| --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |
+
+For each relevant system surface, record the current model and status.
 
 | Surface | Current model or question | Status | Evidence or next evidence |
 | --- | --- | --- | --- |
@@ -108,7 +114,6 @@ For each relevant surface, record the current model and status. Leave unsupporte
 | Contract |  |  |  |
 | Failure/recovery |  |  |  |
 | Time/ordering |  |  |  |
-| Assumption |  |  |  |
 
 **What would have to be true for this choice to be wrong?** ____________________
 
@@ -117,6 +122,8 @@ For each relevant surface, record the current model and status. Leave unsupporte
 **Consequence if mishandled:** ____________________________________________
 
 **Evidence that would resolve the challenge:** _____________________________
+
+**Evidence level when assessed:** walkthrough / implemented / runtime-tested / unassessed
 
 **Smallest coherent next slice:** _________________________________________
 
