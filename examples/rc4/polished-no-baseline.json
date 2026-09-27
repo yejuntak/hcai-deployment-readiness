@@ -92,7 +92,17 @@
         "Synthetic tradeoff: advisor review adds time but retains control; no live sending"
       ],
       "assumptions": [
-        "Synthetic assumption: the retained draft remains the authoritative editable record until advisor confirmation"
+        {
+          "id": "A-SYNTHETIC-1",
+          "statement": "The retained draft remains the authoritative editable record until advisor confirmation.",
+          "status": "supported",
+          "consequence_if_false": "Correction or cancellation could silently operate on stale or conflicting data.",
+          "evidence_needed": "Repeat the field-preservation and ownership walkthrough after implementation.",
+          "evidence_locations": [
+            "examples/evidence/synthetic-workflow.md"
+          ],
+          "revisit_trigger": "Any persistence, ownership or cancellation-flow change"
+        }
       ],
       "affected_check_ids": [
         "R1"
@@ -104,8 +114,7 @@
       ],
       "required_surface_kinds": [
         "truth",
-        "state",
-        "assumption"
+        "state"
       ],
       "decision_surfaces": [
         {
@@ -127,19 +136,6 @@
           "evidence_locations": [
             "examples/evidence/synthetic-workflow.md"
           ]
-        },
-        {
-          "id": "DS-ASSUME",
-          "kind": "assumption",
-          "question": "Does the chosen draft model preserve fields through the bounded paths?",
-          "current_model": "The stipulated walkthrough preserves the defined fields.",
-          "status": "supported",
-          "evidence_locations": [
-            "SYNTHETIC T1: stipulated walkthrough"
-          ],
-          "consequence_if_wrong": "A correction or cancellation can silently lose contact details.",
-          "evidence_needed": "Repeat the field-preservation walkthrough after implementation.",
-          "revisit_trigger": "Any persistence or cancellation-flow change"
         }
       ],
       "challenge_scenarios": [
@@ -153,6 +149,7 @@
             "R1"
           ],
           "status": "pass",
+          "evidence_level": "walkthrough",
           "evidence_locations": [
             "SYNTHETIC T1: stipulated walkthrough, not actual execution"
           ]
@@ -396,7 +393,7 @@
           "E1": "87a35fd15180404eedfd92f7c23b7afc6e35d8309ff1af4581ec356baaf2a5c7"
         },
         "tested_requirement_digests": {
-          "R1": "042733031c24bad28c53423c9ff46966a797c6c96a2322d2e2eb736f1bdf37e0"
+          "R1": "2fe3c42ac44792a0aee904689e7a01a46c0c498445984d6b5f79fe53131e0220"
         }
       }
     ],

@@ -278,6 +278,10 @@ def assess(a: Assessment) -> dict:
             continue
         g.require(bool(choice.deepening_triggers), f"{key}: record why system-model deepening is required")
         g.require(bool(choice.required_surface_kinds), f"{key}: identify the decision surfaces that must be understood")
+        g.require(bool(choice.assumptions), f"{key}: identify the consequential assumptions the choice depends on")
+        for assumption in choice.assumptions:
+            g.require(assumption.status != "unassessed", f"{key}/{assumption.id}: consequential assumption remains unassessed")
+            g.fail(assumption.status == "conflicted", f"{key}/{assumption.id}: supplied evidence conflicts with the assumption")
         active_surfaces = [row for row in choice.decision_surfaces if row.status != "not_applicable"]
         for kind in choice.required_surface_kinds:
             rows = [row for row in active_surfaces if row.kind == kind]
@@ -299,6 +303,7 @@ def assess(a: Assessment) -> dict:
                     g.fail(challenge.status == "fail", f"{key}/{challenge.id}: bounded challenge disconfirmed the expected behavior or invariant")
                     if challenge.status == "pass":
                         g.require(bool(challenge.evidence_locations), f"{key}/{challenge.id}: passing challenge needs retained evidence")
+                        g.require(challenge.evidence_level is not None, f"{key}/{challenge.id}: passing challenge needs an explicit evidence level")
     g.require(bool(w.important_artifact_ids), "Important artifact/behavior inventory required")
     g.require(bool(w.requirements) and bool(w.validations), "Requirement and validation records required")
     validations = {v.id: v for v in w.validations}

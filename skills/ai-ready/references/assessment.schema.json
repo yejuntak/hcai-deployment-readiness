@@ -24,6 +24,64 @@
       "title": "Alternative",
       "type": "object"
     },
+    "AssumptionRecord": {
+      "additionalProperties": false,
+      "description": "One explicit assumption that can be challenged and revisited independently.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "statement": {
+          "minLength": 1,
+          "title": "Statement",
+          "type": "string"
+        },
+        "status": {
+          "default": "unassessed",
+          "enum": [
+            "supported",
+            "conflicted",
+            "unassessed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "consequence_if_false": {
+          "minLength": 1,
+          "title": "Consequence If False",
+          "type": "string"
+        },
+        "evidence_needed": {
+          "minLength": 1,
+          "title": "Evidence Needed",
+          "type": "string"
+        },
+        "evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Locations",
+          "type": "array"
+        },
+        "revisit_trigger": {
+          "minLength": 1,
+          "title": "Revisit Trigger",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "statement",
+        "consequence_if_false",
+        "evidence_needed",
+        "revisit_trigger"
+      ],
+      "title": "AssumptionRecord",
+      "type": "object"
+    },
     "Baseline": {
       "additionalProperties": false,
       "properties": {
@@ -297,6 +355,23 @@
           "title": "Status",
           "type": "string"
         },
+        "evidence_level": {
+          "anyOf": [
+            {
+              "enum": [
+                "walkthrough",
+                "implemented",
+                "runtime_tested"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Level"
+        },
         "evidence_locations": {
           "items": {
             "minLength": 1,
@@ -510,8 +585,7 @@
         },
         "assumptions": {
           "items": {
-            "minLength": 1,
-            "type": "string"
+            "$ref": "#/$defs/AssumptionRecord"
           },
           "title": "Assumptions",
           "type": "array"
@@ -562,8 +636,7 @@
               "boundary",
               "contract",
               "failure_recovery",
-              "time_ordering",
-              "assumption"
+              "time_ordering"
             ],
             "type": "string"
           },
@@ -921,8 +994,7 @@
             "boundary",
             "contract",
             "failure_recovery",
-            "time_ordering",
-            "assumption"
+            "time_ordering"
           ],
           "title": "Kind",
           "type": "string"
