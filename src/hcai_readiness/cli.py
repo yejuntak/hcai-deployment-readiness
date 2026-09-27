@@ -8,6 +8,7 @@ from .artifact_review import ArtifactReview, review_artifact
 from .engine import assess, validation_targets
 from .guidance import new_review, guided_review
 from .reporting import render_report
+from .grade import ReportGradeInput, calculate_report_grade, render_grade_report
 
 
 def main():
@@ -21,11 +22,21 @@ def main():
     parser.add_argument("--recorded-at")
     parser.add_argument("--evaluator-kind", choices=("human", "ai-assisted-human", "agent", "synthetic"))
     parser.add_argument("--artifact-review", action="store_true", help="Assess a stage-bounded artifact review JSON record")
+    parser.add_argument("--product-signal-grade", action="store_true", help="Calculate/render the non-normative product-surface grade; H.A.R.D. posture stays separate")
     parser.add_argument("--artifact-population", choices=("ai_generated", "runtime_ai", "both", "neither", "unknown"), default="unknown")
     parser.add_argument("--profile", choices=("QUICK6", "FULL"), default="QUICK6")
     args = parser.parse_args()
     try:
-        if args.artifact_review:
+        if args.product_signal_grade:
+            if args.new or args.guide or args.validation_targets or args.artifact_review or args.input is None:
+                parser.error("--product-signal-grade requires one report JSON input and cannot combine with other review modes")
+            report = ReportGradeInput.model_validate_json(args.input.read_text())
+            if args.format == "json":
+                result = calculate_report_grade(report)
+            else:
+                print(render_grade_report(report, args.format))
+                return
+        elif args.artifact_review:
             if args.new or args.guide or args.validation_targets or args.input is None or args.format != "json":
                 parser.error("--artifact-review requires an input and JSON output; it cannot combine with engineering guidance")
             result = review_artifact(ArtifactReview.model_validate_json(args.input.read_text()))
