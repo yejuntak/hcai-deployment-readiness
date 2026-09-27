@@ -362,6 +362,8 @@ class Assessment(Record):
             raise ValueError("Duplicate important choice IDs")
         for choice in self.choice_ledger:
             refs(choice.affected_check_ids, "requirement")
+            for challenge in choice.challenge_scenarios:
+                refs(challenge.affected_check_ids, "requirement")
         for requirement in self.workflow.requirements:
             refs(requirement.need_ids, "need")
             refs(requirement.validation_ids, "validation")
