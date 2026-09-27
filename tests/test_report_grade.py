@@ -213,3 +213,16 @@ def test_hard_priority_outranks_numeric_signal_deduction():
     assert result["primary_action"]["points"] is None
     assert result["top_priority"]["source"] if "source" in result["top_priority"] else True
     assert "H.A.R.D." in render_grade_report(report, "html")
+
+
+def test_synthetic_report_fixture_is_b78_and_hard_first():
+    from pathlib import Path
+    fixture = Path(__file__).resolve().parents[1] / "examples/report-grade/synthetic-public-scan.json"
+    report = ReportGradeInput.model_validate_json(fixture.read_text())
+    result = calculate_report_grade(report)
+    assert result["grade"] == "B"
+    assert result["score"] == 78
+    assert result["hard"]["status"] == "EVIDENCE NEEDED"
+    assert result["primary_action"]["source"] == "hard"
+    assert result["primary_action"]["title"] == "Duplicate refund protection is not demonstrated"
+    assert result["scoring"]["hard_in_numeric_score"] is False
