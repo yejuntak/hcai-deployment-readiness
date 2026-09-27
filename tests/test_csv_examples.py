@@ -200,6 +200,15 @@ def test_shared_engine_requires_human_choice_confirmation_before_handoff(tmp_pat
         verification_evidence_location="synthetic-revision.md#choice-check",
         current_justification="Synthetic owner reviewed the alternatives against current control and recovery criteria.",
         current_justification_evidence_location="synthetic-owner-record.md#choice-reason"))
+    def resolve_surfaces(rows):
+        for row in rows:
+            if row["status"] == "unassessed":
+                row["status"] = "supported"
+                row["current_model"] = "Synthetic current model retained only for this regression fixture."
+                row["evidence_location"] = "synthetic-revision.md#decision-surface"
+    mutate(directory, "decision-surfaces.csv", resolve_surfaces)
+    mutate(directory, "challenge-scenarios.csv", lambda rows: rows[0].update(
+        status="pass", evidence_location="synthetic-revision.md#challenge", next_evidence=""))
     mutate(directory, "decision.csv", lambda rows: rows[0].update(disposition="Eligible for declared stage handoff review"))
     result = verifier.summarize(directory)
     assert result["stage_review"]["criterion_status"] == "ready"
