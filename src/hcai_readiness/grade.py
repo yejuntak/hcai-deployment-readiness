@@ -93,6 +93,22 @@ EVIDENCE_NEEDED_HARD_DISPOSITIONS = {
 }
 
 
+class DeveloperTrace(BaseModel):
+    """Compact product-engineering reasoning attached to an evidence-backed finding.
+
+    This is a present-day review model, not reconstructed private chain-of-thought.
+    It can be populated from deterministic rule text; no model call is required.
+    """
+
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    observed: str = Field(min_length=1)
+    decision_underneath: str = Field(min_length=1)
+    must_be_true: str = Field(min_length=1)
+    if_wrong: str = Field(min_length=1)
+    prove_next: str = Field(min_length=1)
+
+
 class ReportFinding(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
@@ -105,6 +121,7 @@ class ReportFinding(BaseModel):
     summary: str = ""
     evidence_locations: list[str] = Field(default_factory=list)
     next_evidence: str | None = None
+    developer_trace: DeveloperTrace | None = None
 
     @model_validator(mode="after")
     def evidence_boundary(self):
@@ -279,6 +296,7 @@ def calculate_report_grade(report: ReportGradeInput) -> dict:
                             "summary": finding.summary,
                             "points": round(deduction),
                             "evidence_locations": finding.evidence_locations,
+                            "developer_trace": None if finding.developer_trace is None else finding.developer_trace.model_dump(),
                         }
                     )
 
