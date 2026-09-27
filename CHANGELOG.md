@@ -1,3 +1,15 @@
+# 0.3-preview.1 / 0.3.0rc1 / 0.3.0-rc.1
+
+- Make decision compression the explicit motivating model: AI-assisted creation can produce implementation before responsible people have externalized the consequential system model. This is a conceptual rationale, not a measured causal claim.
+- Add a targeted Engineering Reasoning Deepening lens inside the existing protocol: Decompress -> Model -> Challenge -> Prove -> Decide. It is not a seventh gate, score or recovered model chain-of-thought.
+- Require every consequential choice to record whether engineering deepening applies and why. When required, support truth, ownership, state, boundary, contract, failure/recovery, time/ordering and assumption decision surfaces.
+- Add bounded challenge scenarios with explicit condition, claim at risk, invariant, consequence and evidence. Conflicted required surfaces or failed challenges block the artifact route; unassessed surfaces/challenges remain insufficient evidence.
+- Make assumptions first-class choice records and require consequential assumptions to name consequence-if-wrong, evidence needed and a revisit trigger.
+- Deepen G3 and G4 without changing the six gates or fifteen stable criterion IDs. Exact-revision fingerprints include the decision context, so changed decision surfaces invalidate stale validation.
+- Refine G6 toward the smallest coherent next software slice that can expose an important assumption end to end instead of authorizing broad layer-by-layer generation.
+- Advance the CSV transport contract to 2.0.0 with decision-surfaces.csv and challenge-scenarios.csv. Keep JSON, CSV, MCP, Skill, examples and reports on the same model.
+- Preserve all historical versions, evidence boundaries, independent-evaluation rules and the separation between formative feedback, software regressions and empirical effectiveness.
+
 # 0.2-preview.3 / 0.2.0rc9 / 0.2.0-rc.9
 
 - Connect consequential choices to purpose, alternatives, rationale provenance, tradeoffs, evidence and accountable human decisions.
