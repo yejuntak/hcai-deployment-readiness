@@ -6,7 +6,7 @@
       "id": "C33",
       "observed_problem": "The 0.2 choice review exposed purpose, alternatives and rationale but did not formally represent the system model that experienced software reviewers use to judge consequential generated implementation.",
       "source_theme_ids": [],
-      "change": "Add Engineering Reasoning Deepening as a targeted H.A.R.D. lens: explicit deepening triage, truth/ownership/state/boundary/contract/failure/time/assumption decision surfaces and bounded challenge scenarios. Preserve rationale provenance and reject recovered-chain-of-thought claims.",
+      "change": "Add Engineering Reasoning Deepening as a targeted H.A.R.D. lens: explicit deepening triage, truth/ownership/state/boundary/contract/failure/time system surfaces, first-class assumption lifecycles and bounded challenge scenarios with explicit evidence levels. Preserve rationale provenance and reject recovered-chain-of-thought claims.",
       "requirements": [
         "CHOICE_TRACEABILITY",
         "G3_STATES_RECOVERY",
@@ -23,15 +23,17 @@
         "test_unassessed_decision_surface_is_insufficient_and_conflict_holds",
         "test_failed_challenge_holds_and_generated_reason_cannot_erase_it",
         "test_engineering_deepening_maps_model_gaps_to_g3_and_challenges_to_g4",
-        "test_decision_surface_change_invalidates_exact_revision_validation"
+        "test_decision_surface_change_invalidates_exact_revision_validation",
+        "test_assumption_is_first_class_and_challenge_level_is_not_inferred",
+        "test_assumption_lifecycle_maps_unknown_to_g3_and_conflict_to_revise"
       ],
       "validation_status": "software_tests_only"
     },
     {
       "id": "C34",
-      "observed_problem": "The public CSV choice record contained an assumptions column that was not represented in the canonical ChoiceRecord, and there was no portable representation for decision surfaces or challenge evidence.",
+      "observed_problem": "The draft 0.3 transport still hid multiple assumptions inside one choice cell and allowed an assessed challenge to say pass/fail without declaring whether the evidence was only a walkthrough, an implementation check or a runtime test.",
       "source_theme_ids": [],
-      "change": "Advance CSV transport to 2.0.0; make assumptions first-class and add decision-surfaces.csv and challenge-scenarios.csv with the same Pydantic review engine used by MCP and Skill.",
+      "change": "Advance CSV transport to 2.1.0; add assumptions.csv with one lifecycle row per consequential assumption, keep system decision surfaces separate, and add explicit evidence_level to challenge-scenarios.csv. Use the same Pydantic review engine as MCP and Skill.",
       "requirements": [
         "CSV_SCHEMA_PARITY",
         "VERSION_PARITY",
@@ -41,13 +43,15 @@
         "schemas/csv-contract.json",
         "Source/verify_example.py",
         "Templates/choice-review.csv",
+        "Templates/assumptions.csv",
         "Templates/decision-surfaces.csv",
         "Templates/challenge-scenarios.csv"
       ],
       "acceptance_tests": [
         "test_all_current_templates_and_examples_use_identical_canonical_headers",
         "test_generated_parity_and_json_schemas",
-        "test_portable_skill_matches_engine_all_fixtures"
+        "test_portable_skill_matches_engine_all_fixtures",
+        "test_assumption_lifecycle_and_challenge_level_are_machine_enforced"
       ],
       "validation_status": "software_tests_only"
     },
