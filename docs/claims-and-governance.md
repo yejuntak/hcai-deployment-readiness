@@ -20,7 +20,7 @@ H.A.R.D. 0.3 uses **decision compression** and **implementation outrunning under
 
 Do not report those phrases as established causal findings. This preview has not demonstrated that AI-assisted creation causes decision compression, that experienced developers use one universal hidden sequence, or that H.A.R.D. restores missing reasoning or improves engineering outcomes.
 
-The engineering-reasoning lens externalizes reviewable decision surfaces. It never authenticates a creator's private thought process. A supported decision surface means the supplied evidence supports the current model within the declared scope. A conflicted surface or failed challenge is a review blocker, not proof that a particular replacement architecture is correct.
+The engineering-reasoning lens externalizes reviewable system surfaces and consequential assumptions. It never authenticates a creator's private thought process. A supported system surface or assumption means the supplied evidence supports that current model within the declared scope. A conflicted surface, conflicted assumption or failed challenge is a review blocker, not proof that a particular replacement architecture is correct.
 
 ## Match the claim to the evidence
 
@@ -33,7 +33,7 @@ The engineering-reasoning lens externalizes reviewable decision surfaces. It nev
 | One actual permitted external use | One bounded formative use was recorded, with its scope and limitations. | Validated, widely adopted, or endorsed. |
 | Comparative study with an appropriate design | Describe the measured outcome, sample, comparator, uncertainty and limitations. | Universal benefit or claims outside the tested population/task. |
 
-A claim record must identify route, artifact stage/population, choice rationale provenance, explicit assumptions, engineering-deepening disposition and relevant decision surfaces/challenges when used, role overlap, metric eligibility/N/A reasons, date, exact protocol/MCP/Skill/contract versions, workflow boundaries, requested/required profile, risk and context triggers, gate outcomes including skipped gates, evidence provenance, human-review basis, limitations, and the owner's separate decision if one was made. Reusing the same artifact does not preserve a claim after scope, requirements, context or relevant evidence changes.
+A claim record must identify route, artifact stage/population, choice rationale provenance, explicit assumption lifecycles, engineering-deepening disposition and relevant decision surfaces/challenges when used, role overlap, metric eligibility/N/A reasons, date, exact protocol/MCP/Skill/contract versions, workflow boundaries, requested/required profile, risk and context triggers, gate outcomes including skipped gates, evidence provenance, human-review basis, limitations, and the owner's separate decision if one was made. Reusing the same artifact does not preserve a claim after scope, requirements, context or relevant evidence changes.
 
 Do not issue a badge or a percentage that compresses evidence completeness, evaluator cost, operating oversight and actual system performance into one result. Do not describe an implementation parity check as independent certification.
 
