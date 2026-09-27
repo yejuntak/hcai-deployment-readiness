@@ -20,7 +20,7 @@ An advisor can record the answers, or a solo practitioner can use the [worksheet
 
 1. **Bound the artifact.** Record purpose, affected people, revision, stage and current versus future scope. Identify whether AI created it, operates within it, both or neither.
 2. **Decompress consequential choices.** Inspect what was chosen, why it serves the purpose, credible alternatives, assumptions and tradeoffs. Cite documented reasons; label current hypotheses and new alternatives honestly.
-3. **Deepen only where consequence warrants it.** Explicitly record whether engineering deepening applies. When it does, model the relevant truth, ownership, state, boundary/contract, failure, time/ordering and assumption surfaces and name at least one condition that could disconfirm them.
+3. **Deepen only where consequence warrants it.** Explicitly record whether engineering deepening applies. When it does, model the relevant truth, ownership, state, boundary/contract, failure and time/ordering surfaces, record consequential assumptions separately, and name at least one condition that could disconfirm the choice, model or assumption. If checked, label the challenge evidence level.
 4. **Check evidence.** For each current requirement and recovery path, record specified, walkthrough, implemented and runtime-tested evidence separately. Unknown is visible, not a pass.
 5. **Record the next decision.** Keep justified choices. For supported gaps, name the change or question, evidence needed, owner and revisit condition. A person owns the decision.
 
