@@ -621,31 +621,36 @@ def render_grade_report(report: ReportGradeInput, format: Literal["markdown", "h
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>""" + esc(result["subject"]) + """ - H.A.R.D. Readiness Report</title>
 <style>
-:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111;background:#f3f3ef}
-*{box-sizing:border-box}body{margin:0}main{max-width:1040px;margin:auto;padding:56px 24px 80px}
-.card,.priority,.verify,.aux{background:#fff;border:1px solid #d8d8d1;border-radius:22px}
-.card{padding:36px}.eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin:0 0 12px}
-.hero{display:grid;grid-template-columns:240px 1fr;gap:40px;align-items:end}.grade{font-size:104px;line-height:.84;font-weight:760;letter-spacing:-.07em}
-.score{font-size:28px;font-weight:620;margin-top:16px}.qualifier{font-size:13px;margin-top:6px}
-h1{font-size:18px;font-weight:600;margin:0 0 14px}.verdict{font-size:30px;line-height:1.15;letter-spacing:-.025em;max-width:25ch;margin:0}
-.posture{display:flex;gap:10px;align-items:center;margin-top:22px;padding:12px 14px;border-radius:12px;background:#f0f0ec;font-size:14px}
-.posture strong{font-size:12px;letter-spacing:.06em}.posture.blocking{border:1px solid #111}.posture.evidence{border:1px dashed #777}
-.meta,.counts{font-size:13px;margin-top:14px}.counts{margin-top:8px}
-.signal-list{margin-top:34px;border-top:1px solid #e5e5df}.signal-row{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:17px 0;border-bottom:1px solid #e5e5df}.signal-copy{display:flex;flex-direction:column;gap:4px}.signal-copy strong{font-size:15px}.signal-copy span{font-size:12px;color:#666}.signal-score{font-size:26px;font-weight:720;letter-spacing:-.03em}
-.priority,.verify,.aux{margin-top:18px;padding:28px}.priority-grid{display:grid;grid-template-columns:1fr auto;gap:24px}.priority h2,.verify h2{font-size:24px;line-height:1.2;margin:0 0 8px}
-.priority p,.verify span{font-size:14px;line-height:1.5}.deduction{font-size:38px;font-weight:720;letter-spacing:-.04em}.developer-view{border-top:1px solid #e5e5df;margin-top:24px;padding-top:22px}.trace-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}.trace-grid>div{border-top:1px solid #ecece7;padding:14px 0}.trace-grid span,.prove-next span{display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#666}.trace-grid p{margin:6px 0 0}.prove-next{margin-top:10px;padding:16px;background:#111;color:white;border-radius:12px}.prove-next span{color:#cfcfc8;margin-bottom:5px}.prove-next strong{font-size:15px;line-height:1.4}
-.verify ul{list-style:none;padding:0;margin:18px 0 0}.verify li{display:grid;grid-template-columns:minmax(150px,.7fr) 1fr;gap:18px;padding:12px 0;border-top:1px solid #e5e5df}.verify li span{display:block}
-.aux div{display:flex;gap:20px;flex-wrap:wrap;font-size:14px}.boundary{font-size:12px;line-height:1.55;margin:22px 4px 0;max-width:86ch}
-@media(max-width:700px){main{padding:28px 16px 56px}.card{padding:24px}.hero{grid-template-columns:1fr}.grade{font-size:80px}.verdict{font-size:25px}.priority-grid,.verify li,.trace-grid{grid-template-columns:1fr}.deduction{font-size:30px}.signal-row{padding:14px 0}}
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111;background:#dff1fd}
+*{box-sizing:border-box}body{margin:0;background:
+radial-gradient(ellipse at 10% 8%,rgba(255,255,255,.95) 0 8%,rgba(255,255,255,.45) 17%,transparent 31%),
+radial-gradient(ellipse at 90% 5%,rgba(255,255,255,.96) 0 9%,rgba(255,255,255,.42) 18%,transparent 32%),
+linear-gradient(180deg,#8fcaf4 0%,#c9e7fa 34%,#edf8ff 65%,#fff 100%);min-height:100vh}
+main{max-width:900px;margin:auto;padding:76px 20px 90px}
+.card{background:rgba(255,255,255,.97);border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:54px 58px 48px;box-shadow:0 28px 80px rgba(62,86,116,.18)}
+.eyebrow{font-size:9px;letter-spacing:.15em;text-transform:uppercase;margin:0 0 12px;color:#71716e}
+.hero{text-align:center;max-width:650px;margin:0 auto}.grade{font:500 150px/.72 Georgia,"Times New Roman",serif;letter-spacing:-.08em}
+.score{font:500 30px/1.1 Georgia,"Times New Roman",serif;margin-top:25px}.qualifier{font-size:11px;margin-top:7px;color:#73736f}
+h1{font-size:10px;font-weight:760;letter-spacing:.13em;text-transform:uppercase;margin:0 0 24px}.verdict{font:500 clamp(31px,5vw,48px)/1.02 Georgia,"Times New Roman",serif;letter-spacing:-.04em;max-width:17ch;margin:32px auto 0}
+.posture{display:inline-flex;gap:10px;align-items:center;margin-top:22px;padding:9px 0;border-top:1px solid #111;border-bottom:1px solid #111;font-size:12px}
+.posture strong{font-size:10px;letter-spacing:.1em}.posture.blocking,.posture.evidence{border-left:0;border-right:0}
+.meta,.counts{font-size:11px;margin-top:14px;color:#6d6d69}.counts{margin-top:7px}
+.priority{margin-top:48px;border-top:1px solid #111;border-bottom:1px solid #111;padding:30px 0}.priority-grid{display:grid;grid-template-columns:1fr auto;gap:28px}.priority h2,.verify h2{font:500 31px/1.05 Georgia,"Times New Roman",serif;letter-spacing:-.035em;margin:0 0 8px}.priority p,.verify span{font-size:13px;line-height:1.55}.deduction{font:500 42px/1 Georgia,"Times New Roman",serif}
+.developer-view{border-top:1px solid #ddd;margin-top:24px;padding-top:22px}.trace-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}.trace-grid>div{border-top:1px solid #e3e3df;padding:14px 0}.trace-grid span,.prove-next span{display:block;font-size:9px;letter-spacing:.11em;text-transform:uppercase;color:#6f6f6b}.trace-grid p{margin:6px 0 0;font-size:12px;line-height:1.5}.prove-next{margin-top:10px;padding:16px 18px;background:#111;color:white;border-radius:10px}.prove-next span{color:#c9c9c3;margin-bottom:5px}.prove-next strong{font:500 16px/1.4 Georgia,"Times New Roman",serif}
+.signal-list{margin-top:42px;border-top:1px solid #111}.signal-list:before{content:"Why this grade";display:block;font:500 25px/1 Georgia,"Times New Roman",serif;padding:26px 0 10px}.signal-row{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:15px 0;border-top:1px solid #e3e3df}.signal-copy{display:flex;flex-direction:column;gap:3px}.signal-copy strong{font-size:13px}.signal-copy span{font-size:11px;color:#747470}.signal-score{font:500 26px/1 Georgia,"Times New Roman",serif}
+.verify{margin-top:40px;border-top:1px solid #111;padding-top:28px}.verify ul{list-style:none;padding:0;margin:18px 0 0}.verify li{display:grid;grid-template-columns:minmax(150px,.8fr) 1.2fr;gap:18px;padding:12px 0;border-top:1px solid #e3e3df}.verify li strong{font-size:12px}.verify li span{display:block;font-size:11px;color:#747470}
+.aux{margin-top:36px;border-top:1px solid #ddd;padding-top:20px}.aux div{display:flex;gap:20px;flex-wrap:wrap;font-size:12px}.boundary{font-size:10px;line-height:1.55;margin:16px auto 0;color:#747470;max-width:86ch}
+@media(max-width:700px){main{padding:44px 14px 70px}.card{padding:34px 22px}.grade{font-size:112px}.verdict{font-size:33px}.posture{flex-direction:column;align-items:flex-start}.priority-grid,.verify li,.trace-grid{grid-template-columns:1fr}.deduction{font-size:32px}.signal-row{padding:13px 0}}
 </style></head><body><main>
 <section class="card">
-<p class="eyebrow">H.A.R.D. Readiness Report</p>
-<div class="hero"><div><div class="grade">""" + esc(result["grade"]) + """</div><div class="score">""" + esc(result["score"]) + """ / 100</div><div class="qualifier">""" + esc(result["grade_qualifier"]) + """ Product Signal Grade</div></div>
-<div><h1>""" + esc(result["subject"]) + """</h1><p class="verdict">""" + esc(result["surface_verdict"]) + """</p>
+<div class="hero"><h1>""" + esc(result["subject"]) + """</h1><div class="grade">""" + esc(result["grade"]) + """</div><div class="score">""" + esc(result["score"]) + """ / 100</div><div class="qualifier">""" + esc(result["grade_qualifier"]) + """ Product Signal Grade</div>
+<p class="verdict">""" + esc(result["surface_verdict"]) + """</p>
 <div class="""" + posture_class + """"><strong>""" + esc(hard["status"]) + """</strong><span>""" + esc(hard["label"]) + """</span></div>
 <p class="meta">Evidence confidence <strong>""" + esc(result["confidence"]) + """%</strong> · Coverage <strong>""" + esc(result["coverage"]) + """%</strong></p>
-<p class="counts">""" + esc(result["counts"]["critical"]) + """ critical · """ + esc(result["counts"]["warnings"]) + """ warnings · """ + esc(result["counts"]["passed"]) + """ passed · """ + esc(result["counts"]["unknown"]) + """ unknown</p></div></div>
+<p class="counts">""" + esc(result["counts"]["critical"]) + """ critical · """ + esc(result["counts"]["warnings"]) + """ warnings · """ + esc(result["counts"]["passed"]) + """ passed · """ + esc(result["counts"]["unknown"]) + """ unknown</p></div>
+""" + priority + """
 <div class="signal-list" aria-label="Product signal breakdown">""" + module_rows + """</div>
-</section>""" + priority + verify + auxiliary + """
+""" + verify + auxiliary + """
+</section>
 <p class="boundary">""" + esc(result["boundary"]) + """</p>
 </main></body></html>"""
