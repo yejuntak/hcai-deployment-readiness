@@ -158,6 +158,23 @@ class HardPosture(BaseModel):
         return self
 
 
+class HardPriority(BaseModel):
+    """One display priority projected from an actual H.A.R.D. review record.
+
+    No numeric contribution is assigned. The priority exists to ensure a protocol
+    blocker or evidence gap is never subordinated to a product-surface score.
+    """
+
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    id: str = Field(min_length=1)
+    title: str = Field(min_length=1)
+    summary: str = Field(min_length=1)
+    evidence_locations: list[str] = Field(min_length=1)
+    next_evidence: str = Field(min_length=1)
+    developer_trace: DeveloperTrace | None = None
+
+
 class AuxiliaryScore(BaseModel):
     """Optional growth/visibility score, explicitly excluded from the overall grade."""
 
@@ -176,6 +193,7 @@ class ReportGradeInput(BaseModel):
     reviewed_surface: str = Field(min_length=1)
     findings: list[ReportFinding] = Field(min_length=1)
     hard: HardPosture = Field(default_factory=HardPosture)
+    hard_priority: HardPriority | None = None
     auxiliary_scores: list[AuxiliaryScore] = Field(default_factory=list)
 
     @model_validator(mode="after")
@@ -186,6 +204,8 @@ class ReportGradeInput(BaseModel):
         labels = [score.label.lower() for score in self.auxiliary_scores]
         if len(labels) != len(set(labels)):
             raise ValueError("Auxiliary score labels must be unique")
+        if self.hard_priority is not None and self.hard.route == "not_reviewed":
+            raise ValueError("A H.A.R.D. priority requires an actual H.A.R.D. review route")
         return self
 
 
@@ -336,6 +356,26 @@ def calculate_report_grade(report: ReportGradeInput) -> dict:
     hard = _hard_display(report.hard)
 
     deductions.sort(key=lambda row: (-row["points"], row["title"]))
+    signal_priority = deductions[0] if deductions else None
+    if report.hard_priority is not None:
+        primary_action = {
+            "source": "hard",
+            "id": report.hard_priority.id,
+            "title": report.hard_priority.title,
+            "summary": report.hard_priority.summary,
+            "points": None,
+            "evidence_locations": report.hard_priority.evidence_locations,
+            "next_evidence": report.hard_priority.next_evidence,
+            "developer_trace": None if report.hard_priority.developer_trace is None else report.hard_priority.developer_trace.model_dump(),
+        }
+    elif signal_priority is not None:
+        primary_action = {
+            "source": "product_signal",
+            **signal_priority,
+            "next_evidence": None,
+        }
+    else:
+        primary_action = None
     counts = {
         "critical": sum(finding.status == "critical" for finding in report.findings),
         "warnings": sum(finding.status == "warning" for finding in report.findings),
@@ -364,7 +404,8 @@ def calculate_report_grade(report: ReportGradeInput) -> dict:
         "surface_verdict": _surface_verdict(grade),
         "counts": counts,
         "modules": module_results,
-        "top_priority": deductions[0] if deductions else None,
+        "top_priority": signal_priority,
+        "primary_action": primary_action,
         "deductions": deductions,
         "hard": hard,
         "overall_display": f"{grade} · {score}/100 / {hard['status']}",
@@ -473,14 +514,16 @@ def render_grade_report(report: ReportGradeInput, format: Literal["markdown", "h
             lines.append(
                 f"- {module['label']}: {score} (coverage {module['coverage']}%, confidence {module['confidence']}%)"
             )
-        if result["top_priority"]:
-            item = result["top_priority"]
-            lines += [
-                "",
-                "## Fix first",
-                f"**{item['title']}** (-{item['points']} signal points)",
-                item["summary"] or "Resolve this observed product-surface finding.",
-            ]
+        if result["primary_action"]:
+            item = result["primary_action"]
+            lines += ["", "## Fix first", f"**{item['title']}**"]
+            if item["source"] == "product_signal":
+                lines.append(f"-{item['points']} signal points")
+            else:
+                lines.append("H.A.R.D. priority; not converted to points")
+            lines.append(item["summary"] or "Resolve this evidence-backed finding.")
+            if item.get("next_evidence"):
+                lines += ["", f"Prove next: {item['next_evidence']}"]
             trace = item.get("developer_trace")
             if trace:
                 lines += [
@@ -522,8 +565,8 @@ def render_grade_report(report: ReportGradeInput, format: Literal["markdown", "h
     )
 
     priority = ""
-    if result["top_priority"]:
-        item = result["top_priority"]
+    if result["primary_action"]:
+        item = result["primary_action"]
         trace = item.get("developer_trace")
         trace_html = ""
         if trace:
@@ -536,10 +579,14 @@ def render_grade_report(report: ReportGradeInput, format: Literal["markdown", "h
                 "<div><span>If it fails</span><p>" + esc(trace["if_wrong"]) + "</p></div>"
                 "</div><div class=\"prove-next\"><span>Prove next</span><strong>" + esc(trace["prove_next"]) + "</strong></div></div>"
             )
+        marker = ("-" + esc(item["points"])) if item["source"] == "product_signal" else "H.A.R.D."
+        next_html = ""
+        if item.get("next_evidence"):
+            next_html = "<div class=\"prove-next\"><span>Prove next</span><strong>" + esc(item["next_evidence"]) + "</strong></div>"
         priority = (
             "<section class=\"priority\"><p class=\"eyebrow\">The one thing to fix first</p><div class=\"priority-grid\"><div>"
-            "<h2>" + esc(item["title"]) + "</h2><p>" + esc(item["summary"] or "Resolve this observed product-surface finding.") + "</p></div>"
-            "<div class=\"deduction\">-" + esc(item["points"]) + "</div></div>" + trace_html + "</section>"
+            "<h2>" + esc(item["title"]) + "</h2><p>" + esc(item["summary"] or "Resolve this evidence-backed finding.") + "</p></div>"
+            "<div class=\"deduction\">" + marker + "</div></div>" + trace_html + next_html + "</section>"
         )
 
     unknowns = [finding for finding in report.findings if finding.status == "unknown"]
