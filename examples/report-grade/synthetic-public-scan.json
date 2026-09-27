@@ -377,5 +377,21 @@
       "evidence_locations": [],
       "next_evidence": "Provide retained runtime checks for the exact release and scope."
     }
-  ]
+  ],
+  "hard_priority": {
+    "id": "HARD-R14",
+    "title": "Duplicate refund protection is not demonstrated",
+    "summary": "The H.A.R.D. review treats duplicate-refund behavior as the first consequential decision to resolve. A strong public-surface grade cannot offset the missing proof.",
+    "evidence_locations": [
+      "synthetic://walkthrough/refund-repeat"
+    ],
+    "next_evidence": "Execute the same refund request twice against the exact implementation and retain the transaction, idempotency, and final-state evidence.",
+    "developer_trace": {
+      "observed": "The reviewed flow allows the automated agent to initiate a refund.",
+      "decision_underneath": "An automated component is allowed to create an external financial side effect.",
+      "must_be_true": "One authorized refund request must map to one transaction even when the request is retried, duplicated, or interrupted.",
+      "if_wrong": "A repeated or partially retried request can create a duplicate refund or contradictory order/payment state.",
+      "prove_next": "Execute the same refund request twice against the exact implementation and retain the transaction, idempotency, and final-state evidence."
+    }
+  }
 }
