@@ -48,7 +48,7 @@ jobs:
 
       - name: Smoke-check generated PDFs
         run: |
-          python - <<'PY'
+          uv run python - <<'PY'
           from pathlib import Path
           from hcai_readiness.versions import PROTOCOL_VERSION
           paths = sorted(Path("output/pdf").glob(f"HARD-*{PROTOCOL_VERSION}.pdf"))
