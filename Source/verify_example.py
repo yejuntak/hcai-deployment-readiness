@@ -333,7 +333,7 @@ def validate_directory(directory: Path | str, allow_empty: bool = False) -> dict
         if row["engineering_deepening_required_yes_no"] == "yes":
             require(bool(row["deepening_triggers"]) and bool(row["required_surface_kinds"]) and bool(row["next_coherent_slice"]),
                     "choice-review.csv: required deepening needs triggers, surface kinds and next coherent slice")
-            required_kinds = set(split(row["required_surface_kinds"]))
+            required_kinds = {value.strip() for value in row["required_surface_kinds"].split(";") if value.strip()}
             require(required_kinds <= SURFACE_KINDS, "choice-review.csv: invalid required_surface_kinds")
             active_kinds = {s["surface_kind"] for s in surfaces if s["choice_id"] == row["choice_id"] and s["status"] != "not_applicable"}
             require(required_kinds <= active_kinds, "choice-review.csv: missing required decision surface")
