@@ -1,0 +1,5 @@
+choice_id,surface_id,surface_kind,question,current_model,status,consequence_if_wrong,evidence_needed,evidence_location,revisit_trigger,reason
+PC01,PDS01,boundary,Where does model drafting end and human authority begin?,The model drafts and a support worker decides whether anything is sent.,supported,,,artifact.md#a1-purpose-and-boundary,,
+PC01,PDS02,contract,What must the user-data dependency return or fail with?,,unassessed,,Specify timeout unavailable and stale-data behavior.,,,
+PC01,PDS03,failure_recovery,What happens when the user-data dependency is unavailable?,,unassessed,,Walk a dependency outage and define the recoverable user state.,,,
+PC01,PDS04,assumption,Can human review reliably catch materially misleading draft content?,,unassessed,Materially misleading text may be accepted as correct.,Collect bounded representative review evidence before relying on the assumption.,,Any change to intended use reviewer role or model behavior,
