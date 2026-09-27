@@ -207,6 +207,8 @@ def test_shared_engine_requires_human_choice_confirmation_before_handoff(tmp_pat
                 row["current_model"] = "Synthetic current model retained only for this regression fixture."
                 row["evidence_location"] = "synthetic-revision.md#decision-surface"
     mutate(directory, "decision-surfaces.csv", resolve_surfaces)
+    mutate(directory, "assumptions.csv", lambda rows: rows[0].update(
+        status="supported", evidence_location="synthetic-revision.md#assumption"))
     mutate(directory, "challenge-scenarios.csv", lambda rows: rows[0].update(
         status="pass", evidence_level="walkthrough", evidence_location="synthetic-revision.md#challenge", next_evidence=""))
     mutate(directory, "decision.csv", lambda rows: rows[0].update(disposition="Eligible for declared stage handoff review"))
