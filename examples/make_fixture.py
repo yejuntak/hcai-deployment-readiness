@@ -37,6 +37,7 @@ def synthetic_case(root: Path):
             "rationale": "Synthetic stipulated current review: retaining editable drafts meets the preservation and approval criteria; retain this choice for a bounded prototype",
             "rationale_provenance": "new", "rationale_evidence_locations": [],
             "impacts_and_tradeoffs": ["Synthetic tradeoff: advisor review adds time but retains control; no live sending"],
+            "assumptions": ["Synthetic assumption: the retained draft remains the authoritative editable record until advisor confirmation"],
             "affected_check_ids": ["R1"],
             "engineering_deepening_required": True,
             "deepening_rationale": "The choice mutates persistent draft state and its correctness depends on preservation and ownership assumptions.",
