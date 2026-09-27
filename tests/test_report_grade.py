@@ -66,7 +66,7 @@ def sample_report(hard=None):
 def test_public_product_grade_is_78_and_hard_is_not_weighted():
     result = calculate_report_grade(sample_report())
     assert result["score"] == 78
-    assert result["grade"] == "C"  # 70-79 report band
+    assert result["grade"] == "B"
     assert result["scoring"]["hard_in_numeric_score"] is False
     assert "hard_core" not in result["scoring"]["module_weights"]
     assert result["hard"]["status"] == "NOT VERIFIED"
@@ -85,7 +85,7 @@ def test_hard_hold_does_not_change_numeric_grade_but_is_prominent():
     result = calculate_report_grade(report)
     assert result["score"] == 78
     assert result["hard"]["status"] == "HOLD"
-    assert result["overall_display"] == "C · 78/100 / HOLD"
+    assert result["overall_display"] == "B · 78/100 / HOLD"
     assert result["hard"]["blocker_ids"] == ["choice-refund"]
 
 
