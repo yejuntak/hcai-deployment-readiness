@@ -12,6 +12,7 @@ from .versions import versions, public_title, PROTOCOL_NAME, PROTOCOL_FULL_NAME,
 from .records import public_feedback, release_readiness
 from .guidance import GUIDES, new_review, guided_review, criterion_guide, criteria_catalog
 from .reporting import render_report
+from .grade import ReportGradeInput, calculate_report_grade, render_grade_report
 
 mcp = FastMCP(PROTOCOL_NAME, instructions=f"{public_title()} · {RELEASE_LABEL}. {PROTOCOL_FULL_NAME}. Exact protocol {versions()['protocol']}. Start with artifact_review for a plan, prototype or code artifact: decompress consequential choices, purpose, alternatives, rationale provenance, tradeoffs and human decisions. Explicitly triage whether software engineering deepening applies; when it does, inspect supported system truth, ownership, state, boundaries/contracts, failure and time/ordering, record consequential assumptions separately, and inspect bounded challenge evidence at an explicit evidence level. QUICK6/FULL remains a separate engineering-commitment purpose. Inspect the work beneath a finished-looking artifact: information, workflow, implementation evidence and human responsibilities. A separate structure view can help discussion but cannot invent evidence, pass a gate or be introduced into a study outside its design. Create a record with new_review_record, ask one question at a time using review_next_step, and return an assessment_report. Use supplied evidence; do not invent answers. The deterministic gates support an upstream engineering recommendation and cannot authorize deployment. Retain exact versions and human/agent provenance. Legacy diagnostics preserve rc.3 formulas with explicit population and eligibility corrections; outputs identify current software. Historical DOI identifies rc.3 only.")
 READ_ONLY = ToolAnnotations(readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
@@ -91,6 +92,25 @@ def get_gate_guide(gate_id: Literal["G1_BASELINE", "G2_NEED_REQUIREMENTS", "G3_S
 def assessment_report(assessment: Assessment, format: Literal["markdown", "html"] = "markdown") -> str:
     """Return a private report explaining the decision, costs and requirement/artifact/check chains. The HTML is escaped and works offline. This does not export a public record or grant permission to publish."""
     return render_report(assessment, format)
+
+@mcp.tool(annotations=READ_ONLY)
+def product_signal_grade_template() -> dict:
+    """Return the non-normative report-grade schema. H.A.R.D. posture remains separate and non-numeric."""
+    return {
+        "schema": ReportGradeInput.model_json_schema(),
+        "purpose": "Low-cost product-surface triage. This is not a H.A.R.D. score or certification.",
+        "hard_in_numeric_score": False,
+    }
+
+@mcp.tool(annotations=READ_ONLY)
+def calculate_product_signal_grade(report: ReportGradeInput) -> dict:
+    """Calculate one deterministic product-surface grade while preserving H.A.R.D. as a separate non-compensatory posture."""
+    return calculate_report_grade(report)
+
+@mcp.tool(annotations=READ_ONLY)
+def product_signal_report(report: ReportGradeInput, format: Literal["markdown", "html"] = "html") -> str:
+    """Render the product-surface grade and H.A.R.D. posture without network or model calls."""
+    return render_grade_report(report, format)
 
 @mcp.tool(annotations=READ_ONLY)
 def validate_pilot_run(pilot: PilotRun) -> dict:
