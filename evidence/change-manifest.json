@@ -1,7 +1,106 @@
 {
-  "protocol_version": "0.2-preview.3",
+  "protocol_version": "0.3-preview.1",
   "status": "candidate_unvalidated",
   "changes": [
+    {
+      "id": "C33",
+      "observed_problem": "The 0.2 choice review exposed purpose, alternatives and rationale but did not formally represent the system model that experienced software reviewers use to judge consequential generated implementation.",
+      "source_theme_ids": [],
+      "change": "Add Engineering Reasoning Deepening as a targeted H.A.R.D. lens: explicit deepening triage, truth/ownership/state/boundary/contract/failure/time/assumption decision surfaces and bounded challenge scenarios. Preserve rationale provenance and reject recovered-chain-of-thought claims.",
+      "requirements": [
+        "CHOICE_TRACEABILITY",
+        "G3_STATES_RECOVERY",
+        "G4_TRACEABILITY",
+        "CLAIM_BOUNDARY"
+      ],
+      "files": [
+        "src/hcai_readiness/artifact_review.py",
+        "src/hcai_readiness/engine.py",
+        "protocol/0.3-preview.1/ENGINEERING-REASONING.md",
+        "protocol/0.3-preview.1/DECISION-REVIEW.md"
+      ],
+      "acceptance_tests": [
+        "test_unassessed_decision_surface_is_insufficient_and_conflict_holds",
+        "test_failed_challenge_holds_and_generated_reason_cannot_erase_it",
+        "test_engineering_deepening_maps_model_gaps_to_g3_and_challenges_to_g4",
+        "test_decision_surface_change_invalidates_exact_revision_validation"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C34",
+      "observed_problem": "The public CSV choice record contained an assumptions column that was not represented in the canonical ChoiceRecord, and there was no portable representation for decision surfaces or challenge evidence.",
+      "source_theme_ids": [],
+      "change": "Advance CSV transport to 2.0.0; make assumptions first-class and add decision-surfaces.csv and challenge-scenarios.csv with the same Pydantic review engine used by MCP and Skill.",
+      "requirements": [
+        "CSV_SCHEMA_PARITY",
+        "VERSION_PARITY",
+        "CHOICE_TRACEABILITY"
+      ],
+      "files": [
+        "schemas/csv-contract.json",
+        "Source/verify_example.py",
+        "Templates/choice-review.csv",
+        "Templates/decision-surfaces.csv",
+        "Templates/challenge-scenarios.csv"
+      ],
+      "acceptance_tests": [
+        "test_all_current_templates_and_examples_use_identical_canonical_headers",
+        "test_generated_parity_and_json_schemas",
+        "test_portable_skill_matches_engine_all_fixtures"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C35",
+      "observed_problem": "A broad engineering recommendation can allow AI generation to expand faster than the evidence about the key assumption.",
+      "source_theme_ids": [],
+      "change": "Clarify bounded engineering commitment for software as the smallest coherent slice that can expose the important assumption end to end when applicable; keep owner authorization and deployment separate.",
+      "requirements": [
+        "G6_COMMITMENT",
+        "CLAIM_BOUNDARY"
+      ],
+      "files": [
+        "src/hcai_readiness/criteria.json",
+        "src/hcai_readiness/guidance.py",
+        "protocol/0.3-preview.1/FULL-PROFILE.md",
+        "docs/research-content.gohtml"
+      ],
+      "acceptance_tests": [
+        "test_low_risk_quick_is_sufficient",
+        "test_overview_explains_the_missing_layer_without_claiming_a_result",
+        "test_method_separates_motivation_from_three_visible_practice_steps"
+      ],
+      "validation_status": "software_tests_only"
+    },
+    {
+      "id": "C36",
+      "observed_problem": "The public page and companion tools could describe decision review differently from the actual 0.3 machine contract.",
+      "source_theme_ids": [],
+      "change": "Synchronize website source, Skill/MCP guidance, migration, release metadata and generated PDFs/packages around Decompress -> Model -> Challenge -> Prove -> Decide and explicit evidence boundaries.",
+      "requirements": [
+        "VERSION_PARITY",
+        "IDENTITY_CONSISTENCY",
+        "CLAIM_BOUNDARY"
+      ],
+      "files": [
+        "README.md",
+        "docs/research-content.gohtml",
+        "skills/ai-ready/SKILL.md",
+        "docs/agent-tools.md",
+        "docs/migration-0.2-to-0.3.md",
+        "scripts/build_candidate_assets.py",
+        "scripts/build_pdfs.py",
+        "scripts/package_candidate.py"
+      ],
+      "acceptance_tests": [
+        "test_hard_public_identity_and_generated_surfaces",
+        "test_overview_links_to_all_canonical_rules_without_duplicating_them",
+        "test_current_reader_text_has_no_em_or_en_dash",
+        "test_stdio_roundtrip"
+      ],
+      "validation_status": "software_tests_only"
+    },
     {
       "id": "C32",
       "observed_problem": "The author requested reverse inspection of consequential choices. Supplied practitioner feedback identified template/example drift, missing artifact-population stratification, and unclear small-team and evaluator eligibility. Source attachments were unavailable for independent re-adjudication.",
