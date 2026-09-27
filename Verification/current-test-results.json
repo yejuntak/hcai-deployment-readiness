@@ -1,5 +1,5 @@
 {
-  "recorded_at": "2026-09-27T03:16:32.437563+00:00",
+  "recorded_at": "2026-09-27T03:18:23.104386+00:00",
   "versions": {
     "protocol": "0.3-preview.1",
     "mcp": "0.3.0rc1",
@@ -7,9 +7,9 @@
     "contract": "0.3.0-rc.1"
   },
   "command": "python -m pytest -q --junitxml Verification/current-junit.xml",
-  "exit_code": 1,
+  "exit_code": 0,
   "tests": 241,
-  "failures": 1,
+  "failures": 0,
   "errors": 0,
   "skipped": 0,
   "input_file_sha256": {
@@ -29,7 +29,7 @@
     "tests/test_artifact_review.py": "5dc5c186f03f427d126a5c1a63170dcb2d80888a7287a77ab01a2af15cad880f",
     "tests/test_assessment.py": "c19011082909269e620e987e69dcea3cb1a4b11594a4b5f1c5ec2359e49a364e",
     "tests/test_choice_integration.py": "d71508304d3f1bf4be628bbe3c0f27e3dd276f0172dd8dcf9fa797fcd68ff005",
-    "tests/test_csv_examples.py": "519d914b8dcba412da4e733e95b35a0bb4d83496b1cd1dad24f9594b65af17a2",
+    "tests/test_csv_examples.py": "b75f9092fb48da89f8770029999df70712b0c830fed738d71cce27dc6ed8923e",
     "tests/test_decision_naming.py": "b08d6cd1ac7527368273d8ecc32f33a7c2ba1e0792fd3309ba8a95e0fe79f054",
     "tests/test_deep_audit.py": "1b318ef1ffc3e6b9b90df312dc176c988b5647d0d9fa2b1df211d5b83bb30af9",
     "tests/test_editorial_integrity.py": "302c0247320a1a6da123e69f9225544fdf84841ae036231c56ee65385737fb5f",
