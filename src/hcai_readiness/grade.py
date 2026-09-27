@@ -350,7 +350,7 @@ def calculate_report_grade(report: ReportGradeInput) -> dict:
         "deductions": deductions,
         "hard": hard,
         "overall_display": f"{grade} · {score}/100 / {hard['status']}",
-        "auxiliary_scores": [score.model_dump() for score in report.auxiliary_scores],
+        "auxiliary_scores": [AuxiliaryScore.model_validate(score).model_dump() for score in report.auxiliary_scores],
         "boundary": (
             "The Product Signal Grade is a triage summary of the reviewed product surface, "
             "not a H.A.R.D. protocol score and not certification. H.A.R.D. posture remains a "
