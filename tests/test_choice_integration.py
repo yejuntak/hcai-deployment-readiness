@@ -101,6 +101,29 @@ def test_observed_choice_and_decision_criteria_are_required(field):
     assert result["decision"] != "PROCEED_TO_ENGINEERING"
 
 
+def test_engineering_deepening_maps_model_gaps_to_g3_and_challenges_to_g4():
+    data = case()
+    data["choice_ledger"][0]["decision_surfaces"][0] = {
+        "id": "DS-TRUTH", "kind": "truth", "question": "Which record is authoritative?",
+        "status": "unassessed", "evidence_needed": "Inspect persistence ownership"
+    }
+    result = evaluate(data)
+    assert result["stop_at_gate"] == "G3_STATES_RECOVERY"
+    data = case()
+    data["choice_ledger"][0]["challenge_scenarios"][0].update(
+        status="unassessed", evidence_locations=[], next_evidence="Run a new bounded walkthrough")
+    result = evaluate(data)
+    assert result["stop_at_gate"] == "G4_TRACEABILITY"
+
+
+def test_decision_surface_change_invalidates_exact_revision_validation():
+    data = case()
+    data["choice_ledger"][0]["decision_surfaces"][0]["current_model"] = "Changed synthetic source of truth"
+    result = evaluate(data)
+    assert result["stop_at_gate"] == "G4_TRACEABILITY"
+    assert any("context changed" in reason for reason in result["gates"][3]["reasons"])
+
+
 def test_choice_verification_gap_uses_traceability_gate():
     data = case()
     data["choice_ledger"][0]["verification_evidence_locations"] = []

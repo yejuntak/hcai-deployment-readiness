@@ -217,8 +217,9 @@ def assess(a: Assessment) -> dict:
         choice = choices.get(key)
         g.require(choice is not None, f"{key}: consequential choice record missing")
         if choice is not None:
-            for gap in ("observed_choice_missing", "observed_evidence_locations_missing", "criteria_missing", "alternatives_review_missing"):
+            for gap in ("observed_choice_missing", "observed_evidence_locations_missing", "criteria_missing", "alternatives_review_missing", "assumptions_missing"):
                 g.require(gap not in choice_issues.get(key, []), f"{key}: {gap}")
+            g.require(bool(choice.deepening_rationale), f"{key}: record why engineering deepening applies or does not apply")
     g.require(bool(w.outcome), "Explicit intended outcome required")
     g.require(bool(w.needs) and bool(w.requirements), "End-user need and requirements required")
     for key in type(a.scope).model_fields:
@@ -271,12 +272,33 @@ def assess(a: Assessment) -> dict:
     g.check(w.state_review, "state_review")
     g.require(bool(w.action_boundaries), "Record what people and automated components may access, change or send; an empty inventory is insufficient")
     g.check(w.human_control_review, "human_control_review")
+    for key in a.important_choice_ids:
+        choice = choices.get(key)
+        if choice is None or not choice.engineering_deepening_required:
+            continue
+        g.require(bool(choice.deepening_triggers), f"{key}: record why system-model deepening is required")
+        g.require(bool(choice.required_surface_kinds), f"{key}: identify the decision surfaces that must be understood")
+        active_surfaces = [row for row in choice.decision_surfaces if row.status != "not_applicable"]
+        for kind in choice.required_surface_kinds:
+            rows = [row for row in active_surfaces if row.kind == kind]
+            g.require(bool(rows), f"{key}: required decision surface {kind} is missing")
+            for row in rows:
+                g.require(row.status != "unassessed", f"{key}/{row.id}: decision surface {kind} is unassessed")
+                g.fail(row.status == "conflicted", f"{key}/{row.id}: supplied evidence conflicts with the current {kind} model")
+        g.require(bool(choice.challenge_scenarios), f"{key}: define at least one bounded condition that could disconfirm the choice")
     gates.append(g.result())
 
     g = GateBuilder("G4_TRACEABILITY")
     for key in a.important_choice_ids:
         if key in choices:
-            g.require(bool(choices[key].verification_evidence_locations), f"{key}: consequential choice needs verification evidence for this revision")
+            choice = choices[key]
+            g.require(bool(choice.verification_evidence_locations), f"{key}: consequential choice needs verification evidence for this revision")
+            if choice.engineering_deepening_required:
+                for challenge in choice.challenge_scenarios:
+                    g.require(challenge.status != "unassessed", f"{key}/{challenge.id}: challenge remains unassessed")
+                    g.fail(challenge.status == "fail", f"{key}/{challenge.id}: bounded challenge disconfirmed the expected behavior or invariant")
+                    if challenge.status == "pass":
+                        g.require(bool(challenge.evidence_locations), f"{key}/{challenge.id}: passing challenge needs retained evidence")
     g.require(bool(w.important_artifact_ids), "Important artifact/behavior inventory required")
     g.require(bool(w.requirements) and bool(w.validations), "Requirement and validation records required")
     validations = {v.id: v for v in w.validations}
@@ -321,6 +343,8 @@ def assess(a: Assessment) -> dict:
     g = GateBuilder("G6_COMMITMENT")
     for key, gaps in choice_issues.items():
         for gap in gaps:
+            if gap.startswith(("decision_surface_", "challenge_")):
+                continue
             g.require(False, f"{key}: {gap}; resolve the consequential choice before commitment")
     for key in revised_choices:
         g.fail(True, f"{key}: accountable reviewer requires revision of this consequential choice")

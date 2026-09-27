@@ -13,7 +13,7 @@ from .records import public_feedback, release_readiness
 from .guidance import GUIDES, new_review, guided_review, criterion_guide, criteria_catalog
 from .reporting import render_report
 
-mcp = FastMCP(PROTOCOL_NAME, instructions=f"{public_title()} · {RELEASE_LABEL}. {PROTOCOL_FULL_NAME}. Exact protocol {versions()['protocol']}. Start with artifact_review for a plan, prototype or code artifact: inspect consequential choices, purpose, alternatives, rationale provenance, tradeoffs and human decisions. QUICK6/FULL remains a separate engineering-commitment purpose. Inspect the work beneath a finished-looking artifact: information, workflow, implementation evidence and human responsibilities. A separate structure view can help discussion but cannot invent evidence, pass a gate or be introduced into a study outside its design. Create a record with new_review_record, ask one question at a time using review_next_step, and return an assessment_report. Use supplied evidence; do not invent answers. The deterministic gates support an upstream engineering recommendation and cannot authorize deployment. Retain exact versions and human/agent provenance. Legacy diagnostics preserve rc.3 formulas with explicit population and eligibility corrections; outputs identify current software. Historical DOI identifies rc.3 only.")
+mcp = FastMCP(PROTOCOL_NAME, instructions=f"{public_title()} · {RELEASE_LABEL}. {PROTOCOL_FULL_NAME}. Exact protocol {versions()['protocol']}. Start with artifact_review for a plan, prototype or code artifact: decompress consequential choices, purpose, alternatives, rationale provenance, tradeoffs and human decisions. Explicitly triage whether software engineering deepening applies; when it does, inspect supported system truth, ownership, state, boundaries/contracts, failure, time/ordering, assumptions and bounded challenge evidence. QUICK6/FULL remains a separate engineering-commitment purpose. Inspect the work beneath a finished-looking artifact: information, workflow, implementation evidence and human responsibilities. A separate structure view can help discussion but cannot invent evidence, pass a gate or be introduced into a study outside its design. Create a record with new_review_record, ask one question at a time using review_next_step, and return an assessment_report. Use supplied evidence; do not invent answers. The deterministic gates support an upstream engineering recommendation and cannot authorize deployment. Retain exact versions and human/agent provenance. Legacy diagnostics preserve rc.3 formulas with explicit population and eligibility corrections; outputs identify current software. Historical DOI identifies rc.3 only.")
 READ_ONLY = ToolAnnotations(readOnlyHint=True, destructiveHint=False, idempotentHint=True, openWorldHint=False)
 
 @mcp.tool(annotations=READ_ONLY)
@@ -30,7 +30,7 @@ def summarize_legacy_batch(records: list[Judgment]) -> dict:
 def artifact_review_template() -> dict:
     """Return the small-team record schema; no supplied evidence or human decision is invented."""
     return {"versions": versions(), "schema": ArtifactReview.model_json_schema(),
-            "purpose": "Stage-bounded artifact review; optional independent evaluator diagnostics remain separate."}
+            "purpose": "Stage-bounded artifact review with explicit decision-decompression and optional engineering deepening; independent evaluator diagnostics remain separate."}
 
 @mcp.tool(annotations=READ_ONLY)
 def assess_artifact_review(review: ArtifactReview) -> dict:
@@ -41,9 +41,10 @@ def assess_artifact_review(review: ArtifactReview) -> dict:
 def assessment_template() -> dict:
     """Candidate schema, exact versions and deterministic risk depth. No seeded answers."""
     return {"versions": versions(), "schema": Assessment.model_json_schema(), "risk_depth": DEPTH, "context_risk_floors": CONTEXT_FLOORS,
-            "checklist": ["Observe the baseline", "Define end-user requirements", "Define states, recovery and ownership",
-                          "Link requirements, artifacts and executed validations", "Estimate operational oversight",
-                          "Apply risk depth and record bounded engineering recommendation"]}
+            "checklist": ["Observe the baseline", "Define end-user requirements and consequential choices",
+                          "Model applicable truth, ownership, state, boundaries, timing and assumptions",
+                          "Challenge material failure conditions", "Link requirements, artifacts and executed validations",
+                          "Estimate operational oversight", "Apply risk depth and record the smallest coherent bounded step"]}
 
 @mcp.tool(annotations=READ_ONLY)
 def assess_engineering_commitment(assessment: Assessment) -> dict:

@@ -1,13 +1,13 @@
 {
-  "title": "H.A.R.D. Protocol 0.2: MCP Server and Agent Skill (Public Preview)",
+  "title": "H.A.R.D. Protocol 0.3: MCP Server and Agent Skill (Public Preview)",
   "upload_type": "software",
   "creators": [
     {
       "name": "Tak, Yejun"
     }
   ],
-  "description": "Human-centered AI Readiness and Decision Protocol. H.A.R.D. Protocol 0.2 is a Public Preview for reviewing evidence before committing engineering resources. Exact versions: protocol 0.2-preview.3, MCP 0.2.0rc9 and Skill/contract 0.2.0-rc.9. This naming revision retains the preceding decision logic, risk thresholds and evidence requirements. It cannot authorize deployment and has not undergone controlled empirical validation. Original software is MIT-licensed; protocol and Skill text use CC BY 4.0. Development was AI-assisted. No new DOI is assigned; the referenced DOI identifies historical rc.3 only.",
-  "version": "0.2.0rc9",
+  "description": "Human-centered AI Readiness and Decision Protocol. H.A.R.D. Protocol 0.3 is a Public Preview for reopening consequential decisions in AI-assisted artifacts before bounded engineering commitment. Exact versions: protocol 0.3-preview.1, MCP 0.3.0rc1 and Skill/contract 0.3.0-rc.1. This preview adds explicit engineering-deepening triage, decision surfaces, bounded challenge scenarios and a smallest coherent next software slice while retaining six gates and fifteen criterion IDs. Decision compression is a motivating model, not an established causal effect. The protocol cannot authorize deployment and has not undergone controlled empirical validation. Original software is MIT-licensed; protocol and Skill text use CC BY 4.0. Development was AI-assisted. No new DOI is assigned here; the referenced DOI identifies historical rc.3 only.",
+  "version": "0.3.0rc1",
   "access_right": "open",
   "license": "cc-by-4.0",
   "keywords": [
@@ -15,7 +15,11 @@
     "prototype evaluation",
     "engineering handoff",
     "evaluation methodology",
-    "readiness calibration"
+    "readiness calibration",
+    "AI-assisted software development",
+    "decision traceability",
+    "software reasoning",
+    "human oversight"
   ],
   "related_identifiers": [
     {

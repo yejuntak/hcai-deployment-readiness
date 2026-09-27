@@ -1,6 +1,6 @@
 {
-  "contract_version": "1.0.0",
-  "description": "Current canonical CSV transport contract. Frozen historical release files are not migrated. Empty files with headers are templates, not completed reviews. Stage evidence is independent; execution cannot be inferred from a document.",
+  "contract_version": "2.0.0",
+  "description": "Canonical H.A.R.D. 0.3 CSV transport contract. Frozen historical files are not migrated. Choice records explicitly triage engineering deepening; decision surfaces and challenge scenarios preserve unknowns instead of inventing reasoning.",
   "evidence_statuses": [
     "pass",
     "fail",
@@ -234,6 +234,11 @@
         "assumptions",
         "foreseeable_impacts",
         "requirement_or_scenario_ids",
+        "engineering_deepening_required_yes_no",
+        "deepening_rationale",
+        "deepening_triggers",
+        "required_surface_kinds",
+        "next_coherent_slice",
         "human_owner",
         "disposition",
         "evidence_location",
@@ -243,6 +248,35 @@
         "verification_evidence_location",
         "current_justification",
         "current_justification_evidence_location"
+      ]
+    },
+    "decision-surfaces.csv": {
+      "columns": [
+        "choice_id",
+        "surface_id",
+        "surface_kind",
+        "question",
+        "current_model",
+        "status",
+        "consequence_if_wrong",
+        "evidence_needed",
+        "evidence_location",
+        "revisit_trigger",
+        "reason"
+      ]
+    },
+    "challenge-scenarios.csv": {
+      "columns": [
+        "choice_id",
+        "challenge_id",
+        "condition",
+        "claim_at_risk",
+        "expected_behavior_or_invariant",
+        "consequence_if_mishandled",
+        "requirement_or_scenario_ids",
+        "status",
+        "evidence_location",
+        "next_evidence"
       ]
     }
   },

@@ -22,7 +22,7 @@ def test_overview_links_to_all_canonical_rules_without_duplicating_them():
     for criterion in criteria_catalog()['criteria']:
         assert 'id="'+criterion['id']+'"' in page
         assert criterion['requirement'] not in page
-    assert 'H.A.R.D. Protocol 0.2' in page
+    assert 'H.A.R.D. Protocol 0.3' in page
     assert 'Public Preview' in page
     assert 'id="hard-mcp-config"' not in page
     assert 'class="hard-legacy-anchors" aria-hidden="true"' in page
@@ -30,15 +30,15 @@ def test_overview_links_to_all_canonical_rules_without_duplicating_them():
 
 def test_overview_explains_the_missing_layer_without_claiming_a_result():
     page = render_research_page()
-    assert 'Review the choices inside the result.' in page
-    assert 'The proposed study has not established an effect.' in page
+    assert 'Keep generation from outrunning understanding.' in page
+    assert 'not an established causal effect' in page
     assert 'Research motivation' in page
     assert 'varies visual fidelity while holding content, behavior and defects constant' in page
-    assert 'Separate a recorded earlier rationale from a new explanation.' in page
+    assert 'Separate a recorded earlier rationale from a new explanation' in page
     assert 'A well-supported existing choice can stay.' in page
     assert 'Payment went through.' not in page
-    assert 'review method, not an image filter' in page
-    assert 'Do not blur labels or remove information people need' in page
+    assert 'decision compression' in page.lower()
+    assert 'keep unknowns unassessed until evidence exists' in page
     for label in ('Experience and information', 'Workflow and architecture',
                   'Implementation and evidence', 'People and operation'):
         assert label in page
@@ -47,7 +47,7 @@ def test_overview_explains_the_missing_layer_without_claiming_a_result():
     assert 'Do not combine them into a weighted readiness percentage.' in protocol
     assert 'The minimum artifact route cannot waive or pass any of these gates.' in protocol
     skill = (ROOT/'skills/ai-ready/SKILL.md').read_text()
-    assert 'Do not introduce guided prompts, alternative suggestions, structural views or answer keys unless the study design specifies them.' in skill
+    assert 'Do not introduce guided prompts, alternative suggestions, decision-surface maps, challenge scenarios, structural views or answer keys unless the study design specifies them.' in skill
 
 
 def test_opening_has_seven_actual_routes_not_just_seven_labels():
@@ -87,12 +87,14 @@ def test_method_separates_motivation_from_three_visible_practice_steps():
     assert 'hard-method-layout' in method and 'hard-feature-row' not in method
     assert method.index('hard-method-intro') < method.index('hard-method-review')
     assert '<h3 class="t-title-l">' in method
-    assert method.count('<li>') == 3
+    assert method.count('<li>') == 5
     assert 'role="list"' in method
-    assert 'Do not blur labels or remove information people need' in method
-    assert 'Keep the original artifact.' in method
-    assert 'Distinguish documented earlier alternatives from options proposed in this review.' in method
-    assert 'specified, walkthrough-checked, implemented and runtime-tested separately' in method
+    assert 'Decompress the choice.' in method
+    assert 'Model only what matters.' in method
+    assert 'Challenge the model.' in method
+    assert 'Prove at the declared stage.' in method
+    assert 'Make the next human decision.' in method
+    assert 'specified, walkthrough, implemented and runtime-tested evidence separate' in method
     assert 'optional review guidance, not an extra gate' in method
     assert 'Keep it separate from the proposed study design' in method
     assert not any(tag in method for tag in ('<a ', '<button', '<details'))

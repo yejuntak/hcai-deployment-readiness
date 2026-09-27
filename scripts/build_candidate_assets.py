@@ -23,11 +23,13 @@ def generated():
     for model, name in ((ArtifactReview, "artifact-review"), (Session, "diagnostic-session"), (Judgment, "diagnostic-judgment"), (Assessment, "assessment"), (AssessmentResult, "assessment-result"),
                         (FeedbackEntry, "feedback-entry"), (PilotRun, "pilot-run"), (StudyReview, "study-review")):
         output[f"schemas/{name}.schema.json"] = encoded({"$schema": "https://json-schema.org/draft/2020-12/schema", **model.model_json_schema()})
-    protocol = (ROOT / "protocol/0.2-preview.3/PROTOCOL.md").read_bytes()
+    protocol_dir = ROOT / "protocol" / versions()["protocol"]
+    protocol = (protocol_dir / "PROTOCOL.md").read_bytes()
     output["src/hcai_readiness/protocol.md"] = protocol
     output["skills/ai-ready/references/protocol.md"] = protocol
-    for name in ("QUICK-6.md", "FULL-PROFILE.md", "START-HERE.md", "SCENARIOS.md", "WORKSHEET.md", "ARTIFACT-REVIEW.md", "DECISION-REVIEW.md", "INDEPENDENT-EVALUATION.md"):
-        output[f"skills/ai-ready/references/{name}"] = (ROOT / "protocol/0.2-preview.3" / name).read_bytes()
+    for name in ("QUICK-6.md", "FULL-PROFILE.md", "START-HERE.md", "SCENARIOS.md", "WORKSHEET.md",
+                 "ARTIFACT-REVIEW.md", "DECISION-REVIEW.md", "ENGINEERING-REASONING.md", "INDEPENDENT-EVALUATION.md"):
+        output[f"skills/ai-ready/references/{name}"] = (protocol_dir / name).read_bytes()
     for name in ("assessment", "pilot-run", "study-review", "artifact-review", "diagnostic-session", "diagnostic-judgment"):
         output[f"skills/ai-ready/references/{name}.schema.json"] = output[f"schemas/{name}.schema.json"]
     for name in ("__init__.py", "artifact_review.py", "assessment.py", "versions.py", "contracts.py", "engine.py", "cli.py", "guidance.py", "reporting.py", "criteria.json"):

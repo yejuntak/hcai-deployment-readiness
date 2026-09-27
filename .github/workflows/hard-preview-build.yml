@@ -1,0 +1,98 @@
+name: Build H.A.R.D. Preview
+
+on:
+  push:
+    branches:
+      - hard-0.3-preview-1
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hard-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: ${{ github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, '[generated]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Refresh lock and install
+        run: |
+          uv lock
+          uv sync --group dev
+
+      - name: Generate canonical assets
+        run: |
+          uv run python scripts/build_candidate_assets.py
+          uv run python scripts/build_candidate_assets.py --check
+          uv run python scripts/build_experience.py
+          uv run python scripts/build_pdfs.py
+
+      - name: Verify canonical CSV transports
+        run: |
+          mkdir -p Verification
+          uv run python Source/verify_example.py Templates --templates
+          uv run python Source/verify_example.py Worked-Example --json > Verification/current-csv-example.json
+          uv run python Source/verify_example.py Worked-Example/runtime-ai-plan --json > Verification/current-csv-runtime-plan.json
+
+      - name: Smoke-check generated PDFs
+        run: |
+          uv run python - <<'PY'
+          from pathlib import Path
+          from hcai_readiness.versions import PROTOCOL_VERSION
+          paths = sorted(Path("output/pdf").glob(f"HARD-*{PROTOCOL_VERSION}.pdf"))
+          assert len(paths) == 6, [str(p) for p in paths]
+          for path in paths:
+              assert path.stat().st_size > 1000, (path, path.stat().st_size)
+          print("\n".join(f"{p}: {p.stat().st_size} bytes" for p in paths))
+          PY
+
+      - name: Run regressions
+        id: pytest
+        continue-on-error: true
+        run: uv run pytest -q
+
+      - name: Record regression and release-readiness evidence
+        id: verify
+        continue-on-error: true
+        run: uv run python scripts/verify_candidate.py
+
+      - name: Build wheel
+        if: steps.pytest.outcome == 'success' && steps.verify.outcome == 'success'
+        run: uv build --wheel
+
+      - name: Package current preview
+        if: steps.pytest.outcome == 'success' && steps.verify.outcome == 'success'
+        run: uv run python scripts/package_candidate.py
+
+      - name: Commit generated deliverables and verification records
+        if: always()
+        run: |
+          git config user.name "hard-protocol-build"
+          git config user.email "actions@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Generate H.A.R.D. 0.3-preview.1 deliverables [generated]"
+            git push origin HEAD:hard-0.3-preview-1
+          fi
+
+      - name: Fail on regression failure
+        if: steps.pytest.outcome != 'success' || steps.verify.outcome != 'success'
+        run: |
+          echo "H.A.R.D. preview regressions did not pass. Inspect committed Verification/current-junit.xml and current-test-results.json."
+          exit 1

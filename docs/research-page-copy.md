@@ -1,6 +1,6 @@
-# H.A.R.D. Protocol 0.2: current page content contract
+# H.A.R.D. Protocol 0.3: current page content contract
 
-Public identity: **H.A.R.D. Protocol 0.2**. Separate state: **Public Preview**. Full name: Human-centered AI Readiness and Decision Protocol. Exact protocol 0.2-preview.3, MCP 0.2.0rc9, Skill/contract 0.2.0-rc.9 belong in technical details.
+Public identity: **H.A.R.D. Protocol 0.3**. Separate state: **Public Preview**. Full name: Human-centered AI Readiness and Decision Protocol. Exact protocol 0.3-preview.1, MCP 0.3.0rc1, Skill/contract 0.3.0-rc.1 belong in technical details.
 
 The page should explain the method before installation: a completed AI-created result can contain decisions the user has not examined. H.A.R.D. starts from those decisions and connects purpose, criteria, alternatives, reasons, tradeoffs, evidence and remaining human judgment. The outcome may preserve the original choice. It must not promise recovery of a model's unrecorded internal reasoning.
 
@@ -18,10 +18,17 @@ Targeted deepening describes inspecting a weak choice more closely. Do not displ
 
 The current protocol set includes START-HERE, PROTOCOL, ARTIFACT-REVIEW, DECISION-REVIEW, INDEPENDENT-EVALUATION, QUICK-6, FULL-PROFILE, CRITERIA, WORKSHEET and SCENARIOS. Publish consistent readable pages, source Markdown, schemas, examples and Skill/MCP instructions from this version. Keep template/example columns aligned and four-level evidence visible in completed examples.
 
-The canonical site source is docs/research-content.gohtml. The build combines shared metadata and criteria into reader-facing views. Do not hand-edit generated criterion copies. Current reading path: /static/research/ai-readiness/hard-0.2-preview-3/. Existing versioned reading paths remain historical and unchanged. Public updates remain /research/ai-readiness/updates.
+The canonical site source is docs/research-content.gohtml. The build combines shared metadata and criteria into reader-facing views. Do not hand-edit generated criterion copies. Current reading path: /static/research/ai-readiness/hard-0.3-preview-1/. Existing versioned reading paths remain historical and unchanged. Public updates remain /research/ai-readiness/updates.
 
 ## Evidence and disclosure boundaries
 
 Public feedback summaries describe formative usability and consistency concerns without private names or quotes. Reported private attachments not independently read cannot support verified defect, severity or performance claims. Do not repeat a reported critical disclaimer finding as an established example. Use an independently constructed runtime AI specification scenario and label it synthetic.
 
 The proposed fidelity study remains separate: AI authorship is held constant and the design has not established the effect or protocol benefit. Keep user findings, software tests, usability feedback and empirical performance claims distinct. No certification, operational approval, adoption or endorsement claim follows from this preview.
+
+
+## 0.3 method emphasis
+
+The page should describe the core loop as Decompress -> Model -> Challenge -> Prove -> Decide. Decision compression is a motivating model, not a measured result. For software examples, the architecture view should make source of truth, state, authority, boundary, ordering and assumptions visible without implying a required technology pattern.
+
+The current protocol set also includes ENGINEERING-REASONING.md. It is targeted deepening inside H.A.R.D., not a fourth use route, seventh gate or new score.

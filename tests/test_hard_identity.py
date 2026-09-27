@@ -22,11 +22,11 @@ def test_hard_public_identity_and_generated_surfaces():
     assert identity() == {
         'name': 'H.A.R.D. Protocol',
         'full_name': 'Human-centered AI Readiness and Decision Protocol',
-        'display_version': '0.2', 'release_label': 'Public Preview',
+        'display_version': '0.3', 'release_label': 'Public Preview',
         'distribution_id': 'hard-'+versions()['protocol'].replace('preview.', 'preview-'),
     }
     assert json.loads((ROOT/'identity.json').read_text()) == identity()
-    assert public_title() == 'H.A.R.D. Protocol 0.2'
+    assert public_title() == 'H.A.R.D. Protocol 0.3'
     surfaces = list((ROOT/'protocol'/versions()['protocol']).glob('*.md'))
     surfaces += [ROOT/p for p in ('README.md', 'skills/ai-ready/SKILL.md',
                   f"Pilot-Kit/{identity()['distribution_id']}-external-packet.md")]
@@ -51,10 +51,10 @@ def test_hard_public_identity_and_generated_surfaces():
 def test_hard_execution_versions_and_legacy_record_boundary():
     exact = versions()
     assert exact == json.loads((ROOT/'versions.json').read_text())
-    assert re.fullmatch(r'0\.2-preview\.\d+', exact['protocol'])
-    release = re.fullmatch(r'0\.2\.0rc(\d+)', exact['mcp'])
+    assert re.fullmatch(r'0\.3-preview\.\d+', exact['protocol'])
+    release = re.fullmatch(r'0\.3\.0rc(\d+)', exact['mcp'])
     assert release
-    assert exact['skill'] == exact['contract'] == '0.2.0-rc.'+release[1]
+    assert exact['skill'] == exact['contract'] == '0.3.0-rc.'+release[1]
     assert new_review('HARD-NEW', '2026-09-24T12:00:00Z', 'human')['versions'] == exact
     archive_path = ROOT/'release/HCAI-v0.1-rc.4-candidate.6.zip'
     before = hashlib.sha256(archive_path.read_bytes()).hexdigest()
@@ -69,7 +69,7 @@ def test_hard_execution_versions_and_legacy_record_boundary():
     assert legacy['versions']['protocol'] == '0.1-rc.4-candidate.6'
     assert hashlib.sha256(archive_path.read_bytes()).hexdigest() == before
     current = json.loads((ROOT/'examples/rc4/low-risk-quick.json').read_text())
-    current['versions']['protocol'] = '0.2'
+    current['versions']['protocol'] = '0.3'
     with pytest.raises(ValidationError, match='Exact protocol/MCP/Skill/contract'):
         Assessment.model_validate(current)
 

@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hcai-readiness-mcp"
-version = "0.2.0rc9"
-description = "Local MCP tools for H.A.R.D. Protocol 0.2 Public Preview, an engineering-commitment evidence review"
+version = "0.3.0rc1"
+description = "Local MCP tools for H.A.R.D. Protocol 0.3 Public Preview, a human-owned decision and evidence review for AI-assisted work"
 readme = "docs/agent-tools.md"
 requires-python = ">=3.11"
 license = "MIT AND CC-BY-4.0"
@@ -28,6 +28,7 @@ dev = [
     "pytest>=8,<10",
     "jsonschema>=4.23,<5",
     "markdown>=3.7,<4",
+    "reportlab>=4.2,<5",
 ]
 
 [tool.pytest.ini_options]

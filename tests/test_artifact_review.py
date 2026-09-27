@@ -20,7 +20,35 @@ def choice():
             "proposed_alternatives": [{"description": "Persist encrypted draft server-side"}],
             "rationale": "Local draft retention avoids coupling recovery to the unavailable server",
             "rationale_provenance": "new", "impacts_and_tradeoffs": ["Device loss requires separate recovery"],
-            "affected_check_ids": ["R1", "RC1"], "human_decision": "accepted",
+            "assumptions": ["Stable request identity prevents duplicate submission after timeout"],
+            "affected_check_ids": ["R1", "RC1"],
+            "engineering_deepening_required": True,
+            "deepening_rationale": "Draft persistence and timeout recovery depend on state, truth and retry assumptions.",
+            "deepening_triggers": ["persistent_state_mutation", "unreliable_or_async_dependency"],
+            "required_surface_kinds": ["truth", "state", "assumption"],
+            "decision_surfaces": [
+                {"id": "D1", "kind": "truth", "question": "Which draft is authoritative?",
+                 "current_model": "The local draft is authoritative until response confirmation", "status": "supported",
+                 "evidence_locations": ["spec.md#draft"]},
+                {"id": "D2", "kind": "state", "question": "What state follows a timeout?",
+                 "current_model": "The draft remains editable and unsubmitted", "status": "supported",
+                 "evidence_locations": ["walkthrough.md#timeout"]},
+                {"id": "D3", "kind": "assumption", "question": "Can retry avoid a duplicate submission?",
+                 "current_model": "Retry uses a stable request identity", "status": "supported",
+                 "evidence_locations": ["walkthrough.md#draft-recovery"],
+                 "consequence_if_wrong": "A retry can create a duplicate submission",
+                 "evidence_needed": "Execute duplicate-retry coverage after implementation",
+                 "revisit_trigger": "Retry or request-identity behavior changes"}
+            ],
+            "challenge_scenarios": [
+                {"id": "CH1", "condition": "The upstream response times out and the user retries",
+                 "claim_at_risk": "Recovery does not duplicate submission",
+                 "expected_behavior_or_invariant": "One logical request produces at most one accepted submission",
+                 "consequence_if_mishandled": "Duplicate request", "affected_check_ids": ["R1", "RC1"],
+                 "status": "pass", "evidence_locations": ["walkthrough.md#draft-recovery"]}
+            ],
+            "next_coherent_slice": "Implement one timeout/retry path through stable request identity and preserved draft state.",
+            "human_decision": "accepted",
             "human_decision_owner": "Fictional product owner",
             "human_decision_evidence_locations": ["synthetic-owner-review.md#C1"],
             "verification_evidence_locations": ["walkthrough.md#draft-recovery"],
@@ -147,6 +175,32 @@ def test_current_justification_can_be_new_without_inventing_historical_alternati
     assert result["criterion_status"] == "ready"
 
 
+def test_unassessed_decision_surface_is_insufficient_and_conflict_holds():
+    data = fixture()
+    data["choices"][0]["decision_surfaces"][0] = {
+        "id": "D1", "kind": "truth", "question": "Which draft is authoritative?",
+        "status": "unassessed", "evidence_needed": "Inspect persistence ownership"
+    }
+    result = review_artifact(ArtifactReview(**data))
+    assert result["disposition"] == "Insufficient evidence"
+    assert "decision_surface_D1_unassessed" in result["choice_issues"]["C1"]
+    data = fixture()
+    data["choices"][0]["decision_surfaces"][0]["status"] = "conflicted"
+    data["choices"][0]["decision_surfaces"][0]["current_model"] = "Local draft is authoritative"
+    data["choices"][0]["decision_surfaces"][0]["evidence_locations"] = ["spec.md#conflict"]
+    result = review_artifact(ArtifactReview(**data))
+    assert result["disposition"] == "Hold for remediation"
+    assert result["deepening_failure_ids"] == ["C1"]
+
+
+def test_failed_challenge_holds_and_generated_reason_cannot_erase_it():
+    data = fixture()
+    data["choices"][0]["challenge_scenarios"][0]["status"] = "fail"
+    result = review_artifact(ArtifactReview(**data))
+    assert result["disposition"] == "Hold for remediation"
+    assert "challenge_CH1_failed" in result["choice_issues"]["C1"]
+
+
 def test_choice_revision_holds_even_with_complete_checks():
     data = fixture(); data["choices"][0]["human_decision"] = "revise"
     result = review_artifact(ArtifactReview(**data))
@@ -193,6 +247,7 @@ def test_novel_accepted_critical_changes_disposition_not_reference_denominator()
 def test_zero_recovery_requires_reason_and_is_null():
     data = fixture(); data["recovery"] = []
     data["choices"][0]["affected_check_ids"] = ["R1"]
+    data["choices"][0]["challenge_scenarios"][0]["affected_check_ids"] = ["R1"]
     with pytest.raises(ValidationError): ArtifactReview(**data)
     data["zero_recovery_reason"] = "Bounded static copy review has no transitions or recoverable state"
     result = review_artifact(ArtifactReview(**data))

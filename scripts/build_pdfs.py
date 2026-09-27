@@ -54,7 +54,7 @@ def footer(canvas, doc):
 def build(source, destination):
     lines = source.read_text().splitlines()
     body_style = styles["BodyCandidate"]
-    if source.name == "hard-0.2-preview-3-external-packet.md":
+    if source.name == f"{DISTRIBUTION_ID}-external-packet.md":
         body_style = ParagraphStyle(name="PacketBody", parent=body_style, fontSize=10.5, leading=12.2, spaceAfter=2)
     story = []
     i = 0
@@ -115,11 +115,12 @@ def build(source, destination):
 def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     docs = {
-        "protocol/0.2-preview.3/PROTOCOL.md": "HARD-Protocol-0.2-preview.3.pdf",
-        "protocol/0.2-preview.3/ARTIFACT-REVIEW.md": "HARD-Artifact-Review-0.2-preview.3.pdf",
-        "protocol/0.2-preview.3/QUICK-6.md": "HARD-QUICK-6-0.2-preview.3.pdf",
-        "protocol/0.2-preview.3/FULL-PROFILE.md": "HARD-Full-Profile-0.2-preview.3.pdf",
-        "Pilot-Kit/hard-0.2-preview-3-external-packet.md": "HARD-External-Pilot-Packet-0.2-preview.3.pdf",
+        f"protocol/{PROTOCOL_VERSION}/PROTOCOL.md": f"HARD-Protocol-{PROTOCOL_VERSION}.pdf",
+        f"protocol/{PROTOCOL_VERSION}/ARTIFACT-REVIEW.md": f"HARD-Artifact-Review-{PROTOCOL_VERSION}.pdf",
+        f"protocol/{PROTOCOL_VERSION}/ENGINEERING-REASONING.md": f"HARD-Engineering-Reasoning-{PROTOCOL_VERSION}.pdf",
+        f"protocol/{PROTOCOL_VERSION}/QUICK-6.md": f"HARD-QUICK-6-{PROTOCOL_VERSION}.pdf",
+        f"protocol/{PROTOCOL_VERSION}/FULL-PROFILE.md": f"HARD-Full-Profile-{PROTOCOL_VERSION}.pdf",
+        f"Pilot-Kit/{DISTRIBUTION_ID}-external-packet.md": f"HARD-External-Pilot-Packet-{PROTOCOL_VERSION}.pdf",
     }
     for source, name in docs.items():
         build(ROOT / source, OUTPUT / name)

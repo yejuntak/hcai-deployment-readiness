@@ -1,5 +1,5 @@
 {
-  "version": "0.2-preview.3",
+  "version": "0.3-preview.1",
   "status": "candidate_not_a_certification_standard",
   "principles": [
     {
@@ -8,11 +8,11 @@
     },
     {
       "id": "2",
-      "title": "Make intended behavior and evidence inspectable"
+      "title": "Make intended behavior, decision models and evidence inspectable"
     },
     {
       "id": "3",
-      "title": "Keep people able to understand and recover"
+      "title": "Keep state, authority and recovery understandable"
     },
     {
       "id": "4",
@@ -62,22 +62,22 @@
     },
     {
       "id": "HCAI-2.1",
-      "title": "Explain form, fit and function",
+      "title": "Explain form, fit, function and the model behind consequential choices",
       "gate": "G4_TRACEABILITY",
-      "requirement": "Every requirement names what is represented, how it fits the surrounding workflow, what it must do and the reference material used to judge it.",
-      "check": "Compare the artifact with its reference material to judge whether its role and behavior meet the requirement.",
-      "pass_example": "A review form is linked to required intake fields, advisor responsibilities and cancellation rules.",
-      "failure_example": "A finished-looking screen is accepted without knowing its purpose or reference requirements.",
-      "verification": "Structured references plus human interpretation"
+      "requirement": "Every requirement names what is represented, how it fits the surrounding workflow, what it must do and the reference material used to judge it. When a software choice needs deeper review, record the relevant system model rather than treating the generated implementation as its own explanation.",
+      "check": "Compare the artifact with its reference material. For a consequential software choice, ask which source of truth, ownership, state, boundary, contract or assumption the behavior depends on and whether that model is supported.",
+      "pass_example": "A review form is linked to required intake fields and cancellation rules; its saved-state choice also names the authoritative record and owner.",
+      "failure_example": "A finished-looking screen or generated code path is accepted without knowing its purpose, reference requirements or the system model it relies on.",
+      "verification": "Structured references and decision-surface records plus human interpretation"
     },
     {
       "id": "HCAI-2.2",
       "title": "Trace the exact artifact to a check",
       "gate": "G4_TRACEABILITY",
-      "requirement": "Each important requirement/artifact pair has an executed check bound to both its exact artifact digest and its requirement/context fingerprint. A change to acceptance criteria, scope, linked states, references, dependencies or authority invalidates the affected check.",
-      "check": "Compare both fingerprints with the record captured when the check ran. Repeat the affected check after a change; computing a new hash does not constitute retesting.",
+      "requirement": "Each important requirement/artifact pair has an executed check bound to both its exact artifact digest and its requirement/context fingerprint. The context includes applicable consequential choices, decision surfaces, linked states, references, dependencies and authority. A material change invalidates the affected check.",
+      "check": "Compare both fingerprints with the record captured when the check ran. Repeat the affected check after a requirement, choice, decision surface, challenge condition or artifact changes; computing a new hash does not constitute retesting.",
       "pass_example": "A cancellation walkthrough records the exact screen revision and the field-preservation result.",
-      "failure_example": "An agent edits error handling after tests ran, but the old test pass is reused.",
+      "failure_example": "An agent changes authorization or the assumed source of truth after tests ran, but the old pass is reused.",
       "verification": "Deterministic chain and revision checks plus inspection of execution evidence"
     },
     {
@@ -92,23 +92,23 @@
     },
     {
       "id": "HCAI-3.1",
-      "title": "Cover normal, edge and recovery states",
+      "title": "Cover state transitions, edge cases and recovery",
       "gate": "G3_STATES_RECOVERY",
-      "requirement": "Represent connected normal, edge and recovery paths with an entry, resolvable next-state IDs, reachable endpoints, data treatment, ownership and requirement links. Review transition conditions, dependency failures and bounded retry/exit behavior.",
-      "check": "Try missing input, empty results, delay, unavailable dependency, cancellation and resumption where relevant. Document which cases apply.",
-      "pass_example": "A failed save keeps entered data and explains how to retry or return to manual work.",
-      "failure_example": "The happy path works but a failed save silently discards the user's input.",
-      "verification": "State/reference checks plus context-specific human walkthrough"
+      "requirement": "Represent connected normal, edge and recovery paths with an entry, resolvable next-state IDs, reachable endpoints, data treatment, ownership and requirement links. Where relevant, review partial completion, repetition, ordering/concurrency, dependency failures and bounded retry/exit behavior.",
+      "check": "Try missing input, empty results, delay, unavailable dependency, cancellation and resumption. For state-changing work, ask what happens when the same operation happens twice, two transitions race, or execution stops halfway.",
+      "pass_example": "A repeated invitation accept is idempotent, a revoked invitation cannot become active, and an interrupted email step does not corrupt membership state.",
+      "failure_example": "The happy path works, but duplicate requests or a partial failure can create contradictory state.",
+      "verification": "State/reference checks plus risk-scaled walkthrough or executed challenge evidence"
     },
     {
       "id": "HCAI-3.2",
-      "title": "Make human and automated authority explicit",
+      "title": "Make system truth and authority explicit",
       "gate": "G3_STATES_RECOVERY",
-      "requirement": "Record what people and automated components may access, change or send. Review approval, interruption, escalation and recovery boundaries. If AI only created the artifact, say so.",
-      "check": "For an agent action, ask who authorizes it, how to stop it, what happens after partial completion and who resolves exceptions.",
-      "pass_example": "A draft-only agent cannot send; an advisor approves changes and can return to a saved record.",
-      "failure_example": "An agent may delete or message externally without a stated owner, approval boundary or recovery path.",
-      "verification": "Required boundary review plus specialist verification when risk demands it"
+      "requirement": "For relevant consequential choices, identify authoritative truth, who may mutate it, derived or cached representations, responsibility boundaries and interface guarantees. Review what happens when sources disagree and how people or automated components approve, interrupt, escalate or recover. If AI only created the artifact, say so.",
+      "check": "Ask which record wins when two representations disagree, who can change it, which component owns each side effect, and what the boundary promises on success, timeout or partial completion.",
+      "pass_example": "Membership state is authoritative in the membership service; invitation tokens cannot directly grant access, duplicate acceptance is contained, and a named owner can revoke or repair state.",
+      "failure_example": "UI state, cache and database are all treated as truth, or a component can mutate consequential state without a stated owner or contract.",
+      "verification": "Decision-surface, authority and boundary review plus specialist verification when risk demands it"
     },
     {
       "id": "HCAI-3.3",
@@ -134,21 +134,21 @@
       "id": "HCAI-4.2",
       "title": "Resolve findings at the required depth",
       "gate": "G6_COMMITMENT",
-      "requirement": "Review reference defects, findings and unresolved risks. Unresolved critical findings cannot be waived. Add independent review and deeper plans when the risk tier requires them. A recorded human evidence-quality review must address relevance, completeness, authenticity and test adequacy; agent-only assertions cannot replace it.",
-      "check": "Inspect each unresolved finding; passing other gates cannot offset it. Verify reviewer independence for moderate/high risk.",
-      "pass_example": "A critical data-loss defect stays visible even when the baseline is also missing.",
-      "failure_example": "A critical finding is marked accepted to obtain a favorable readiness result.",
+      "requirement": "Review reference defects, findings, challenged assumptions and unresolved risks. A conflicted required decision surface or failed consequential challenge remains visible until resolved or the scope is changed transparently. Unresolved critical findings cannot be waived. Add independent review and deeper plans when the risk tier requires them. A recorded human evidence-quality review must address relevance, completeness, authenticity and test adequacy; agent-only assertions cannot replace it.",
+      "check": "Inspect each unresolved finding and deepened choice. Passing other gates cannot offset a demonstrated contradiction. Verify reviewer independence for moderate/high risk.",
+      "pass_example": "A duplicate-payment challenge fails and remains a blocker even when the baseline and happy-path tests pass.",
+      "failure_example": "A failed challenge is replaced by a plausible AI explanation so the review can proceed.",
       "verification": "Finding status and evidence checks plus reviewer judgment"
     },
     {
       "id": "HCAI-4.3",
-      "title": "Limit the engineering commitment",
+      "title": "Limit the next commitment to a coherent slice",
       "gate": "G6_COMMITMENT",
-      "requirement": "Record an owner, bounded engineering step, resource limit and next review trigger. Explain any investment despite a nonpositive net estimate; obtain separate owner authorization.",
-      "check": "Ask what the team may build next and what it may not do yet. Retain a separate dated owner decision.",
-      "pass_example": "One engineer-day for a disposable prototype, with no live sending and a review before further work.",
-      "failure_example": "A gate pass is treated as permission for unrestricted building or deployment.",
-      "verification": "Recorded bounds and rationale; authorization remains a separate human act"
+      "requirement": "Record an owner, bounded engineering step, resource limit and next review trigger. For software work, prefer the smallest coherent slice that can expose the important assumption across input, validation, state change or persistence, failure/recovery and observable outcome when those elements apply. Explain any investment despite a nonpositive net estimate; obtain separate owner authorization.",
+      "check": "Ask what one end-to-end slice would produce evidence about the riskiest unresolved reasoning, what the team may not build yet, and when the choice will be reopened.",
+      "pass_example": "One engineer-day to prove authorized invitation creation through acceptance, persistence and duplicate/revoked handling; no broader dashboard or production rollout.",
+      "failure_example": "A favorable review is treated as permission to generate the whole frontend and backend before the key state assumption is tested.",
+      "verification": "Recorded bounds, coherent-slice rationale and separate human authorization"
     },
     {
       "id": "HCAI-4.4",
