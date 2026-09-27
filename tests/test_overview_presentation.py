@@ -34,7 +34,7 @@ def test_overview_explains_the_missing_layer_without_claiming_a_result():
     assert 'not an established causal effect' in page
     assert 'Research motivation' in page
     assert 'varies visual fidelity while holding content, behavior and defects constant' in page
-    assert 'Separate a recorded earlier rationale from a new explanation.' in page
+    assert 'Separate a recorded earlier rationale from a new explanation' in page
     assert 'A well-supported existing choice can stay.' in page
     assert 'Payment went through.' not in page
     assert 'decision compression' in page.lower()
@@ -47,7 +47,7 @@ def test_overview_explains_the_missing_layer_without_claiming_a_result():
     assert 'Do not combine them into a weighted readiness percentage.' in protocol
     assert 'The minimum artifact route cannot waive or pass any of these gates.' in protocol
     skill = (ROOT/'skills/ai-ready/SKILL.md').read_text()
-    assert 'Do not introduce guided prompts, alternative suggestions, structural views or answer keys unless the study design specifies them.' in skill
+    assert 'Do not introduce guided prompts, alternative suggestions, decision-surface maps, challenge scenarios, structural views or answer keys unless the study design specifies them.' in skill
 
 
 def test_opening_has_seven_actual_routes_not_just_seven_labels():
