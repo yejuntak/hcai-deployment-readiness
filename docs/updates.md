@@ -1,10 +1,29 @@
 # Protocol update log
 
-Last updated: September 26, 2026. Current: **H.A.R.D. Protocol 0.2** · **Public Preview**.
+Last updated: September 26, 2026. Current: **H.A.R.D. Protocol 0.3** · **Public Preview**.
 
-Human-centered AI Readiness and Decision Protocol. Exact protocol 0.2-preview.3; MCP 0.2.0rc9; Skill/contract 0.2.0-rc.9.
+Human-centered AI Readiness and Decision Protocol. Exact protocol 0.3-preview.1; MCP 0.3.0rc1; Skill/contract 0.3.0-rc.1.
 
 This is a record of changes, not a validation claim. Historical versions remain available. Formative reported use does not establish a conformant independent evaluation, adoption, endorsement or performance improvement.
+
+## September 26, 2026: decision decompression and engineering reasoning deepening
+
+H.A.R.D. 0.3 makes explicit a rationale that was only partially represented in preview.3: AI-assisted creation can compress intention into a convincing artifact before responsible people have externalized the consequential system model behind it. The protocol calls this decision compression. This is a motivating model, not a measured causal result.
+
+The existing choice review remains the foundation. 0.3 adds explicit engineering-deepening triage for each consequential choice and, when warranted, structured decision surfaces for truth, ownership, state, boundary, contract, failure/recovery, time/ordering and assumption. It also adds bounded challenge scenarios and a smallest coherent next software slice. These are targeted deepening records, not a seventh gate, extra score or reconstructed chain-of-thought.
+
+| Change | What it does | Evidence boundary |
+| --- | --- | --- |
+| Decision compression rationale | Explains why the review reopens choices after generation. | Does not establish that AI causes the effect or that H.A.R.D. improves outcomes. |
+| Decision surfaces | Makes relevant source-of-truth, state, ownership, contract, timing and assumption models inspectable. | Supported means source-backed within scope, not universal correctness. |
+| Challenge scenarios | Asks what condition could disconfirm a consequential choice and binds the result to evidence. | A generated failure story is not evidence that the failure occurs. |
+| Assumption lifecycle | Records consequence-if-wrong, evidence needed and revisit trigger. | Recording an assumption does not make it true. |
+| Coherent next slice | Bounds software investment around one end-to-end assumption test when applicable. | Does not prescribe a specific architecture or authorize deployment. |
+| CSV contract 2.0 | Adds decision-surfaces.csv and challenge-scenarios.csv and keeps JSON/MCP/Skill parity. | Old packages and runs remain frozen. |
+
+The six gates and fifteen criterion IDs remain. G3 and G4 are deepened; G6's bounded commitment is clarified for software work. The related fidelity study and independent-evaluation rules remain separate.
+
+Read [engineering reasoning](/static/research/ai-readiness/hard-0.3-preview-1/ENGINEERING-REASONING.html), [decision review](/static/research/ai-readiness/hard-0.3-preview-1/DECISION-REVIEW.html), [migration notes](/static/research/ai-readiness/hard-0.3-preview-1/migration-0.2-to-0.3.html) and the [complete protocol](/static/research/ai-readiness/hard-0.3-preview-1/PROTOCOL.html).
 
 ## September 26, 2026: inspect choices and support small-team artifact review
 
@@ -24,7 +43,7 @@ The optional companion integration is removed from the active distribution and n
 
 The additional feedback was agent-mediated and lacked the controls required for independent evaluation. It informs usability and consistency fixes. Public summaries omit private names and quotations. The proposed fidelity study remains separate, and no efficacy or deployment claim is added.
 
-Read the [migration notes](/static/research/ai-readiness/hard-0.2-preview-3/migration-preview-3.html), [artifact-review guide](/static/research/ai-readiness/hard-0.2-preview-3/ARTIFACT-REVIEW.html), [decision review](/static/research/ai-readiness/hard-0.2-preview-3/DECISION-REVIEW.html) and [metric eligibility](/static/research/ai-readiness/hard-0.2-preview-3/INDEPENDENT-EVALUATION.html).
+Read the [migration notes](/static/research/ai-readiness/hard-0.3-preview-1/migration-preview-3.html), [artifact-review guide](/static/research/ai-readiness/hard-0.3-preview-1/ARTIFACT-REVIEW.html), [decision review](/static/research/ai-readiness/hard-0.3-preview-1/DECISION-REVIEW.html) and [metric eligibility](/static/research/ai-readiness/hard-0.3-preview-1/INDEPENDENT-EVALUATION.html).
 
 ## September 25, 2026: Decision replaces Deployment in the full name
 
@@ -32,7 +51,7 @@ The display uses H.A.R.D. as initials. The overview now starts with the missing 
 
 The practical protocol, MCP and Skill explain how to keep the original artifact and create a separate structural view when useful. Experience, architecture, technical evidence and operating responsibility remain connected to the existing gates. This technique is unvalidated and must not become an unplanned intervention in the fidelity study. C31 records this explanation and navigation change; the author's architecture anecdote is context, not empirical support.
 
-The author found Deployment too technical and easy to mistake for release approval. Decision describes what the review actually supports: deciding whether to invest in building a bounded workflow, revise it, or gather missing evidence. The public name remains H.A.R.D. Protocol 0.2, with Public Preview shown separately.
+The author found Deployment too technical and easy to mistake for release approval. Decision describes what the review actually supports: deciding whether to invest in building a bounded workflow, revise it, or gather missing evidence. The public name remains H.A.R.D. Protocol 0.3, with Public Preview shown separately.
 
 | Identity | Preserved first preview | Current naming revision |
 | --- | --- | --- |
