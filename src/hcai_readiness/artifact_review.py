@@ -12,7 +12,8 @@ ArtifactPopulation = Literal["ai_generated", "runtime_ai", "both", "neither", "u
 EvaluatorKind = Literal["human", "ai-assisted-human", "agent", "synthetic"]
 ReviewMode = Literal["artifact_review", "independent_evaluation"]
 Stage = Literal["specification_handoff", "prototype_handoff", "implementation_review", "runtime_release_review"]
-DecisionSurfaceKind = Literal["truth", "ownership", "state", "boundary", "contract", "failure_recovery", "time_ordering", "assumption"]
+DecisionSurfaceKind = Literal["truth", "ownership", "state", "boundary", "contract", "failure_recovery", "time_ordering"]
+ChallengeEvidenceLevel = Literal["walkthrough", "implemented", "runtime_tested"]
 DeepeningTrigger = Literal[
     "persistent_state_mutation", "external_side_effect", "irreversible_action", "privileged_or_tenant_boundary",
     "unreliable_or_async_dependency", "repeat_or_concurrent_operation", "money_or_data_loss",
@@ -123,6 +124,23 @@ class Alternative(Record):
     evidence_locations: list[Text] = Field(default_factory=list)
 
 
+class AssumptionRecord(Record):
+    """One explicit assumption that can be challenged and revisited independently."""
+    id: Text
+    statement: Text
+    status: Literal["supported", "conflicted", "unassessed"] = "unassessed"
+    consequence_if_false: Text
+    evidence_needed: Text
+    evidence_locations: list[Text] = Field(default_factory=list)
+    revisit_trigger: Text
+
+    @model_validator(mode="after")
+    def evidence_boundary(self):
+        if self.status in ("supported", "conflicted") and not self.evidence_locations:
+            raise ValueError("Supported/conflicted assumptions need retained evidence")
+        return self
+
+
 class DecisionSurfaceRecord(Record):
     """One externalized part of the system model. It is review evidence, not recovered private reasoning."""
     id: Text
@@ -144,9 +162,6 @@ class DecisionSurfaceRecord(Record):
             raise ValueError("An unassessed decision surface needs the evidence or inspection required next")
         if self.status == "not_applicable" and self.reason is None:
             raise ValueError("A not-applicable decision surface needs a bounded reason")
-        if self.kind == "assumption" and self.status != "not_applicable":
-            if not (self.consequence_if_wrong and self.evidence_needed and self.revisit_trigger):
-                raise ValueError("A consequential assumption needs consequence-if-wrong, evidence needed and a revisit trigger")
         return self
 
 
@@ -159,15 +174,18 @@ class ChallengeScenario(Record):
     consequence_if_mishandled: Text
     affected_check_ids: list[Text] = Field(default_factory=list)
     status: Literal["pass", "fail", "unassessed"] = "unassessed"
+    evidence_level: ChallengeEvidenceLevel | None = None
     evidence_locations: list[Text] = Field(default_factory=list)
     next_evidence: Text | None = None
 
     @model_validator(mode="after")
     def evidence_boundary(self):
-        if self.status in ("pass", "fail") and not self.evidence_locations:
-            raise ValueError("Assessed challenge scenarios need retained evidence")
+        if self.status in ("pass", "fail") and (not self.evidence_locations or self.evidence_level is None):
+            raise ValueError("Assessed challenge scenarios need retained evidence and an explicit evidence level")
         if self.status == "unassessed" and self.next_evidence is None:
             raise ValueError("An unassessed challenge scenario needs the next evidence or check")
+        if self.status == "unassessed" and self.evidence_level is not None:
+            raise ValueError("Unassessed challenge scenarios cannot claim an evidence level")
         return self
 
 
@@ -184,7 +202,7 @@ class ChoiceRecord(Record):
     rationale_provenance: Literal["documented", "reported", "new", "unknown"]
     rationale_evidence_locations: list[Text] = Field(default_factory=list)
     impacts_and_tradeoffs: list[Text] = Field(default_factory=list)
-    assumptions: list[Text] = Field(default_factory=list)
+    assumptions: list[AssumptionRecord] = Field(default_factory=list)
     affected_check_ids: list[Text] = Field(default_factory=list)
     engineering_deepening_required: bool
     deepening_rationale: Text
@@ -214,7 +232,7 @@ class ChoiceRecord(Record):
             raise ValueError("A human disposition requires an accountable human owner and retained confirmation evidence; an agent cannot invent approval")
         if len(self.required_surface_kinds) != len(set(self.required_surface_kinds)):
             raise ValueError("Required decision-surface kinds must be unique")
-        for group, label in ((self.decision_surfaces, "decision surface"), (self.challenge_scenarios, "challenge scenario")):
+        for group, label in ((self.assumptions, "assumption"), (self.decision_surfaces, "decision surface"), (self.challenge_scenarios, "challenge scenario")):
             ids = [row.id for row in group]
             if len(ids) != len(set(ids)):
                 raise ValueError(f"Duplicate {label} IDs within one consequential choice")
@@ -242,6 +260,11 @@ def choice_gaps(choice: ChoiceRecord) -> list[str]:
         gaps.append("current_choice_justification_missing")
     if choice.human_decision == "pending":
         gaps.append("human_decision_pending")
+    for assumption in choice.assumptions:
+        if assumption.status == "unassessed":
+            gaps.append("assumption_" + assumption.id + "_unassessed")
+        elif assumption.status == "conflicted":
+            gaps.append("assumption_" + assumption.id + "_conflicted")
     if choice.engineering_deepening_required:
         active = [row for row in choice.decision_surfaces if row.status != "not_applicable"]
         for kind in choice.required_surface_kinds:
