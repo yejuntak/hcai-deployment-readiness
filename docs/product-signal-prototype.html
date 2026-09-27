@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H.A.R.D. Readiness Report — Product Prototype</title>
+<style>
+:root{
+  --bg:#f4f3ee;--paper:#fbfbf8;--ink:#11110f;--muted:#6e6d67;--line:#d9d8d1;
+  --soft:#ebeae4;--danger:#8f241b;--radius:22px;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink)}
+a{color:inherit}
+button,input{font:inherit}
+.shell{max-width:1180px;margin:auto;padding:0 28px}
+.topbar{height:72px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:13px;font-weight:760;letter-spacing:.08em}
+.toplink{font-size:13px;color:var(--muted);text-decoration:none}
+.hero{min-height:calc(100svh - 72px);display:grid;align-content:center;padding:72px 0 110px}
+.kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 22px;color:var(--muted)}
+.hero h1{font-size:clamp(58px,8.8vw,126px);line-height:.88;letter-spacing:-.075em;margin:0;max-width:9.5ch}
+.hero h1 span{display:block}
+.hero-copy{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,470px);gap:48px;align-items:end;margin-top:46px}
+.hero-copy p{font-size:20px;line-height:1.45;max-width:36ch;margin:0}
+.scan-form{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:8px;display:flex;box-shadow:0 18px 60px rgba(20,20,15,.08)}
+.scan-form input{flex:1;min-width:0;border:0;background:transparent;padding:15px 16px;outline:none}
+.scan-form button{border:0;background:var(--ink);color:#fff;border-radius:12px;padding:14px 20px;font-weight:700;cursor:pointer}
+.scan-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted)}
+.thesis{border-top:1px solid var(--line);padding:84px 0}
+.thesis-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px}
+.thesis h2{font-size:clamp(36px,5vw,68px);line-height:.98;letter-spacing:-.05em;margin:0;max-width:10ch}
+.thesis p{font-size:19px;line-height:1.55;margin:0;max-width:48ch}
+.flow{margin-top:38px;border-top:1px solid var(--line)}
+.flow-row{display:grid;grid-template-columns:70px 1fr 1fr;gap:28px;padding:22px 0;border-bottom:1px solid var(--line)}
+.flow-row span{font-size:12px;color:var(--muted)}
+.flow-row strong{font-size:15px}
+.flow-row p{font-size:14px;margin:0;color:var(--muted)}
+.report-wrap{padding:88px 0 110px}
+.demo-label{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.demo-label span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.report{background:var(--paper);border:1px solid var(--line);border-radius:30px;padding:42px}
+.report-hero{display:grid;grid-template-columns:270px 1fr;gap:44px;align-items:end}
+.grade{font-size:142px;line-height:.74;letter-spacing:-.09em;font-weight:780}
+.score{font-size:31px;font-weight:700;margin-top:22px}
+.grade-caption{font-size:12px;color:var(--muted);margin-top:8px}
+.company{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.report h2{font-size:clamp(32px,4vw,52px);line-height:1.03;letter-spacing:-.045em;margin:0;max-width:14ch}
+.posture{display:inline-flex;align-items:center;gap:10px;margin-top:24px;border:1px dashed #7d7c75;border-radius:10px;padding:10px 12px;font-size:13px}
+.posture strong{font-size:11px;letter-spacing:.09em}
+.metrics{display:flex;gap:18px;flex-wrap:wrap;margin-top:16px;color:var(--muted);font-size:12px}
+.divider{border-top:1px solid var(--line);margin-top:38px}
+.signal-row{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;border-bottom:1px solid var(--line);padding:18px 0}
+.signal-copy strong{display:block;font-size:15px}
+.signal-copy span{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.signal-number{font-size:29px;letter-spacing:-.03em;font-weight:720}
+.fix{margin-top:20px;border:1px solid var(--ink);border-radius:22px;padding:30px}
+.fix-head{display:grid;grid-template-columns:1fr auto;gap:30px}
+.fix .label,.trace .label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.fix h3{font-size:31px;line-height:1.05;letter-spacing:-.04em;margin:12px 0 10px;max-width:22ch}
+.fix p{font-size:15px;line-height:1.55;max-width:68ch;margin:0}
+.points{font-size:42px;font-weight:760;letter-spacing:-.05em}
+.trace{border-top:1px solid var(--line);margin-top:28px;padding-top:25px}
+.trace-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 32px;margin-top:14px}
+.trace-item{border-top:1px solid var(--line);padding:16px 0}
+.trace-item strong{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.trace-item p{margin:7px 0 0;font-size:14px}
+.prove{margin-top:12px;background:var(--ink);color:#fff;border-radius:14px;padding:18px}
+.prove span{display:block;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:#c8c7c0;margin-bottom:7px}
+.prove strong{font-size:16px;line-height:1.4}
+.unknowns{margin-top:20px;background:var(--soft);border-radius:22px;padding:28px}
+.unknowns h3{font-size:26px;letter-spacing:-.03em;margin:8px 0 8px}
+.unknowns>p{margin:0;color:var(--muted);font-size:14px}
+.unknown-list{margin-top:20px}
+.unknown-row{display:grid;grid-template-columns:1fr 1.2fr;gap:28px;padding:15px 0;border-top:1px solid #d1d0c8}
+.unknown-row strong{font-size:14px}
+.unknown-row span{font-size:13px;color:var(--muted)}
+.report-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:11px;padding:12px 16px;text-decoration:none;font-size:13px;font-weight:700;border:1px solid var(--ink)}
+.btn.primary{background:var(--ink);color:#fff}
+.boundary{font-size:11px;line-height:1.6;color:var(--muted);margin:18px 4px 0;max-width:90ch}
+.analysis{padding:88px 0;border-top:1px solid var(--line)}
+.analysis h2{font-size:50px;line-height:1;letter-spacing:-.05em;max-width:11ch;margin:0 0 36px}
+.analysis-list{display:grid;grid-template-columns:1fr 1fr;gap:0 34px}
+.analysis-step{padding:20px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px}
+.analysis-step span{font-size:14px}.analysis-step small{font-size:11px;color:var(--muted)}
+.footer{border-top:1px solid var(--line);padding:30px 0 50px;font-size:12px;color:var(--muted)}
+@media(max-width:800px){
+  .shell{padding:0 18px}.topbar{height:58px}.hero{min-height:auto;padding:70px 0 80px}.hero h1{font-size:65px;max-width:9ch}
+  .hero-copy,.thesis-grid,.report-hero{grid-template-columns:1fr}.hero-copy{gap:30px}.scan-form{flex-direction:column}.scan-form button{width:100%}
+  .thesis{padding:64px 0}.thesis-grid{gap:32px}.flow-row{grid-template-columns:44px 1fr}.flow-row p{grid-column:2}
+  .report-wrap{padding:60px 0}.report{padding:24px;border-radius:22px}.grade{font-size:100px}.report h2{font-size:34px}
+  .fix-head,.trace-grid,.unknown-row,.analysis-list{grid-template-columns:1fr}.points{font-size:30px}.analysis h2{font-size:42px}
+}
+</style>
+</head>
+<body>
+<header class="shell topbar">
+  <div class="brand">H.A.R.D.</div>
+  <a class="toplink" href="https://github.com/yejuntak/hcai-deployment-readiness">Open methodology ↗</a>
+</header>
+
+<main>
+<section class="shell hero">
+  <p class="kicker">H.A.R.D. Readiness Report · Product prototype</p>
+  <h1><span>Your product</span><span>looks done.</span><span>Is it?</span></h1>
+  <div class="hero-copy">
+    <p>Paste a public product URL. See the product signals, hidden decisions, failure paths, and evidence gaps behind the polish.</p>
+    <div>
+      <form class="scan-form" action="#sample-report">
+        <input aria-label="Public product URL" placeholder="https://yourproduct.com">
+        <button type="submit">Grade my product</button>
+      </form>
+      <div class="scan-meta"><span>Public-surface review</span><span>·</span><span>No signup required</span><span>·</span><span>No H.A.R.D. score averaging</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="thesis">
+  <div class="shell thesis-grid">
+    <h2>One grade. Then the decisions underneath it.</h2>
+    <div>
+      <p>The grade gets attention. H.A.R.D. does the deeper work. It reopens the product decisions that may have arrived before the evidence, so a strong surface score can never erase a real blocker.</p>
+      <div class="flow">
+        <div class="flow-row"><span>01</span><strong>See the signal</strong><p>A single product-surface grade that a founder can understand immediately.</p></div>
+        <div class="flow-row"><span>02</span><strong>Open the decision</strong><p>Move from the visible symptom to the authority, state, assumption, or failure path underneath it.</p></div>
+        <div class="flow-row"><span>03</span><strong>Prove the next thing</strong><p>End with the smallest coherent test or artifact that would resolve the uncertainty.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shell analysis" aria-label="Illustrative analysis state">
+  <p class="kicker">Analysis state</p>
+  <h2>No fake AI loading theater.</h2>
+  <div class="analysis-list">
+    <div class="analysis-step"><span>Reading public product surface</span><small>Observed</small></div>
+    <div class="analysis-step"><span>Checking accessibility signals</span><small>Deterministic first</small></div>
+    <div class="analysis-step"><span>Mapping actions & recovery</span><small>Evidence-bounded</small></div>
+    <div class="analysis-step"><span>Tracing privacy & data boundaries</span><small>Public evidence</small></div>
+    <div class="analysis-step"><span>Checking AI claims</span><small>Public evidence</small></div>
+    <div class="analysis-step"><span>Building H.A.R.D. evidence map</span><small>Unknown stays unknown</small></div>
+  </div>
+</section>
+
+<section class="shell report-wrap" id="sample-report">
+  <div class="demo-label"><span>Synthetic demo report</span><span>Not a real company assessment</span></div>
+  <article class="report">
+    <div class="report-hero">
+      <div>
+        <div class="grade">B</div>
+        <div class="score">78 / 100</div>
+        <div class="grade-caption">Provisional Product Signal Grade</div>
+      </div>
+      <div>
+        <div class="company">Northstar AI · synthetic example</div>
+        <h2>Good surface signals. One product decision deserves attention now.</h2>
+        <div class="posture"><strong>EVIDENCE NEEDED</strong><span>H.A.R.D. found insufficient evidence</span></div>
+        <div class="metrics"><span>Evidence confidence <strong>30%</strong></span><span>Coverage <strong>70%</strong></span><span>1 critical · 6 warnings · 15 passed · 5 unknown</span></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="signal-row"><div class="signal-copy"><strong>Accessibility</strong><span>71% coverage · 21% confidence</span></div><div class="signal-number">90</div></div>
+    <div class="signal-row"><div class="signal-copy"><strong>Action & Recovery</strong><span>67% coverage · 37% confidence</span></div><div class="signal-number">63</div></div>
+    <div class="signal-row"><div class="signal-copy"><strong>Privacy & Data Boundary</strong><span>71% coverage · 32% confidence</span></div><div class="signal-number">80</div></div>
+    <div class="signal-row"><div class="signal-copy"><strong>AI Transparency & Claims</strong><span>71% coverage · 29% confidence</span></div><div class="signal-number">80</div></div>
+    <div class="signal-row"><div class="signal-copy"><strong>Public Evidence & Documentation</strong><span>71% coverage · 29% confidence</span></div><div class="signal-number">80</div></div>
+
+    <section class="fix">
+      <div class="fix-head">
+        <div>
+          <div class="label">The one thing to fix first</div>
+          <h3>Duplicate refund protection is not demonstrated.</h3>
+          <p>The reviewed flow allows the agent to initiate a refund, but the supplied walkthrough does not demonstrate what prevents the same request from producing the external action twice.</p>
+        </div>
+        <div class="points">−6</div>
+      </div>
+      <div class="trace">
+        <div class="label">Developer view</div>
+        <div class="trace-grid">
+          <div class="trace-item"><strong>Observed</strong><p>The automated agent can initiate a refund.</p></div>
+          <div class="trace-item"><strong>Decision underneath</strong><p>An automated component is allowed to create a financial side effect.</p></div>
+          <div class="trace-item"><strong>What must be true?</strong><p>One authorized request must map to one transaction across retries, duplicates, or interruptions.</p></div>
+          <div class="trace-item"><strong>If it fails</strong><p>A repeated request can create a duplicate refund or contradictory order/payment state.</p></div>
+        </div>
+        <div class="prove"><span>Prove next</span><strong>Execute the same refund request twice against the exact implementation and retain the transaction, idempotency, and final-state evidence.</strong></div>
+      </div>
+    </section>
+
+    <section class="unknowns">
+      <div class="kicker">Verify next</div>
+      <h3>5 unknowns were not counted as failures.</h3>
+      <p>Public evidence was not enough to make a claim. Give H.A.R.D. stronger evidence and the report can move beyond the public surface.</p>
+      <div class="unknown-list">
+        <div class="unknown-row"><strong>Dependency timeout behavior</strong><span>Provide the timeout/retry contract and a retained failure-path check.</span></div>
+        <div class="unknown-row"><strong>Deletion propagation</strong><span>Provide the deletion propagation map and retained verification.</span></div>
+        <div class="unknown-row"><strong>Runtime evidence package</strong><span>Provide retained runtime checks for the exact release and scope.</span></div>
+      </div>
+      <div class="report-actions">
+        <a class="btn primary" href="#">Verify the unknowns</a>
+        <a class="btn" href="#">Share report</a>
+      </div>
+    </section>
+  </article>
+  <p class="boundary">Synthetic product prototype. The numeric grade is a product-surface triage signal, not a H.A.R.D. protocol score, accessibility certification, privacy/security audit, compliance finding, or deployment authorization. H.A.R.D. posture remains separate and non-compensatory.</p>
+</section>
+</main>
+
+<footer class="footer"><div class="shell">H.A.R.D. · Human-centered AI Readiness and Decision Protocol · Public Preview</div></footer>
+</body>
+</html>
