@@ -80,7 +80,8 @@ async def roundtrip():
             public_rules=await client.call_tool("product_signal_rule_catalog",{"scored_only":False})
             assert not public_rules.isError
             public_payload=json.loads(public_rules.content[0].text)
-            assert any(row["id"]=="ACT-REPEAT-02" for row in public_payload)
+            assert public_payload["portfolio_sources_included"] is False
+            assert any(row["id"]=="ACT-REPEAT-02" for row in public_payload["rules"])
             observed=await client.call_tool("evaluate_product_signal_observation",{"observation":{
                 "rule_id":"ACT-REPEAT-02",
                 "status":"unknown",
