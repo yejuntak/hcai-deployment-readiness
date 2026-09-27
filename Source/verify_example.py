@@ -19,11 +19,13 @@ STAGES = ("specified", "walkthrough", "implemented", "runtime_tested")
 KINDS = {"human", "ai-assisted-human", "agent", "synthetic"}
 MODES = {"artifact_review", "independent_evaluation"}
 SEVERITIES = {"unrated", "minor", "major", "critical"}
-SURFACE_KINDS = {"truth", "ownership", "state", "boundary", "contract", "failure_recovery", "time_ordering", "assumption"}
+SURFACE_KINDS = {"truth", "ownership", "state", "boundary", "contract", "failure_recovery", "time_ordering"}
 SURFACE_STATUSES = {"supported", "conflicted", "unassessed", "not_applicable"}
+ASSUMPTION_STATUSES = {"supported", "conflicted", "unassessed"}
 CHALLENGE_STATUSES = {"pass", "fail", "unassessed"}
+CHALLENGE_LEVELS = {"walkthrough", "implemented", "runtime_tested"}
 CORE = ("requirements.csv", "recovery.csv", "requirements-brief.csv", "recovery-brief.csv", "decision.csv",
-        "choice-review.csv", "decision-surfaces.csv", "challenge-scenarios.csv")
+        "choice-review.csv", "assumptions.csv", "decision-surfaces.csv", "challenge-scenarios.csv")
 
 
 def to_artifact_review(tables: dict[str, list[dict[str, str]]]):
@@ -52,6 +54,12 @@ def to_artifact_review(tables: dict[str, list[dict[str, str]]]):
                 **{level: {"status": row[level + "_status"], "evidence_locations": split(row[level + "_evidence_location"]),
                            "reason": row[level + "_reason"] or None} for level in STAGES}})
         return values
+    assumptions_by_choice = {}
+    for row in tables.get("assumptions.csv", []):
+        assumptions_by_choice.setdefault(row["choice_id"], []).append({
+            "id": row["assumption_id"], "statement": row["statement"], "status": row["status"],
+            "consequence_if_false": row["consequence_if_false"], "evidence_needed": row["evidence_needed"],
+            "evidence_locations": split(row["evidence_location"]), "revisit_trigger": row["revisit_trigger"]})
     surfaces_by_choice = {}
     for row in tables.get("decision-surfaces.csv", []):
         surfaces_by_choice.setdefault(row["choice_id"], []).append({
@@ -68,6 +76,7 @@ def to_artifact_review(tables: dict[str, list[dict[str, str]]]):
             "expected_behavior_or_invariant": row["expected_behavior_or_invariant"],
             "consequence_if_mishandled": row["consequence_if_mishandled"],
             "affected_check_ids": split(row["requirement_or_scenario_ids"]), "status": row["status"],
+            "evidence_level": row["evidence_level"] or None,
             "evidence_locations": split(row["evidence_location"]), "next_evidence": row["next_evidence"] or None})
     choices = []
     for row in tables.get("choice-review.csv", []):
@@ -81,7 +90,8 @@ def to_artifact_review(tables: dict[str, list[dict[str, str]]]):
             "historical_alternatives": alternatives if historical else [], "proposed_alternatives": [] if historical else alternatives,
             "rationale": rationale, "rationale_provenance": provenance,
             "rationale_evidence_locations": split(row["current_justification_evidence_location"] if current else row["evidence_location"]) if rationale else [],
-            "impacts_and_tradeoffs": split(row["foreseeable_impacts"]), "assumptions": split(row["assumptions"]),
+            "impacts_and_tradeoffs": split(row["foreseeable_impacts"]),
+            "assumptions": assumptions_by_choice.get(row["choice_id"], []),
             "affected_check_ids": split(row["requirement_or_scenario_ids"]),
             "engineering_deepening_required": row["engineering_deepening_required_yes_no"] == "yes",
             "deepening_rationale": row["deepening_rationale"],
@@ -287,6 +297,17 @@ def validate_directory(directory: Path | str, allow_empty: bool = False) -> dict
     choices = tables.get("choice-review.csv", [])
     unique(choices, "choice_id", "choice-review.csv")
     choice_ids = {row["choice_id"] for row in choices}
+    assumptions = tables.get("assumptions.csv", [])
+    assumption_keys = [(row["choice_id"], row["assumption_id"]) for row in assumptions]
+    require(all(a and b for a, b in assumption_keys) and len(assumption_keys) == len(set(assumption_keys)),
+            "assumptions.csv: empty or duplicate choice_id/assumption_id")
+    for row in assumptions:
+        require(row["choice_id"] in choice_ids, "assumptions.csv: unknown choice_id")
+        require(row["status"] in ASSUMPTION_STATUSES, "assumptions.csv: invalid status")
+        require(all(row[k] for k in ("statement", "consequence_if_false", "evidence_needed", "revisit_trigger")),
+                "assumptions.csv: statement, consequence, evidence needed and revisit trigger required")
+        if row["status"] in {"supported", "conflicted"}:
+            require(bool(row["evidence_location"]), "assumptions.csv: supported/conflicted needs retained evidence")
     surfaces = tables.get("decision-surfaces.csv", [])
     surface_keys = [(row["choice_id"], row["surface_id"]) for row in surfaces]
     require(all(a and b for a, b in surface_keys) and len(surface_keys) == len(set(surface_keys)),
@@ -307,9 +328,6 @@ def validate_directory(directory: Path | str, allow_empty: bool = False) -> dict
             require(bool(row["evidence_needed"]), "decision-surfaces.csv: unassessed needs evidence_needed")
         if row["status"] == "not_applicable":
             require(bool(row["reason"]), "decision-surfaces.csv: not_applicable needs reason")
-        if row["surface_kind"] == "assumption" and row["status"] != "not_applicable":
-            require(all(row[k] for k in ("consequence_if_wrong", "evidence_needed", "revisit_trigger")),
-                    "decision-surfaces.csv: assumptions need consequence, evidence needed and revisit trigger")
     for row in challenges:
         require(row["choice_id"] in choice_ids, "challenge-scenarios.csv: unknown choice_id")
         require(row["status"] in CHALLENGE_STATUSES, "challenge-scenarios.csv: invalid status")
@@ -319,17 +337,22 @@ def validate_directory(directory: Path | str, allow_empty: bool = False) -> dict
                 "challenge-scenarios.csv: unknown requirement/scenario")
         if row["status"] in {"pass", "fail"}:
             require(bool(row["evidence_location"]), "challenge-scenarios.csv: assessed challenge needs evidence")
+            require(row["evidence_level"] in CHALLENGE_LEVELS,
+                    "challenge-scenarios.csv: assessed challenge needs walkthrough, implemented or runtime_tested evidence_level")
         if row["status"] == "unassessed":
             require(bool(row["next_evidence"]), "challenge-scenarios.csv: unassessed challenge needs next_evidence")
+            require(not row["evidence_level"], "challenge-scenarios.csv: unassessed challenge cannot claim an evidence_level")
     for row in choices:
         require(row["alternative_provenance"] in {"historical", "reconstructed", "proposed", "unknown"}, "choice-review.csv: invalid alternative_provenance")
         require(row["rationale_provenance"] in {"historical", "reconstructed", "proposed", "unknown"}, "choice-review.csv: invalid rationale_provenance")
         require(row["criteria_provenance"] in {"historical", "reconstructed", "proposed", "unknown"}, "choice-review.csv: invalid criteria_provenance")
         require(row["disposition"] in {"accepted", "revise", "pending"}, "choice-review.csv: invalid human disposition")
         yes_no(row["engineering_deepening_required_yes_no"], "choice-review.csv: engineering_deepening_required_yes_no")
-        require(all(row[k] for k in ("purpose", "selection_criteria", "assumptions", "deepening_rationale",
+        require(all(row[k] for k in ("purpose", "selection_criteria", "deepening_rationale",
                                      "human_owner", "disposition", "followup", "followup_owner")),
-                "choice-review.csv: purpose, criteria, assumptions, deepening rationale, human owner and follow-up required")
+                "choice-review.csv: purpose, criteria, deepening rationale, human owner and follow-up required")
+        require(any(a["choice_id"] == row["choice_id"] for a in assumptions),
+                "choice-review.csv: each consequential choice needs at least one explicit assumption record")
         if row["engineering_deepening_required_yes_no"] == "yes":
             require(bool(row["deepening_triggers"]) and bool(row["required_surface_kinds"]) and bool(row["next_coherent_slice"]),
                     "choice-review.csv: required deepening needs triggers, surface kinds and next coherent slice")
