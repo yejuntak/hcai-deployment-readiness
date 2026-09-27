@@ -55,7 +55,7 @@ def main():
     args = parser.parse_args()
     output = ROOT/'docs/web'
     output.mkdir(exist_ok=True)
-    sources = list(PROTOCOL.glob('*.md')) + [ROOT/'docs'/name for name in ('updates.md','agent-tools.md','migration-rc3-to-rc4.md','decision-naming-migration.md','research-boundary.md','deep-audit.md','claims-and-governance.md','editorial-review.md','migration-preview-3.md')]
+    sources = list(PROTOCOL.glob('*.md')) + [ROOT/'docs'/name for name in ('updates.md','agent-tools.md','migration-rc3-to-rc4.md','decision-naming-migration.md','research-boundary.md','deep-audit.md','claims-and-governance.md','editorial-review.md','migration-preview-3.md','migration-0.2-to-0.3.md')]
     names = {p.name:p.stem+'.html' for p in sources}
     for source in sources:
         text = source.read_text()
