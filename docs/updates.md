@@ -10,16 +10,16 @@ This is a record of changes, not a validation claim. Historical versions remain 
 
 H.A.R.D. 0.3 makes explicit a rationale that was only partially represented in preview.3: AI-assisted creation can compress intention into a convincing artifact before responsible people have externalized the consequential system model behind it. The protocol calls this decision compression. This is a motivating model, not a measured causal result.
 
-The existing choice review remains the foundation. 0.3 adds explicit engineering-deepening triage for each consequential choice and, when warranted, structured decision surfaces for truth, ownership, state, boundary, contract, failure/recovery, time/ordering and assumption. It also adds bounded challenge scenarios and a smallest coherent next software slice. These are targeted deepening records, not a seventh gate, extra score or reconstructed chain-of-thought.
+The existing choice review remains the foundation. 0.3 adds explicit engineering-deepening triage for each consequential choice and, when warranted, structured system surfaces for truth, ownership, state, boundary, contract, failure/recovery and time/ordering. Consequential assumptions become separate review records. It also adds bounded challenge scenarios with explicit evidence levels and a smallest coherent next software slice. These are targeted deepening records, not a seventh gate, extra score or reconstructed chain-of-thought.
 
 | Change | What it does | Evidence boundary |
 | --- | --- | --- |
 | Decision compression rationale | Explains why the review reopens choices after generation. | Does not establish that AI causes the effect or that H.A.R.D. improves outcomes. |
-| Decision surfaces | Makes relevant source-of-truth, state, ownership, contract, timing and assumption models inspectable. | Supported means source-backed within scope, not universal correctness. |
-| Challenge scenarios | Asks what condition could disconfirm a consequential choice and binds the result to evidence. | A generated failure story is not evidence that the failure occurs. |
-| Assumption lifecycle | Records consequence-if-wrong, evidence needed and revisit trigger. | Recording an assumption does not make it true. |
+| System surfaces | Makes relevant source-of-truth, state, ownership, contract and timing models inspectable. | Supported means source-backed within scope, not universal correctness. |
+| Challenge scenarios | Asks what condition could disconfirm a consequential choice and binds any assessed result to walkthrough, implemented or runtime-tested evidence. | A generated failure story is not evidence that the failure occurs. |
+| Assumption lifecycle | Gives each consequential assumption a stable record with supported, conflicted or unassessed status, consequence-if-false, evidence needed, retained evidence and revisit trigger. | Recording an assumption does not make it true. |
 | Coherent next slice | Bounds software investment around one end-to-end assumption test when applicable. | Does not prescribe a specific architecture or authorize deployment. |
-| CSV contract 2.0 | Adds decision-surfaces.csv and challenge-scenarios.csv and keeps JSON/MCP/Skill parity. | Old packages and runs remain frozen. |
+| CSV contract 2.1 | Adds assumptions.csv, decision-surfaces.csv and challenge-scenarios.csv with challenge evidence levels, while keeping JSON/MCP/Skill parity. | Old packages and runs remain frozen. |
 
 The six gates and fifteen criterion IDs remain. G3 and G4 are deepened; G6's bounded commitment is clarified for software work. The related fidelity study and independent-evaluation rules remain separate.
 
