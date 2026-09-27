@@ -183,3 +183,33 @@ def test_markdown_says_grade_is_not_hard_score():
     assert "Product Signal Grade" in output
     assert "H.A.R.D. posture:" in output
     assert "not a H.A.R.D. protocol score" in output
+
+
+def test_hard_priority_outranks_numeric_signal_deduction():
+    report = sample_report(
+        HardPosture(
+            route="artifact_review",
+            disposition="insufficient_evidence",
+            evidence_ceiling="walkthrough",
+        )
+    )
+    report.hard_priority = {
+        "id": "HARD-1",
+        "title": "Resolve the consequential authority decision",
+        "summary": "Synthetic H.A.R.D. priority",
+        "evidence_locations": ["synthetic://hard/priority"],
+        "next_evidence": "Run the bounded challenge",
+        "developer_trace": {
+            "observed": "An automated action is available.",
+            "decision_underneath": "Automation has consequential authority.",
+            "must_be_true": "Authority and duplicate handling remain bounded.",
+            "if_wrong": "The action may execute twice.",
+            "prove_next": "Run the bounded challenge.",
+        },
+    }
+    result = calculate_report_grade(report)
+    assert result["score"] == 78
+    assert result["primary_action"]["source"] == "hard"
+    assert result["primary_action"]["points"] is None
+    assert result["top_priority"]["source"] if "source" in result["top_priority"] else True
+    assert "H.A.R.D." in render_grade_report(report, "html")
