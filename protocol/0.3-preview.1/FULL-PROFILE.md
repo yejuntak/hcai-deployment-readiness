@@ -157,6 +157,6 @@ Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3
 
 ## Engineering reasoning depth
 
-FULL does not require architecture theater. For each consequential choice, explicitly decide whether the engineering-deepening lens applies. Where it does, retain the relevant decision surfaces and bounded challenge evidence described in [engineering reasoning](ENGINEERING-REASONING.md). Moderate/high risk may require a competent specialist to judge the model or challenge evidence.
+FULL does not require architecture theater. For each consequential choice, explicitly decide whether the engineering-deepening lens applies. Where it does, retain the relevant system surfaces, first-class assumption records and bounded challenge evidence described in [engineering reasoning](ENGINEERING-REASONING.md). Assessed challenges state whether their evidence is walkthrough, implemented or runtime-tested. Moderate/high risk may require a competent specialist to judge the model, assumption or challenge evidence.
 
 A failed challenge, conflicted source-of-truth/state/authority model or unresolved critical finding cannot be canceled by complete documentation elsewhere.
