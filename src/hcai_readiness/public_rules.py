@@ -1,17 +1,31 @@
-"""Evidence-bounded public-surface rules for H.A.R.D.-adjacent reports.
+"""Official H.A.R.D.-grounded rules for low-cost public product reports.
 
-These rules are not H.A.R.D. gates and do not create a H.A.R.D. decision.
-They translate public, inspectable product signals into deterministic findings
-that preserve the protocol's reasoning shape:
+Source boundary
+---------------
+This catalog is derived ONLY from the public H.A.R.D. research surface and the
+official library it links to:
+- /research/ai-readiness
+- START-HERE
+- ARTIFACT-REVIEW
+- DECISION-REVIEW
+- ENGINEERING-REASONING
+- WORKSHEET
+- QUICK-6 / FULL
+- the stable HCAI criteria
+- claims-and-governance / research-boundary / MCP+Skill documentation
+
+Portfolio case studies, client work, private correspondence, and unrelated
+takyejun.com pages are intentionally excluded.
+
+These rules do not create a H.A.R.D. gate result. They turn inspectable public
+signals into evidence-bounded report findings using the protocol's own reasoning
+shape:
 
 Observed -> Decision underneath -> What must be true -> If wrong -> Prove next.
 
-The catalog intentionally distinguishes:
-- universal-ish public signals that may contribute to Product Signal Grade;
-- advisory review prompts that should never become numeric penalties.
-
-Context-specific portfolio decisions are generalized into decision-quality rules
-rather than copied as universal prescriptions.
+A rule can be advisory-only. Advisory rules are useful H.A.R.D. questions but
+must never reduce the Product Signal Grade merely because internal evidence is
+not public.
 """
 from __future__ import annotations
 
@@ -54,6 +68,13 @@ RuleEvidenceLevel = Literal[
 ]
 
 
+class OfficialSource(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+    path: str
+    section: str
+    public_href: str
+
+
 class PublicRule(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -63,10 +84,9 @@ class PublicRule(BaseModel):
     hard_lenses: tuple[HardLens, ...]
     hard_criteria: tuple[str, ...]
     decision_surfaces: tuple[DecisionSurfaceKind, ...] = ()
-    portfolio_principles: tuple[str, ...] = ()
+    official_sources: tuple[OfficialSource, ...]
     score_included: bool = True
     public_ceiling: RuleEvidenceLevel = "public_observation"
-    absence_is_failure: bool = False
     critical_permitted: bool = False
     intent: str
     observe: tuple[str, ...]
@@ -108,131 +128,90 @@ class RuleObservation(BaseModel):
         return self
 
 
-# Portfolio principle strings are intentionally descriptive rather than normative.
-# They preserve where the product-thinking pattern came from without claiming
-# that a context-specific design decision is universal.
+def source(path: str, section: str, href: str) -> OfficialSource:
+    return OfficialSource(path=path, section=section, public_href=href)
+
+
+RESEARCH = "/research/ai-readiness"
+LIB = "/static/research/ai-readiness/hard-0.3-preview-1/"
+
+
 RULES: tuple[PublicRule, ...] = (
     PublicRule(
-        id="A11Y-HIERARCHY-01",
+        id="EXP-TASK-01",
         module="accessibility",
-        title="Task hierarchy is structurally legible",
+        title="Information and competing choices support the current task",
         hard_lenses=("experience_information",),
-        hard_criteria=("HCAI-1.4", "HCAI-2.1"),
-        portfolio_principles=(
-            "takyejun.com design system: one h1 per page; subsection hierarchy remains explicit",
-            "supporting copy should not compete with the primary task",
+        hard_criteria=("HCAI-1.1", "HCAI-1.3", "HCAI-2.1"),
+        official_sources=(
+            source("docs/research-content.gohtml", "Experience and information", RESEARCH+"#criteria"),
+            source("protocol/0.3-preview.1/START-HERE.md", "The minimum review", LIB+"START-HERE.html"),
+            source("src/hcai_readiness/criteria.json", "HCAI-1.1 / HCAI-1.3 / HCAI-2.1", RESEARCH+"/developers#rules"),
         ),
-        intent="The product should expose a task hierarchy that people and assistive technology can parse without reconstructing the visual design.",
+        intent="The visible product should make its current task, purpose, and consequential choices inspectable before visual polish is treated as evidence of completeness.",
         observe=(
-            "heading hierarchy and landmark structure",
-            "primary versus secondary actions",
-            "whether supporting meta copy competes with the task",
+            "labels and information hierarchy around the current task",
+            "competing primary actions or unclear task boundaries",
+            "whether the public surface states a purpose that can be connected to the behavior being reviewed",
         ),
-        pass_condition="The inspected surface has a coherent heading/landmark hierarchy and one clearly prioritized task at the current decision point.",
-        warning_condition="Hierarchy exists but competing actions, labels, or structural omissions make the task harder to parse.",
-        decision_underneath="The product has chosen which information and action deserve attention first.",
-        must_be_true="The visual priority and semantic structure must point to the same task and remain understandable without relying on appearance alone.",
-        failure_condition="A person or assistive technology must infer the task from layout, or multiple actions compete without a clear decision hierarchy.",
-        prove_next="Retain an accessibility/structure walkthrough of the exact release and correct the smallest hierarchy conflict.",
-        claim_limit="Public markup can support a structural observation, not a complete usability or WCAG conformance claim.",
+        pass_condition="The inspected surface has a bounded task with labels and choices that are coherent with the stated purpose.",
+        warning_condition="The surface looks complete, but the current task, competing choices, or acceptance intent is ambiguous.",
+        decision_underneath="The product has chosen what the user is trying to accomplish and which choices deserve attention at this point.",
+        must_be_true="The visible hierarchy and available actions must serve the same bounded purpose rather than forcing the reviewer to infer the intended workflow.",
+        failure_condition="A polished result can conceal an unclear task boundary or competing choices that have not been tied to a real requirement.",
+        prove_next="Name the exact workflow and acceptance condition, then walk the current task with the artifact revision being reviewed.",
+        claim_limit="This is a bounded experience/information observation, not a complete usability or accessibility assessment.",
     ),
     PublicRule(
-        id="A11Y-FOCUS-02",
+        id="EXP-AGENCY-02",
         module="accessibility",
-        title="Keyboard focus and task order are observable",
-        hard_lenses=("experience_information", "implementation_evidence"),
-        hard_criteria=("HCAI-1.4", "HCAI-2.3"),
-        portfolio_principles=(
-            "takyejun.com design system: visible focus states and skip-to-content are first-class behavior",
-            "keyboard actions should not depend on hidden pointer-only behavior",
-        ),
-        intent="A public interactive flow should expose a usable keyboard path and visible focus rather than making the visual mock imply accessibility.",
-        observe=(
-            "focus-visible styling",
-            "tab order through primary task controls",
-            "focus movement after validation errors or modal transitions",
-        ),
-        pass_condition="Primary public task controls are keyboard reachable in a coherent order with visible focus.",
-        warning_condition="Keyboard access exists but order, focus visibility, or post-error focus behavior is inconsistent.",
-        decision_underneath="The product has defined how non-pointer users move through the same task state.",
-        must_be_true="Focus order must track the task order and remain visible as state changes.",
-        failure_condition="A user can become unable to locate focus, reach an action, or recover after validation using the keyboard.",
-        prove_next="Run and retain a keyboard-only walkthrough of the exact public flow, including at least one validation/recovery state.",
-        claim_limit="A public keyboard walkthrough is evidence for the inspected path only, not complete accessibility conformance.",
-    ),
-    PublicRule(
-        id="A11Y-STATUS-03",
-        module="accessibility",
-        title="Consequential status is not encoded by one visual channel",
+        title="Affected people have visible correction, decline, challenge, or support paths",
         hard_lenses=("experience_information", "people_operation"),
-        hard_criteria=("HCAI-1.4",),
-        portfolio_principles=(
-            "T-Mobile case library: consequential severity used reinforcing channels such as color, count, and position",
-            "one visual channel is a single point of failure for accessibility and speed",
+        hard_criteria=("HCAI-1.4", "HCAI-3.2"),
+        decision_surfaces=("ownership", "boundary", "failure_recovery"),
+        official_sources=(
+            source("src/hcai_readiness/criteria.json", "HCAI-1.4 Include the people who bear the consequences", RESEARCH+"/developers#rules"),
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Ownership / Boundary / Failure and recovery", LIB+"ENGINEERING-REASONING.html"),
         ),
-        intent="Important status should remain perceivable when color, position, or a single visual affordance is unavailable.",
+        intent="Human use and control cannot be assumed away when people bear the consequences of a workflow.",
         observe=(
-            "status labels/text in addition to color",
-            "icons/counts/position used as reinforcing rather than sole signals",
-            "screen-reader accessible status wording when inspectable",
+            "ways to correct, decline, challenge, cancel, or seek support",
+            "whether recourse appears near the consequential interaction rather than only in generic policy copy",
+            "whether the visible path preserves enough context to continue or escalate",
         ),
-        pass_condition="Consequential statuses have at least one non-color semantic cue and do not depend on a single visual encoding.",
-        warning_condition="Status is technically present but one visual channel carries most of the meaning.",
-        decision_underneath="The product has chosen how urgency and state are communicated under constrained perception and rapid scanning.",
-        must_be_true="A person must be able to distinguish consequential states without decoding color alone.",
-        failure_condition="A consequential state becomes ambiguous when color is unavailable or visual scanning conditions change.",
-        prove_next="Retain a visual and screen-reader/semantic check for the exact status components.",
-        claim_limit="This rule checks redundant status communication, not all contrast, vision, or assistive-technology requirements.",
+        pass_condition="The inspected surface exposes a meaningful correction, decline, challenge, or support path appropriate to the visible consequence.",
+        warning_condition="A recourse path exists but is generic, remote from the action, or unclear about what happens to current state.",
+        critical_permitted=True,
+        decision_underneath="The product has chosen when and how an affected person can interrupt, correct, or challenge the workflow.",
+        must_be_true="A consequential workflow must preserve meaningful human agency where the declared context requires it.",
+        failure_condition="A person can be affected by a consequential outcome without a realistic way to correct, decline, challenge, or escalate it.",
+        prove_next="Walk one correction or escalation path end to end and retain the resulting state, owner, and recovery evidence.",
+        claim_limit="A visible support or recourse path does not prove that the internal process resolves the issue correctly.",
     ),
     PublicRule(
-        id="A11Y-RECOVERY-04",
+        id="EXP-RECOVERY-03",
         module="accessibility",
-        title="Errors explain a recovery action",
+        title="Visible failure states give a bounded recovery path",
         hard_lenses=("experience_information", "workflow_architecture"),
-        hard_criteria=("HCAI-1.4", "HCAI-3.1"),
-        decision_surfaces=("failure_recovery",),
-        portfolio_principles=(
-            "takyejun.com case library: generic error -> named failure type + actionable next step",
-            "recovery copy should be informational rather than punitive",
+        hard_criteria=("HCAI-3.1",),
+        decision_surfaces=("state", "failure_recovery"),
+        official_sources=(
+            source("docs/research-content.gohtml", "Workflow and architecture", RESEARCH+"#criteria"),
+            source("src/hcai_readiness/criteria.json", "HCAI-3.1 Cover state transitions, edge cases and recovery", RESEARCH+"/developers#rules"),
         ),
-        intent="An error should help a person recover rather than merely announce that something failed.",
+        intent="A public error/failure state should make the next safe action inspectable rather than merely announce failure.",
         observe=(
-            "plain-language cause or condition when appropriate",
-            "specific next action",
-            "preservation of entered state when visible",
+            "normal, edge, and visible recovery states",
+            "whether the state offers a specific next action",
+            "whether cancel/resume/retry behavior is understandable from the user-facing surface",
         ),
-        pass_condition="The observed error state names a useful condition and gives a specific recovery action.",
-        warning_condition="An error is visible but recovery guidance is generic, ambiguous, or forces unnecessary restart.",
-        decision_underneath="The product has chosen what a person can do after the happy path breaks.",
-        must_be_true="The failure state must preserve enough context and agency for the person to continue, correct, retry, or escalate safely.",
-        failure_condition="A user is stranded, loses work unnecessarily, or repeats a failing action without knowing how state changed.",
-        prove_next="Walk one real failure path and retain the error state, preserved state, and successful recovery result.",
-        claim_limit="Public error copy can show recovery intent; it cannot establish backend recovery correctness.",
-    ),
-    PublicRule(
-        id="A11Y-DISCLOSURE-05",
-        module="accessibility",
-        title="Complexity is progressively disclosed around the current task",
-        hard_lenses=("experience_information",),
-        hard_criteria=("HCAI-1.4", "HCAI-2.1"),
-        portfolio_principles=(
-            "Vita case library: curate the few most relevant items first; keep the full panel accessible on demand",
-            "information hierarchy is a product decision, not decoration",
-        ),
-        score_included=False,
-        intent="Dense products should reveal depth when it serves the current task rather than exposing all available information by default.",
-        observe=(
-            "initial task surface versus deeper detail",
-            "whether secondary metrics/actions remain accessible on demand",
-            "whether disclosure follows a clear user decision",
-        ),
-        pass_condition="The current task exposes the minimum coherent information needed to decide while preserving access to deeper detail.",
-        warning_condition="The product exposes broad system depth before the current decision is clear, or hides necessary detail behind unclear affordances.",
-        decision_underneath="The team has chosen which complexity is necessary now versus later.",
-        must_be_true="The first view must support the current decision without permanently hiding information required for deeper work.",
-        failure_condition="Users must either synthesize too much at once or cannot reach the depth needed to verify a decision.",
-        prove_next="Observe the first-task path with target users and retain which information was needed before versus after the decision.",
-        claim_limit="This is an advisory product-review prompt, not a numeric accessibility penalty or a universal item-count rule.",
+        pass_condition="The inspected failure state identifies a bounded next action or recovery path and does not leave the user stranded.",
+        warning_condition="Failure is visible, but recovery, resume, or resulting state is ambiguous.",
+        decision_underneath="The product has chosen what a person should do when the happy path no longer applies.",
+        must_be_true="A failed or interrupted interaction must lead to an explainable state with a bounded next action.",
+        failure_condition="A person can repeat, abandon, or restart an action without understanding what state remains.",
+        prove_next="Retain one failure walkthrough from trigger through recovery and record the exact artifact revision.",
+        claim_limit="A visible recovery path is walkthrough/public-surface evidence only; it does not establish backend recovery correctness.",
     ),
     PublicRule(
         id="ACT-AUTHORITY-01",
@@ -241,392 +220,380 @@ RULES: tuple[PublicRule, ...] = (
         hard_lenses=("workflow_architecture", "people_operation"),
         hard_criteria=("HCAI-3.2", "HCAI-4.1"),
         decision_surfaces=("ownership", "boundary", "contract"),
-        intent="A product that changes external state should make the actor, authority, and boundary inspectable rather than treating the button as the whole decision.",
-        observe=(
-            "who or what is allowed to take the action",
-            "visible approval/limit/escalation conditions",
-            "user recourse or interruption path",
+        official_sources=(
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Ownership / Boundary / Contract", LIB+"ENGINEERING-REASONING.html"),
+            source("src/hcai_readiness/criteria.json", "HCAI-3.2 Make system truth and authority explicit", RESEARCH+"/developers#rules"),
         ),
-        pass_condition="The inspected public surface or documentation bounds who/what can perform the consequential action and under what conditions.",
-        warning_condition="The action is visible but authority, approval limits, or recourse are only partially described.",
+        intent="A state-changing product should make authority a reviewable decision rather than treating the visible action as sufficient evidence.",
+        observe=(
+            "who or what is described as able to take the action",
+            "visible approval, limit, confirmation, or escalation conditions",
+            "whether automated and human authority are distinguished when public",
+        ),
+        pass_condition="The inspected evidence bounds who or what can perform the consequential action and under what declared conditions.",
+        warning_condition="The consequential action is visible but authority, approval, or boundary conditions are only partially described.",
         critical_permitted=True,
-        decision_underneath="The product has delegated authority to a person or automated component to create a consequential side effect.",
-        must_be_true="Only an authorized actor may create the effect, within the declared scope and limits, with a defined recourse path.",
-        failure_condition="An unauthorized or over-broad actor can create a consequential external change that a user cannot safely interrupt or challenge.",
-        prove_next="Provide the action-boundary contract and run one bounded authorization/denial challenge against the exact implementation.",
-        claim_limit="Public copy can reveal declared authority. It cannot prove enforcement without implementation/runtime evidence.",
+        decision_underneath="The product delegates authority to a person or automated component to change consequential state.",
+        must_be_true="Only an authorized actor may create the effect, within the declared scope and contract.",
+        failure_condition="An unauthorized or over-broad actor can create a consequential side effect.",
+        prove_next="Provide the authority/boundary contract and run one authorization/denial challenge against the exact implementation.",
+        claim_limit="Public copy can show declared authority; enforcement remains unverified without implementation or runtime evidence.",
     ),
     PublicRule(
-        id="ACT-DUPLICATE-02",
+        id="ACT-REPEAT-02",
         module="action_recovery",
-        title="Repeat and retry behavior is defined",
+        title="Repeat, retry, and concurrent behavior is explicitly bounded",
         hard_lenses=("workflow_architecture", "implementation_evidence"),
         hard_criteria=("HCAI-3.1", "HCAI-3.2", "HCAI-4.2"),
         decision_surfaces=("state", "contract", "failure_recovery", "time_ordering"),
-        intent="State-changing operations should survive repeated requests, retries, refreshes, or replay without silently multiplying the side effect.",
-        observe=(
-            "duplicate submission protections",
-            "idempotency/replay behavior in public technical documentation",
-            "visible repeated-action state",
+        official_sources=(
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Time and ordering / Challenge scenarios", LIB+"ENGINEERING-REASONING.html"),
+            source("src/hcai_readiness/criteria.json", "HCAI-3.1 / HCAI-3.2", RESEARCH+"/developers#rules"),
         ),
-        pass_condition="The inspected evidence defines or demonstrates safe behavior for repeated consequential operations.",
-        warning_condition="Retry/repeat handling is described incompletely or only at walkthrough level.",
+        intent="When an operation can repeat or race, the product must have an inspectable model for how many state changes should actually occur.",
+        observe=(
+            "repeat/retry behavior exposed in product or technical documentation",
+            "duplicate submission or repeated action handling when observable",
+            "ordering/concurrency guarantees when publicly documented",
+        ),
+        pass_condition="The inspected evidence explicitly defines or demonstrates safe repeated/concurrent behavior for the consequential operation.",
+        warning_condition="Repeat/retry handling is mentioned but the expected invariant, authority, or evidence level is incomplete.",
         critical_permitted=True,
-        decision_underneath="The system must decide whether two apparently identical requests represent one intended action or two.",
-        must_be_true="A repeated request must map to the intended number of state changes even across retries, refreshes, or transport ambiguity.",
-        failure_condition="One intended operation can create duplicate financial, data, messaging, or account side effects.",
-        prove_next="Execute the same consequential request twice against the exact implementation and retain request identity, side-effect identity, and final state.",
-        claim_limit="Absence of public idempotency documentation is unknown, not proof that duplicate protection does not exist.",
+        decision_underneath="The system must decide whether repeated or concurrent requests represent one intended transition or several.",
+        must_be_true="The number and ordering of state changes must remain consistent with the intended operation despite retries, duplicates, races, or late responses.",
+        failure_condition="One intended operation can produce duplicate or contradictory state changes.",
+        prove_next="Execute a bounded same-request-twice or ordering challenge and retain request identity, side-effect identity, and final state.",
+        claim_limit="No public retry statement means unknown; it is not proof that duplicate protection is absent.",
     ),
     PublicRule(
         id="ACT-PARTIAL-03",
         module="action_recovery",
-        title="Partial completion has a reconciliation path",
+        title="Partial completion has an owned reconciliation path",
         hard_lenses=("workflow_architecture", "implementation_evidence"),
         hard_criteria=("HCAI-3.1", "HCAI-3.2"),
-        decision_surfaces=("truth", "state", "failure_recovery"),
-        intent="Multi-step consequential actions need an inspectable answer for what happens when execution stops after some state has already changed.",
-        observe=(
-            "partial-failure documentation",
-            "rollback/compensation/reconciliation behavior",
-            "user-visible state after interrupted execution",
+        decision_surfaces=("truth", "ownership", "state", "failure_recovery"),
+        official_sources=(
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Failure and recovery / Challenge scenarios", LIB+"ENGINEERING-REASONING.html"),
+            source("src/hcai_readiness/criteria.json", "HCAI-3.1 / HCAI-3.2", RESEARCH+"/developers#rules"),
         ),
-        pass_condition="The inspected evidence defines how partially completed work is reconciled to a coherent state.",
-        warning_condition="A recovery path is described but ownership, authoritative final state, or proof is incomplete.",
+        intent="A multi-step consequential operation needs an explicit answer for what remains true when execution stops halfway.",
+        observe=(
+            "partial-failure behavior described publicly",
+            "rollback, compensation, reconciliation, or manual recovery",
+            "which state/result is shown to the person after interruption",
+        ),
+        pass_condition="The inspected evidence defines how partial completion is detected and reconciled to an explainable state.",
+        warning_condition="A recovery idea is described, but authoritative final state, ownership, or proof remains incomplete.",
         critical_permitted=True,
-        decision_underneath="The system must decide which state is authoritative after only part of a multi-step action succeeds.",
-        must_be_true="Interrupted work must converge to an explainable state with an owner and bounded recovery path.",
-        failure_condition="Different systems or representations can disagree after partial completion, leaving the user unable to know what actually happened.",
-        prove_next="Interrupt one multi-step action after a state change and retain the reconciliation outcome across affected systems.",
-        claim_limit="A public rollback statement is specified/documented evidence only unless the exact recovery is executed.",
+        decision_underneath="The system must decide which state is authoritative after only part of a multi-step operation succeeds.",
+        must_be_true="Interrupted work must converge to a coherent state with a named owner and bounded recovery path.",
+        failure_condition="Different components or representations can disagree after partial completion and no accountable recovery model resolves them.",
+        prove_next="Interrupt one multi-step action after a state change and retain the resulting state plus reconciliation evidence.",
+        claim_limit="A public rollback/recovery statement is specified/documented evidence, not proof that recovery executed correctly.",
     ),
     PublicRule(
         id="ACT-DEPENDENCY-04",
         module="action_recovery",
-        title="Dependency delay and outage behavior is bounded",
+        title="Slow, unavailable, or ambiguous dependencies have a bounded response",
         hard_lenses=("workflow_architecture", "implementation_evidence"),
         hard_criteria=("HCAI-3.1", "HCAI-3.2"),
         decision_surfaces=("contract", "failure_recovery", "time_ordering"),
-        intent="A product depending on external services should have a bounded response to timeout, unavailability, and delayed completion.",
-        observe=(
-            "timeout/fallback/retry language",
-            "status communication for delayed dependencies",
-            "safe exit or escalation path",
+        official_sources=(
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "When engineering deepening applies / Contract / Time and ordering", LIB+"ENGINEERING-REASONING.html"),
+            source("protocol/0.3-preview.1/START-HERE.md", "Minimum review timeout example", LIB+"START-HERE.html"),
         ),
-        pass_condition="The inspected evidence defines a bounded timeout/failure response and a safe next state.",
-        warning_condition="Dependency failure is acknowledged but retry, timeout, fallback, or ownership is ambiguous.",
-        decision_underneath="The product has chosen how long to wait, when to retry, and what state to expose when a dependency does not respond normally.",
-        must_be_true="Waiting, retry, fallback, and final-state communication must not create contradictory or endless behavior.",
-        failure_condition="A dependency outage can leave the product spinning indefinitely, retrying unsafely, or reporting success before authoritative completion.",
-        prove_next="Run a bounded dependency timeout/unavailable scenario and retain the visible state plus resulting system state.",
-        claim_limit="Public status language can show intended handling; runtime behavior remains unverified until executed.",
-    ),
-    PublicRule(
-        id="ACT-RECOURSE-05",
-        module="action_recovery",
-        title="People can interrupt, correct, decline, or escalate",
-        hard_lenses=("people_operation", "experience_information"),
-        hard_criteria=("HCAI-1.4", "HCAI-3.2"),
-        decision_surfaces=("ownership", "boundary", "failure_recovery"),
-        intent="Human agency must remain explicit where the product can create consequential outcomes.",
+        intent="External/asynchronous dependencies can create decision ambiguity even when the visible happy path looks finished.",
         observe=(
-            "cancel/decline/correct controls",
-            "human escalation or support path",
-            "recourse after automated action",
+            "timeout, unavailable-dependency, delayed-completion, or fallback behavior",
+            "retry/exit/escalation language",
+            "whether success is distinguished from unknown/late completion",
         ),
-        pass_condition="The inspected surface gives a meaningful path to correct, decline, interrupt, or escalate consequential behavior.",
-        warning_condition="Recourse exists but is delayed, hidden, generic, or unclear about what state will be preserved.",
+        pass_condition="The inspected evidence defines a bounded response to dependency delay/unavailability and an explainable resulting state.",
+        warning_condition="Dependency failure is acknowledged but waiting, retry, fallback, or final-state communication is ambiguous.",
         critical_permitted=True,
-        decision_underneath="The product has chosen when a person may override or challenge automated or workflow behavior.",
-        must_be_true="A person affected by a consequential action must have a realistic path to intervene or seek correction when context requires it.",
-        failure_condition="The system can create a consequential outcome with no meaningful way for the affected person to interrupt, correct, or challenge it.",
-        prove_next="Walk an escalation/correction path end to end and retain the resulting state and responsible owner.",
-        claim_limit="A support link alone does not prove effective recourse.",
+        decision_underneath="The product chooses how long to wait, what to trust after an ambiguous response, and when to retry or exit.",
+        must_be_true="A delayed or missing response must not be silently interpreted as success/failure when the external action may have a different authoritative state.",
+        failure_condition="The product retries unsafely, waits indefinitely, or exposes the wrong state after an ambiguous dependency result.",
+        prove_next="Run a bounded timeout/unavailable-dependency scenario and retain both visible state and authoritative final state.",
+        claim_limit="Public failure copy shows intended handling only; actual dependency behavior remains unverified until executed.",
     ),
     PublicRule(
         id="DATA-PURPOSE-01",
         module="privacy_data",
-        title="Public data use has a bounded purpose",
+        title="Data handling is bounded to the reviewed workflow and affected people",
         hard_lenses=("people_operation", "workflow_architecture"),
-        hard_criteria=("HCAI-1.4", "HCAI-3.2"),
+        hard_criteria=("HCAI-1.1", "HCAI-1.4"),
         decision_surfaces=("boundary", "ownership"),
-        intent="People should be able to understand what data the product uses for the reviewed workflow and why.",
-        observe=(
-            "privacy/product documentation naming data classes and purposes",
-            "product-specific versus company-wide ambiguity",
-            "training or secondary-use statements when relevant",
+        official_sources=(
+            source("src/hcai_readiness/criteria.json", "HCAI-1.1 Bound the task / HCAI-1.4 affected people and privacy/security", RESEARCH+"/developers#rules"),
+            source("protocol/0.3-preview.1/FULL-PROFILE.md", "G2 need, scope and requirements / impact reviews", LIB+"FULL-PROFILE.html"),
         ),
-        pass_condition="Public documentation identifies the relevant data classes and a bounded use purpose for the product/workflow.",
-        warning_condition="A general privacy statement exists but product-specific purpose or secondary use is ambiguous.",
-        decision_underneath="The product has chosen which data is necessary for the workflow and what uses are inside versus outside that purpose.",
-        must_be_true="Data use and secondary use must remain within the disclosed and authorized boundary for the reviewed context.",
-        failure_condition="People cannot tell whether data collected for one task may be reused, retained, or exposed for another.",
-        prove_next="Provide the product-level data inventory, purpose mapping, and owner for the reviewed workflow.",
-        claim_limit="Public documentation supports disclosure observations, not a privacy-compliance determination.",
+        intent="The report should distinguish the reviewed workflow's data boundary from a generic privacy promise.",
+        observe=(
+            "public description of relevant data classes and uses",
+            "whether the product-specific workflow is distinguishable from company-wide policy",
+            "affected-role or control language where visible",
+        ),
+        pass_condition="The public evidence gives a bounded description of data handling relevant to the reviewed workflow.",
+        warning_condition="A general privacy statement exists but the reviewed workflow's data boundary remains difficult to interpret.",
+        decision_underneath="The product has chosen what data is inside the workflow boundary, who is affected, and who owns relevant handling decisions.",
+        must_be_true="The reviewed workflow must not rely on an unstated data boundary when privacy/security impact is relevant.",
+        failure_condition="People cannot tell what data boundary applies to the consequential workflow being reviewed.",
+        prove_next="Provide the workflow-level data boundary, affected roles, owner, and evidence used to support the privacy/security applicability judgment.",
+        claim_limit="This is a H.A.R.D. scope/evidence observation, not a privacy-law compliance determination.",
     ),
     PublicRule(
-        id="DATA-DELETE-02",
+        id="DATA-TRUTH-02",
         module="privacy_data",
-        title="Deletion or correction has a visible path and boundary",
-        hard_lenses=("people_operation", "workflow_architecture"),
-        hard_criteria=("HCAI-1.4", "HCAI-3.2"),
-        decision_surfaces=("truth", "ownership", "boundary"),
-        intent="A deletion/correction promise should identify how a person requests it and what system boundary the promise covers.",
-        observe=(
-            "request path",
-            "retention/deletion statement",
-            "downstream/subprocessor propagation statement when public",
-        ),
-        pass_condition="The public surface documents how to request correction/deletion and gives a meaningful retention or scope boundary.",
-        warning_condition="A request path exists but retention timing, exceptions, or propagation is too broad to interpret.",
-        decision_underneath="The product has chosen which representation is authoritative after a person asks to remove or correct data.",
-        must_be_true="The user-facing promise must map to an owned process and a coherent authoritative state across relevant representations.",
-        failure_condition="The user believes data was changed or deleted while downstream or derived representations remain inconsistent without disclosure.",
-        prove_next="Provide the deletion/correction propagation map and a retained verification for one bounded request.",
-        claim_limit="Public policy language cannot prove propagation across internal systems.",
-    ),
-    PublicRule(
-        id="DATA-TRUTH-03",
-        module="privacy_data",
-        title="Authoritative data truth is identifiable for consequential state",
+        title="Authoritative truth and mutation ownership can be identified",
         hard_lenses=("workflow_architecture",),
         hard_criteria=("HCAI-2.1", "HCAI-3.2"),
         decision_surfaces=("truth", "ownership", "state"),
-        score_included=False,
-        intent="When multiple representations exist, the review should identify which one wins and who may change it.",
-        observe=(
-            "public architecture/API docs when available",
-            "language describing source of record or synchronization",
-            "visible contradictory representations",
+        official_sources=(
+            source("docs/research-content.gohtml", "Workflow and architecture: what is true, and who may change it?", RESEARCH+"#criteria"),
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Truth / Ownership / State", LIB+"ENGINEERING-REASONING.html"),
         ),
-        pass_condition="The supplied/public evidence identifies the authoritative representation and mutation owner for the consequential state.",
-        warning_condition="Multiple representations are visible or documented without a clear authority/reconciliation model.",
-        decision_underneath="The system has chosen which record is authoritative when representations disagree.",
-        must_be_true="Every consequential representation must either be authoritative or have a defined relationship to the authority.",
-        failure_condition="Two representations can disagree and different actors act on different truths.",
-        prove_next="Provide a source-of-truth map and demonstrate one disagreement/reconciliation scenario.",
-        claim_limit="This is a H.A.R.D.-style advisory prompt; lack of public architecture evidence remains unknown and should not reduce the public score.",
+        score_included=False,
+        intent="A consequential choice may depend on more than one representation of state; H.A.R.D. asks which one is authoritative and who can mutate it.",
+        observe=(
+            "public architecture/API/workflow statements identifying authoritative state",
+            "visible cases where multiple representations may disagree",
+            "ownership or reconciliation language when available",
+        ),
+        pass_condition="The supplied evidence identifies authoritative truth and mutation ownership for the consequential state.",
+        warning_condition="More than one representation is involved but authority or reconciliation remains unclear.",
+        decision_underneath="The product has chosen which record/rule wins when representations disagree.",
+        must_be_true="Consequential state must have an inspectable authority and an owned mutation/reconciliation model.",
+        failure_condition="Different actors or components can act on contradictory representations of the same consequential state.",
+        prove_next="Provide a source-of-truth/ownership map and challenge one disagreement or stale-representation scenario.",
+        claim_limit="Internal source-of-truth architecture is usually not public; lack of public evidence remains unknown and must not lower the public score.",
     ),
     PublicRule(
-        id="AI-DISCLOSURE-01",
+        id="AI-ROLE-01",
         module="ai_transparency",
-        title="AI role is disclosed at the point it matters",
+        title="The AI role is bounded in the reviewed workflow",
         hard_lenses=("experience_information", "people_operation"),
         hard_criteria=("HCAI-1.1", "HCAI-1.4"),
-        intent="People should be able to distinguish an AI-assisted/automated role when that knowledge changes how they interpret, verify, or challenge the interaction.",
-        observe=(
-            "AI/automated-agent labeling",
-            "role disclosure near consequential interactions",
-            "human handoff distinction",
+        decision_surfaces=("boundary",),
+        official_sources=(
+            source("protocol/0.3-preview.1/PROTOCOL.md", "Scope and artifact population", RESEARCH+"/protocol"),
+            source("protocol/0.3-preview.1/FULL-PROFILE.md", "Define scope and AI role", LIB+"FULL-PROFILE.html"),
         ),
-        pass_condition="The inspected flow identifies the AI/automation role where it materially affects interpretation or recourse.",
-        warning_condition="AI is disclosed only in distant policy/marketing copy while the consequential interaction itself is ambiguous.",
-        decision_underneath="The product has chosen what a person needs to know about who/what is producing the interaction or taking the action.",
-        must_be_true="The disclosure must appear early enough to change verification, consent, or recourse behavior when those are consequential.",
-        failure_condition="A person reasonably treats an automated judgment/action as a human-authored or independently verified one.",
-        prove_next="Review the exact consequential flow with the disclosure visible and retain the user-facing state.",
-        claim_limit="Disclosure quality is context-specific; this is not a legal transparency determination.",
+        intent="H.A.R.D. distinguishes AI that created an artifact from AI operating inside the runtime workflow and asks the review to bound that role.",
+        observe=(
+            "whether AI is described as artifact creation, runtime behavior, or both",
+            "what task/decision/action the AI is said to perform",
+            "where human control or fallback begins when visible",
+        ),
+        pass_condition="The inspected public surface gives a bounded description of the AI role in the workflow.",
+        warning_condition="AI is marketed broadly but its actual runtime role, authority, or boundary is ambiguous.",
+        decision_underneath="The product has chosen which part of the workflow AI participates in and what responsibility remains elsewhere.",
+        must_be_true="Claims about AI capability and control must be tied to the actual role being reviewed rather than inferred from AI authorship or branding.",
+        failure_condition="A user or reviewer cannot tell whether AI merely generated an artifact, recommends an action, or executes consequential runtime behavior.",
+        prove_next="State the exact AI role and walk one representative workflow showing where AI begins, ends, escalates, or hands off.",
+        claim_limit="This rule scopes the AI role; it does not establish model quality or regulatory transparency compliance.",
     ),
     PublicRule(
-        id="AI-CAPABILITY-02",
+        id="AI-FALLBACK-02",
         module="ai_transparency",
-        title="AI capability claims are bounded to observable scope",
-        hard_lenses=("experience_information", "implementation_evidence"),
-        hard_criteria=("HCAI-2.1", "HCAI-4.4"),
-        intent="Marketing/product claims should not imply broader autonomy, accuracy, or evidence than the reviewed product surface supports.",
-        observe=(
-            "capability language",
-            "scope qualifiers and exclusions",
-            "whether claims distinguish draft/help/recommendation from autonomous action",
-        ),
-        pass_condition="Public capability language is bounded to a clear task/context and does not imply stronger evidence than is shown.",
-        warning_condition="Claims are broad, absolute, or mix assistance with autonomous authority without clear scope.",
-        decision_underneath="The company has chosen how much trust and authority its public wording asks users to grant the product.",
-        must_be_true="The claim scope must not exceed the behavior and evidence users can reasonably expect from the product.",
-        failure_condition="People rely on a broader capability or level of assurance than the product can support.",
-        prove_next="Provide the claim definition, applicable population/context, and retained evidence used to support it.",
-        claim_limit="The rule evaluates claim boundedness, not underlying model quality by itself.",
-    ),
-    PublicRule(
-        id="AI-SOURCE-03",
-        module="ai_transparency",
-        title="Consequential AI output exposes its evidence/source boundary",
-        hard_lenses=("implementation_evidence", "experience_information"),
-        hard_criteria=("HCAI-2.1", "HCAI-2.2"),
-        portfolio_principles=(
-            "T-Mobile AI Copilot case: every answer links back to source data",
-            "trust should come from inspectability rather than unverifiable expert claims",
-        ),
-        intent="Where an AI answer informs a consequential decision, the product should expose what source/evidence supports the answer or clearly state when it cannot.",
-        observe=(
-            "source links/citations/data provenance",
-            "answer-to-source relationship",
-            "fallback when no adequate source is available",
-        ),
-        pass_condition="The inspected consequential answer exposes its source/evidence boundary or explicitly declines unsupported specificity.",
-        warning_condition="Source information exists but is detached, generic, or too weak to inspect the consequential claim.",
-        decision_underneath="The product has chosen whether users can verify the basis of an AI-mediated answer.",
-        must_be_true="A consequential answer should not ask for more trust than its inspectable evidence can support.",
-        failure_condition="A confident answer can drive action while the user cannot inspect or challenge its basis.",
-        prove_next="Retain one answer with its exact source chain and one low-evidence case showing the fallback behavior.",
-        claim_limit="A citation/link can improve inspectability but does not prove the source itself is correct.",
-    ),
-    PublicRule(
-        id="AI-RECOVERY-04",
-        module="ai_transparency",
-        title="AI uncertainty has a bounded fallback",
-        hard_lenses=("people_operation", "workflow_architecture"),
+        title="Runtime AI uncertainty has recourse and fallback",
+        hard_lenses=("workflow_architecture", "people_operation"),
         hard_criteria=("HCAI-1.4", "HCAI-3.1", "HCAI-3.2"),
         decision_surfaces=("boundary", "failure_recovery"),
-        intent="An AI-mediated flow should define what happens when confidence, source quality, or task fit is inadequate.",
-        observe=(
-            "uncertainty language",
-            "refusal/fallback/handoff",
-            "preservation of context during escalation",
+        official_sources=(
+            source("protocol/0.3-preview.1/PROTOCOL.md", "Runtime AI: output uncertainty, external dependencies, authority, user recourse and fallback", RESEARCH+"/protocol"),
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Failure and recovery / Boundary", LIB+"ENGINEERING-REASONING.html"),
         ),
-        pass_condition="The inspected flow has a bounded fallback or escalation when the AI cannot support the requested action/answer.",
-        warning_condition="The product acknowledges uncertainty but recovery or handoff is generic or loses task context.",
+        intent="A runtime AI product should make uncertainty, recourse, and fallback inspectable where those conditions affect consequential behavior.",
+        observe=(
+            "fallback/refusal/escalation behavior",
+            "user recourse when the AI cannot support the request",
+            "whether context/state is preserved through fallback",
+        ),
+        pass_condition="The inspected flow exposes a bounded fallback or recourse path for unsupported or uncertain runtime AI behavior.",
+        warning_condition="Uncertainty is acknowledged but fallback, escalation, or preserved state is ambiguous.",
         critical_permitted=True,
-        decision_underneath="The product has chosen the boundary between AI continuation and human/alternative handling.",
-        must_be_true="Low-evidence or unsupported situations must route to a safe next state without fabricating certainty.",
-        failure_condition="The system continues with consequential confidence despite missing basis or no adequate path to recovery.",
-        prove_next="Run one unsupported/low-evidence case and retain the fallback/handoff state through completion.",
-        claim_limit="Public fallback copy can show intended behavior; executed evidence is needed to establish actual behavior.",
+        decision_underneath="The product has chosen the boundary between AI continuation and alternative/human handling.",
+        must_be_true="Unsupported or uncertain cases must reach a safe next state without inventing certainty or silently expanding authority.",
+        failure_condition="The system continues consequential behavior despite insufficient basis and no meaningful fallback or recourse.",
+        prove_next="Run one unsupported/uncertain case and retain the fallback or escalation state through completion.",
+        claim_limit="Public fallback text can show intended behavior; implementation/runtime evidence is needed to establish actual handling.",
     ),
     PublicRule(
-        id="AI-CLAIM-05",
+        id="AI-CLAIM-03",
         module="ai_transparency",
-        title="Performance claims identify their measurement basis",
-        hard_lenses=("implementation_evidence",),
-        hard_criteria=("HCAI-2.2", "HCAI-4.4"),
-        intent="A numeric performance claim should identify enough context to understand what was measured.",
-        observe=(
-            "metric definition",
-            "population/task/context",
-            "date/version or measurement window",
-            "method/reference when public",
+        title="Public AI claims stay proportional to the evidence shown",
+        hard_lenses=("implementation_evidence", "experience_information"),
+        hard_criteria=("HCAI-2.2", "HCAI-4.4", "HCAI-4.5"),
+        official_sources=(
+            source("docs/claims-and-governance.md", "Match the claim to the evidence", LIB+"claims-and-governance.html"),
+            source("src/hcai_readiness/criteria.json", "HCAI-4.4 / HCAI-4.5", RESEARCH+"/developers#rules"),
         ),
-        pass_condition="The public claim identifies the metric and enough population/context/version information to interpret it.",
-        warning_condition="A numeric or superlative performance claim is shown without enough measurement context to understand what it represents.",
-        decision_underneath="The company has chosen how much evidence is attached to a public claim that may influence product trust.",
-        must_be_true="The reported number must remain bound to the population, task, version, and method that produced it.",
-        failure_condition="Users generalize a narrow or stale measurement to contexts it never tested.",
-        prove_next="Publish or provide the metric definition, evaluated population/task, version/date, and retained measurement method.",
-        claim_limit="This rule checks claim traceability, not whether the measurement design is statistically adequate.",
+        intent="A polished public claim should not imply operational performance, certification, or deployment readiness that the visible evidence cannot support.",
+        observe=(
+            "performance/capability claims and their stated basis",
+            "whether artifact completeness is presented as runtime proof",
+            "whether claim scope/version/population is visible when relevant",
+        ),
+        pass_condition="The public claim is bounded to the evidence type and scope actually presented.",
+        warning_condition="The claim language is broader or more certain than the inspectable evidence basis.",
+        decision_underneath="The product has chosen how much trust its public claim asks users to place in the evidence.",
+        must_be_true="The claim must remain proportional to the evidence type, stage, population, and version that support it.",
+        failure_condition="People infer runtime performance, certification, or broader capability from evidence that only supports a narrower statement.",
+        prove_next="Attach the claim to its exact evidence type, scope, version, population, and measurement/check record.",
+        claim_limit="This evaluates evidence proportionality, not the truth of an inaccessible underlying study or model.",
     ),
     PublicRule(
-        id="AI-NAV-06",
-        module="ai_transparency",
-        title="Natural language has a defined product job",
-        hard_lenses=("experience_information",),
-        hard_criteria=("HCAI-1.3", "HCAI-2.1"),
-        portfolio_principles=(
-            "T-Mobile case library: natural language earns its place when it removes navigation rather than merely adding a chat box",
-            "quick replies teach useful question shapes through use",
-        ),
-        score_included=False,
-        intent="An AI conversational surface should solve a concrete navigation/decision problem rather than exist as an ornamental second interface.",
-        observe=(
-            "what task the assistant shortcuts",
-            "relationship to existing navigation/workflow",
-            "discovery guidance such as useful prompts or quick replies",
-        ),
-        pass_condition="The conversational surface removes or compresses a real task cost and preserves access to the underlying source/workflow.",
-        warning_condition="The assistant duplicates existing search/navigation without a clear user need or creates a disconnected second mental model.",
-        decision_underneath="The team has chosen what interaction cost natural language is meant to remove.",
-        must_be_true="The AI surface must make the user job easier without hiding the system state or source needed to act.",
-        failure_condition="The chat layer adds ambiguity or another navigation layer without improving the underlying decision.",
-        prove_next="Compare the same task with and without the AI surface and retain task steps, time, and source visibility.",
-        claim_limit="This is an advisory design/product rule, not a universal requirement that every AI product reduce navigation.",
-    ),
-    PublicRule(
-        id="EVID-VERSION-01",
+        id="EVID-STAGE-01",
         module="public_evidence",
-        title="Public evidence identifies the version or change boundary",
+        title="Evidence stages are not collapsed into one maturity claim",
+        hard_lenses=("implementation_evidence",),
+        hard_criteria=("HCAI-2.3", "HCAI-4.4"),
+        official_sources=(
+            source("protocol/0.3-preview.1/PROTOCOL.md", "Four evidence levels stay independent", RESEARCH+"/protocol"),
+            source("protocol/0.3-preview.1/ARTIFACT-REVIEW.md", "Keep four evidence columns", RESEARCH+"/artifact-review"),
+        ),
+        intent="Specified, walkthrough, implemented, and runtime-tested evidence answer different questions and must remain visibly distinct.",
+        observe=(
+            "whether public evidence labels specification/demo/implementation/runtime test distinctly",
+            "whether a prototype/demo is described as if it proves runtime behavior",
+            "whether actual execution evidence is tied to the exact context",
+        ),
+        pass_condition="The inspected evidence clearly distinguishes its evidence stage and does not upgrade one stage by implication.",
+        warning_condition="The product presents a demo, prototype, generated implementation, or document completeness as stronger evidence than it actually is.",
+        decision_underneath="The product has chosen what level of proof a public artifact is supposed to establish.",
+        must_be_true="Evidence from one stage must not silently stand in for a later stage.",
+        failure_condition="A reviewer treats a specified or walkthrough result as implemented/runtime proof and makes a broader commitment than the evidence supports.",
+        prove_next="Label the current evidence stage and add the smallest next check needed to move to the next claimed level.",
+        claim_limit="This is an evidence-labeling judgment; it does not establish that all defects were found.",
+    ),
+    PublicRule(
+        id="EVID-TRACE-02",
+        module="public_evidence",
+        title="Important evidence is bound to the exact artifact or decision context",
         hard_lenses=("implementation_evidence",),
         hard_criteria=("HCAI-2.2", "HCAI-4.5"),
-        intent="A report or product claim should be tied to a version/change boundary so later changes do not silently inherit stale evidence.",
-        observe=(
-            "version/release/date identity",
-            "change history",
-            "links to exact reviewed documentation or artifact",
+        decision_surfaces=("contract",),
+        official_sources=(
+            source("src/hcai_readiness/criteria.json", "HCAI-2.2 Trace the exact artifact to a check", RESEARCH+"/developers#rules"),
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Evidence mapping", LIB+"ENGINEERING-REASONING.html"),
         ),
-        pass_condition="The inspected public evidence identifies a release/date/version boundary sufficient to distinguish materially different states.",
-        warning_condition="Documentation exists but it is difficult to tell which release or change state the claim refers to.",
-        decision_underneath="The product has chosen how users/reviewers distinguish current evidence from stale evidence.",
-        must_be_true="Material changes must not silently inherit a previous check or claim.",
-        failure_condition="A passing statement remains visible after the artifact or context changed in a way that invalidates the evidence.",
-        prove_next="Retain the exact release identity and link evidence to the version it actually checked.",
-        claim_limit="Version labels improve provenance but do not authenticate the truth of the evidence.",
+        intent="A passing check becomes stale when a material choice, assumption, context, requirement, or artifact changes.",
+        observe=(
+            "version/date/revision identity on public evidence",
+            "whether a validation/check names what it actually evaluated",
+            "whether changed context is distinguishable from the earlier checked state",
+        ),
+        pass_condition="The inspected evidence identifies the artifact/revision or context it actually supports.",
+        warning_condition="Evidence exists but its relationship to the current version or decision context is ambiguous.",
+        decision_underneath="The product has chosen whether evidence remains reconstructable after the artifact or context changes.",
+        must_be_true="A changed consequential choice, assumption, state context, dependency, authority boundary, or artifact must not silently inherit an old pass.",
+        failure_condition="A stale result is treated as evidence for a materially changed product state.",
+        prove_next="Bind the next check to the exact artifact/version and decision context, retaining the prior record separately.",
+        claim_limit="Version identity improves provenance; it does not authenticate evidence truth by itself.",
     ),
     PublicRule(
-        id="EVID-LIMITS-02",
+        id="EVID-UNKNOWN-03",
         module="public_evidence",
-        title="Known limitations and support boundaries are stated",
-        hard_lenses=("experience_information", "people_operation"),
-        hard_criteria=("HCAI-1.1", "HCAI-4.5"),
-        intent="Public product evidence should make important scope limits visible instead of allowing a polished surface to imply universal capability.",
-        observe=(
-            "known limitations",
-            "unsupported contexts",
-            "status/incident/support boundary",
-        ),
-        pass_condition="The inspected public material states meaningful limitations or scope boundaries relevant to the product's claims.",
-        warning_condition="The product makes broad claims while limitations, exclusions, or support boundaries are difficult to locate or interpret.",
-        decision_underneath="The company has chosen which unsupported or uncertain contexts users need to know before relying on the product.",
-        must_be_true="The public promise must remain proportional to the declared scope and evidence.",
-        failure_condition="Users treat an unsupported context as covered because the public surface never exposes the boundary.",
-        prove_next="Publish the highest-consequence known limitations and the owner/process for revisiting them.",
-        claim_limit="Absence of a public limitations page is a transparency signal, not proof of unsafe implementation.",
-    ),
-    PublicRule(
-        id="EVID-TRACE-03",
-        module="public_evidence",
-        title="Important public claims can be traced to supporting material",
+        title="Unknowns remain visible instead of becoming pass or fail",
         hard_lenses=("implementation_evidence",),
-        hard_criteria=("HCAI-2.1", "HCAI-2.2", "HCAI-4.5"),
-        portfolio_principles=(
-            "takyejun.com design system: sources stay traceable to original project files",
-            "trust comes from source-linked evidence, not decorative confidence",
-        ),
-        intent="A recipient should be able to inspect the source behind a consequential public claim without reverse engineering the site.",
-        observe=(
-            "source links/references",
-            "artifact/date/version identity",
-            "preserved original versus summary distinction",
-        ),
-        pass_condition="Consequential public claims point to inspectable supporting material with enough identity to understand the basis.",
-        warning_condition="A source is named but cannot be inspected, dated, or connected clearly to the claim.",
-        decision_underneath="The product has chosen whether claims are inspectable or authority-based.",
-        must_be_true="The evidence relationship must remain reconstructable after the summary is separated from its source.",
-        failure_condition="A reviewer cannot tell whether a confident summary came from measured evidence, a draft, a simulation, or marketing copy.",
-        prove_next="Link the claim to the exact supporting artifact/version and preserve the source identity in the report.",
-        claim_limit="Traceability supports review; it does not make the underlying source independently valid.",
-    ),
-    PublicRule(
-        id="EVID-CHOICE-04",
-        module="public_evidence",
-        title="A consequential prioritization has an inspectable rationale",
-        hard_lenses=("experience_information", "implementation_evidence"),
-        hard_criteria=("HCAI-2.1", "HCAI-4.3"),
-        portfolio_principles=(
-            "takyejun.com case studies treat numbers such as recommendation limits as design decisions when grounded in observed behavior",
-            "context-specific decisions should remain context-specific rather than become universal prescriptions",
+        hard_criteria=("HCAI-4.2", "HCAI-4.5"),
+        official_sources=(
+            source("protocol/0.3-preview.1/START-HERE.md", "Unknown is visible, not a pass", LIB+"START-HERE.html"),
+            source("protocol/0.3-preview.1/ARTIFACT-REVIEW.md", "Unassessed items remain counted", RESEARCH+"/artifact-review"),
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Do not turn every unknown into a defect", LIB+"ENGINEERING-REASONING.html"),
         ),
         score_included=False,
-        intent="When a product visibly limits, ranks, hides, or promotes options, the review should ask what decision criterion supports that prioritization.",
+        intent="The report must preserve uncertainty instead of rewarding missing evidence or inventing a defect from inaccessible evidence.",
         observe=(
-            "ranked/recommended options",
-            "hard limits or defaults",
-            "public rationale or measurable criterion when available",
+            "whether inaccessible/internal facts are explicitly marked unknown/unassessed",
+            "whether unknowns name the next evidence needed",
+            "whether the report avoids converting absence of public evidence into a factual absence claim",
         ),
-        pass_condition="The supplied evidence connects the prioritization to a user need, measurable criterion, or explicit product tradeoff.",
-        warning_condition="A consequential limit/default/rank appears arbitrary or its rationale cannot be reconstructed from available evidence.",
-        decision_underneath="The product has chosen which options deserve attention or exclusion at a decision point.",
-        must_be_true="The prioritization must fit the user need and consequence rather than merely encode a convenient implementation default.",
-        failure_condition="A hidden/default/ranked choice systematically pushes users toward an outcome without a defensible criterion.",
-        prove_next="Retain the decision rationale, alternative considered, and one bounded test showing why the prioritization fits the task.",
-        claim_limit="This is an advisory H.A.R.D.-style prompt. It must never enforce a fixed number of recommendations across products.",
+        pass_condition="Unassessed facts remain visibly unknown and name a bounded next evidence action.",
+        warning_condition="The report blurs not-observed, not-applicable, failed, and passed conditions.",
+        decision_underneath="The review has chosen whether uncertainty is preserved or hidden inside a score.",
+        must_be_true="Missing evidence must remain distinguishable from demonstrated failure and from justified non-applicability.",
+        failure_condition="The report becomes overconfident because inaccessible evidence is silently converted into pass or fail.",
+        prove_next="Record the missing evidence, owner, and exact check/artifact that would resolve the unknown.",
+        claim_limit="This is a report-integrity rule and is intentionally excluded from the numeric Product Signal Grade.",
+    ),
+    PublicRule(
+        id="HARD-ASSUMPTION-04",
+        module="public_evidence",
+        title="Consequential assumptions are stated as revisitable claims",
+        hard_lenses=("workflow_architecture", "implementation_evidence"),
+        hard_criteria=("HCAI-2.1", "HCAI-4.2"),
+        decision_surfaces=("truth", "state", "boundary", "contract", "failure_recovery", "time_ordering"),
+        official_sources=(
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Assumptions are first-class claims", LIB+"ENGINEERING-REASONING.html"),
+            source("protocol/0.3-preview.1/WORKSHEET.md", "Engineering reasoning deepening", RESEARCH+"/worksheet"),
+        ),
+        score_included=False,
+        intent="A consequential assumption should be inspectable as a claim with status, consequence-if-false, evidence, and revisit trigger.",
+        observe=(
+            "explicit assumptions in supplied/public technical evidence",
+            "whether an assumption is supported, conflicted, or still unassessed",
+            "whether a revisit trigger/evidence need is named",
+        ),
+        pass_condition="The consequential assumption is separately stated with evidence status, consequence-if-false, and revisit trigger.",
+        warning_condition="A material assumption is buried in rationale or treated as true without an inspectable evidence lifecycle.",
+        decision_underneath="The current product choice depends on a statement about the system or context remaining true.",
+        must_be_true="The assumption must remain evidence-bounded and reopen when its trigger changes.",
+        failure_condition="A hidden assumption silently controls a consequential choice after the surrounding context changes or conflicts with it.",
+        prove_next="Record the assumption separately, name the evidence needed, and define what change should reopen it.",
+        claim_limit="This is an advisory deepening rule and is excluded from the public numeric grade unless actual H.A.R.D. evidence is supplied.",
+    ),
+    PublicRule(
+        id="HARD-CHALLENGE-05",
+        module="public_evidence",
+        title="A consequential choice has a bounded disconfirming challenge",
+        hard_lenses=("workflow_architecture", "implementation_evidence"),
+        hard_criteria=("HCAI-4.2", "HCAI-4.3"),
+        official_sources=(
+            source("docs/research-content.gohtml", "Challenge the model", RESEARCH+"#method"),
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Challenge scenarios", LIB+"ENGINEERING-REASONING.html"),
+        ),
+        score_included=False,
+        intent="H.A.R.D. asks what would have to be true for an important choice or model to be wrong, then bounds the evidence needed to check it.",
+        observe=(
+            "stated failure/challenge scenarios in supplied evidence",
+            "expected invariant/behavior",
+            "consequence and evidence level when assessed",
+        ),
+        pass_condition="The consequential choice has a bounded challenge with an invariant, consequence, and explicit evidence level when assessed.",
+        warning_condition="The rationale is persuasive but no disconfirming condition or bounded check is retained.",
+        decision_underneath="The team has chosen what evidence could falsify the current model rather than only collecting confirming explanations.",
+        must_be_true="The choice must remain open to evidence that can contradict its assumptions or decision surfaces.",
+        failure_condition="A plausible explanation is treated as proof because the review never asks what could make the model wrong.",
+        prove_next="Define one bounded challenge, expected invariant, consequence, affected requirement, and stage-appropriate evidence.",
+        claim_limit="This is an advisory H.A.R.D. deepening rule; it is not a requirement to enumerate every edge case.",
+    ),
+    PublicRule(
+        id="HARD-NEXT-06",
+        module="public_evidence",
+        title="The next proof is the smallest coherent slice",
+        hard_lenses=("implementation_evidence", "people_operation"),
+        hard_criteria=("HCAI-4.3",),
+        decision_surfaces=("state", "failure_recovery"),
+        official_sources=(
+            source("protocol/0.3-preview.1/ENGINEERING-REASONING.md", "Smallest coherent next slice", LIB+"ENGINEERING-REASONING.html"),
+            source("src/hcai_readiness/criteria.json", "HCAI-4.3 Limit the next commitment to a coherent slice", RESEARCH+"/developers#rules"),
+        ),
+        score_included=False,
+        intent="The report should end in a bounded evidence-producing next step rather than a generic redesign or build recommendation.",
+        observe=(
+            "whether the recommended next action tests the important assumption end to end",
+            "whether the action includes only the required input/validation/state/side-effect/recovery/outcome elements",
+            "whether an owner or revisit trigger is identified when supplied",
+        ),
+        pass_condition="The proposed next action is a bounded coherent slice that can resolve the important uncertainty.",
+        warning_condition="The next action is a broad rebuild, generic best practice, or more analysis without a specific evidence target.",
+        decision_underneath="The team chooses how much work to fund before the important assumption has been exposed to evidence.",
+        must_be_true="The next commitment must be small enough to learn and coherent enough to exercise the consequential path.",
+        failure_condition="The team builds broad surface area before testing the assumption that actually controls the decision.",
+        prove_next="Define the smallest end-to-end slice that exposes the unresolved assumption and name the owner/revisit trigger.",
+        claim_limit="This is a H.A.R.D. commitment-shaping prompt, not automatic authorization to build or deploy.",
     ),
 )
 
@@ -645,15 +612,11 @@ def evaluate_public_observation(observation: RuleObservation) -> dict:
         raise ValueError("Unknown public-signal rule")
 
     if observation.status == "critical" and not rule.critical_permitted:
-        raise ValueError("This rule does not permit an automated/public critical label")
-
-    status = observation.status
-    if status == "unknown" and rule.absence_is_failure:
-        raise ValueError("Rule configuration contradiction: unknown cannot be an automatic failure")
+        raise ValueError("This rule does not permit a public critical label")
 
     observed = observation.observed or (
         "The reviewed public surface did not provide enough evidence to assess this rule."
-        if status == "unknown"
+        if observation.status == "unknown"
         else rule.title
     )
     next_evidence = observation.next_evidence or rule.prove_next
@@ -663,14 +626,15 @@ def evaluate_public_observation(observation: RuleObservation) -> dict:
         decision_underneath=rule.decision_underneath,
         must_be_true=rule.must_be_true,
         if_wrong=(
-            observation.failure_mechanism + (" Consequence: " + observation.consequence if observation.consequence else "")
+            observation.failure_mechanism
+            + (" Consequence: " + observation.consequence if observation.consequence else "")
             if observation.failure_mechanism
             else rule.failure_condition
         ),
         prove_next=next_evidence,
     )
 
-    if status == "unknown":
+    if observation.status == "unknown":
         finding = ReportFinding(
             id=rule.id,
             module=rule.module,
@@ -682,14 +646,14 @@ def evaluate_public_observation(observation: RuleObservation) -> dict:
             developer_trace=trace,
         )
     else:
-        summary = rule.pass_condition if status == "pass" else rule.warning_condition
-        if status == "critical":
+        summary = rule.pass_condition if observation.status == "pass" else rule.warning_condition
+        if observation.status == "critical":
             summary = observation.failure_mechanism + " " + observation.consequence
         finding = ReportFinding(
             id=rule.id,
             module=rule.module,
             title=rule.title,
-            status=status,
+            status=observation.status,
             evidence_level=observation.evidence_level,
             summary=summary,
             evidence_locations=observation.evidence_locations,
@@ -706,6 +670,6 @@ def evaluate_public_observation(observation: RuleObservation) -> dict:
             "lenses": list(rule.hard_lenses),
             "criteria": list(rule.hard_criteria),
             "decision_surfaces": list(rule.decision_surfaces),
+            "official_sources": [item.model_dump() for item in rule.official_sources],
         },
-        "portfolio_provenance": list(rule.portfolio_principles),
     }
