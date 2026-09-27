@@ -26,7 +26,7 @@ When engineering deepening is true, it also requires:
 - at least one `challenge_scenario`,
 - `next_coherent_slice`.
 
-Decision surfaces may be truth, ownership, state, boundary, contract, failure_recovery, time_ordering or assumption. Their status is supported, conflicted, unassessed or not_applicable with the evidence rules in the schema.
+Decision surfaces may be truth, ownership, state, boundary, contract, failure_recovery or time_ordering. Their status is supported, conflicted, unassessed or not_applicable with the evidence rules in the schema. Consequential assumptions are separate first-class records with supported, conflicted or unassessed status plus consequence-if-false, evidence-needed, retained evidence and revisit-trigger fields.
 
 A historical rationale is still different from a new current justification. The new fields do not permit reconstruction of private model chain-of-thought or unrecorded creator intent.
 
@@ -37,7 +37,7 @@ A historical rationale is still different from a new current justification. The 
 - G4 evaluates bounded challenge scenarios and exact decision-context fingerprints. A changed decision surface invalidates affected prior validation.
 - G6 retains human disposition and the bounded engineering commitment. For software work, the next step should be the smallest coherent slice that exposes the important assumption where applicable.
 
-## CSV transport 2.0.0
+## CSV transport 2.1.0
 
 `choice-review.csv` adds:
 
@@ -49,8 +49,9 @@ A historical rationale is still different from a new current justification. The 
 
 Two canonical files are added:
 
+- `assumptions.csv`, one row per consequential assumption lifecycle
 - `decision-surfaces.csv`
-- `challenge-scenarios.csv`
+- `challenge-scenarios.csv`, with explicit `evidence_level` for every assessed challenge
 
 Templates and completed examples must use the exact same headers. The verifier does not infer missing rows from prose.
 

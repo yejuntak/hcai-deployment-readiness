@@ -55,18 +55,19 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 <h3>Time and ordering</h3>
 <p><strong>Question:</strong> What changes when operations repeat, race, arrive late or complete out of order?</p>
 <p>Use this surface when timing affects correctness. Relevant questions can include idempotency, concurrency, stale reads, cancellation races and delayed external responses.</p>
-<h3>Assumption</h3>
-<p><strong>Question:</strong> What must be true for the current decision to remain reasonable?</p>
-<p>Every consequential assumption records:</p>
+<h2>Assumptions are first-class claims</h2>
+<p>An assumption is not a miscellaneous note and is not a substitute for a decision surface. Give each consequential assumption its own ID and record:</p>
 <ul>
-<li>the current assumption,</li>
-<li>consequence if it is false,</li>
+<li>the statement that must remain true for the current choice to be reasonable,</li>
+<li>status: supported, conflicted or unassessed,</li>
+<li>consequence if the statement is false,</li>
 <li>evidence needed,</li>
+<li>retained evidence when supported or conflicted,</li>
 <li>and the trigger that should reopen it.</li>
 </ul>
-<p>An assumption is not made true by writing it down.</p>
-<h2>Status vocabulary</h2>
-<p>Each surface is recorded independently:</p>
+<p>Do not collapse several materially different assumptions into one sentence merely to complete the record. A supported assumption remains scoped and revisitable. An assumption is not made true by writing it down.</p>
+<h2>Decision-surface status vocabulary</h2>
+<p>Each system surface is recorded independently:</p>
 <ul>
 <li><strong>supported:</strong> retained evidence supports the current model within the declared scope;</li>
 <li><strong>conflicted:</strong> retained evidence contradicts the current model;</li>
@@ -86,7 +87,8 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 <li>the consequence if mishandled,</li>
 <li>the affected requirement or recovery item,</li>
 <li>the evidence needed,</li>
-<li>and the observed result when it has actually been checked.</li>
+<li>the observed result when it has actually been checked,</li>
+<li>and the evidence level: walkthrough, implemented or runtime-tested.</li>
 </ol>
 <p>Useful challenge shapes include, when relevant:</p>
 <ul>
@@ -132,7 +134,7 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 </tr>
 </tbody>
 </table></div>
-<p>A supported source-of-truth model may be supported by a specification at specification handoff. It does not imply the implementation enforces it. A passing walkthrough does not become a runtime test.</p>
+<p>A supported source-of-truth model may be supported by a specification at specification handoff. It does not imply the implementation enforces it. Every assessed challenge carries its evidence level explicitly. A passing walkthrough does not become an implementation check or runtime test.</p>
 <p>Changes to consequential choices, their decision surfaces, state context, dependencies, authority or challenge conditions are part of the requirement/context fingerprint. Existing checks cannot be relabeled after those changes.</p>
 <h2>Smallest coherent next slice</h2>
 <p>For software work, H.A.R.D. asks for the smallest next slice that can produce useful evidence about the important reasoning.</p>
@@ -165,7 +167,8 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 - state: pending, accepted, revoked and expired;
 - time/ordering: accept versus revoke, repeat acceptance;
 - contract: what token verification guarantees;
-- assumption: when billing or seat allocation should change.</p>
+Assumption:
+- seat or billing allocation occurs at the intended lifecycle transition; if false, access and billing may diverge. The evidence and revisit trigger are recorded independently from the surfaces above.</p>
 <p>Challenge:
 - condition: revoke and accept occur nearly together;
 - claim at risk: revoked invitations cannot grant membership;

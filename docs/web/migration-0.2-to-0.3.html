@@ -21,7 +21,7 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 <li>at least one <code>challenge_scenario</code>,</li>
 <li><code>next_coherent_slice</code>.</li>
 </ul>
-<p>Decision surfaces may be truth, ownership, state, boundary, contract, failure_recovery, time_ordering or assumption. Their status is supported, conflicted, unassessed or not_applicable with the evidence rules in the schema.</p>
+<p>Decision surfaces may be truth, ownership, state, boundary, contract, failure_recovery or time_ordering. Their status is supported, conflicted, unassessed or not_applicable with the evidence rules in the schema. Consequential assumptions are separate first-class records with supported, conflicted or unassessed status plus consequence-if-false, evidence-needed, retained evidence and revisit-trigger fields.</p>
 <p>A historical rationale is still different from a new current justification. The new fields do not permit reconstruction of private model chain-of-thought or unrecorded creator intent.</p>
 <h2>Gate mapping</h2>
 <ul>
@@ -30,7 +30,7 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 <li>G4 evaluates bounded challenge scenarios and exact decision-context fingerprints. A changed decision surface invalidates affected prior validation.</li>
 <li>G6 retains human disposition and the bounded engineering commitment. For software work, the next step should be the smallest coherent slice that exposes the important assumption where applicable.</li>
 </ul>
-<h2>CSV transport 2.0.0</h2>
+<h2>CSV transport 2.1.0</h2>
 <p><code>choice-review.csv</code> adds:</p>
 <ul>
 <li>engineering_deepening_required_yes_no</li>
@@ -41,8 +41,9 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 </ul>
 <p>Two canonical files are added:</p>
 <ul>
+<li><code>assumptions.csv</code>, one row per consequential assumption lifecycle</li>
 <li><code>decision-surfaces.csv</code></li>
-<li><code>challenge-scenarios.csv</code></li>
+<li><code>challenge-scenarios.csv</code>, with explicit <code>evidence_level</code> for every assessed challenge</li>
 </ul>
 <p>Templates and completed examples must use the exact same headers. The verifier does not infer missing rows from prose.</p>
 <h2>Migration rule</h2>

@@ -65,7 +65,7 @@
       "title": "Explain form, fit, function and the model behind consequential choices",
       "gate": "G4_TRACEABILITY",
       "requirement": "Every requirement names what is represented, how it fits the surrounding workflow, what it must do and the reference material used to judge it. When a software choice needs deeper review, record the relevant system model rather than treating the generated implementation as its own explanation.",
-      "check": "Compare the artifact with its reference material. For a consequential software choice, ask which source of truth, ownership, state, boundary, contract or assumption the behavior depends on and whether that model is supported.",
+      "check": "Compare the artifact with its reference material. For a consequential software choice, ask which system surfaces and consequential assumptions the behavior depends on and whether each current model or assumption is supported.",
       "pass_example": "A review form is linked to required intake fields and cancellation rules; its saved-state choice also names the authoritative record and owner.",
       "failure_example": "A finished-looking screen or generated code path is accepted without knowing its purpose, reference requirements or the system model it relies on.",
       "verification": "Structured references and decision-surface records plus human interpretation"
@@ -74,8 +74,8 @@
       "id": "HCAI-2.2",
       "title": "Trace the exact artifact to a check",
       "gate": "G4_TRACEABILITY",
-      "requirement": "Each important requirement/artifact pair has an executed check bound to both its exact artifact digest and its requirement/context fingerprint. The context includes applicable consequential choices, decision surfaces, linked states, references, dependencies and authority. A material change invalidates the affected check.",
-      "check": "Compare both fingerprints with the record captured when the check ran. Repeat the affected check after a requirement, choice, decision surface, challenge condition or artifact changes; computing a new hash does not constitute retesting.",
+      "requirement": "Each important requirement/artifact pair has an executed check bound to both its exact artifact digest and its requirement/context fingerprint. The context includes applicable consequential choices, system surfaces, first-class assumptions, challenge conditions, linked states, references, dependencies and authority. A material change invalidates the affected check.",
+      "check": "Compare both fingerprints with the record captured when the check ran. Repeat the affected check after a requirement, choice, system surface, assumption, challenge condition or artifact changes; computing a new hash does not constitute retesting.",
       "pass_example": "A cancellation walkthrough records the exact screen revision and the field-preservation result.",
       "failure_example": "An agent changes authorization or the assumed source of truth after tests ran, but the old pass is reused.",
       "verification": "Deterministic chain and revision checks plus inspection of execution evidence"

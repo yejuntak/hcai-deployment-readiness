@@ -64,7 +64,7 @@ Name affected roles, including non-operators. Screen access/usability, privacy/s
 
 Every requirement names what is represented, how it fits the surrounding workflow, what it must do and the reference material used to judge it. When a software choice needs deeper review, record the relevant system model rather than treating the generated implementation as its own explanation.
 
-**How to check:** Compare the artifact with its reference material. For a consequential software choice, ask which source of truth, ownership, state, boundary, contract or assumption the behavior depends on and whether that model is supported.
+**How to check:** Compare the artifact with its reference material. For a consequential software choice, ask which system surfaces and consequential assumptions the behavior depends on and whether each current model or assumption is supported.
 
 **Example that meets the intent:** A review form is linked to required intake fields and cancellation rules; its saved-state choice also names the authoritative record and owner.
 
@@ -74,9 +74,9 @@ Every requirement names what is represented, how it fits the surrounding workflo
 
 ### HCAI-2.2 Trace the exact artifact to a check
 
-Each important requirement/artifact pair has an executed check bound to both its exact artifact digest and its requirement/context fingerprint. The context includes applicable consequential choices, decision surfaces, linked states, references, dependencies and authority. A material change invalidates the affected check.
+Each important requirement/artifact pair has an executed check bound to both its exact artifact digest and its requirement/context fingerprint. The context includes applicable consequential choices, system surfaces, first-class assumptions, challenge conditions, linked states, references, dependencies and authority. A material change invalidates the affected check.
 
-**How to check:** Compare both fingerprints with the record captured when the check ran. Repeat the affected check after a requirement, choice, decision surface, challenge condition or artifact changes; computing a new hash does not constitute retesting.
+**How to check:** Compare both fingerprints with the record captured when the check ran. Repeat the affected check after a requirement, choice, system surface, assumption, challenge condition or artifact changes; computing a new hash does not constitute retesting.
 
 **Example that meets the intent:** A cancellation walkthrough records the exact screen revision and the field-preservation result.
 

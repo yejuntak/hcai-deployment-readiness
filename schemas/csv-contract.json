@@ -1,6 +1,6 @@
 {
-  "contract_version": "2.0.0",
-  "description": "Canonical H.A.R.D. 0.3 CSV transport contract. Frozen historical files are not migrated. Choice records explicitly triage engineering deepening; decision surfaces and challenge scenarios preserve unknowns instead of inventing reasoning.",
+  "contract_version": "2.1.0",
+  "description": "Canonical H.A.R.D. 0.3 CSV transport contract. Frozen historical files are not migrated. Consequential assumptions are first-class records with falsification and revisit fields; decision surfaces and challenge scenarios preserve unknowns and explicit evidence levels instead of inventing reasoning.",
   "evidence_statuses": [
     "pass",
     "fail",
@@ -231,7 +231,6 @@
         "alternative_provenance",
         "recorded_rationale",
         "rationale_provenance",
-        "assumptions",
         "foreseeable_impacts",
         "requirement_or_scenario_ids",
         "engineering_deepening_required_yes_no",
@@ -248,6 +247,18 @@
         "verification_evidence_location",
         "current_justification",
         "current_justification_evidence_location"
+      ]
+    },
+    "assumptions.csv": {
+      "columns": [
+        "choice_id",
+        "assumption_id",
+        "statement",
+        "status",
+        "consequence_if_false",
+        "evidence_needed",
+        "evidence_location",
+        "revisit_trigger"
       ]
     },
     "decision-surfaces.csv": {
@@ -275,6 +286,7 @@
         "consequence_if_mishandled",
         "requirement_or_scenario_ids",
         "status",
+        "evidence_level",
         "evidence_location",
         "next_evidence"
       ]

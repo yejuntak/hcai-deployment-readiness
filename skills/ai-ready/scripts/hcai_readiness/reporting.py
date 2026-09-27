@@ -103,6 +103,12 @@ def render_report(a, format="markdown"):
         paragraph('Rationale provenance: '+choice.rationale_provenance+'; justification: '+display(choice.rationale))
         paragraph('Rationale evidence: '+('; '.join(choice.rationale_evidence_locations) or 'No historical rationale evidence recorded'))
         paragraph('Impacts and tradeoffs: '+('; '.join(choice.impacts_and_tradeoffs) or 'Not recorded'))
+        if choice.assumptions:
+            table(['Assumption', 'Status and consequence if false', 'Evidence / next evidence / revisit'],
+                  [[assumption.id+': '+assumption.statement,
+                    assumption.status+' | '+assumption.consequence_if_false,
+                    ('; '.join(assumption.evidence_locations) or assumption.evidence_needed)+' | revisit: '+assumption.revisit_trigger]
+                   for assumption in choice.assumptions])
         paragraph('Affected requirements: '+(', '.join(choice.affected_check_ids) or 'Global choice context'))
         paragraph('Engineering deepening: '+('required' if choice.engineering_deepening_required else 'not required')+'; basis: '+choice.deepening_rationale)
         if choice.deepening_triggers:
@@ -117,7 +123,7 @@ def render_report(a, format="markdown"):
         if choice.challenge_scenarios:
             table(['Challenge', 'Condition and invariant', 'Result / evidence'],
                   [[challenge.id, challenge.condition+' | '+challenge.expected_behavior_or_invariant,
-                    challenge.status+' | '+('; '.join(challenge.evidence_locations) or display(challenge.next_evidence))]
+                    challenge.status+' / '+display(challenge.evidence_level)+' | '+('; '.join(challenge.evidence_locations) or display(challenge.next_evidence))]
                    for challenge in choice.challenge_scenarios])
         paragraph('Next coherent slice: '+display(choice.next_coherent_slice))
         paragraph('Human disposition: '+choice.human_decision+'; accountable owner: '+display(choice.human_decision_owner))

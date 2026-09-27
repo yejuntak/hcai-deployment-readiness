@@ -1,5 +1,5 @@
 {
-  "csv_contract_version": "2.0.0",
+  "csv_contract_version": "2.1.0",
   "session_id": "EX-1",
   "artifact_population": "ai_generated",
   "evaluator_kind": "synthetic",
@@ -264,7 +264,17 @@
           "pending feedback remains unresolved."
         ],
         "assumptions": [
-          "Token identity remains stable across retry and the service enforces it."
+          {
+            "id": "A01",
+            "statement": "Token identity remains stable across retry and the service enforces it.",
+            "status": "supported",
+            "consequence_if_false": "Retries may create duplicate service work if stable identity is not enforced.",
+            "evidence_needed": "Run an implementation-level duplicate retry test before any live use.",
+            "evidence_locations": [
+              "artifact.html#send"
+            ],
+            "revisit_trigger": "Any service contract or retry implementation change"
+          }
         ],
         "affected_check_ids": [
           "R08",
@@ -280,8 +290,7 @@
         "required_surface_kinds": [
           "truth",
           "state",
-          "time_ordering",
-          "assumption"
+          "time_ordering"
         ],
         "decision_surfaces": [
           {
@@ -325,20 +334,6 @@
             "evidence_needed": null,
             "revisit_trigger": null,
             "reason": null
-          },
-          {
-            "id": "DS04",
-            "kind": "assumption",
-            "question": "Does the service actually enforce the stable request identity?",
-            "current_model": "The synthetic reference assumes the service enforces one logical request per token.",
-            "status": "supported",
-            "evidence_locations": [
-              "artifact.html#send"
-            ],
-            "consequence_if_wrong": "Duplicate service requests can be created if the assumption is false.",
-            "evidence_needed": "Run an implementation-level duplicate retry test before any live use.",
-            "revisit_trigger": "Any service contract or retry implementation change",
-            "reason": null
           }
         ],
         "challenge_scenarios": [
@@ -353,6 +348,7 @@
               "S05"
             ],
             "status": "pass",
+            "evidence_level": "walkthrough",
             "evidence_locations": [
               "artifact.html#send"
             ],
@@ -920,7 +916,17 @@
             "pending feedback remains unresolved."
           ],
           "assumptions": [
-            "Token identity remains stable across retry and the service enforces it."
+            {
+              "id": "A01",
+              "statement": "Token identity remains stable across retry and the service enforces it.",
+              "status": "supported",
+              "consequence_if_false": "Retries may create duplicate service work if stable identity is not enforced.",
+              "evidence_needed": "Run an implementation-level duplicate retry test before any live use.",
+              "evidence_locations": [
+                "artifact.html#send"
+              ],
+              "revisit_trigger": "Any service contract or retry implementation change"
+            }
           ],
           "affected_check_ids": [
             "R08",
@@ -936,8 +942,7 @@
           "required_surface_kinds": [
             "truth",
             "state",
-            "time_ordering",
-            "assumption"
+            "time_ordering"
           ],
           "decision_surfaces": [
             {
@@ -981,20 +986,6 @@
               "evidence_needed": null,
               "revisit_trigger": null,
               "reason": null
-            },
-            {
-              "id": "DS04",
-              "kind": "assumption",
-              "question": "Does the service actually enforce the stable request identity?",
-              "current_model": "The synthetic reference assumes the service enforces one logical request per token.",
-              "status": "supported",
-              "evidence_locations": [
-                "artifact.html#send"
-              ],
-              "consequence_if_wrong": "Duplicate service requests can be created if the assumption is false.",
-              "evidence_needed": "Run an implementation-level duplicate retry test before any live use.",
-              "revisit_trigger": "Any service contract or retry implementation change",
-              "reason": null
             }
           ],
           "challenge_scenarios": [
@@ -1009,6 +1000,7 @@
                 "S05"
               ],
               "status": "pass",
+              "evidence_level": "walkthrough",
               "evidence_locations": [
                 "artifact.html#send"
               ],

@@ -50,18 +50,18 @@ Set engineering deepening true when the choice materially depends on persistent 
 
 When required:
 
-- name only the relevant decision-surface kinds: `truth`, `ownership`, `state`, `boundary`, `contract`, `failure_recovery`, `time_ordering`, `assumption`;
+- name only the relevant system-surface kinds: `truth`, `ownership`, `state`, `boundary`, `contract`, `failure_recovery`, `time_ordering`;
 - keep each surface `supported`, `conflicted`, `unassessed` or justified `not_applicable`;
 - supported/conflicted surfaces require retained evidence;
 - unassessed surfaces name the evidence or inspection needed next;
-- a consequential assumption names consequence-if-wrong, evidence needed and a revisit trigger;
+- record each consequential assumption separately with a stable ID, statement, status (`supported`, `conflicted` or `unassessed`), consequence-if-false, evidence needed, retained evidence when assessed and a revisit trigger;
 - define at least one bounded challenge scenario: the condition, claim at risk, expected behavior/invariant, consequence and affected check;
-- assessed challenges need retained evidence; a plausible failure story is not evidence;
+- assessed challenges need retained evidence and an explicit evidence level (`walkthrough`, `implemented` or `runtime_tested`); a plausible failure story is not evidence;
 - name the smallest coherent next slice that can expose the important assumption end to end when applicable.
 
 Ask: **What would have to be true for this decision to be wrong?** Do not ask the model to reveal private chain-of-thought. Do not claim a newly generated explanation was historical reasoning. Do not automatically recommend queues, retries, microservices, event sourcing or another familiar pattern. Unknown is a valid result.
 
-A conflicted required decision surface or failed challenge is a known blocker for the declared artifact review. An unassessed required surface or challenge is insufficient evidence. The engine maps these records into the existing gates rather than creating a new score.
+A conflicted required decision surface, conflicted consequential assumption or failed challenge is a known blocker for the declared artifact review. An unassessed required surface, assumption or challenge is insufficient evidence. The engine maps these records into the existing gates rather than creating a new score.
 
 ## Run the minimum artifact route
 

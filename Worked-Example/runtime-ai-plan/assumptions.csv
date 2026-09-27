@@ -1,0 +1,2 @@
+choice_id,assumption_id,statement,status,consequence_if_false,evidence_needed,evidence_location,revisit_trigger
+PC01,PA01,Human review can detect relevant misleading content and the task benefit exceeds review burden.,unassessed,Materially misleading content may be accepted or review effort may erase the intended benefit.,Collect bounded representative review evidence and measured review effort before relying on the assumption.,,Any change to intended use reviewer role model behavior or review workflow

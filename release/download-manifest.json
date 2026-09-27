@@ -10,40 +10,40 @@
   },
   "files": {
     "HARD-Protocol-0.3-preview.1.zip": {
-      "sha256": "c29e2fc2c348ee545229fc7a422e18bde790ac8741952a73053c7e2978b1999a",
-      "bytes": 926762
+      "sha256": "66063b0d269b47afff1d59b97951eb1e35258963e6a95be3c32d8db40e97683b",
+      "bytes": 936877
     },
     "ai-ready-0.3.0-rc.1.zip": {
-      "sha256": "3ded6bdeb685b616784b701282c5f4465eebc581ea3e072e3f8ad73311a4a7fe",
-      "bytes": 123952
+      "sha256": "773aaac4d3039b71e70e80a7676a8a5aacedb6fb77cf92a1d244bb4d6e4228eb",
+      "bytes": 125737
     },
     "hcai_readiness_mcp-0.3.0rc1-py3-none-any.whl": {
-      "sha256": "9d06bfcabfbffdd02257b45466a9570e995641f79c997c1c960f44384c89369b",
-      "bytes": 59810
+      "sha256": "073fad2560886f8fd05eb9d59059b9540edbc4c65af93676dd7c89b768199fed",
+      "bytes": 60343
     },
     "HARD-QUICK-6-0.3-preview.1.pdf": {
-      "sha256": "0f2919c4a9585785b559d59382976a0aab10faee24c47334f895cb9ed7ffab7f",
+      "sha256": "bd545d0e506d32d24821356dd36ef9655f01712ac66cc23d12dd17981874a53f",
       "bytes": 7289
     },
     "HARD-Artifact-Review-0.3-preview.1.pdf": {
-      "sha256": "1faf870217e4aabb117ffc8ffca0707e260d6ead5787120a2ccc5a5473222e94",
-      "bytes": 13966
+      "sha256": "2c890304944cedbf841ba9477540d7652f0c230404897416750117bd0dbbfccc",
+      "bytes": 14157
     },
     "HARD-Full-Profile-0.3-preview.1.pdf": {
-      "sha256": "5755320f303048735b1712ec069233c8f8ad781365f92cb2f7085fef18dd5628",
-      "bytes": 22393
+      "sha256": "49198a076106807a4c18000a4229dcb0a1dcb03cbde6f33c3b151946a0b524c1",
+      "bytes": 22474
     },
     "HARD-Engineering-Reasoning-0.3-preview.1.pdf": {
-      "sha256": "4bf400d47deec2d51be67d0152593666b808f9aaa08be189ea7e5ffc2c094791",
-      "bytes": 13816
+      "sha256": "effb916f46273b390f5532436d26d41fba28b5a8e766714025f9e8ba6a8aae15",
+      "bytes": 14083
     },
     "HARD-Protocol-0.3-preview.1.pdf": {
-      "sha256": "4a100719fc3b2d3c47df750c563ffd124c870a9b0203b80924797078cf6d0357",
-      "bytes": 18184
+      "sha256": "9b1013a279d8492841b00ff35b67ddd48f0d8ed83aa8799797f4975adf3a7548",
+      "bytes": 18337
     },
     "HARD-External-Pilot-Packet-0.3-preview.1.pdf": {
-      "sha256": "c50198046699a6b9f647bd0bc002441a8bcb72ed126d516a4035ddbfb6217ee8",
-      "bytes": 5093
+      "sha256": "ddb9eba8e3a0173e62cee887e17dca990b176a7b52bbd8eaefe86e904f9af14a",
+      "bytes": 5279
     }
   }
 }

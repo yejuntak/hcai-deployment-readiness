@@ -20,12 +20,18 @@ def choice():
             "proposed_alternatives": [{"description": "Persist encrypted draft server-side"}],
             "rationale": "Local draft retention avoids coupling recovery to the unavailable server",
             "rationale_provenance": "new", "impacts_and_tradeoffs": ["Device loss requires separate recovery"],
-            "assumptions": ["Stable request identity prevents duplicate submission after timeout"],
+            "assumptions": [{"id": "A1",
+                             "statement": "Stable request identity prevents duplicate submission after timeout",
+                             "status": "supported",
+                             "consequence_if_false": "A retry can create a duplicate submission",
+                             "evidence_needed": "Execute duplicate-retry coverage after implementation",
+                             "evidence_locations": ["walkthrough.md#draft-recovery"],
+                             "revisit_trigger": "Retry or request-identity behavior changes"}],
             "affected_check_ids": ["R1", "RC1"],
             "engineering_deepening_required": True,
             "deepening_rationale": "Draft persistence and timeout recovery depend on state, truth and retry assumptions.",
             "deepening_triggers": ["persistent_state_mutation", "unreliable_or_async_dependency"],
-            "required_surface_kinds": ["truth", "state", "assumption"],
+            "required_surface_kinds": ["truth", "state"],
             "decision_surfaces": [
                 {"id": "D1", "kind": "truth", "question": "Which draft is authoritative?",
                  "current_model": "The local draft is authoritative until response confirmation", "status": "supported",
@@ -33,19 +39,13 @@ def choice():
                 {"id": "D2", "kind": "state", "question": "What state follows a timeout?",
                  "current_model": "The draft remains editable and unsubmitted", "status": "supported",
                  "evidence_locations": ["walkthrough.md#timeout"]},
-                {"id": "D3", "kind": "assumption", "question": "Can retry avoid a duplicate submission?",
-                 "current_model": "Retry uses a stable request identity", "status": "supported",
-                 "evidence_locations": ["walkthrough.md#draft-recovery"],
-                 "consequence_if_wrong": "A retry can create a duplicate submission",
-                 "evidence_needed": "Execute duplicate-retry coverage after implementation",
-                 "revisit_trigger": "Retry or request-identity behavior changes"}
             ],
             "challenge_scenarios": [
                 {"id": "CH1", "condition": "The upstream response times out and the user retries",
                  "claim_at_risk": "Recovery does not duplicate submission",
                  "expected_behavior_or_invariant": "One logical request produces at most one accepted submission",
                  "consequence_if_mishandled": "Duplicate request", "affected_check_ids": ["R1", "RC1"],
-                 "status": "pass", "evidence_locations": ["walkthrough.md#draft-recovery"]}
+                 "status": "pass", "evidence_level": "walkthrough", "evidence_locations": ["walkthrough.md#draft-recovery"]}
             ],
             "next_coherent_slice": "Implement one timeout/retry path through stable request identity and preserved draft state.",
             "human_decision": "accepted",
@@ -199,6 +199,22 @@ def test_failed_challenge_holds_and_generated_reason_cannot_erase_it():
     result = review_artifact(ArtifactReview(**data))
     assert result["disposition"] == "Hold for remediation"
     assert "challenge_CH1_failed" in result["choice_issues"]["C1"]
+
+
+def test_assumption_is_first_class_and_challenge_level_is_not_inferred():
+    data = fixture()
+    data["choices"][0]["assumptions"][0].update(status="unassessed", evidence_locations=[])
+    result = review_artifact(ArtifactReview(**data))
+    assert result["disposition"] == "Insufficient evidence"
+    assert "assumption_A1_unassessed" in result["choice_issues"]["C1"]
+    data = fixture()
+    data["choices"][0]["assumptions"][0]["status"] = "conflicted"
+    result = review_artifact(ArtifactReview(**data))
+    assert result["disposition"] == "Hold for remediation"
+    missing_level = choice()
+    missing_level["challenge_scenarios"][0].pop("evidence_level")
+    with pytest.raises(ValidationError, match="evidence level"):
+        ChoiceRecord(**missing_level)
 
 
 def test_choice_revision_holds_even_with_complete_checks():

@@ -1,0 +1,2 @@
+choice_id,assumption_id,statement,status,consequence_if_false,evidence_needed,evidence_location,revisit_trigger
+C01,A01,Token identity remains stable across retry and the service enforces it.,supported,Retries may create duplicate service work if stable identity is not enforced.,Run an implementation-level duplicate retry test before any live use.,artifact.html#send,Any service contract or retry implementation change

@@ -135,7 +135,30 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 <p><strong>Does engineering deepening apply?</strong> yes / no</p>
 <p><strong>Why?</strong> ________________________________________________________________</p>
 <p><strong>Trigger(s):</strong> state mutation / external side effect / irreversible action / privileged or tenant boundary / unreliable dependency / repeat or concurrent execution / money or data loss / material scale or cost assumption / current promise depends on deferred work / ambiguous source of truth / other</p>
-<p>For each relevant surface, record the current model and status. Leave unsupported claims unassessed.</p>
+<p>Record each consequential assumption separately before the surface table. Leave unsupported claims unassessed.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Assumption ID</th>
+<th>Statement</th>
+<th>Status</th>
+<th>Consequence if false</th>
+<th>Evidence needed / retained evidence</th>
+<th>Revisit trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>For each relevant system surface, record the current model and status.</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
 <thead>
 <tr>
@@ -188,17 +211,12 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 <td></td>
 <td></td>
 </tr>
-<tr>
-<td>Assumption</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </tbody>
 </table></div>
 <p><strong>What would have to be true for this choice to be wrong?</strong> ____________________</p>
 <p><strong>Expected behavior or invariant:</strong> ________________________________________</p>
 <p><strong>Consequence if mishandled:</strong> ____________________________________________</p>
 <p><strong>Evidence that would resolve the challenge:</strong> _____________________________</p>
+<p><strong>Evidence level when assessed:</strong> walkthrough / implemented / runtime-tested / unassessed</p>
 <p><strong>Smallest coherent next slice:</strong> _________________________________________</p>
 <p>Do not fill blanks with a generated rationale. Unknown is a valid review result.</p></main></body></html>

@@ -16,8 +16,8 @@ H.A.R.D. never reconstructs private model chain-of-thought or invents creator in
 ### Core review loop
 
 1. **Decompress.** Locate consequential choices in the supplied artifact. Connect each to purpose, criteria, alternatives, rationale provenance, assumptions and tradeoffs.
-2. **Model.** When engineering deepening is warranted, externalize only the relevant decision surfaces: truth, ownership, state, boundary, contract, failure/recovery, time/ordering and assumption.
-3. **Challenge.** Name a bounded condition that could disconfirm the choice or system model. Do not prescribe a fashionable architecture as the answer.
+2. **Model.** When engineering deepening is warranted, externalize only the relevant system surfaces: truth, ownership, state, boundary, contract, failure/recovery and time/ordering. Record consequential assumptions separately as claims that can be supported, conflicted or left unassessed.
+3. **Challenge.** Name a bounded condition that could disconfirm the choice, system model or consequential assumption. Record the evidence level of any assessed challenge so a walkthrough cannot be presented as implementation or runtime proof. Do not prescribe a fashionable architecture as the answer.
 4. **Prove.** Keep specified, walkthrough, implemented and runtime-tested evidence separate. Bind executed checks to the exact artifact and decision context.
 5. **Decide.** A person accepts, revises or keeps the choice pending, with an owner, smallest coherent next step and revisit trigger.
 
