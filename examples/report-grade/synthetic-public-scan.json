@@ -142,7 +142,14 @@
       "evidence_locations": [
         "synthetic://walkthrough/refund-repeat"
       ],
-      "next_evidence": "Demonstrate duplicate-request handling against the exact implementation."
+      "next_evidence": "Demonstrate duplicate-request handling against the exact implementation.",
+      "developer_trace": {
+        "observed": "The reviewed flow allows the automated agent to initiate a refund.",
+        "decision_underneath": "An automated component is allowed to create an external financial side effect.",
+        "must_be_true": "One authorized refund request must map to one transaction even when the request is retried, duplicated, or interrupted.",
+        "if_wrong": "A repeated or partially retried request can create a duplicate refund or contradictory order/payment state.",
+        "prove_next": "Execute the same refund request twice against the exact implementation and retain the transaction, idempotency, and final-state evidence."
+      }
     },
     {
       "id": "R15",
