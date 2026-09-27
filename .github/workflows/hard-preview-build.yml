@@ -1,9 +1,6 @@
 name: Build H.A.R.D. Preview
 
 on:
-  push:
-    branches:
-      - hard-0.3-preview-1
   workflow_dispatch:
 
 permissions:
