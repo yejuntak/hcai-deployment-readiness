@@ -1,12 +1,22 @@
-"""Deterministic H.A.R.D. Grade summary for external-facing reports.
+"""Deterministic external report grade for H.A.R.D.-adjacent product reviews.
 
-The grade is a communication layer over reviewed findings. It never replaces the
-six H.A.R.D. gates, owner authorization, deployment evaluation, accessibility
-conformance testing, security review, or legal/compliance assessment.
+This module intentionally does NOT produce a H.A.R.D. protocol score.
 
-Unknown findings do not silently fail. They lower evidence confidence instead.
-A caller may mark a critical finding as blocking; a blocking finding caps the
-display score while preserving the uncapped raw score for transparency.
+The public-facing report has two independent layers:
+
+1. Product Signal Grade: one simple letter/0-100 triage score built only from
+   externally scorable product-surface modules.
+2. H.A.R.D. Decision Posture: the non-compensatory protocol result. It is never
+   converted to points and never averaged with accessibility, privacy, or other
+   modules.
+
+That separation preserves the H.A.R.D. 0.3 rule that gate outcomes, evidence
+coverage, operating burden, evaluator measures, and actual system performance
+must not be compressed into a weighted readiness percentage.
+
+Unknown findings do not silently fail. They reduce evidence confidence/coverage.
+The calculator and renderer are pure/deterministic: no network or model call is
+required, which keeps batch report generation cheap.
 """
 from __future__ import annotations
 
@@ -16,21 +26,46 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 ModuleId = Literal[
-    "hard_core",
     "accessibility",
     "action_recovery",
-    "privacy_trust",
+    "privacy_data",
+    "ai_transparency",
     "public_evidence",
 ]
 FindingStatus = Literal["pass", "warning", "critical", "unknown"]
-EvidenceStage = Literal["specified", "walkthrough", "implemented", "runtime_tested", "unknown"]
+ReportEvidenceLevel = Literal[
+    "unknown",
+    "public_observation",
+    "documented",
+    "walkthrough",
+    "implemented",
+    "runtime_tested",
+]
+HardRoute = Literal["not_reviewed", "artifact_review", "engineering_commitment"]
+HardDisposition = Literal[
+    "not_reviewed",
+    "insufficient_evidence",
+    "hold_for_remediation",
+    "eligible_for_declared_stage_handoff_review",
+    "proceed_to_engineering",
+    "revise_before_engineering",
+]
+HardEvidenceCeiling = Literal[
+    "unknown",
+    "specified",
+    "walkthrough",
+    "implemented",
+    "runtime_tested",
+]
 
+# Only comparable public/product-surface signals are scored.
+# H.A.R.D. itself is deliberately absent from this table.
 MODULES: dict[str, dict[str, object]] = {
-    "hard_core": {"label": "H.A.R.D. Core Readiness", "weight": 60},
-    "accessibility": {"label": "Accessibility", "weight": 15},
-    "action_recovery": {"label": "AI Action & Recovery", "weight": 10},
-    "privacy_trust": {"label": "Privacy & Trust", "weight": 10},
-    "public_evidence": {"label": "Public Product Evidence", "weight": 5},
+    "accessibility": {"label": "Accessibility", "weight": 25},
+    "action_recovery": {"label": "Action & Recovery", "weight": 25},
+    "privacy_data": {"label": "Privacy & Data Boundary", "weight": 20},
+    "ai_transparency": {"label": "AI Transparency & Claims", "weight": 20},
+    "public_evidence": {"label": "Public Evidence & Documentation", "weight": 10},
 }
 
 STATUS_FACTOR = {
@@ -39,66 +74,115 @@ STATUS_FACTOR = {
     "critical": 0.0,
 }
 
-EVIDENCE_CONFIDENCE = {
+REPORT_EVIDENCE_CONFIDENCE = {
     "unknown": 0.0,
-    "specified": 0.35,
-    "walkthrough": 0.60,
+    "public_observation": 0.25,
+    "documented": 0.45,
+    "walkthrough": 0.65,
     "implemented": 0.80,
     "runtime_tested": 1.0,
 }
 
+BLOCKING_HARD_DISPOSITIONS = {
+    "hold_for_remediation",
+    "revise_before_engineering",
+}
 
-class GradeFinding(BaseModel):
+EVIDENCE_NEEDED_HARD_DISPOSITIONS = {
+    "insufficient_evidence",
+}
+
+
+class ReportFinding(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
     id: str = Field(min_length=1)
     module: ModuleId
     title: str = Field(min_length=1)
     status: FindingStatus
-    evidence_stage: EvidenceStage
-    points: float = Field(default=1.0, gt=0, le=100, allow_inf_nan=False)
+    evidence_level: ReportEvidenceLevel
+    weight: float = Field(default=1.0, gt=0, le=100, allow_inf_nan=False)
     summary: str = ""
-    blocking: bool = False
+    evidence_locations: list[str] = Field(default_factory=list)
+    next_evidence: str | None = None
 
     @model_validator(mode="after")
-    def status_matches_evidence(self):
-        if self.status == "unknown" and self.evidence_stage != "unknown":
-            raise ValueError("Unknown findings must use evidence_stage=unknown")
-        if self.status != "unknown" and self.evidence_stage == "unknown":
-            raise ValueError("Assessed findings require a non-unknown evidence stage")
-        if self.blocking and self.status != "critical":
-            raise ValueError("Only critical findings may be marked blocking")
+    def evidence_boundary(self):
+        if self.status == "unknown":
+            if self.evidence_level != "unknown":
+                raise ValueError("Unknown findings must use evidence_level=unknown")
+            if not self.next_evidence:
+                raise ValueError("Unknown findings must name the evidence needed next")
+        else:
+            if self.evidence_level == "unknown":
+                raise ValueError("Assessed findings require a non-unknown evidence level")
+            if not self.evidence_locations:
+                raise ValueError("Assessed findings require retained evidence locations")
         return self
 
 
-class GradeInput(BaseModel):
+class HardPosture(BaseModel):
+    """A display-safe projection of a real H.A.R.D. result, never a score."""
+
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    route: HardRoute = "not_reviewed"
+    disposition: HardDisposition = "not_reviewed"
+    evidence_ceiling: HardEvidenceCeiling = "unknown"
+    blocker_ids: list[str] = Field(default_factory=list)
+    summary: str = ""
+
+    @model_validator(mode="after")
+    def route_and_disposition_match(self):
+        if self.route == "not_reviewed" and self.disposition != "not_reviewed":
+            raise ValueError("A non-reviewed H.A.R.D. route cannot claim a disposition")
+        if self.route != "not_reviewed" and self.disposition == "not_reviewed":
+            raise ValueError("A reviewed H.A.R.D. route needs a disposition")
+        return self
+
+
+class AuxiliaryScore(BaseModel):
+    """Optional growth/visibility score, explicitly excluded from the overall grade."""
+
+    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+
+    label: str = Field(min_length=1)
+    score: int = Field(ge=0, le=100)
+    note: str = ""
+
+
+class ReportGradeInput(BaseModel):
     model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
 
     subject: str = Field(min_length=1)
     product: str | None = None
     reviewed_surface: str = Field(min_length=1)
-    findings: list[GradeFinding] = Field(min_length=1)
-    apply_blocker_cap: bool = True
+    findings: list[ReportFinding] = Field(min_length=1)
+    hard: HardPosture = Field(default_factory=HardPosture)
+    auxiliary_scores: list[AuxiliaryScore] = Field(default_factory=list)
 
     @model_validator(mode="after")
-    def unique_finding_ids(self):
+    def unique_ids(self):
         ids = [finding.id for finding in self.findings]
         if len(ids) != len(set(ids)):
             raise ValueError("Finding IDs must be unique")
+        labels = [score.label.lower() for score in self.auxiliary_scores]
+        if len(labels) != len(set(labels)):
+            raise ValueError("Auxiliary score labels must be unique")
         return self
 
 
 def grade_letter(score: int) -> str:
-    """Business-readiness bands, intentionally not academic letter grading."""
+    """Simple report bands. These are not H.A.R.D. protocol outcomes."""
     if score >= 95:
         return "A+"
     if score >= 90:
         return "A"
-    if score >= 75:
+    if score >= 80:
         return "B"
-    if score >= 60:
+    if score >= 70:
         return "C"
-    if score >= 40:
+    if score >= 60:
         return "D"
     return "F"
 
@@ -111,41 +195,80 @@ def _confidence_label(value: int) -> str:
     return "Limited"
 
 
-def _verdict(letter: str) -> str:
+def _surface_verdict(letter: str) -> str:
     return {
-        "A+": "Strong evidence across the reviewed surface.",
-        "A": "Strong readiness signals with limited evidence gaps.",
-        "B": "Generally strong, but important evidence gaps remain.",
-        "C": "Material decisions or evidence remain unresolved.",
-        "D": "Significant readiness gaps require focused remediation.",
-        "F": "Major readiness evidence is missing or conflicted.",
+        "A+": "Very strong signals across the reviewed surface.",
+        "A": "Strong signals across the reviewed surface.",
+        "B": "Good surface signals, with important gaps worth resolving.",
+        "C": "Material product-surface gaps remain.",
+        "D": "Significant product-surface gaps need remediation.",
+        "F": "Major product-surface problems were observed.",
     }[letter]
 
 
-def calculate_grade(report: GradeInput) -> dict:
+def _hard_display(posture: HardPosture) -> dict:
+    if posture.disposition in BLOCKING_HARD_DISPOSITIONS:
+        status = "HOLD"
+        tone = "blocking"
+    elif posture.disposition in EVIDENCE_NEEDED_HARD_DISPOSITIONS:
+        status = "EVIDENCE NEEDED"
+        tone = "evidence"
+    elif posture.disposition in (
+        "eligible_for_declared_stage_handoff_review",
+        "proceed_to_engineering",
+    ):
+        status = "BOUNDED NEXT STEP"
+        tone = "reviewed"
+    else:
+        status = "NOT VERIFIED"
+        tone = "unverified"
+
+    label = {
+        "not_reviewed": "H.A.R.D. not yet reviewed",
+        "insufficient_evidence": "H.A.R.D. found insufficient evidence",
+        "hold_for_remediation": "H.A.R.D. requires remediation before proceeding",
+        "eligible_for_declared_stage_handoff_review": "Eligible for declared-stage handoff review",
+        "proceed_to_engineering": "Evidence supports considering a bounded engineering step",
+        "revise_before_engineering": "Revise before committing engineering resources",
+    }[posture.disposition]
+
+    return {
+        "status": status,
+        "tone": tone,
+        "label": label,
+        "route": posture.route,
+        "disposition": posture.disposition,
+        "evidence_ceiling": posture.evidence_ceiling,
+        "blocker_ids": posture.blocker_ids,
+        "summary": posture.summary,
+    }
+
+
+def calculate_report_grade(report: ReportGradeInput) -> dict:
     module_results: list[dict] = []
     weighted_score = 0.0
-    available_weight = 0.0
+    scorable_weight = 0.0
     weighted_confidence = 0.0
+    weighted_coverage = 0.0
     deductions: list[dict] = []
 
     for module_id, meta in MODULES.items():
         items = [finding for finding in report.findings if finding.module == module_id]
-        total_points = sum(finding.points for finding in items)
+        all_weight = sum(finding.weight for finding in items)
         known = [finding for finding in items if finding.status != "unknown"]
-        known_points = sum(finding.points for finding in known)
+        known_weight = sum(finding.weight for finding in known)
 
         module_score = None
-        if known_points:
-            earned = sum(finding.points * STATUS_FACTOR[finding.status] for finding in known)
-            module_score = round(100 * earned / known_points)
-            available_weight += float(meta["weight"])
+        if known_weight:
+            earned = sum(finding.weight * STATUS_FACTOR[finding.status] for finding in known)
+            module_score = round(100 * earned / known_weight)
             weighted_score += module_score * float(meta["weight"])
+            scorable_weight += float(meta["weight"])
 
             for finding in known:
                 factor = STATUS_FACTOR[finding.status]
                 if factor < 1:
-                    deduction = float(meta["weight"]) * (finding.points / known_points) * (1 - factor)
+                    deduction = float(meta["weight"]) * (finding.weight / known_weight) * (1 - factor)
                     deductions.append(
                         {
                             "id": finding.id,
@@ -155,23 +278,28 @@ def calculate_grade(report: GradeInput) -> dict:
                             "status": finding.status,
                             "summary": finding.summary,
                             "points": round(deduction),
+                            "evidence_locations": finding.evidence_locations,
                         }
                     )
 
+        module_coverage = round(100 * known_weight / all_weight) if all_weight else 0
         module_confidence = 0
-        if total_points:
+        if all_weight:
             confidence_units = sum(
-                finding.points * EVIDENCE_CONFIDENCE[finding.evidence_stage] for finding in items
+                finding.weight * REPORT_EVIDENCE_CONFIDENCE[finding.evidence_level]
+                for finding in items
             )
-            module_confidence = round(100 * confidence_units / total_points)
-        weighted_confidence += module_confidence * float(meta["weight"])
+            module_confidence = round(100 * confidence_units / all_weight)
 
+        weighted_coverage += module_coverage * float(meta["weight"])
+        weighted_confidence += module_confidence * float(meta["weight"])
         module_results.append(
             {
                 "id": module_id,
                 "label": meta["label"],
                 "weight": meta["weight"],
                 "score": module_score,
+                "coverage": module_coverage,
                 "confidence": module_confidence,
                 "passed": sum(finding.status == "pass" for finding in items),
                 "warnings": sum(finding.status == "warning" for finding in items),
@@ -180,23 +308,14 @@ def calculate_grade(report: GradeInput) -> dict:
             }
         )
 
-    if not available_weight:
-        raise ValueError("At least one finding must be assessed before a grade can be calculated")
+    if not scorable_weight:
+        raise ValueError("At least one finding must be assessed before a report grade can be calculated")
 
-    raw_score = round(weighted_score / available_weight)
-    blockers = [
-        {
-            "id": finding.id,
-            "module": finding.module,
-            "title": finding.title,
-            "summary": finding.summary,
-        }
-        for finding in report.findings
-        if finding.blocking
-    ]
-    score = min(raw_score, 69) if report.apply_blocker_cap and blockers else raw_score
-    letter = grade_letter(score)
+    score = round(weighted_score / scorable_weight)
+    grade = grade_letter(score)
+    coverage = round(weighted_coverage / 100)
     confidence = round(weighted_confidence / 100)
+    hard = _hard_display(report.hard)
 
     deductions.sort(key=lambda row: (-row["points"], row["title"]))
     counts = {
@@ -206,68 +325,151 @@ def calculate_grade(report: GradeInput) -> dict:
         "unknown": sum(finding.status == "unknown" for finding in report.findings),
     }
 
+    if confidence < 50:
+        qualifier = "Provisional"
+    elif confidence < 80:
+        qualifier = "Evidence-limited"
+    else:
+        qualifier = "Evidence-supported"
+
     return {
         "subject": report.subject,
         "product": report.product,
         "reviewed_surface": report.reviewed_surface,
-        "grade": letter,
+        "grade_name": "Product Signal Grade",
+        "grade": grade,
         "score": score,
-        "raw_score": raw_score,
+        "grade_qualifier": qualifier,
+        "coverage": coverage,
         "confidence": confidence,
         "confidence_label": _confidence_label(confidence),
-        "verdict": _verdict(letter),
+        "surface_verdict": _surface_verdict(grade),
         "counts": counts,
         "modules": module_results,
         "top_priority": deductions[0] if deductions else None,
         "deductions": deductions,
-        "blockers": blockers,
-        "score_cap_applied": bool(blockers and report.apply_blocker_cap and score != raw_score),
+        "hard": hard,
+        "overall_display": f"{grade} · {score}/100 / {hard['status']}",
+        "auxiliary_scores": [score.model_dump() for score in report.auxiliary_scores],
         "boundary": (
-            "The H.A.R.D. Grade summarizes evidence available to this review. "
-            "It is not certification of product quality, safety, accessibility, security, privacy, "
-            "legal compliance, or deployment readiness. Unknowns lower confidence rather than silently failing."
+            "The Product Signal Grade is a triage summary of the reviewed product surface, "
+            "not a H.A.R.D. protocol score and not certification. H.A.R.D. posture remains a "
+            "separate, non-compensatory decision result. Unknowns reduce coverage/confidence "
+            "instead of becoming automatic failures. Accessibility, privacy, security, legal "
+            "compliance, and deployment assurance still require their applicable reviews."
         ),
+        "cost_model": {
+            "grade_calculation_requires_model": False,
+            "report_rendering_requires_model": False,
+            "network_required": False,
+            "batch_rule": "Reuse retained findings/evidence; recompute deterministically. Model summarization is optional.",
+        },
         "scoring": {
             "module_weights": {key: value["weight"] for key, value in MODULES.items()},
             "status_factors": STATUS_FACTOR,
-            "evidence_confidence": EVIDENCE_CONFIDENCE,
-            "blocker_cap": 69,
+            "report_evidence_confidence": REPORT_EVIDENCE_CONFIDENCE,
+            "hard_in_numeric_score": False,
+            "unknowns_are_failures": False,
+            "auxiliary_scores_in_numeric_score": False,
         },
     }
 
 
-def render_grade_report(report: GradeInput, format: Literal["markdown", "html"] = "html") -> str:
-    result = calculate_grade(report)
+def hard_posture_from_artifact_result(result: dict) -> HardPosture:
+    """Project review_artifact() output without creating a new H.A.R.D. judgment."""
+    disposition = result.get("disposition")
+    mapped = {
+        "Hold for remediation": "hold_for_remediation",
+        "Insufficient evidence": "insufficient_evidence",
+        "Eligible for declared stage handoff review": "eligible_for_declared_stage_handoff_review",
+    }.get(disposition)
+    if mapped is None:
+        raise ValueError("Unrecognized artifact-review disposition")
+
+    required = result.get("required_evidence_levels") or []
+    order = ["specified", "walkthrough", "implemented", "runtime_tested"]
+    ceiling = next((stage for stage in reversed(order) if stage in required), "unknown")
+    blockers = [
+        *result.get("unresolved_critical_ids", []),
+        *result.get("unresolved_major_ids", []),
+        *result.get("deepening_failure_ids", []),
+        *result.get("choices_requiring_revision", []),
+    ]
+    return HardPosture(
+        route="artifact_review",
+        disposition=mapped,
+        evidence_ceiling=ceiling,
+        blocker_ids=list(dict.fromkeys(blockers)),
+        summary="Stage-bounded artifact review. It does not authorize deployment.",
+    )
+
+
+def hard_posture_from_engineering_result(result: dict) -> HardPosture:
+    """Project assess() output without translating gates into a numeric score."""
+    decision = result.get("decision")
+    mapped = {
+        "PROCEED_TO_ENGINEERING": "proceed_to_engineering",
+        "REVISE": "revise_before_engineering",
+        "INSUFFICIENT_EVIDENCE": "insufficient_evidence",
+    }.get(decision)
+    if mapped is None:
+        raise ValueError("Unrecognized engineering-commitment decision")
+
+    blocker_ids: list[str] = []
+    for gate in result.get("gates", []):
+        if gate.get("status") == "FAIL":
+            blocker_ids.append(str(gate.get("id")))
+    blocker_ids.extend(result.get("unresolved_critical_ids", []))
+
+    return HardPosture(
+        route="engineering_commitment",
+        disposition=mapped,
+        evidence_ceiling="unknown",
+        blocker_ids=list(dict.fromkeys(blocker_ids)),
+        summary="Engineering recommendation only. Owner authorization and deployment evaluation remain separate.",
+    )
+
+
+def render_grade_report(report: ReportGradeInput, format: Literal["markdown", "html"] = "html") -> str:
+    result = calculate_report_grade(report)
+    hard = result["hard"]
+
     if format == "markdown":
         lines = [
-            f"# {result['subject']} - H.A.R.D. Grade",
+            f"# {result['subject']} - H.A.R.D. Readiness Report",
             "",
             f"## {result['grade']} - {result['score']} / 100",
-            f"Evidence confidence: {result['confidence']}% ({result['confidence_label']})",
+            f"{result['grade_qualifier']} {result['grade_name']}",
+            f"H.A.R.D. posture: **{hard['status']}** - {hard['label']}",
+            f"Evidence confidence: {result['confidence']}% ({result['confidence_label']}); coverage: {result['coverage']}%",
             "",
-            result["verdict"],
+            result["surface_verdict"],
             "",
             f"Critical: {result['counts']['critical']} | Warnings: {result['counts']['warnings']} | "
             f"Passed: {result['counts']['passed']} | Unknown: {result['counts']['unknown']}",
             "",
-            "## Breakdown",
+            "## Score breakdown",
         ]
         for module in result["modules"]:
             score = "N/A" if module["score"] is None else str(module["score"])
             lines.append(
-                f"- {module['label']}: {score} (confidence {module['confidence']}%, weight {module['weight']}%)"
+                f"- {module['label']}: {score} (coverage {module['coverage']}%, confidence {module['confidence']}%)"
             )
         if result["top_priority"]:
-            priority = result["top_priority"]
+            item = result["top_priority"]
             lines += [
                 "",
                 "## Fix first",
-                f"**{priority['title']}** (-{priority['points']} points)",
-                priority["summary"] or "Review the evidence and resolve this finding.",
+                f"**{item['title']}** (-{item['points']} signal points)",
+                item["summary"] or "Resolve this observed product-surface finding.",
             ]
-        if result["blockers"]:
-            lines += ["", "## Blocking findings"]
-            lines.extend(f"- {item['title']}: {item['summary']}" for item in result["blockers"])
+        unknowns = [f for f in report.findings if f.status == "unknown"]
+        if unknowns:
+            lines += ["", "## Verify next"]
+            lines.extend(f"- {f.title}: {f.next_evidence}" for f in unknowns[:5])
+        if result["auxiliary_scores"]:
+            lines += ["", "## Growth signals (not included in the grade)"]
+            lines.extend(f"- {s['label']}: {s['score']}" for s in result["auxiliary_scores"])
         lines += ["", result["boundary"]]
         return "\n".join(lines)
 
@@ -283,54 +485,79 @@ def render_grade_report(report: GradeInput, format: Literal["markdown", "html"] 
         + "</th><td>"
         + ("N/A" if module["score"] is None else esc(module["score"]))
         + "</td><td>"
+        + esc(module["coverage"])
+        + "%</td><td>"
         + esc(module["confidence"])
         + "%</td></tr>"
         for module in result["modules"]
     )
+
     priority = ""
     if result["top_priority"]:
         item = result["top_priority"]
         priority = (
-            "<section class=\"priority\"><p class=\"eyebrow\">Fix first</p><h2>"
-            + esc(item["title"])
-            + "</h2><p class=\"deduction\">-"
-            + esc(item["points"])
-            + " points</p><p>"
-            + esc(item["summary"] or "Review the evidence and resolve this finding.")
-            + "</p></section>"
-        )
-    blocker_note = ""
-    if result["score_cap_applied"]:
-        blocker_note = (
-            "<p class=\"cap\"><strong>Blocking cap applied.</strong> Raw score "
-            + esc(result["raw_score"])
-            + " was capped because at least one supplied finding is explicitly blocking.</p>"
+            "<section class=\"priority\"><p class=\"eyebrow\">Fix first</p><div class=\"priority-grid\"><div>"
+            "<h2>" + esc(item["title"]) + "</h2><p>" + esc(item["summary"] or "Resolve this observed product-surface finding.") + "</p></div>"
+            "<div class=\"deduction\">-" + esc(item["points"]) + "</div></div></section>"
         )
 
+    unknowns = [finding for finding in report.findings if finding.status == "unknown"]
+    verify = ""
+    if unknowns:
+        verify_rows = "".join(
+            "<li><strong>" + esc(finding.title) + "</strong><span>" + esc(finding.next_evidence) + "</span></li>"
+            for finding in unknowns[:5]
+        )
+        verify = (
+            "<section class=\"verify\"><p class=\"eyebrow\">Verify next</p><h2>"
+            + esc(len(unknowns))
+            + " unknowns were not counted as failures</h2><ul>"
+            + verify_rows
+            + "</ul></section>"
+        )
+
+    auxiliary = ""
+    if result["auxiliary_scores"]:
+        aux = "".join(
+            "<span><strong>" + esc(score["label"]) + "</strong> " + esc(score["score"]) + "</span>"
+            for score in result["auxiliary_scores"]
+        )
+        auxiliary = (
+            "<section class=\"aux\"><p class=\"eyebrow\">Growth signals - excluded from overall grade</p><div>"
+            + aux
+            + "</div></section>"
+        )
+
+    posture_class = "posture " + esc(hard["tone"])
     return """<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>""" + esc(result["subject"]) + """ - H.A.R.D. Grade</title>
+<title>""" + esc(result["subject"]) + """ - H.A.R.D. Readiness Report</title>
 <style>
-:root{font-family:Inter,system-ui,sans-serif;color:#111;background:#f5f5f2}
-*{box-sizing:border-box}body{margin:0}main{max-width:980px;margin:auto;padding:48px 24px 72px}
-.card{background:white;border:1px solid #d8d8d2;border-radius:20px;padding:32px}
-.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 12px}
-.hero{display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:end}
-.grade{font-size:96px;line-height:.9;font-weight:750;letter-spacing:-.06em}
-.score{font-size:26px;margin-top:12px}.confidence{font-size:14px;margin-top:14px}
-.verdict{font-size:28px;line-height:1.18;max-width:24ch;margin:0}
-.counts{margin-top:18px;font-size:14px}.cap{margin-top:16px}
-table{width:100%;border-collapse:collapse;margin-top:28px}th,td{text-align:left;padding:14px 0;border-top:1px solid #e7e7e1}
-.priority{margin-top:24px;background:white;border:1px solid #d8d8d2;border-radius:20px;padding:28px}
-.priority h2{font-size:28px;margin:0 0 8px}.deduction{font-size:20px;font-weight:700;margin:0 0 12px}
-.boundary{font-size:13px;line-height:1.5;margin-top:24px;max-width:78ch}
-@media(max-width:680px){.hero{grid-template-columns:1fr}.grade{font-size:72px}.verdict{font-size:24px}}
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#111;background:#f3f3ef}
+*{box-sizing:border-box}body{margin:0}main{max-width:1040px;margin:auto;padding:56px 24px 80px}
+.card,.priority,.verify,.aux{background:#fff;border:1px solid #d8d8d1;border-radius:22px}
+.card{padding:36px}.eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;margin:0 0 12px}
+.hero{display:grid;grid-template-columns:240px 1fr;gap:40px;align-items:end}.grade{font-size:104px;line-height:.84;font-weight:760;letter-spacing:-.07em}
+.score{font-size:28px;font-weight:620;margin-top:16px}.qualifier{font-size:13px;margin-top:6px}
+h1{font-size:18px;font-weight:600;margin:0 0 14px}.verdict{font-size:30px;line-height:1.15;letter-spacing:-.025em;max-width:25ch;margin:0}
+.posture{display:flex;gap:10px;align-items:center;margin-top:22px;padding:12px 14px;border-radius:12px;background:#f0f0ec;font-size:14px}
+.posture strong{font-size:12px;letter-spacing:.06em}.posture.blocking{border:1px solid #111}.posture.evidence{border:1px dashed #777}
+.meta,.counts{font-size:13px;margin-top:14px}.counts{margin-top:8px}table{width:100%;border-collapse:collapse;margin-top:34px}
+th,td{text-align:left;padding:15px 0;border-top:1px solid #e5e5df;font-size:14px}thead th{font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.priority,.verify,.aux{margin-top:18px;padding:28px}.priority-grid{display:grid;grid-template-columns:1fr auto;gap:24px}.priority h2,.verify h2{font-size:24px;line-height:1.2;margin:0 0 8px}
+.priority p,.verify span{font-size:14px;line-height:1.5}.deduction{font-size:38px;font-weight:720;letter-spacing:-.04em}
+.verify ul{list-style:none;padding:0;margin:18px 0 0}.verify li{display:grid;grid-template-columns:minmax(150px,.7fr) 1fr;gap:18px;padding:12px 0;border-top:1px solid #e5e5df}.verify li span{display:block}
+.aux div{display:flex;gap:20px;flex-wrap:wrap;font-size:14px}.boundary{font-size:12px;line-height:1.55;margin:22px 4px 0;max-width:86ch}
+@media(max-width:700px){main{padding:28px 16px 56px}.card{padding:24px}.hero{grid-template-columns:1fr}.grade{font-size:80px}.verdict{font-size:25px}.priority-grid,.verify li{grid-template-columns:1fr}.deduction{font-size:30px}}
 </style></head><body><main>
 <section class="card">
-<p class="eyebrow">H.A.R.D. Grade</p>
-<div class="hero"><div><div class="grade">""" + esc(result["grade"]) + """</div><div class="score">""" + esc(result["score"]) + """ / 100</div><div class="confidence">Evidence confidence: <strong>""" + esc(result["confidence"]) + """%</strong> (""" + esc(result["confidence_label"]) + """)</div></div>
-<div><h1>""" + esc(result["subject"]) + """</h1><p class="verdict">""" + esc(result["verdict"]) + """</p><p class="counts">""" + esc(result["counts"]["critical"]) + """ critical · """ + esc(result["counts"]["warnings"]) + """ warnings · """ + esc(result["counts"]["passed"]) + """ passed · """ + esc(result["counts"]["unknown"]) + """ unknown</p>""" + blocker_note + """</div></div>
-<table><thead><tr><th>Area</th><th>Score</th><th>Confidence</th></tr></thead><tbody>""" + module_rows + """</tbody></table>
-</section>""" + priority + """
+<p class="eyebrow">H.A.R.D. Readiness Report</p>
+<div class="hero"><div><div class="grade">""" + esc(result["grade"]) + """</div><div class="score">""" + esc(result["score"]) + """ / 100</div><div class="qualifier">""" + esc(result["grade_qualifier"]) + """ Product Signal Grade</div></div>
+<div><h1>""" + esc(result["subject"]) + """</h1><p class="verdict">""" + esc(result["surface_verdict"]) + """</p>
+<div class="""" + posture_class + """"><strong>""" + esc(hard["status"]) + """</strong><span>""" + esc(hard["label"]) + """</span></div>
+<p class="meta">Evidence confidence <strong>""" + esc(result["confidence"]) + """%</strong> · Coverage <strong>""" + esc(result["coverage"]) + """%</strong></p>
+<p class="counts">""" + esc(result["counts"]["critical"]) + """ critical · """ + esc(result["counts"]["warnings"]) + """ warnings · """ + esc(result["counts"]["passed"]) + """ passed · """ + esc(result["counts"]["unknown"]) + """ unknown</p></div></div>
+<table><thead><tr><th>Area</th><th>Signal score</th><th>Coverage</th><th>Confidence</th></tr></thead><tbody>""" + module_rows + """</tbody></table>
+</section>""" + priority + verify + auxiliary + """
 <p class="boundary">""" + esc(result["boundary"]) + """</p>
 </main></body></html>"""
