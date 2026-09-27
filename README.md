@@ -23,13 +23,13 @@ Read [Start here](protocol/0.3-preview.1/START-HERE.md), the [complete protocol]
 
 ## What 0.3 changes
 
-0.3 makes the reasoning-recovery mechanism explicit without pretending to reconstruct private chain-of-thought. Every consequential choice now records whether engineering deepening applies and why. When it applies, the machine-readable record can carry decision surfaces for truth, ownership, state, boundary, contract, failure/recovery, time/ordering and assumption, plus bounded challenge scenarios and a smallest coherent next slice.
+0.3 makes the reasoning-recovery mechanism explicit without pretending to reconstruct private chain-of-thought. Every consequential choice now records whether engineering deepening applies and why. When it applies, the machine-readable record carries only the relevant system surfaces for truth, ownership, state, boundary, contract, failure/recovery and time/ordering. Consequential assumptions are separate first-class records with status, consequence-if-false, evidence and revisit triggers. Bounded challenge scenarios carry an explicit evidence level, plus the record names a smallest coherent next slice.
 
 The six engineering gates and fifteen stable criterion IDs remain. G3 now makes relevant system truth, authority, state and temporal behavior inspectable. G4 requires actual challenge/check evidence and invalidates stale checks when the consequential decision context changes. G6 keeps the next commitment bounded and, for software, favors a coherent end-to-end slice that exposes the important assumption before a broad build.
 
 The four evidence levels remain separate: specified, walkthrough, implemented and runtime tested. A plausible rationale, complete decision-surface record or passing software regression does not imply runtime behavior or empirical protocol effectiveness.
 
-The CSV transport contract advances to 2.0.0 and adds `decision-surfaces.csv` and `challenge-scenarios.csv`. Old records and published packages remain frozen. See [0.2 to 0.3 migration](docs/migration-0.2-to-0.3.md).
+The CSV transport contract advances to 2.1.0 and adds `assumptions.csv`, `decision-surfaces.csv` and `challenge-scenarios.csv` with explicit challenge evidence levels. Old records and published packages remain frozen. See [0.2 to 0.3 migration](docs/migration-0.2-to-0.3.md).
 
 ## Evidence and claims
 
