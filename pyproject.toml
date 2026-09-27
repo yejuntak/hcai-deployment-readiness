@@ -28,6 +28,7 @@ dev = [
     "pytest>=8,<10",
     "jsonschema>=4.23,<5",
     "markdown>=3.7,<4",
+    "reportlab>=4.2,<5",
 ]
 
 [tool.pytest.ini_options]
