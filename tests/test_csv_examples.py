@@ -208,11 +208,22 @@ def test_shared_engine_requires_human_choice_confirmation_before_handoff(tmp_pat
                 row["evidence_location"] = "synthetic-revision.md#decision-surface"
     mutate(directory, "decision-surfaces.csv", resolve_surfaces)
     mutate(directory, "challenge-scenarios.csv", lambda rows: rows[0].update(
-        status="pass", evidence_location="synthetic-revision.md#challenge", next_evidence=""))
+        status="pass", evidence_level="walkthrough", evidence_location="synthetic-revision.md#challenge", next_evidence=""))
     mutate(directory, "decision.csv", lambda rows: rows[0].update(disposition="Eligible for declared stage handoff review"))
     result = verifier.summarize(directory)
     assert result["stage_review"]["criterion_status"] == "ready"
     assert result["stage_review"]["choice_issues"] == {}
+
+
+def test_assumption_lifecycle_and_challenge_level_are_machine_enforced(tmp_path):
+    directory = copy_example(tmp_path)
+    mutate(directory, "assumptions.csv", lambda rows: rows[0].update(status="supported", evidence_location=""))
+    with pytest.raises(ValueError, match="supported/conflicted needs retained evidence"):
+        verifier.validate_directory(directory)
+    directory = copy_example(tmp_path)
+    mutate(directory, "challenge-scenarios.csv", lambda rows: rows[0].update(evidence_level=""))
+    with pytest.raises(ValueError, match="assessed challenge needs walkthrough"):
+        verifier.validate_directory(directory)
 
 
 def test_csv_uses_shared_metric_eligibility_per_metric(tmp_path):
