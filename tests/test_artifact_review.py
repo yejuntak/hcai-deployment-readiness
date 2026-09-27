@@ -247,6 +247,7 @@ def test_novel_accepted_critical_changes_disposition_not_reference_denominator()
 def test_zero_recovery_requires_reason_and_is_null():
     data = fixture(); data["recovery"] = []
     data["choices"][0]["affected_check_ids"] = ["R1"]
+    data["choices"][0]["challenge_scenarios"][0]["affected_check_ids"] = ["R1"]
     with pytest.raises(ValidationError): ArtifactReview(**data)
     data["zero_recovery_reason"] = "Bounded static copy review has no transitions or recoverable state"
     result = review_artifact(ArtifactReview(**data))
