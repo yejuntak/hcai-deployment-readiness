@@ -26,9 +26,9 @@ Begin broadly, deepen a specific weak choice when useful, and inspect related im
 
 Every important choice records whether engineering deepening applies and why. Do not infer that all AI-created code requires the same depth. Use the trigger conditions in [engineering reasoning](ENGINEERING-REASONING.md) and scale the inspection to consequence.
 
-When deepening applies, the record must identify the required decision-surface kinds, retain a supported/conflicted/unassessed status for each relevant surface, and include at least one bounded challenge scenario. Unknowns stay unassessed. A generated explanation does not convert an unknown source of truth, contract or assumption into a supported model.
+When deepening applies, the record must identify the required decision-surface kinds, retain a supported/conflicted/unassessed status for each relevant system surface, record consequential assumptions as separate lifecycle records, and include at least one bounded challenge scenario. Unknowns stay unassessed. A generated explanation does not convert an unknown source of truth, contract or assumption into a supported model.
 
-A conflicted required surface or failed bounded challenge produces Hold for remediation for this artifact route. A required but unassessed surface or challenge produces Insufficient evidence. These results concern the declared artifact and stage only.
+A conflicted required surface, conflicted consequential assumption or failed bounded challenge produces Hold for remediation for this artifact route. A required but unassessed surface, assumption or challenge produces Insufficient evidence. An assessed challenge records whether its retained evidence is walkthrough, implemented or runtime-tested evidence. These results concern the declared artifact and stage only.
 
 For software work, name the smallest coherent next slice. It should be small enough to expose the important assumption end to end when applicable, such as input -> validation -> state mutation/persistence -> failure/recovery -> observable outcome. This is not a requirement to build every layer or to use a particular architecture.
 
