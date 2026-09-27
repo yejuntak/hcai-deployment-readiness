@@ -1,6 +1,6 @@
 # H.A.R.D. Protocol 0.3; Public Preview; exact versions in versions.json; historical hashes remain under historical/.
 c54738248b554f4cc91564af21ba52827f8b1dd04754f2954c7d43ecfcb84651  CHANGELOG.md
-8a8e2a904725449d7903b46835d7a0f4387a2410d592f34cf9d42c4c1a7a5267  CITATION.cff
+86e71a3d762d8c965fc02e3be183e68fb6195c6f9d833208fb794cf5991c86c1  CITATION.cff
 69c15fce557a579caf08f12d359c364e9551f995197d2034c14fe36e7fe83c2f  LICENSE
 61be5cd0de5e873b83d1ba72024f5a0ea57f13b412ee8995e06573240c313d15  Pilot-Kit/hard-0.3-preview-1-external-packet.md
 b4814e82056819d8956ea9c92513d5464e74c239815b8052ad201bbe750a261c  README.md
@@ -21,8 +21,8 @@ a3b354fe0e8177e621e8dfe5b5e766bcf91f01209d7e0db16f30495bd53e278f  Templates/reco
 d3cfc2c3e4645d78f837abffdb52c225c0f5e50f9f693acbecb575c111054d40  Templates/reference-key.csv
 5728da846cc50c3bb8803ffa3a182734b04cc6e4fae815beb88263bc0cd8de19  Templates/requirements-brief.csv
 d6f5abc6c89e507ee9eb4f497ac15d77973179a233531ac883ba40638ca0ee6d  Templates/requirements.csv
-a4c7458e36298f0d9938a98a507c30039ca4ed69ce42a73767e65ed17ac9cc46  Verification/current-release-readiness.json
-2a86420e0e852ef2cb83a7610bd89bf5b49bc83dbbea0f1af345968149c521d5  Verification/current-test-results.json
+45de09151a7cf2707f66b56cbb1ab3cde421aa8605ca18aae0216b8e75bccadc  Verification/current-release-readiness.json
+c56b18bf84bb34a74d4da70d2917a4669d66c6deac1034c598c7c097e9a12512  Verification/current-test-results.json
 fa4cb61b903a73fa2bfde8521dcc5299ed6db3bbeb71f0b3f11e35693b2c1534  Worked-Example/Evaluator-Packet/README.md
 252a3fc60eedb21f8f6896df139829a6e86374c9fb69bbcaa9b4c9dd2e15b295  Worked-Example/Evaluator-Packet/artifact.html
 4a15dc0ef6e307ea1925956781bef815520278e7ce2232e9850e4214aa6f7867  Worked-Example/Evaluator-Packet/assessment-brief.md
@@ -116,12 +116,12 @@ f22e316bf7ab91e244bd37718ebf4caf3888a00868d8e6070425be503d866e74  examples/rc4/p
 299eb193b42cabce6f7c30a20a1c3db662aa51539fb0e14c4af76b25d4b4e113  examples/session.json
 6ad4f245f872dd2b835c31e6d81d24a98830c00cf40bfff4e5e999ae11167330  identity.json
 8103211bce801949709e3a05199f9a5d0ed384e39737e60f0950e72d0cc8d17c  index.html
-2c890304944cedbf841ba9477540d7652f0c230404897416750117bd0dbbfccc  output/pdf/HARD-Artifact-Review-0.3-preview.1.pdf
-effb916f46273b390f5532436d26d41fba28b5a8e766714025f9e8ba6a8aae15  output/pdf/HARD-Engineering-Reasoning-0.3-preview.1.pdf
-ddb9eba8e3a0173e62cee887e17dca990b176a7b52bbd8eaefe86e904f9af14a  output/pdf/HARD-External-Pilot-Packet-0.3-preview.1.pdf
-49198a076106807a4c18000a4229dcb0a1dcb03cbde6f33c3b151946a0b524c1  output/pdf/HARD-Full-Profile-0.3-preview.1.pdf
-9b1013a279d8492841b00ff35b67ddd48f0d8ed83aa8799797f4975adf3a7548  output/pdf/HARD-Protocol-0.3-preview.1.pdf
-bd545d0e506d32d24821356dd36ef9655f01712ac66cc23d12dd17981874a53f  output/pdf/HARD-QUICK-6-0.3-preview.1.pdf
+76b56e042c791784087798aaff980b18162f616c0d89fd6a3f53567ac48739bc  output/pdf/HARD-Artifact-Review-0.3-preview.1.pdf
+c2244deccad865666c70e5da0d19c1653674cdaf87e551e8b69417c7d7c8a4a7  output/pdf/HARD-Engineering-Reasoning-0.3-preview.1.pdf
+25443de7619df89d22e33dfd5aeff4cfc8f5135050da602054c82de178095271  output/pdf/HARD-External-Pilot-Packet-0.3-preview.1.pdf
+319b14357ad3d43bfd18cbc408d13d104f8ec266d1ffb36a5cd7c8dc2bb6db25  output/pdf/HARD-Full-Profile-0.3-preview.1.pdf
+6b11f4fbb916d46f7da9097efd3d78e4e7db41fe419030c90a59a7dd89a0bdc7  output/pdf/HARD-Protocol-0.3-preview.1.pdf
+96aee19859a89fb852ecf807403c4014701c5feae28e0a935be533d58f23f6df  output/pdf/HARD-QUICK-6-0.3-preview.1.pdf
 76aa679578d4c4d213cb016feaf3aa2b9989d41525c0645ec78b92224719d64d  protocol/0.3-preview.1/ARTIFACT-REVIEW.md
 964b7c955506c852990ad2701886cd4923a4a4d880b646c009d9686ebe5190c9  protocol/0.3-preview.1/CRITERIA.md
 72a5987fab466d15507365e912dfa9a445ad2508fc99153e31bcb6b6e239bbda  protocol/0.3-preview.1/DECISION-REVIEW.md
