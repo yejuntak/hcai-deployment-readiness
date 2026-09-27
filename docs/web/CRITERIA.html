@@ -1,9 +1,9 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>H.A.R.D. Protocol review criteria</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
 main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
-</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.2-preview-3/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>H.A.R.D. Protocol review criteria</h1>
-<p>H.A.R.D. Protocol 0.2 · Public Preview</p>
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.3-preview-1/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>H.A.R.D. Protocol review criteria</h1>
+<p>H.A.R.D. Protocol 0.3 · Public Preview</p>
 <p>Human-centered AI Readiness and Decision Protocol</p>
-<p>Exact protocol 0.2-preview.3; preview criteria, not certification.</p>
+<p>Exact protocol 0.3-preview.1; preview criteria, not certification.</p>
 <p>Use these criteria to review the evidence before an engineering commitment. The software checks record structure and the six gates; a human reviewer must judge the evidence itself. The protocol does not produce an aggregate conformance score.</p>
 <h2>Understand the work before judging the solution</h2>
 <h3>HCAI-1.1 Bound the task</h3>
@@ -30,18 +30,18 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 <p><strong>Example that meets the intent:</strong> A requester and an advisor can correct an intake; the requirement specifies retained data, readable error feedback and a human escalation path.</p>
 <p><strong>Common failure:</strong> The owner saves time, but a requester cannot correct a wrong generated record and nobody evaluated that effect.</p>
 <p><strong>Verification:</strong> Deterministic coverage and applicability checks plus human/context-specific review; not an accessibility, fairness, privacy or security certification. Gate: G2_NEED_REQUIREMENTS.</p>
-<h2>Make intended behavior and evidence inspectable</h2>
-<h3>HCAI-2.1 Explain form, fit and function</h3>
-<p>Every requirement names what is represented, how it fits the surrounding workflow, what it must do and the reference material used to judge it.</p>
-<p><strong>How to check:</strong> Compare the artifact with its reference material to judge whether its role and behavior meet the requirement.</p>
-<p><strong>Example that meets the intent:</strong> A review form is linked to required intake fields, advisor responsibilities and cancellation rules.</p>
-<p><strong>Common failure:</strong> A finished-looking screen is accepted without knowing its purpose or reference requirements.</p>
-<p><strong>Verification:</strong> Structured references plus human interpretation. Gate: G4_TRACEABILITY.</p>
+<h2>Make intended behavior, decision models and evidence inspectable</h2>
+<h3>HCAI-2.1 Explain form, fit, function and the model behind consequential choices</h3>
+<p>Every requirement names what is represented, how it fits the surrounding workflow, what it must do and the reference material used to judge it. When a software choice needs deeper review, record the relevant system model rather than treating the generated implementation as its own explanation.</p>
+<p><strong>How to check:</strong> Compare the artifact with its reference material. For a consequential software choice, ask which source of truth, ownership, state, boundary, contract or assumption the behavior depends on and whether that model is supported.</p>
+<p><strong>Example that meets the intent:</strong> A review form is linked to required intake fields and cancellation rules; its saved-state choice also names the authoritative record and owner.</p>
+<p><strong>Common failure:</strong> A finished-looking screen or generated code path is accepted without knowing its purpose, reference requirements or the system model it relies on.</p>
+<p><strong>Verification:</strong> Structured references and decision-surface records plus human interpretation. Gate: G4_TRACEABILITY.</p>
 <h3>HCAI-2.2 Trace the exact artifact to a check</h3>
-<p>Each important requirement/artifact pair has an executed check bound to both its exact artifact digest and its requirement/context fingerprint. A change to acceptance criteria, scope, linked states, references, dependencies or authority invalidates the affected check.</p>
-<p><strong>How to check:</strong> Compare both fingerprints with the record captured when the check ran. Repeat the affected check after a change; computing a new hash does not constitute retesting.</p>
+<p>Each important requirement/artifact pair has an executed check bound to both its exact artifact digest and its requirement/context fingerprint. The context includes applicable consequential choices, decision surfaces, linked states, references, dependencies and authority. A material change invalidates the affected check.</p>
+<p><strong>How to check:</strong> Compare both fingerprints with the record captured when the check ran. Repeat the affected check after a requirement, choice, decision surface, challenge condition or artifact changes; computing a new hash does not constitute retesting.</p>
 <p><strong>Example that meets the intent:</strong> A cancellation walkthrough records the exact screen revision and the field-preservation result.</p>
-<p><strong>Common failure:</strong> An agent edits error handling after tests ran, but the old test pass is reused.</p>
+<p><strong>Common failure:</strong> An agent changes authorization or the assumed source of truth after tests ran, but the old pass is reused.</p>
 <p><strong>Verification:</strong> Deterministic chain and revision checks plus inspection of execution evidence. Gate: G4_TRACEABILITY.</p>
 <h3>HCAI-2.3 Distinguish simulated from implemented behavior</h3>
 <p>Label each requirement's behavior as specified only, simulated or implemented. Do not label a walkthrough of a simulation as an implementation test.</p>
@@ -49,19 +49,19 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 <p><strong>Example that meets the intent:</strong> The export button is simulated; the review checks the intended recovery behavior and funds only implementation of that behavior.</p>
 <p><strong>Common failure:</strong> A mock success screen is presented as proof that a payment or export completed.</p>
 <p><strong>Verification:</strong> Behavior-status and test-level consistency plus human inspection. Gate: G4_TRACEABILITY.</p>
-<h2>Keep people able to understand and recover</h2>
-<h3>HCAI-3.1 Cover normal, edge and recovery states</h3>
-<p>Represent connected normal, edge and recovery paths with an entry, resolvable next-state IDs, reachable endpoints, data treatment, ownership and requirement links. Review transition conditions, dependency failures and bounded retry/exit behavior.</p>
-<p><strong>How to check:</strong> Try missing input, empty results, delay, unavailable dependency, cancellation and resumption where relevant. Document which cases apply.</p>
-<p><strong>Example that meets the intent:</strong> A failed save keeps entered data and explains how to retry or return to manual work.</p>
-<p><strong>Common failure:</strong> The happy path works but a failed save silently discards the user's input.</p>
-<p><strong>Verification:</strong> State/reference checks plus context-specific human walkthrough. Gate: G3_STATES_RECOVERY.</p>
-<h3>HCAI-3.2 Make human and automated authority explicit</h3>
-<p>Record what people and automated components may access, change or send. Review approval, interruption, escalation and recovery boundaries. If AI only created the artifact, say so.</p>
-<p><strong>How to check:</strong> For an agent action, ask who authorizes it, how to stop it, what happens after partial completion and who resolves exceptions.</p>
-<p><strong>Example that meets the intent:</strong> A draft-only agent cannot send; an advisor approves changes and can return to a saved record.</p>
-<p><strong>Common failure:</strong> An agent may delete or message externally without a stated owner, approval boundary or recovery path.</p>
-<p><strong>Verification:</strong> Required boundary review plus specialist verification when risk demands it. Gate: G3_STATES_RECOVERY.</p>
+<h2>Keep state, authority and recovery understandable</h2>
+<h3>HCAI-3.1 Cover state transitions, edge cases and recovery</h3>
+<p>Represent connected normal, edge and recovery paths with an entry, resolvable next-state IDs, reachable endpoints, data treatment, ownership and requirement links. Where relevant, review partial completion, repetition, ordering/concurrency, dependency failures and bounded retry/exit behavior.</p>
+<p><strong>How to check:</strong> Try missing input, empty results, delay, unavailable dependency, cancellation and resumption. For state-changing work, ask what happens when the same operation happens twice, two transitions race, or execution stops halfway.</p>
+<p><strong>Example that meets the intent:</strong> A repeated invitation accept is idempotent, a revoked invitation cannot become active, and an interrupted email step does not corrupt membership state.</p>
+<p><strong>Common failure:</strong> The happy path works, but duplicate requests or a partial failure can create contradictory state.</p>
+<p><strong>Verification:</strong> State/reference checks plus risk-scaled walkthrough or executed challenge evidence. Gate: G3_STATES_RECOVERY.</p>
+<h3>HCAI-3.2 Make system truth and authority explicit</h3>
+<p>For relevant consequential choices, identify authoritative truth, who may mutate it, derived or cached representations, responsibility boundaries and interface guarantees. Review what happens when sources disagree and how people or automated components approve, interrupt, escalate or recover. If AI only created the artifact, say so.</p>
+<p><strong>How to check:</strong> Ask which record wins when two representations disagree, who can change it, which component owns each side effect, and what the boundary promises on success, timeout or partial completion.</p>
+<p><strong>Example that meets the intent:</strong> Membership state is authoritative in the membership service; invitation tokens cannot directly grant access, duplicate acceptance is contained, and a named owner can revoke or repair state.</p>
+<p><strong>Common failure:</strong> UI state, cache and database are all treated as truth, or a component can mutate consequential state without a stated owner or contract.</p>
+<p><strong>Verification:</strong> Decision-surface, authority and boundary review plus specialist verification when risk demands it. Gate: G3_STATES_RECOVERY.</p>
 <h3>HCAI-3.3 Count human oversight work</h3>
 <p>Estimate disjoint review, correction, escalation, rework and residual manual minutes with an owner and basis. Distinguish gross from net benefit.</p>
 <p><strong>How to check:</strong> Subtract every oversight component from gross labor savings. Keep waiting time and labor time separate. Leave missing baseline ROI indeterminate.</p>
@@ -76,17 +76,17 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 <p><strong>Common failure:</strong> A simple-looking UI is treated as low risk despite an irreversible outcome.</p>
 <p><strong>Verification:</strong> Deterministic routing plus competent human risk classification. Gate: G6_COMMITMENT.</p>
 <h3>HCAI-4.2 Resolve findings at the required depth</h3>
-<p>Review reference defects, findings and unresolved risks. Unresolved critical findings cannot be waived. Add independent review and deeper plans when the risk tier requires them. A recorded human evidence-quality review must address relevance, completeness, authenticity and test adequacy; agent-only assertions cannot replace it.</p>
-<p><strong>How to check:</strong> Inspect each unresolved finding; passing other gates cannot offset it. Verify reviewer independence for moderate/high risk.</p>
-<p><strong>Example that meets the intent:</strong> A critical data-loss defect stays visible even when the baseline is also missing.</p>
-<p><strong>Common failure:</strong> A critical finding is marked accepted to obtain a favorable readiness result.</p>
+<p>Review reference defects, findings, challenged assumptions and unresolved risks. A conflicted required decision surface or failed consequential challenge remains visible until resolved or the scope is changed transparently. Unresolved critical findings cannot be waived. Add independent review and deeper plans when the risk tier requires them. A recorded human evidence-quality review must address relevance, completeness, authenticity and test adequacy; agent-only assertions cannot replace it.</p>
+<p><strong>How to check:</strong> Inspect each unresolved finding and deepened choice. Passing other gates cannot offset a demonstrated contradiction. Verify reviewer independence for moderate/high risk.</p>
+<p><strong>Example that meets the intent:</strong> A duplicate-payment challenge fails and remains a blocker even when the baseline and happy-path tests pass.</p>
+<p><strong>Common failure:</strong> A failed challenge is replaced by a plausible AI explanation so the review can proceed.</p>
 <p><strong>Verification:</strong> Finding status and evidence checks plus reviewer judgment. Gate: G6_COMMITMENT.</p>
-<h3>HCAI-4.3 Limit the engineering commitment</h3>
-<p>Record an owner, bounded engineering step, resource limit and next review trigger. Explain any investment despite a nonpositive net estimate; obtain separate owner authorization.</p>
-<p><strong>How to check:</strong> Ask what the team may build next and what it may not do yet. Retain a separate dated owner decision.</p>
-<p><strong>Example that meets the intent:</strong> One engineer-day for a disposable prototype, with no live sending and a review before further work.</p>
-<p><strong>Common failure:</strong> A gate pass is treated as permission for unrestricted building or deployment.</p>
-<p><strong>Verification:</strong> Recorded bounds and rationale; authorization remains a separate human act. Gate: G6_COMMITMENT.</p>
+<h3>HCAI-4.3 Limit the next commitment to a coherent slice</h3>
+<p>Record an owner, bounded engineering step, resource limit and next review trigger. For software work, prefer the smallest coherent slice that can expose the important assumption across input, validation, state change or persistence, failure/recovery and observable outcome when those elements apply. Explain any investment despite a nonpositive net estimate; obtain separate owner authorization.</p>
+<p><strong>How to check:</strong> Ask what one end-to-end slice would produce evidence about the riskiest unresolved reasoning, what the team may not build yet, and when the choice will be reopened.</p>
+<p><strong>Example that meets the intent:</strong> One engineer-day to prove authorized invitation creation through acceptance, persistence and duplicate/revoked handling; no broader dashboard or production rollout.</p>
+<p><strong>Common failure:</strong> A favorable review is treated as permission to generate the whole frontend and backend before the key state assumption is tested.</p>
+<p><strong>Verification:</strong> Recorded bounds, coherent-slice rationale and separate human authorization. Gate: G6_COMMITMENT.</p>
 <h3>HCAI-4.4 Separate effort from performance</h3>
 <p>Record preparation, timed-session and reporting burden. Keep protocol cost, projected operating oversight, reviewer judgments and actual system performance separate.</p>
 <p><strong>How to check:</strong> Check units and which activity each number measures. Do not infer operational accuracy, safety or readiness from document completeness.</p>

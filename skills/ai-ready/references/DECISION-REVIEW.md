@@ -1,8 +1,8 @@
 # Inspect the decisions inside the result
 
-H.A.R.D. Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.3 · Public Preview
 
-AI-assisted creation can compress the path from a request to a finished-looking artifact. A useful review makes the choices in that path discussable: their purpose, alternatives, reasons, tradeoffs, evidence and unresolved human judgment. It does not pretend to recover an unrecorded generation process.
+AI-assisted creation can compress the path from intention to a finished-looking artifact. A useful review decompresses consequential choices without pretending to recover an unrecorded generation process. It makes purpose, alternatives, assumptions, reasons, tradeoffs, system dependencies, evidence and unresolved human judgment discussable.
 
 ## Record a consequential choice
 
@@ -46,10 +46,37 @@ These are constructed examples, not measured results.
 
 The original choice may be right in each example. Asynchronous work, more prompts or additional automation are not universal improvements. An appropriate review preserves what is justified and exposes where an accountable decision is still missing.
 
+## Engineering decision surfaces
+
+Do not make every review a software architecture exercise. First record whether engineering deepening is required and why. Deepening is warranted when an important choice depends on consequential state mutation, an external or irreversible side effect, privileged or tenant boundaries, an unreliable/asynchronous dependency, repeat or concurrent execution, material money/data loss, a scale/cost assumption, a current promise that depends on deferred work, an ambiguous source of truth or another comparable condition.
+
+When deepening applies, record only the surfaces needed to understand the choice:
+
+| Surface | Question |
+| --- | --- |
+| Truth | Which fact or record is authoritative when representations disagree? |
+| Ownership | Who owns that truth and who may mutate it? |
+| State | Which states and transitions can actually exist? |
+| Boundary | Which component or role owns each responsibility and side effect? |
+| Contract | What must cross that boundary, and what does success or failure mean? |
+| Failure/recovery | What partial or contradictory state can remain after failure, and how is it repaired? |
+| Time/ordering | What if requests repeat, race, arrive late or stop halfway? |
+| Assumption | What must be true for the choice to remain reasonable, what happens if it is false, and what evidence would change the decision? |
+
+A surface may be supported, conflicted, unassessed or not applicable with a reason. Supported means the supplied evidence supports the current model within scope. It does not establish universal correctness. Conflicted means retained evidence contradicts the current model and is a blocker until the choice, evidence or scope is resolved transparently.
+
+### Challenge before acceptance
+
+For a deepened choice, name at least one bounded challenge condition. Ask: **What would have to be true for this decision to be wrong?** Record the claim at risk, expected behavior or invariant, consequence if mishandled and the evidence needed. A plausible AI explanation is not challenge evidence.
+
+Examples include a duplicated request, delayed first response, stale cache, partial write, dependency outage, cancellation racing completion, conflicting authority or a load assumption being exceeded. Only use cases that are material to the actual choice and risk.
+
+The goal is not maximal complexity. The goal is to distinguish an understood tradeoff from an implementation that merely arrived first.
+
 ## Relation to the other routes
 
 Minimum artifact review can use this record without financial measurements. Engineering commitment maps relevant evidence into the existing gates: purpose and alternatives into G2, dependencies and authority into G3, revision-specific checks into G4, human work into G5, and the bounded decision into G6. G1 remains necessary when making that engineering recommendation.
 
 This review technique is unvalidated. Do not add its prompts or alternative lists to a controlled fidelity study unless the approved study design explicitly includes them.
 
-Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.
+Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.

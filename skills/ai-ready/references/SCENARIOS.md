@@ -1,6 +1,6 @@
 # Scenarios for reviewing AI-created and AI-enabled work
 
-H.A.R.D. Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.3 · Public Preview
 
 All examples below are constructed. They illustrate decisions and evidence boundaries, not pilot findings or proven effects.
 
@@ -64,4 +64,29 @@ Participants judge intact and defective requirements, record confidence and lock
 
 **Route:** a separately designed research study. Do not introduce guided decision-review prompts, alternatives or reference answers as an unplanned intervention. Role and timing eligibility alone does not establish causal evidence; the design, sample, comparison and analysis must support that claim. Perceived readiness remains separate from actual correctness.
 
-Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.
+Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.
+
+
+## 11. AI generated a team-invitation feature that works on the happy path
+
+The implementation has a team-members table, invitation token and accept endpoint. It does not say which record is authoritative before acceptance, whether a revoked invitation can race an accept request, or when a billing seat is consumed.
+
+**Review:** artifact_review with ai_generated population. Decompress the observed schema and endpoint choices. Engineering deepening is warranted because the feature mutates persistent membership and authorization state. Record truth, ownership, state, time/ordering and assumption surfaces. Challenge duplicate acceptance and revoke/accept ordering. Do not infer a race-condition defect unless the code or execution supports it; an unassessed transition remains an evidence gap.
+
+## 12. AI generated a synchronous report workflow around an external service
+
+The generated code calls an upstream service and returns a complete report. A timeout path immediately retries.
+
+**Review:** identify whether an immediate complete result is actually required. Model the authoritative outcome after a lost response, the dependency contract and repeat-execution behavior. Compare bounded retry, status lookup, queued work, partial result and manual fallback only against the actual purpose. A new queue is not automatically better architecture.
+
+## 13. AI generated tenant filtering in the client
+
+The interface filters visible records by tenant ID. No server-side authorization evidence is supplied.
+
+**Review:** the observed client filter does not establish a cross-tenant data leak by itself. It does create an important authority question. Deepen the truth, ownership, boundary and contract surfaces; inspect the server authorization evidence. If server-side isolation is absent in the exact implementation, record the supported finding and severity based on actual exposure and consequence.
+
+## 14. The team asks AI to generate the entire product after one promising prototype
+
+The prototype covers one normal path but the important persistence and recovery assumptions have not been tested.
+
+**Engineering commitment:** do not convert a visually coherent prototype into permission for a broad frontend/backend build. Define the smallest coherent slice that can test the important assumption through input, validation, state/persistence, failure/recovery and observable outcome as applicable. Bound resources and reopen the decision after that evidence exists.

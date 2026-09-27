@@ -1,8 +1,8 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Inspect the decisions inside the result</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
 main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
-</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.2-preview-3/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>Inspect the decisions inside the result</h1>
-<p>H.A.R.D. Protocol 0.2 · Public Preview</p>
-<p>AI-assisted creation can compress the path from a request to a finished-looking artifact. A useful review makes the choices in that path discussable: their purpose, alternatives, reasons, tradeoffs, evidence and unresolved human judgment. It does not pretend to recover an unrecorded generation process.</p>
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.3-preview-1/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>Inspect the decisions inside the result</h1>
+<p>H.A.R.D. Protocol 0.3 · Public Preview</p>
+<p>AI-assisted creation can compress the path from intention to a finished-looking artifact. A useful review decompresses consequential choices without pretending to recover an unrecorded generation process. It makes purpose, alternatives, assumptions, reasons, tradeoffs, system dependencies, evidence and unresolved human judgment discussable.</p>
 <h2>Record a consequential choice</h2>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
 <thead>
@@ -106,7 +106,57 @@ main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:to
 </tbody>
 </table></div>
 <p>The original choice may be right in each example. Asynchronous work, more prompts or additional automation are not universal improvements. An appropriate review preserves what is justified and exposes where an accountable decision is still missing.</p>
+<h2>Engineering decision surfaces</h2>
+<p>Do not make every review a software architecture exercise. First record whether engineering deepening is required and why. Deepening is warranted when an important choice depends on consequential state mutation, an external or irreversible side effect, privileged or tenant boundaries, an unreliable/asynchronous dependency, repeat or concurrent execution, material money/data loss, a scale/cost assumption, a current promise that depends on deferred work, an ambiguous source of truth or another comparable condition.</p>
+<p>When deepening applies, record only the surfaces needed to understand the choice:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Surface</th>
+<th>Question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Truth</td>
+<td>Which fact or record is authoritative when representations disagree?</td>
+</tr>
+<tr>
+<td>Ownership</td>
+<td>Who owns that truth and who may mutate it?</td>
+</tr>
+<tr>
+<td>State</td>
+<td>Which states and transitions can actually exist?</td>
+</tr>
+<tr>
+<td>Boundary</td>
+<td>Which component or role owns each responsibility and side effect?</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>What must cross that boundary, and what does success or failure mean?</td>
+</tr>
+<tr>
+<td>Failure/recovery</td>
+<td>What partial or contradictory state can remain after failure, and how is it repaired?</td>
+</tr>
+<tr>
+<td>Time/ordering</td>
+<td>What if requests repeat, race, arrive late or stop halfway?</td>
+</tr>
+<tr>
+<td>Assumption</td>
+<td>What must be true for the choice to remain reasonable, what happens if it is false, and what evidence would change the decision?</td>
+</tr>
+</tbody>
+</table></div>
+<p>A surface may be supported, conflicted, unassessed or not applicable with a reason. Supported means the supplied evidence supports the current model within scope. It does not establish universal correctness. Conflicted means retained evidence contradicts the current model and is a blocker until the choice, evidence or scope is resolved transparently.</p>
+<h3>Challenge before acceptance</h3>
+<p>For a deepened choice, name at least one bounded challenge condition. Ask: <strong>What would have to be true for this decision to be wrong?</strong> Record the claim at risk, expected behavior or invariant, consequence if mishandled and the evidence needed. A plausible AI explanation is not challenge evidence.</p>
+<p>Examples include a duplicated request, delayed first response, stale cache, partial write, dependency outage, cancellation racing completion, conflicting authority or a load assumption being exceeded. Only use cases that are material to the actual choice and risk.</p>
+<p>The goal is not maximal complexity. The goal is to distinguish an understood tradeoff from an implementation that merely arrived first.</p>
 <h2>Relation to the other routes</h2>
 <p>Minimum artifact review can use this record without financial measurements. Engineering commitment maps relevant evidence into the existing gates: purpose and alternatives into G2, dependencies and authority into G3, revision-specific checks into G4, human work into G5, and the bounded decision into G6. G1 remains necessary when making that engineering recommendation.</p>
 <p>This review technique is unvalidated. Do not add its prompts or alternative lists to a controlled fidelity study unless the approved study design explicitly includes them.</p>
-<p>Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.</p></main></body></html>
+<p>Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.</p></main></body></html>

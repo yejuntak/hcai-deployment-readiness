@@ -15,19 +15,19 @@ GUIDES = {
     "G2_NEED_REQUIREMENTS": {
         "title": "Name the need and success condition", "question": "Whose difficulty are we solving, and what observable result would satisfy them?",
         "owner": "product/workflow owner", "fields": ["artifact_population", "scope", "workflow.outcome", "workflow.needs", "workflow.requirements", "choice_ledger"],
-        "action": "Classify the artifact population. Use work records or an end-user discussion to define success and its owner. Inspect consequential choices in the artifact against that purpose and explicit criteria. Separate recorded historical alternatives from alternatives proposed in this review. Include affected non-users and review access, privacy/security, unequal effects and human control. Compare a non-AI option.",
+        "action": "Classify the artifact population. Use work records or an end-user discussion to define success and its owner. Inspect consequential choices in the artifact against that purpose and explicit criteria. For every important choice, explicitly decide whether engineering deepening applies and record why. Separate recorded historical alternatives from alternatives proposed in this review. Include affected non-users and review access, privacy/security, unequal effects and human control. Compare a non-AI option.",
         "example": "Illustration only: after cancellation, the advisor can reopen all previously entered contact fields.",
         "do_not": "Do not count two copies of one source, general industry articles, or feedback about this protocol as independent customer need evidence. Do not present a reconstruction of AI reasoning as a historical record."},
     "G3_STATES_RECOVERY": {
-        "title": "Walk through normal work, failure and recovery", "question": "When the proposed workflow cannot finish, who notices and how do they recover?",
+        "title": "Model system truth, state and recovery", "question": "What must remain true as this workflow changes state, and what happens when that model is wrong or incomplete?",
         "owner": "workflow designer and operator", "fields": ["workflow.states", "workflow.state_review", "workflow.dependencies", "workflow.dependency_review", "workflow.action_boundaries", "workflow.human_control_review"],
-        "action": "Walk the normal, edge and recovery paths. Record triggers, actions, data preservation and the responsible role; review dependencies.",
+        "action": "Walk normal, edge and recovery paths. For choices that require engineering deepening, externalize the relevant source of truth, ownership, state, boundary, contract, failure, time/ordering and assumption surfaces. Record only what supplied evidence supports. Challenge repeated, concurrent, partial and dependency-failure behavior when consequence makes it material.",
         "example": "Illustration only: a missing field is shown to the advisor; cancelling returns to saved intake without data loss.",
-        "do_not": "Do not infer an error or recovery path from a polished happy-path screen."},
+        "do_not": "Do not infer an error path, source of truth or architecture from a polished result. Do not turn a newly generated explanation into historical rationale."},
     "G4_TRACEABILITY": {
         "title": "Check the requirement and tested revision", "question": "Show the requirement, the exact artifact revision and the check that tested it together.",
         "owner": "requirement owner and reviewer", "fields": ["workflow.important_artifact_ids", "workflow.requirements", "workflow.validations", "choice_ledger", "evidence"],
-        "action": "Check each requirement -> artifact -> executed-check link and the evidence verifying its consequential choices. Compare both the artifact and requirement/context fingerprints. After a choice, requirement or artifact changes, repeat the affected check; replacing the hash does not establish a new pass.",
+        "action": "Check each requirement -> artifact -> executed-check link and the evidence verifying its consequential choices. When engineering deepening applies, execute or inspect the bounded challenge scenarios rather than treating plausible reasoning as proof. Compare artifact and requirement/context fingerprints. After a choice, decision surface, challenge condition, requirement or artifact changes, repeat the affected check; replacing the hash does not establish a new pass.",
         "example": "Illustration only: requirement R1 -> saved-intake screen revision 2 -> recorded cancellation walkthrough of that exact file.",
         "do_not": "Do not count a planned test, an old artifact revision, or visual fidelity as a passing check."},
     "G5_OVERSIGHT": {
@@ -39,8 +39,8 @@ GUIDES = {
     "G6_COMMITMENT": {
         "title": "Bound the engineering decision", "question": "Which engineering step does this evidence support, how much may it use, and when should it be reviewed again?",
         "owner": "engineering decision owner", "fields": ["handoff", "evaluator_burden", "choice_ledger"],
-        "action": "Resolve blocking findings and consequential choices and complete the reviews required for this risk tier. Retain the current choice when an accountable human review supplies adequate justification and verification; missing historical rationale alone does not require replacement. Record preparation and session effort, then name the scope, owner, resource cap and revisit trigger.",
-        "example": "Illustration only: one engineer-day for a disposable prototype; no live sending; review the cancellation path before any further spend.",
+        "action": "Resolve blocking findings and consequential choices and complete the reviews required for this risk tier. Retain the current choice when an accountable human review supplies adequate justification and verification; missing historical rationale alone does not require replacement. For software work, make the next commitment the smallest coherent slice that can expose an important assumption end to end, not a broad layer-by-layer build. Record preparation and session effort, then name the scope, owner, resource cap and revisit trigger.",
+        "example": "Illustration only: one engineer-day to prove one invitation lifecycle from authorized creation through persistence, duplicate/revoked handling and an observable outcome; no broader dashboard build.",
         "do_not": "Do not treat this recommendation as owner authorization or deployment approval. Explain funding despite nonpositive benefit."},
 }
 

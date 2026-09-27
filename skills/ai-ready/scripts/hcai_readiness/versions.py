@@ -1,13 +1,13 @@
 """Public identity and exact execution versions. Historical DOI belongs only to rc.3."""
 PROTOCOL_NAME = "H.A.R.D. Protocol"
 PROTOCOL_FULL_NAME = "Human-centered AI Readiness and Decision Protocol"
-DISPLAY_VERSION = "0.2"
+DISPLAY_VERSION = "0.3"
 RELEASE_LABEL = "Public Preview"
-DISTRIBUTION_ID = "hard-0.2-preview-3"
-PROTOCOL_VERSION = "0.2-preview.3"
-MCP_VERSION = "0.2.0rc9"
-SKILL_VERSION = "0.2.0-rc.9"
-CONTRACT_VERSION = "0.2.0-rc.9"
+DISTRIBUTION_ID = "hard-0.3-preview-1"
+PROTOCOL_VERSION = "0.3-preview.1"
+MCP_VERSION = "0.3.0rc1"
+SKILL_VERSION = "0.3.0-rc.1"
+CONTRACT_VERSION = "0.3.0-rc.1"
 
 
 def public_title():

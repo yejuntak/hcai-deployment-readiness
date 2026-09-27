@@ -1,10 +1,10 @@
 # Reporting results and managing changes
 
-H.A.R.D. Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.3 · Public Preview
 
 Human-centered AI Readiness and Decision Protocol.
 
-Exact protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9. Preview rules, not certification.
+Exact protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1. Preview rules, not certification.
 
 ## Which requirements govern the review?
 
@@ -13,6 +13,14 @@ The artifact-review contract defines stage-bounded artifact results. The full pr
 The engine enforces the encoded structural and decision rules. A human reviewer must judge whether the evidence meets each criterion's intent. If code, schema and normative text disagree, record a defect, preserve the disputed run and do not issue a favorable recommendation based on the disagreement. Resolve it in a new version with a regression fixture.
 
 Every engineering-commitment profile retains the six mandatory gates. The separate minimum artifact_review route does not claim to pass, waive or replace them. QUICK-6 changes how a low-risk review is conducted; it is not a weaker certification level. No gate can be marked not applicable. Inapplicability is available only for the explicitly scoped impact-screen items, with evidence, owner and rationale. Domain profiles may add requirements; they may not waive mandatory gates or use the base version identity for changed logic.
+
+## Reasoning-decompression claim boundary
+
+H.A.R.D. 0.3 uses **decision compression** and **implementation outrunning understanding** as motivating models for the review. They describe a plausible condition the protocol is designed to inspect: a generated artifact can exist before its responsible human has explicitly examined or preserved the consequential system model behind it.
+
+Do not report those phrases as established causal findings. This preview has not demonstrated that AI-assisted creation causes decision compression, that experienced developers use one universal hidden sequence, or that H.A.R.D. restores missing reasoning or improves engineering outcomes.
+
+The engineering-reasoning lens externalizes reviewable decision surfaces. It never authenticates a creator's private thought process. A supported decision surface means the supplied evidence supports the current model within the declared scope. A conflicted surface or failed challenge is a review blocker, not proof that a particular replacement architecture is correct.
 
 ## Match the claim to the evidence
 
@@ -25,7 +33,7 @@ Every engineering-commitment profile retains the six mandatory gates. The separa
 | One actual permitted external use | One bounded formative use was recorded, with its scope and limitations. | Validated, widely adopted, or endorsed. |
 | Comparative study with an appropriate design | Describe the measured outcome, sample, comparator, uncertainty and limitations. | Universal benefit or claims outside the tested population/task. |
 
-A claim record must identify route, artifact stage/population, choice rationale provenance, role overlap, metric eligibility/N/A reasons, date, exact protocol/MCP/Skill/contract versions, workflow boundaries, requested/required profile, risk and context triggers, gate outcomes including skipped gates, evidence provenance, human-review basis, limitations, and the owner’s separate decision if one was made. Reusing the same artifact does not preserve a claim after scope, requirements, context or relevant evidence changes.
+A claim record must identify route, artifact stage/population, choice rationale provenance, explicit assumptions, engineering-deepening disposition and relevant decision surfaces/challenges when used, role overlap, metric eligibility/N/A reasons, date, exact protocol/MCP/Skill/contract versions, workflow boundaries, requested/required profile, risk and context triggers, gate outcomes including skipped gates, evidence provenance, human-review basis, limitations, and the owner's separate decision if one was made. Reusing the same artifact does not preserve a claim after scope, requirements, context or relevant evidence changes.
 
 Do not issue a badge or a percentage that compresses evidence completeness, evaluator cost, operating oversight and actual system performance into one result. Do not describe an implementation parity check as independent certification.
 
@@ -55,6 +63,6 @@ The author currently maintains the project. It has no independent standards body
 - Changes need regression tests, implementation parity, link/package checks, permission review and readable documentation. A Public Preview is allowed while actual-use evidence is missing; a finalized release is not. A shorter public version number does not waive this boundary.
 - Current passing regressions and at least one genuine, version-matched bounded external use with feedback make a release eligible for author review, not automatic promotion. The author still evaluates unresolved issues and the adequacy of evidence. One pilot does not validate effectiveness or establish a standard.
 
-See [preview.3 migration](migration-preview-3.md) for the new route, required population field and corrected diagnostic/CSV contracts. Historical archives remain immutable; corrected current templates and diagnostics do not claim identical historical behavior.
+See [0.2 to 0.3 migration](migration-0.2-to-0.3.md) for the reasoning-deepening contract and CSV changes. Preview.3 remains frozen history. Historical archives remain immutable; corrected current templates and diagnostics do not claim identical historical behavior.
 
 Licensing remains as stated in the repository: original text CC BY 4.0, engine code MIT, third-party material subject to its own terms. This document does not grant rights to private practitioner correspondence.

@@ -1,10 +1,10 @@
 # Start with one artifact and one decision
 
-H.A.R.D. Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.3 · Public Preview
 
 Bring the plan, screen, workflow or code you want to inspect. Name its exact revision and the next decision you need to make. You can review a specification before any implementation exists.
 
-Start with this question: **What is this result trying to achieve, and which choices inside it have we actually reviewed?**
+Start with this question: **What is this result trying to achieve, which choices inside it have we actually reviewed, and what system model do those choices depend on?**
 
 ## Choose your route
 
@@ -19,11 +19,12 @@ An advisor can record the answers, or a solo practitioner can use the [worksheet
 ## The minimum review
 
 1. **Bound the artifact.** Record purpose, affected people, revision, stage and current versus future scope. Identify whether AI created it, operates within it, both or neither.
-2. **Reopen consequential choices.** Inspect what was chosen, why it serves the purpose, credible alternatives, costs and failure assumptions. Cite documented reasons; label current hypotheses and new alternatives honestly.
-3. **Check evidence.** For each current requirement and recovery path, record specified, walkthrough, implemented and runtime-tested evidence separately. Unknown is visible, not a pass.
-4. **Record the next decision.** Keep justified choices. For supported gaps, name the change or question, evidence needed, owner and revisit condition. A person owns the decision.
+2. **Decompress consequential choices.** Inspect what was chosen, why it serves the purpose, credible alternatives, assumptions and tradeoffs. Cite documented reasons; label current hypotheses and new alternatives honestly.
+3. **Deepen only where consequence warrants it.** Explicitly record whether engineering deepening applies. When it does, model the relevant truth, ownership, state, boundary/contract, failure, time/ordering and assumption surfaces and name at least one condition that could disconfirm them.
+4. **Check evidence.** For each current requirement and recovery path, record specified, walkthrough, implemented and runtime-tested evidence separately. Unknown is visible, not a pass.
+5. **Record the next decision.** Keep justified choices. For supported gaps, name the change or question, evidence needed, owner and revisit condition. A person owns the decision.
 
-For example, an AI-written SaaS plan calls a user service before generating a report. The plan explains the happy path but says nothing about a timeout. You can identify that specification gap without code or a measured ROI. You cannot say the implementation fails at runtime, or that adding a retry is necessarily the best solution. Compare bounded retries, queued work, partial results and a manual fallback against the actual purpose and constraints.
+For example, an AI-written SaaS plan calls a user service before generating a report. The plan explains the happy path but says nothing about a timeout. You can identify that specification gap without code or a measured ROI. You cannot say the implementation fails at runtime, or that adding a retry is necessarily the best solution. Compare bounded retries, queued work, partial results and a manual fallback against the actual purpose and constraints. If the choice changes consequential state, also ask which result is authoritative after a timeout, whether repeat execution is safe, and what evidence could disconfirm the current model.
 
 If only one dependency needs closer inspection, deepen that part. Targeted deepening changes review depth; it does not create a new scoring profile or validated claim. Consequential decisions may need a competent independent or specialist reviewer even when the first inspection was done alone.
 
@@ -35,4 +36,4 @@ For an engineering funding recommendation, complete QUICK6 or FULL afterward. A 
 
 The protocol is a Public Preview. Examples are constructed and feedback is formative. Neither a complete record nor a favorable recommendation approves deployment.
 
-Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.
+Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.

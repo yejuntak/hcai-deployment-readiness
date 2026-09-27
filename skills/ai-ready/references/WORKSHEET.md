@@ -1,6 +1,6 @@
 # Worksheet: choices, evidence and the next decision
 
-H.A.R.D. Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.3 · Public Preview
 
 Use paper or existing notes. The facilitator can maintain the detailed machine record. Completing this worksheet does not authenticate evidence or grant a favorable result.
 
@@ -82,4 +82,42 @@ Ask: **In your own words, what does this result allow, and what remains undecide
 
 Permission / anonymization / retention: ______  Previous run / changes: ______
 
-Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.
+Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.
+
+
+## Engineering reasoning deepening
+
+Complete this section for each consequential choice only after recording whether deepening applies.
+
+**Choice ID:** ____________________
+
+**Does engineering deepening apply?** yes / no
+
+**Why?** ________________________________________________________________
+
+**Trigger(s):** state mutation / external side effect / irreversible action / privileged or tenant boundary / unreliable dependency / repeat or concurrent execution / money or data loss / material scale or cost assumption / current promise depends on deferred work / ambiguous source of truth / other
+
+For each relevant surface, record the current model and status. Leave unsupported claims unassessed.
+
+| Surface | Current model or question | Status | Evidence or next evidence |
+| --- | --- | --- | --- |
+| Truth |  |  |  |
+| Ownership |  |  |  |
+| State |  |  |  |
+| Boundary |  |  |  |
+| Contract |  |  |  |
+| Failure/recovery |  |  |  |
+| Time/ordering |  |  |  |
+| Assumption |  |  |  |
+
+**What would have to be true for this choice to be wrong?** ____________________
+
+**Expected behavior or invariant:** ________________________________________
+
+**Consequence if mishandled:** ____________________________________________
+
+**Evidence that would resolve the challenge:** _____________________________
+
+**Smallest coherent next slice:** _________________________________________
+
+Do not fill blanks with a generated rationale. Unknown is a valid review result.

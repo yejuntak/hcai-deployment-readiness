@@ -266,6 +266,85 @@
       "title": "ArtifactVersions",
       "type": "object"
     },
+    "ChallengeScenario": {
+      "additionalProperties": false,
+      "description": "A bounded attempt to disconfirm an important choice or system model.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "condition": {
+          "minLength": 1,
+          "title": "Condition",
+          "type": "string"
+        },
+        "claim_at_risk": {
+          "minLength": 1,
+          "title": "Claim At Risk",
+          "type": "string"
+        },
+        "expected_behavior_or_invariant": {
+          "minLength": 1,
+          "title": "Expected Behavior Or Invariant",
+          "type": "string"
+        },
+        "consequence_if_mishandled": {
+          "minLength": 1,
+          "title": "Consequence If Mishandled",
+          "type": "string"
+        },
+        "affected_check_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Affected Check Ids",
+          "type": "array"
+        },
+        "status": {
+          "default": "unassessed",
+          "enum": [
+            "pass",
+            "fail",
+            "unassessed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Locations",
+          "type": "array"
+        },
+        "next_evidence": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Next Evidence"
+        }
+      },
+      "required": [
+        "id",
+        "condition",
+        "claim_at_risk",
+        "expected_behavior_or_invariant",
+        "consequence_if_mishandled"
+      ],
+      "title": "ChallengeScenario",
+      "type": "object"
+    },
     "ChoiceRecord": {
       "additionalProperties": false,
       "properties": {
@@ -372,6 +451,14 @@
           "title": "Impacts And Tradeoffs",
           "type": "array"
         },
+        "assumptions": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
         "affected_check_ids": {
           "items": {
             "minLength": 1,
@@ -379,6 +466,79 @@
           },
           "title": "Affected Check Ids",
           "type": "array"
+        },
+        "engineering_deepening_required": {
+          "title": "Engineering Deepening Required",
+          "type": "boolean"
+        },
+        "deepening_rationale": {
+          "minLength": 1,
+          "title": "Deepening Rationale",
+          "type": "string"
+        },
+        "deepening_triggers": {
+          "items": {
+            "enum": [
+              "persistent_state_mutation",
+              "external_side_effect",
+              "irreversible_action",
+              "privileged_or_tenant_boundary",
+              "unreliable_or_async_dependency",
+              "repeat_or_concurrent_operation",
+              "money_or_data_loss",
+              "material_scale_or_cost_assumption",
+              "current_promise_depends_on_deferred_work",
+              "ambiguous_source_of_truth",
+              "other"
+            ],
+            "type": "string"
+          },
+          "title": "Deepening Triggers",
+          "type": "array"
+        },
+        "required_surface_kinds": {
+          "items": {
+            "enum": [
+              "truth",
+              "ownership",
+              "state",
+              "boundary",
+              "contract",
+              "failure_recovery",
+              "time_ordering",
+              "assumption"
+            ],
+            "type": "string"
+          },
+          "title": "Required Surface Kinds",
+          "type": "array"
+        },
+        "decision_surfaces": {
+          "items": {
+            "$ref": "#/$defs/DecisionSurfaceRecord"
+          },
+          "title": "Decision Surfaces",
+          "type": "array"
+        },
+        "challenge_scenarios": {
+          "items": {
+            "$ref": "#/$defs/ChallengeScenario"
+          },
+          "title": "Challenge Scenarios",
+          "type": "array"
+        },
+        "next_coherent_slice": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Next Coherent Slice"
         },
         "human_decision": {
           "default": "pending",
@@ -451,9 +611,132 @@
         "purpose",
         "observed_choice",
         "rationale",
-        "rationale_provenance"
+        "rationale_provenance",
+        "engineering_deepening_required",
+        "deepening_rationale"
       ],
       "title": "ChoiceRecord",
+      "type": "object"
+    },
+    "DecisionSurfaceRecord": {
+      "additionalProperties": false,
+      "description": "One externalized part of the system model. It is review evidence, not recovered private reasoning.",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "truth",
+            "ownership",
+            "state",
+            "boundary",
+            "contract",
+            "failure_recovery",
+            "time_ordering",
+            "assumption"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "question": {
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        },
+        "current_model": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Current Model"
+        },
+        "status": {
+          "default": "unassessed",
+          "enum": [
+            "supported",
+            "conflicted",
+            "unassessed",
+            "not_applicable"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "evidence_locations": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Evidence Locations",
+          "type": "array"
+        },
+        "consequence_if_wrong": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Consequence If Wrong"
+        },
+        "evidence_needed": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Evidence Needed"
+        },
+        "revisit_trigger": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Revisit Trigger"
+        },
+        "reason": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reason"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "question"
+      ],
+      "title": "DecisionSurfaceRecord",
       "type": "object"
     },
     "EvaluatorValidity": {

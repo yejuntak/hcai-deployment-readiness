@@ -1,6 +1,6 @@
 # Optional independent evaluation
 
-H.A.R.D. Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.3 · Public Preview
 
 The `independent_evaluation` layer measures reviewer judgments against an independently prepared reference under declared conditions. It is optional. A team can complete an artifact review and act on supported findings without collecting any reviewer-performance metric.
 
@@ -53,4 +53,9 @@ A practitioner reported trying the materials through an agent, with role overlap
 
 The proposed visual-fidelity study is a separate research activity. Keep its locked reviewer record and reference key separate, and do not introduce this guided practice procedure without an explicit study design. See [research boundaries](../../docs/research-boundary.md).
 
-Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.
+Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.
+
+
+## Keep deepening separate from controlled comparisons
+
+Engineering-reasoning prompts, decision-surface maps and challenge scenarios are review interventions. Do not introduce them into a controlled fidelity or reviewer-performance session unless the approved study design includes them. A richer practice review and an unbiased measurement session can require different procedures.

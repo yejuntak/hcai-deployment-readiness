@@ -12,6 +12,13 @@ ArtifactPopulation = Literal["ai_generated", "runtime_ai", "both", "neither", "u
 EvaluatorKind = Literal["human", "ai-assisted-human", "agent", "synthetic"]
 ReviewMode = Literal["artifact_review", "independent_evaluation"]
 Stage = Literal["specification_handoff", "prototype_handoff", "implementation_review", "runtime_release_review"]
+DecisionSurfaceKind = Literal["truth", "ownership", "state", "boundary", "contract", "failure_recovery", "time_ordering", "assumption"]
+DeepeningTrigger = Literal[
+    "persistent_state_mutation", "external_side_effect", "irreversible_action", "privileged_or_tenant_boundary",
+    "unreliable_or_async_dependency", "repeat_or_concurrent_operation", "money_or_data_loss",
+    "material_scale_or_cost_assumption", "current_promise_depends_on_deferred_work",
+    "ambiguous_source_of_truth", "other"
+]
 LEVELS = ("specified", "walkthrough", "implemented", "runtime_tested")
 STAGE_LEVELS = {
     "specification_handoff": LEVELS[:2],
@@ -116,6 +123,54 @@ class Alternative(Record):
     evidence_locations: list[Text] = Field(default_factory=list)
 
 
+class DecisionSurfaceRecord(Record):
+    """One externalized part of the system model. It is review evidence, not recovered private reasoning."""
+    id: Text
+    kind: DecisionSurfaceKind
+    question: Text
+    current_model: Text | None = None
+    status: Literal["supported", "conflicted", "unassessed", "not_applicable"] = "unassessed"
+    evidence_locations: list[Text] = Field(default_factory=list)
+    consequence_if_wrong: Text | None = None
+    evidence_needed: Text | None = None
+    revisit_trigger: Text | None = None
+    reason: Text | None = None
+
+    @model_validator(mode="after")
+    def evidence_boundary(self):
+        if self.status in ("supported", "conflicted") and (self.current_model is None or not self.evidence_locations):
+            raise ValueError("Supported/conflicted decision surfaces need the current model and retained evidence")
+        if self.status == "unassessed" and self.evidence_needed is None:
+            raise ValueError("An unassessed decision surface needs the evidence or inspection required next")
+        if self.status == "not_applicable" and self.reason is None:
+            raise ValueError("A not-applicable decision surface needs a bounded reason")
+        if self.kind == "assumption" and self.status != "not_applicable":
+            if not (self.consequence_if_wrong and self.evidence_needed and self.revisit_trigger):
+                raise ValueError("A consequential assumption needs consequence-if-wrong, evidence needed and a revisit trigger")
+        return self
+
+
+class ChallengeScenario(Record):
+    """A bounded attempt to disconfirm an important choice or system model."""
+    id: Text
+    condition: Text
+    claim_at_risk: Text
+    expected_behavior_or_invariant: Text
+    consequence_if_mishandled: Text
+    affected_check_ids: list[Text] = Field(default_factory=list)
+    status: Literal["pass", "fail", "unassessed"] = "unassessed"
+    evidence_locations: list[Text] = Field(default_factory=list)
+    next_evidence: Text | None = None
+
+    @model_validator(mode="after")
+    def evidence_boundary(self):
+        if self.status in ("pass", "fail") and not self.evidence_locations:
+            raise ValueError("Assessed challenge scenarios need retained evidence")
+        if self.status == "unassessed" and self.next_evidence is None:
+            raise ValueError("An unassessed challenge scenario needs the next evidence or check")
+        return self
+
+
 class ChoiceRecord(Record):
     id: Text
     purpose: Text
@@ -129,7 +184,15 @@ class ChoiceRecord(Record):
     rationale_provenance: Literal["documented", "reported", "new", "unknown"]
     rationale_evidence_locations: list[Text] = Field(default_factory=list)
     impacts_and_tradeoffs: list[Text] = Field(default_factory=list)
+    assumptions: list[Text] = Field(default_factory=list)
     affected_check_ids: list[Text] = Field(default_factory=list)
+    engineering_deepening_required: bool
+    deepening_rationale: Text
+    deepening_triggers: list[DeepeningTrigger] = Field(default_factory=list)
+    required_surface_kinds: list[DecisionSurfaceKind] = Field(default_factory=list)
+    decision_surfaces: list[DecisionSurfaceRecord] = Field(default_factory=list)
+    challenge_scenarios: list[ChallengeScenario] = Field(default_factory=list)
+    next_coherent_slice: Text | None = None
     human_decision: Literal["accepted", "revise", "pending"] = "pending"
     human_decision_owner: Text | None = None
     human_decision_evidence_locations: list[Text] = Field(default_factory=list)
@@ -149,12 +212,27 @@ class ChoiceRecord(Record):
             raise ValueError("Historical rationale needs a document or attributed report location")
         if self.human_decision != "pending" and (self.human_decision_owner is None or not self.human_decision_evidence_locations):
             raise ValueError("A human disposition requires an accountable human owner and retained confirmation evidence; an agent cannot invent approval")
+        if len(self.required_surface_kinds) != len(set(self.required_surface_kinds)):
+            raise ValueError("Required decision-surface kinds must be unique")
+        for group, label in ((self.decision_surfaces, "decision surface"), (self.challenge_scenarios, "challenge scenario")):
+            ids = [row.id for row in group]
+            if len(ids) != len(set(ids)):
+                raise ValueError(f"Duplicate {label} IDs within one consequential choice")
+        if self.engineering_deepening_required:
+            if not self.deepening_triggers:
+                raise ValueError("Engineering deepening requires at least one recorded trigger")
+            if not self.required_surface_kinds:
+                raise ValueError("Engineering deepening requires explicit decision-surface kinds")
+            if not self.challenge_scenarios:
+                raise ValueError("Engineering deepening requires at least one bounded challenge scenario")
+            if self.next_coherent_slice is None:
+                raise ValueError("Engineering deepening requires a smallest coherent next slice")
         return self
 
 
 def choice_gaps(choice: ChoiceRecord) -> list[str]:
     gaps = []
-    for field in ("criteria", "observed_choice", "observed_evidence_locations", "impacts_and_tradeoffs",
+    for field in ("criteria", "observed_choice", "observed_evidence_locations", "impacts_and_tradeoffs", "assumptions",
                   "verification_evidence_locations", "follow_up", "follow_up_owner", "human_decision_owner"):
         if not getattr(choice, field):
             gaps.append(field + "_missing")
@@ -164,6 +242,23 @@ def choice_gaps(choice: ChoiceRecord) -> list[str]:
         gaps.append("current_choice_justification_missing")
     if choice.human_decision == "pending":
         gaps.append("human_decision_pending")
+    if choice.engineering_deepening_required:
+        active = [row for row in choice.decision_surfaces if row.status != "not_applicable"]
+        for kind in choice.required_surface_kinds:
+            if not any(row.kind == kind for row in active):
+                gaps.append("decision_surface_" + kind + "_missing")
+        for row in active:
+            if row.status == "unassessed":
+                gaps.append("decision_surface_" + row.id + "_unassessed")
+            elif row.status == "conflicted":
+                gaps.append("decision_surface_" + row.id + "_conflicted")
+        for row in choice.challenge_scenarios:
+            if row.status == "unassessed":
+                gaps.append("challenge_" + row.id + "_unassessed")
+            elif row.status == "fail":
+                gaps.append("challenge_" + row.id + "_failed")
+        if not choice.next_coherent_slice:
+            gaps.append("next_coherent_slice_missing")
     return gaps
 
 
@@ -237,6 +332,9 @@ class ArtifactReview(Record):
         for choice in self.choices:
             if not set(choice.affected_check_ids) <= set(ids):
                 raise ValueError("Affected checks must resolve to declared requirements or recovery")
+            for challenge in choice.challenge_scenarios:
+                if not set(challenge.affected_check_ids) <= set(ids):
+                    raise ValueError("Challenge checks must resolve to declared requirements or recovery")
         return self
 
 
@@ -281,7 +379,9 @@ def review_artifact(review: ArtifactReview) -> dict:
         gaps.append("criteria_timing_unknown")
     if review.artifact_kind != "code" and review.stage in ("implementation_review", "runtime_release_review"):
         gaps.append("implemented_artifact_required_for_selected_stage")
-    if requirements["failed"] or recovery["failed"] or critical or major or revised:
+    deepening_failures = [key for key, values in choice_issues.items()
+                          if any(value.endswith("_conflicted") or value.endswith("_failed") for value in values)]
+    if requirements["failed"] or recovery["failed"] or critical or major or revised or deepening_failures:
         status, disposition = "nonready", "Hold for remediation"
     elif requirements["unassessed"] or recovery["unassessed"] or choice_issues or finding_gaps or gaps:
         status, disposition = "nonready", "Insufficient evidence"
@@ -305,6 +405,8 @@ def review_artifact(review: ArtifactReview) -> dict:
             "required_evidence_levels": list(required_levels), "criterion_status": status, "disposition": disposition,
             "requirements": requirements, "recovery": recovery, "unresolved_critical_ids": critical, "unresolved_major_ids": major,
             "choice_issues": choice_issues, "choices_requiring_revision": revised,
+            "deepening_required_ids": [choice.id for choice in review.choices if choice.engineering_deepening_required],
+            "deepening_failure_ids": deepening_failures,
             "finding_scope_or_adjudication_gaps": finding_gaps, "evidence_gaps": gaps,
             "evaluator_metrics": {metric: None for metric in reasons}, "metric_ineligibility_reasons": reasons,
             "choices": [choice.model_dump() for choice in review.choices], "inputs": review.model_dump(),

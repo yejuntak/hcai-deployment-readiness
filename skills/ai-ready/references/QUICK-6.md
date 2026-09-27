@@ -1,6 +1,6 @@
 # QUICK-6: six questions before engineering
 
-H.A.R.D. Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.3 · Public Preview
 
 Human-centered AI Readiness and Decision Protocol
 
@@ -51,4 +51,4 @@ Participant's explanation and confusing questions: ____
 
 The facilitator or tool completes the detailed record. The [conversation worksheet](WORKSHEET.md) can help with note-taking. Estimates should not be presented as promised savings. For more detail, see [Start here](START-HERE.md) or [FULL](FULL-PROFILE.md).
 
-Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.
+Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.

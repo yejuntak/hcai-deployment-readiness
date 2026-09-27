@@ -1,17 +1,27 @@
-# H.A.R.D. Protocol 0.2
+# H.A.R.D. Protocol 0.3
 
 Human-centered AI Readiness and Decision Protocol  
 Public Preview
 
 ## Why begin with the result?
 
-AI can produce a convincing screen, implementation or product proposal before people have examined the choices inside it. The result is visible; the purpose, alternatives, constraints, tradeoffs and unresolved human decisions may not be. H.A.R.D. starts with that result and works backward so a person can make an informed next decision.
+AI-assisted creation can compress the distance between an intention and a convincing plan, design or implementation. The artifact may arrive before the people responsible for it have formed, examined or preserved the system model and consequential decisions they would normally use to judge what should be built.
 
-The review asks: What was chosen? What was it meant to achieve? What else could meet that purpose? What supports this choice? What does it sacrifice or assume? What happens when those assumptions fail? Which decisions still require a person?
+H.A.R.D. starts with the result and reopens those decisions. It asks what was chosen, what purpose it serves, which alternatives matter, what assumptions and tradeoffs the choice depends on, what must remain true as the system changes state, what conditions could make the choice wrong, and what evidence supports the next human-owned commitment.
 
-An existing choice can be appropriate. Preserve it when the evidence supports it. Generate alternatives only to answer a relevant question, not to make every artifact look different. This method does not recover a model's private reasoning. Distinguish a documented historical reason from a present hypothesis, a newly proposed alternative and the decision a person makes now.
+This preview calls that problem **decision compression**. Decision compression is a motivating model, not an established causal effect. The protocol does not claim that AI authorship creates defects, that experienced practitioners always follow one hidden sequence, or that H.A.R.D. improves outcomes. It makes consequential reasoning inspectable so a person can decide what still needs evidence.
 
-A polished artifact may be sound or defective. This protocol does not establish that AI authorship causes defects or that more review always improves a result.
+H.A.R.D. never reconstructs private model chain-of-thought or invents creator intent. A documented historical reason, an attributed later report, a new review hypothesis, a newly proposed alternative and the human decision made now remain different record types.
+
+### Core review loop
+
+1. **Decompress.** Locate consequential choices in the supplied artifact. Connect each to purpose, criteria, alternatives, rationale provenance, assumptions and tradeoffs.
+2. **Model.** When engineering deepening is warranted, externalize only the relevant decision surfaces: truth, ownership, state, boundary, contract, failure/recovery, time/ordering and assumption.
+3. **Challenge.** Name a bounded condition that could disconfirm the choice or system model. Do not prescribe a fashionable architecture as the answer.
+4. **Prove.** Keep specified, walkthrough, implemented and runtime-tested evidence separate. Bind executed checks to the exact artifact and decision context.
+5. **Decide.** A person accepts, revises or keeps the choice pending, with an owner, smallest coherent next step and revisit trigger.
+
+Generation must not outrun understanding. That sentence is a design principle for the review, not a measured claim about AI-assisted development.
 
 ## Choose the decision you need
 
@@ -85,4 +95,4 @@ All historical version directories remain frozen. This Public Preview adds expli
 
 Read the [scenarios](SCENARIOS.md), [claims and governance](../../docs/claims-and-governance.md), [agent tools](../../docs/agent-tools.md) and [update log](https://www.takyejun.com/research/ai-readiness/updates).
 
-Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.
+Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.

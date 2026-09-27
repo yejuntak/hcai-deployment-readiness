@@ -1,6 +1,6 @@
 # FULL: evidence for a bounded engineering commitment
 
-H.A.R.D. Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.3 · Public Preview
 
 Human-centered AI Readiness and Decision Protocol
 
@@ -152,4 +152,11 @@ Synthetic fixtures, invitations, and protocol feedback are not pilot runs. Publi
 
 Candidate promotion requires current passing regression results and actual bounded external end-user/advisor use. The software suite tests implementation behavior; usability and effectiveness require evidence from use. The proposed fidelity study is a separate activity, described in the research-boundary document.
 
-Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.
+Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.
+
+
+## Engineering reasoning depth
+
+FULL does not require architecture theater. For each consequential choice, explicitly decide whether the engineering-deepening lens applies. Where it does, retain the relevant decision surfaces and bounded challenge evidence described in [engineering reasoning](ENGINEERING-REASONING.md). Moderate/high risk may require a competent specialist to judge the model or challenge evidence.
+
+A failed challenge, conflicted source-of-truth/state/authority model or unresolved critical finding cannot be canceled by complete documentation elsewhere.

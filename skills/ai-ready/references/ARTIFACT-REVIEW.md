@@ -1,6 +1,6 @@
 # Minimum artifact review
 
-H.A.R.D. Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.3 · Public Preview
 
 `artifact_review` is the official route for inspecting one artifact at a declared stage. It is useful for a solo practitioner or small team that has no separate reference author, evaluator and adjudicator. You can identify missing requirements, inspect consequential choices and plan repairs without measuring reviewer performance or engineering ROI.
 
@@ -22,7 +22,17 @@ Use [decision review](DECISION-REVIEW.md) to connect each consequential choice t
 
 Begin broadly, deepen a specific weak choice when useful, and inspect related implementation or policy when the consequences require it. This progressive depth is practical guidance, not a new scoring profile. Retain a justified original choice. Absence of a rationale record is not proof that the creator gave it no thought.
 
-## 3. Keep four evidence columns
+## 3. Deepen consequential engineering choices when required
+
+Every important choice records whether engineering deepening applies and why. Do not infer that all AI-created code requires the same depth. Use the trigger conditions in [engineering reasoning](ENGINEERING-REASONING.md) and scale the inspection to consequence.
+
+When deepening applies, the record must identify the required decision-surface kinds, retain a supported/conflicted/unassessed status for each relevant surface, and include at least one bounded challenge scenario. Unknowns stay unassessed. A generated explanation does not convert an unknown source of truth, contract or assumption into a supported model.
+
+A conflicted required surface or failed bounded challenge produces Hold for remediation for this artifact route. A required but unassessed surface or challenge produces Insufficient evidence. These results concern the declared artifact and stage only.
+
+For software work, name the smallest coherent next slice. It should be small enough to expose the important assumption end to end when applicable, such as input -> validation -> state mutation/persistence -> failure/recovery -> observable outcome. This is not a requirement to build every layer or to use a particular architecture.
+
+## 4. Keep four evidence columns
 
 Use the same columns and status vocabulary in templates, complete examples, imported CSVs and machine records. Each level is assessed independently.
 
@@ -54,7 +64,7 @@ At a required level, `not_applicable` cannot produce a pass or remove a current 
 
 The stage result is Hold for remediation when a required check fails, an accepted current critical or major finding remains unresolved, or an important choice has a human `revise` disposition. It is Insufficient evidence when required evidence, choice justification, a human disposition or relevant finding resolution is missing. Eligible for declared stage handoff review means the supplied record satisfies this limited route's checks. It is not engineering funding authorization, runtime certification or release permission. The tool cannot authenticate the recorded human decision or evidence.
 
-## 4. Recognize findings before assigning severity
+## 5. Recognize findings before assigning severity
 
 For each finding, record its location, expected condition, observed condition, applicable current requirement or defensible new requirement, effect and uncertainty. Separate a proposed finding from an adjudicated finding. Preserve matched, novel, unsupported, duplicate and unresolved records rather than counting every statement as a confirmed defect.
 
@@ -70,7 +80,7 @@ For a runtime AI health-related plan, the absence of a disclaimer may raise a qu
 
 A deferred item is not a failure solely because it is unimplemented. First ask whether the current user promise or dependency needs it. Record that reasoning and any scope correction; do not rewrite the original scope after seeing the result without a visible amendment.
 
-## 5. Finish with an accountable next action
+## 6. Finish with an accountable next action
 
 Report the scope and exact revision, stage and population, four evidence results, unresolved findings, choices retained or questioned, limitations, owner and next action. Keep uncertainty visible. Distinguish evidence to gather from implementation to change.
 
@@ -89,4 +99,4 @@ If the next question is whether to fund engineering, continue with a new or link
 
 These are record-completeness checks, not proof that all defects were found. Actual-use validation of the route remains future work.
 
-Execution versions: protocol 0.2-preview.3 · MCP 0.2.0rc9 · Skill/contract 0.2.0-rc.9.
+Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.

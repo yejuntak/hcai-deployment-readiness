@@ -1,0 +1,176 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Engineering reasoning deepening</title><style>body{margin:0;color:#172b43;background:#faf9f5;font:17px/1.65 system-ui,sans-serif}main{max-width:1120px;margin:auto;padding:28px}h1{font-size:clamp(38px,5vw,66px);line-height:1.08;letter-spacing:-.035em}h2{font-size:30px;line-height:1.25}h3{line-height:1.35}a{color:#244cac;text-underline-offset:4px}a:focus-visible,summary:focus-visible,button:focus-visible{outline:3px solid #b87913;outline-offset:4px}.o-section{border-top:1px solid #d6dce2;margin-top:38px;padding-top:24px}.research-hero,.ds-grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:32px}.ds-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.research-install,.o-card-archetype,.m-callout,.research-preview,details{padding:22px;border:1px solid #d6dce2;border-radius:8px;background:#fff}.o-card-archetype{display:block;text-decoration:none}.o-card-archetype-title{font-size:23px}.o-card-archetype-head,.t-eyebrow,.o-hero-page-eyebrow,.m-eyebrow-title-eyebrow{font-size:13px;text-transform:uppercase;letter-spacing:.09em;color:#506179}.o-hero-page-lede{font-size:24px;line-height:1.4}.button{display:inline-block;border:1px solid #172b43;padding:10px 16px;border-radius:5px;text-decoration:none}.button-primary{background:#172b43;color:white}.m-cta-pair,.cluster,.research-jump{display:flex;flex-wrap:wrap;gap:12px}.tag{font-size:12px;background:#edf0f3;padding:4px 8px;border-radius:4px}.research-install-item{border-top:1px solid #d6dce2;margin-top:18px}.research-measures>div{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:18px 0;border-bottom:1px solid #d6dce2}dt{font-weight:650}dd{margin:0}dt span{display:block}.research-usage-list li{margin-bottom:18px}.research-preview-row{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #d6dce2}.research-preview-note{border-left:3px solid #a26415;padding:16px;margin-top:18px}.stack>a{display:block;margin:12px 0}.u-mt-5{margin-top:24px}.t-body-s{font-size:14px;color:#506179}pre{overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}summary{cursor:pointer}footer{margin-top:40px;font-size:14px}@media(max-width:720px){.research-hero,.ds-grid-2,.ds-grid-3{grid-template-columns:1fr}main{padding:20px}.research-measures>div{grid-template-columns:1fr;gap:8px}}
+main{max-width:980px}p,li{max-width:80ch}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #ccd6df;padding:12px}table{border-collapse:collapse;width:100%;font-size:15px}th{background:#e8eef4}.table-scroll{overflow:auto}table{min-width:540px}details{margin-block:16px}summary{padding:6px 0}li{margin-block:8px}h1{font-size:clamp(32px,5vw,48px)}.reading-nav{display:flex;gap:24px;flex-wrap:wrap;font-size:15px}code{overflow-wrap:anywhere}main>h1{margin-top:32px}@media print{.reading-nav{display:none}table{min-width:0}.table-scroll{overflow:visible}}
+</style></head><body><main><nav class="reading-nav" aria-label="Protocol navigation"><a href="/research/ai-readiness">Review guide</a><a href="/static/research/ai-readiness/hard-0.3-preview-1/START-HERE.html">Start here</a><a href="/research/ai-readiness/updates">Update log</a></nav><h1>Engineering reasoning deepening</h1>
+<p>H.A.R.D. Protocol 0.3 · Public Preview</p>
+<p>This is a targeted-deepening lens inside H.A.R.D. It is not a seventh gate, a separate score, a software architecture standard or a claim that one engineer's private thought process can be reconstructed.</p>
+<h2>Why this lens exists</h2>
+<p>AI-assisted creation can produce a plausible plan or implementation before the responsible people have explicitly formed the system model that lets them judge it. H.A.R.D. calls this motivating problem <strong>decision compression</strong>: materially different design and engineering decisions can collapse into one generated result.</p>
+<p>The review reverses that compression without inventing history:</p>
+<p><strong>Decompress -&gt; Model -&gt; Challenge -&gt; Prove -&gt; Decide</strong></p>
+<ul>
+<li><strong>Decompress:</strong> identify observed consequential choices, their purpose, criteria, alternatives, assumptions and tradeoffs.</li>
+<li><strong>Model:</strong> externalize only the system concepts that the choice actually depends on.</li>
+<li><strong>Challenge:</strong> identify a bounded condition that could make the choice or model wrong.</li>
+<li><strong>Prove:</strong> connect the claim to stage-appropriate evidence at the exact revision.</li>
+<li><strong>Decide:</strong> a human accepts, revises or leaves the choice pending and names the next bounded step.</li>
+</ul>
+<p>The lens does not ask an AI to produce a more persuasive rationale. A generated explanation is a new hypothesis unless retained evidence shows it was part of the historical decision.</p>
+<h2>When engineering deepening applies</h2>
+<p>For every important choice, record yes or no and a reason. Deepening is normally warranted when the choice materially depends on one or more of these conditions:</p>
+<ol>
+<li>Persistent state is created, changed or deleted.</li>
+<li>An external side effect occurs.</li>
+<li>The action is difficult or impossible to reverse.</li>
+<li>A privileged, authorization or tenant boundary is crossed.</li>
+<li>An external or asynchronous dependency can be slow, unavailable or ambiguous.</li>
+<li>The same operation can repeat or concurrent operations can interact.</li>
+<li>Failure can lose money, data or another consequential resource.</li>
+<li>A material scale, latency, capacity or cost assumption controls the design.</li>
+<li>A current user promise depends on work labeled deferred or future.</li>
+<li>More than one plausible source of truth exists.</li>
+<li>Another condition creates comparable consequence if the implicit model is wrong.</li>
+</ol>
+<p>Do not mark deepening required only because code is complex or AI wrote it. Do not mark it unnecessary only because the interface looks simple.</p>
+<h2>Decision surfaces</h2>
+<p>Decision surfaces are not mandatory categories to fill for every choice. The reviewer names the kinds that are necessary to understand the specific consequential decision.</p>
+<h3>Truth</h3>
+<p><strong>Question:</strong> What is true in the system, and where is that truth authoritative?</p>
+<p>Record the authoritative record or rule, derived/cached representations and conflict behavior when relevant.</p>
+<p>Example: membership state is authoritative in the membership service. A UI badge or cached claim is a representation, not separate authority.</p>
+<h3>Ownership</h3>
+<p><strong>Question:</strong> Who owns that truth and who is allowed to mutate it?</p>
+<p>Ownership can be a person, service, role or external system. Separate the component that requests a change from the component authorized to commit it.</p>
+<h3>State</h3>
+<p><strong>Question:</strong> Which states and transitions can actually exist?</p>
+<p>Model normal, edge, recovery and unresolved states. Do not collapse a lost response into failure when the external action may have succeeded.</p>
+<h3>Boundary</h3>
+<p><strong>Question:</strong> Which component or role is responsible for which behavior?</p>
+<p>A boundary should make it possible to say where validation, policy, persistence, side effects and recovery belong. H.A.R.D. does not require microservices or any particular architecture.</p>
+<h3>Contract</h3>
+<p><strong>Question:</strong> What must be true when information or control crosses a boundary?</p>
+<p>Record inputs, outputs, guarantees and meaningful failure semantics at the level required to judge the choice. A contract can be a function, API, event, workflow handoff or human approval rule.</p>
+<h3>Failure and recovery</h3>
+<p><strong>Question:</strong> What valid or invalid partial state can remain when execution stops?</p>
+<p>Record detection, containment, recovery and ownership when relevant. "Retry" is not a complete recovery model when the first attempt may already have succeeded.</p>
+<h3>Time and ordering</h3>
+<p><strong>Question:</strong> What changes when operations repeat, race, arrive late or complete out of order?</p>
+<p>Use this surface when timing affects correctness. Relevant questions can include idempotency, concurrency, stale reads, cancellation races and delayed external responses.</p>
+<h3>Assumption</h3>
+<p><strong>Question:</strong> What must be true for the current decision to remain reasonable?</p>
+<p>Every consequential assumption records:</p>
+<ul>
+<li>the current assumption,</li>
+<li>consequence if it is false,</li>
+<li>evidence needed,</li>
+<li>and the trigger that should reopen it.</li>
+</ul>
+<p>An assumption is not made true by writing it down.</p>
+<h2>Status vocabulary</h2>
+<p>Each surface is recorded independently:</p>
+<ul>
+<li><strong>supported:</strong> retained evidence supports the current model within the declared scope;</li>
+<li><strong>conflicted:</strong> retained evidence contradicts the current model;</li>
+<li><strong>unassessed:</strong> the reviewer knows what must be inspected or measured next;</li>
+<li><strong>not_applicable:</strong> the surface does not apply within a recorded boundary and the reason is explicit.</li>
+</ul>
+<p>Supported is not certification. Conflicted is not permission for an agent to redesign the product. It means the current decision cannot be treated as settled without a human-owned resolution.</p>
+<h2>Challenge scenarios</h2>
+<p>For each deepened choice, define at least one bounded challenge.</p>
+<p>Start with:</p>
+<p><strong>What would have to be true for this decision to be wrong?</strong></p>
+<p>Then record:</p>
+<ol>
+<li>the condition,</li>
+<li>the claim at risk,</li>
+<li>the expected behavior or invariant,</li>
+<li>the consequence if mishandled,</li>
+<li>the affected requirement or recovery item,</li>
+<li>the evidence needed,</li>
+<li>and the observed result when it has actually been checked.</li>
+</ol>
+<p>Useful challenge shapes include, when relevant:</p>
+<ul>
+<li>same request twice,</li>
+<li>two incompatible transitions at the same time,</li>
+<li>delayed first response followed by retry,</li>
+<li>dependency unavailable,</li>
+<li>state persisted but side effect failed,</li>
+<li>side effect succeeded but local state did not,</li>
+<li>cancellation racing completion,</li>
+<li>stale cache or token,</li>
+<li>source-of-truth disagreement,</li>
+<li>authorization context changes,</li>
+<li>expected volume or latency assumption exceeded.</li>
+</ul>
+<p>Do not enumerate edge cases for their own sake. Risk and consequence determine depth.</p>
+<h2>Evidence mapping</h2>
+<p>Decision-surface reasoning never substitutes for execution evidence.</p>
+<p>H.A.R.D. retains the four evidence stages:</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table; scroll horizontally on small screens"><table>
+<thead>
+<tr>
+<th>Evidence</th>
+<th>What it can support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Specified</td>
+<td>The declared revision defines the behavior, invariant or acceptance condition.</td>
+</tr>
+<tr>
+<td>Walkthrough</td>
+<td>A retained scenario walkthrough exercises that defined behavior.</td>
+</tr>
+<tr>
+<td>Implemented</td>
+<td>The cited implementation contains the relevant behavior.</td>
+</tr>
+<tr>
+<td>Runtime tested</td>
+<td>A retained execution checks the exact implementation in the named context.</td>
+</tr>
+</tbody>
+</table></div>
+<p>A supported source-of-truth model may be supported by a specification at specification handoff. It does not imply the implementation enforces it. A passing walkthrough does not become a runtime test.</p>
+<p>Changes to consequential choices, their decision surfaces, state context, dependencies, authority or challenge conditions are part of the requirement/context fingerprint. Existing checks cannot be relabeled after those changes.</p>
+<h2>Smallest coherent next slice</h2>
+<p>For software work, H.A.R.D. asks for the smallest next slice that can produce useful evidence about the important reasoning.</p>
+<p>A coherent slice is not the fewest lines of code and not a requirement to build the whole stack. When applicable, it connects enough of the path to test the important claim:</p>
+<p><strong>input -&gt; validation -&gt; state/persistence -&gt; side effect -&gt; failure/recovery -&gt; observable outcome</strong></p>
+<p>Only include elements needed by the bounded choice.</p>
+<p>Example:</p>
+<p>Weak commitment: "Build the invitation dashboard and backend."</p>
+<p>Coherent slice: "Prove one authorized invitation from creation through acceptance and persistence, including duplicate accept and revoke/accept ordering, with an observable final membership state."</p>
+<p>The slice remains subject to the six H.A.R.D. engineering gates and separate owner authorization.</p>
+<h2>What this lens must not do</h2>
+<ul>
+<li>Do not recover or request private model chain-of-thought.</li>
+<li>Do not claim a newly generated rationale was the creator's original reason.</li>
+<li>Do not automatically recommend queues, retries, microservices, event sourcing or another familiar pattern.</li>
+<li>Do not turn every unknown into a defect.</li>
+<li>Do not infer a race condition, data leak or duplicate side effect without relevant evidence.</li>
+<li>Do not confuse a strong system model with proof that the implementation behaves that way.</li>
+<li>Do not use software-test passes as empirical evidence that this review method improves human decisions.</li>
+</ul>
+<h2>Example: generated team invitation</h2>
+<p>Observed result: generated code creates an invitation, emails a token and accepts it into a membership.</p>
+<p>Decompressed choices:
+- invitation is a separate entity;
+- token acceptance creates membership;
+- email delivery follows invitation creation.</p>
+<p>Relevant surfaces:
+- truth: which record establishes membership;
+- ownership: which service can grant membership;
+- state: pending, accepted, revoked and expired;
+- time/ordering: accept versus revoke, repeat acceptance;
+- contract: what token verification guarantees;
+- assumption: when billing or seat allocation should change.</p>
+<p>Challenge:
+- condition: revoke and accept occur nearly together;
+- claim at risk: revoked invitations cannot grant membership;
+- invariant: exactly one valid transition establishes or denies membership according to the authoritative state;
+- consequence: unauthorized access or inconsistent billing;
+- evidence: specification walkthrough at plan stage, then exact-revision integration evidence after implementation.</p>
+<p>H.A.R.D. does not decide in advance whether a database transaction, queue, lock or another mechanism is best. It makes the decision visible enough for an accountable person to choose and verify a mechanism appropriate to the system.</p>
+<p>Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.</p></main></body></html>
