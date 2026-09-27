@@ -19,7 +19,11 @@ STAGES = ("specified", "walkthrough", "implemented", "runtime_tested")
 KINDS = {"human", "ai-assisted-human", "agent", "synthetic"}
 MODES = {"artifact_review", "independent_evaluation"}
 SEVERITIES = {"unrated", "minor", "major", "critical"}
-CORE = ("requirements.csv", "recovery.csv", "requirements-brief.csv", "recovery-brief.csv", "decision.csv")
+SURFACE_KINDS = {"truth", "ownership", "state", "boundary", "contract", "failure_recovery", "time_ordering", "assumption"}
+SURFACE_STATUSES = {"supported", "conflicted", "unassessed", "not_applicable"}
+CHALLENGE_STATUSES = {"pass", "fail", "unassessed"}
+CORE = ("requirements.csv", "recovery.csv", "requirements-brief.csv", "recovery-brief.csv", "decision.csv",
+        "choice-review.csv", "decision-surfaces.csv", "challenge-scenarios.csv")
 
 
 def to_artifact_review(tables: dict[str, list[dict[str, str]]]):
@@ -48,6 +52,23 @@ def to_artifact_review(tables: dict[str, list[dict[str, str]]]):
                 **{level: {"status": row[level + "_status"], "evidence_locations": split(row[level + "_evidence_location"]),
                            "reason": row[level + "_reason"] or None} for level in STAGES}})
         return values
+    surfaces_by_choice = {}
+    for row in tables.get("decision-surfaces.csv", []):
+        surfaces_by_choice.setdefault(row["choice_id"], []).append({
+            "id": row["surface_id"], "kind": row["surface_kind"], "question": row["question"],
+            "current_model": row["current_model"] or None, "status": row["status"],
+            "evidence_locations": split(row["evidence_location"]),
+            "consequence_if_wrong": row["consequence_if_wrong"] or None,
+            "evidence_needed": row["evidence_needed"] or None,
+            "revisit_trigger": row["revisit_trigger"] or None, "reason": row["reason"] or None})
+    challenges_by_choice = {}
+    for row in tables.get("challenge-scenarios.csv", []):
+        challenges_by_choice.setdefault(row["choice_id"], []).append({
+            "id": row["challenge_id"], "condition": row["condition"], "claim_at_risk": row["claim_at_risk"],
+            "expected_behavior_or_invariant": row["expected_behavior_or_invariant"],
+            "consequence_if_mishandled": row["consequence_if_mishandled"],
+            "affected_check_ids": split(row["requirement_or_scenario_ids"]), "status": row["status"],
+            "evidence_locations": split(row["evidence_location"]), "next_evidence": row["next_evidence"] or None})
     choices = []
     for row in tables.get("choice-review.csv", []):
         historical = row["alternative_provenance"] == "historical"
@@ -60,7 +81,15 @@ def to_artifact_review(tables: dict[str, list[dict[str, str]]]):
             "historical_alternatives": alternatives if historical else [], "proposed_alternatives": [] if historical else alternatives,
             "rationale": rationale, "rationale_provenance": provenance,
             "rationale_evidence_locations": split(row["current_justification_evidence_location"] if current else row["evidence_location"]) if rationale else [],
-            "impacts_and_tradeoffs": split(row["foreseeable_impacts"]), "affected_check_ids": split(row["requirement_or_scenario_ids"]),
+            "impacts_and_tradeoffs": split(row["foreseeable_impacts"]), "assumptions": split(row["assumptions"]),
+            "affected_check_ids": split(row["requirement_or_scenario_ids"]),
+            "engineering_deepening_required": row["engineering_deepening_required_yes_no"] == "yes",
+            "deepening_rationale": row["deepening_rationale"],
+            "deepening_triggers": split(row["deepening_triggers"]),
+            "required_surface_kinds": split(row["required_surface_kinds"]),
+            "decision_surfaces": surfaces_by_choice.get(row["choice_id"], []),
+            "challenge_scenarios": challenges_by_choice.get(row["choice_id"], []),
+            "next_coherent_slice": row["next_coherent_slice"] or None,
             "human_decision": row["disposition"], "human_decision_owner": row["human_owner"] or None,
             "human_decision_evidence_locations": split(row["human_decision_evidence_location"]),
             "verification_evidence_locations": split(row["verification_evidence_location"]),
@@ -257,12 +286,59 @@ def validate_directory(directory: Path | str, allow_empty: bool = False) -> dict
         require(row["session_id"] == decision["session_id"] and row["reference_id"] == finding["reference_id"] and row["matched_duplicate_unsupported_novel_unresolved"] == finding["adjudication"], "adjudication.csv: conflicts with findings.csv")
     choices = tables.get("choice-review.csv", [])
     unique(choices, "choice_id", "choice-review.csv")
+    choice_ids = {row["choice_id"] for row in choices}
+    surfaces = tables.get("decision-surfaces.csv", [])
+    surface_keys = [(row["choice_id"], row["surface_id"]) for row in surfaces]
+    require(all(a and b for a, b in surface_keys) and len(surface_keys) == len(set(surface_keys)),
+            "decision-surfaces.csv: empty or duplicate choice_id/surface_id")
+    challenges = tables.get("challenge-scenarios.csv", [])
+    challenge_keys = [(row["choice_id"], row["challenge_id"]) for row in challenges]
+    require(all(a and b for a, b in challenge_keys) and len(challenge_keys) == len(set(challenge_keys)),
+            "challenge-scenarios.csv: empty or duplicate choice_id/challenge_id")
+    for row in surfaces:
+        require(row["choice_id"] in choice_ids, "decision-surfaces.csv: unknown choice_id")
+        require(row["surface_kind"] in SURFACE_KINDS, "decision-surfaces.csv: invalid surface_kind")
+        require(row["status"] in SURFACE_STATUSES, "decision-surfaces.csv: invalid status")
+        require(bool(row["question"]), "decision-surfaces.csv: question required")
+        if row["status"] in {"supported", "conflicted"}:
+            require(bool(row["current_model"]) and bool(row["evidence_location"]),
+                    "decision-surfaces.csv: supported/conflicted needs current_model and evidence")
+        if row["status"] == "unassessed":
+            require(bool(row["evidence_needed"]), "decision-surfaces.csv: unassessed needs evidence_needed")
+        if row["status"] == "not_applicable":
+            require(bool(row["reason"]), "decision-surfaces.csv: not_applicable needs reason")
+        if row["surface_kind"] == "assumption" and row["status"] != "not_applicable":
+            require(all(row[k] for k in ("consequence_if_wrong", "evidence_needed", "revisit_trigger")),
+                    "decision-surfaces.csv: assumptions need consequence, evidence needed and revisit trigger")
+    for row in challenges:
+        require(row["choice_id"] in choice_ids, "challenge-scenarios.csv: unknown choice_id")
+        require(row["status"] in CHALLENGE_STATUSES, "challenge-scenarios.csv: invalid status")
+        require(all(row[k] for k in ("condition", "claim_at_risk", "expected_behavior_or_invariant", "consequence_if_mishandled")),
+                "challenge-scenarios.csv: condition, claim, invariant and consequence required")
+        require(all(ref in known for ref in row["requirement_or_scenario_ids"].split(";") if ref),
+                "challenge-scenarios.csv: unknown requirement/scenario")
+        if row["status"] in {"pass", "fail"}:
+            require(bool(row["evidence_location"]), "challenge-scenarios.csv: assessed challenge needs evidence")
+        if row["status"] == "unassessed":
+            require(bool(row["next_evidence"]), "challenge-scenarios.csv: unassessed challenge needs next_evidence")
     for row in choices:
         require(row["alternative_provenance"] in {"historical", "reconstructed", "proposed", "unknown"}, "choice-review.csv: invalid alternative_provenance")
         require(row["rationale_provenance"] in {"historical", "reconstructed", "proposed", "unknown"}, "choice-review.csv: invalid rationale_provenance")
         require(row["criteria_provenance"] in {"historical", "reconstructed", "proposed", "unknown"}, "choice-review.csv: invalid criteria_provenance")
         require(row["disposition"] in {"accepted", "revise", "pending"}, "choice-review.csv: invalid human disposition")
-        require(all(row[k] for k in ("purpose", "selection_criteria", "human_owner", "disposition", "followup", "followup_owner")), "choice-review.csv: purpose, criteria, human owner and follow-up required")
+        yes_no(row["engineering_deepening_required_yes_no"], "choice-review.csv: engineering_deepening_required_yes_no")
+        require(all(row[k] for k in ("purpose", "selection_criteria", "assumptions", "deepening_rationale",
+                                     "human_owner", "disposition", "followup", "followup_owner")),
+                "choice-review.csv: purpose, criteria, assumptions, deepening rationale, human owner and follow-up required")
+        if row["engineering_deepening_required_yes_no"] == "yes":
+            require(bool(row["deepening_triggers"]) and bool(row["required_surface_kinds"]) and bool(row["next_coherent_slice"]),
+                    "choice-review.csv: required deepening needs triggers, surface kinds and next coherent slice")
+            required_kinds = set(split(row["required_surface_kinds"]))
+            require(required_kinds <= SURFACE_KINDS, "choice-review.csv: invalid required_surface_kinds")
+            active_kinds = {s["surface_kind"] for s in surfaces if s["choice_id"] == row["choice_id"] and s["status"] != "not_applicable"}
+            require(required_kinds <= active_kinds, "choice-review.csv: missing required decision surface")
+            require(any(ch["choice_id"] == row["choice_id"] for ch in challenges),
+                    "choice-review.csv: required deepening needs a challenge scenario")
         if "historical" in {row["alternative_provenance"], row["rationale_provenance"], row["criteria_provenance"]}:
             require(bool(row["evidence_location"]), "choice-review.csv: historical claims require contemporaneous evidence")
         if row["disposition"] in {"accepted", "revise"}:
