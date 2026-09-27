@@ -217,7 +217,7 @@ def assess(a: Assessment) -> dict:
         choice = choices.get(key)
         g.require(choice is not None, f"{key}: consequential choice record missing")
         if choice is not None:
-            for gap in ("observed_choice_missing", "observed_evidence_locations_missing", "criteria_missing", "alternatives_review_missing"):
+            for gap in ("observed_choice_missing", "observed_evidence_locations_missing", "criteria_missing", "alternatives_review_missing", "assumptions_missing"):
                 g.require(gap not in choice_issues.get(key, []), f"{key}: {gap}")
             g.require(bool(choice.deepening_rationale), f"{key}: record why engineering deepening applies or does not apply")
     g.require(bool(w.outcome), "Explicit intended outcome required")
