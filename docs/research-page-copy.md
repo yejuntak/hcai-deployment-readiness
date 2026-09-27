@@ -29,6 +29,6 @@ The proposed fidelity study remains separate: AI authorship is held constant and
 
 ## 0.3 method emphasis
 
-The page should describe the core loop as Decompress -> Model -> Challenge -> Prove -> Decide. Decision compression is a motivating model, not a measured result. For software examples, the architecture view should make source of truth, state, authority, boundary, ordering and assumptions visible without implying a required technology pattern.
+The page should describe the core loop as Decompress -> Model -> Challenge -> Prove -> Decide. Decision compression is a motivating model, not a measured result. For software examples, the system view should make source of truth, state, authority, boundary and ordering visible without implying a required technology pattern. Consequential assumptions should appear as separate claims with evidence and revisit conditions, not as prose hidden inside rationale. Any assessed challenge should state whether its evidence is walkthrough, implemented or runtime tested.
 
 The current protocol set also includes ENGINEERING-REASONING.md. It is targeted deepening inside H.A.R.D., not a fourth use route, seventh gate or new score.
