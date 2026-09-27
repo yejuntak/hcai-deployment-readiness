@@ -1,12 +1,12 @@
 cff-version: 1.2.0
-message: "Public Preview. Cite H.A.R.D. Protocol 0.2 with exact protocol 0.2-preview.3, MCP 0.2.0rc9 and Skill 0.2.0-rc.9. The rc.3 DOI does not identify this Public Preview."
+message: "Public Preview. Cite H.A.R.D. Protocol 0.3 with exact protocol 0.3-preview.1, MCP 0.3.0rc1 and Skill/contract 0.3.0-rc.1. The rc.3 DOI identifies only the historical rc.3 release."
 type: software
-title: "H.A.R.D. Protocol 0.2: Human-centered AI Readiness and Decision Protocol"
+title: "H.A.R.D. Protocol 0.3: Human-centered AI Readiness and Decision Protocol"
 authors:
   - family-names: Tak
     given-names: Yejun
-version: "0.2-preview.3"
+version: "0.3-preview.1"
 repository-code: "https://github.com/yejuntak/hcai-deployment-readiness"
 url: "https://github.com/yejuntak/hcai-deployment-readiness"
 license: CC-BY-4.0
-abstract: "A Public Preview protocol for reviewing evidence before committing engineering resources to a defined workflow. It requires a measured baseline and evidence suited to the risk tier, and reports evaluation costs separately from operational oversight. Verification uses synthetic software fixtures. No controlled empirical validation or operational performance is claimed."
+abstract: "A Public Preview protocol for reopening consequential decisions in AI-assisted artifacts before bounded engineering commitment. It separates historical rationale from current hypotheses, externalizes relevant engineering decision surfaces, challenges material assumptions, and keeps specified, walkthrough, implemented and runtime-tested evidence separate. Decision compression is a motivating model, not an established causal effect. No controlled empirical validation or deployment approval is claimed."
