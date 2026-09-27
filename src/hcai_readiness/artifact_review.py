@@ -184,6 +184,7 @@ class ChoiceRecord(Record):
     rationale_provenance: Literal["documented", "reported", "new", "unknown"]
     rationale_evidence_locations: list[Text] = Field(default_factory=list)
     impacts_and_tradeoffs: list[Text] = Field(default_factory=list)
+    assumptions: list[Text] = Field(default_factory=list)
     affected_check_ids: list[Text] = Field(default_factory=list)
     engineering_deepening_required: bool
     deepening_rationale: Text
@@ -231,7 +232,7 @@ class ChoiceRecord(Record):
 
 def choice_gaps(choice: ChoiceRecord) -> list[str]:
     gaps = []
-    for field in ("criteria", "observed_choice", "observed_evidence_locations", "impacts_and_tradeoffs",
+    for field in ("criteria", "observed_choice", "observed_evidence_locations", "impacts_and_tradeoffs", "assumptions",
                   "verification_evidence_locations", "follow_up", "follow_up_owner", "human_decision_owner"):
         if not getattr(choice, field):
             gaps.append(field + "_missing")
