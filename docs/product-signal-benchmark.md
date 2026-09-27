@@ -1,11 +1,41 @@
 # Product benchmark: Cracked Resume -> H.A.R.D. Readiness Report
 
-This note benchmarks Cracked Resume at the level of product strategy, interaction compression, and report behavior. It is not a request to copy its brand or visual assets.
+This note benchmarks Cracked Resume at the level of product strategy, interaction compression, report behavior, and visual grammar. The H.A.R.D. acquisition experience should feel deliberately close in composition and visual family: atmospheric sky, a single floating product specimen, oversized editorial serif question, one white primary action surface, extreme whitespace, and minimal navigation. Do not reuse Cracked Resume's exact copy, logos, sky asset, or source code; reproduce the visual logic with original assets and implementation.
 
 Sources reviewed:
 - https://crackedresume.com/
 - https://peerlist.io/felix/project/cracked-resumeai-faang-resume-reviewer
 - https://www.linkedin.com/posts/felixleezd_i-exposed-faangs-elitist-hiring-practice-activity-7349084486896111617-3M0E
+
+
+## Aggressive visual benchmark
+
+Treat the visual benchmark as near-clone in **grammar**, not in brand assets.
+
+The first screenshot should preserve the same perceptual sequence:
+
+1. **Atmosphere first.** A bright blue/white sky fills the viewport instead of generic SaaS white or a dark dashboard.
+2. **One floating specimen.** Cracked Resume uses the resume object. H.A.R.D. uses a believable product/browser surface.
+3. **Editorial question.** Large centered serif copy carries the tension. The headline must feel like an editorial statement, not a startup feature pitch.
+4. **One white action object.** URL input + one action should read as the obvious thing to touch.
+5. **Tiny friction reducer.** Public-surface review and no-signup copy sit directly under the action.
+6. **Trust after the job.** Do not lead with methodology, standards, partner logos, or feature cards.
+7. **Result as reveal, not dashboard.** The B and 78/100 become the dominant editorial objects on a floating white sheet. H.A.R.D. posture is the second-level answer.
+8. **Reasoning by typography.** The developer trace should be structured by headings, rules, spacing, and prose rather than colored dashboard cards.
+
+Reject the screen if it feels like:
+- a cybersecurity scanner,
+- a compliance dashboard,
+- a design-system documentation page,
+- a purple AI SaaS landing page,
+- a bento-grid startup homepage,
+- or a generic “research tool.”
+
+The intended reaction is closer to:
+
+> “This feels like Cracked Resume, but the thing being judged is my product.”
+
+The acquisition page may be visually aggressive. The H.A.R.D. evidence boundary may not be.
 
 ## What Cracked Resume gets right
 
