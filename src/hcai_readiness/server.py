@@ -114,9 +114,13 @@ def product_signal_report(report: ReportGradeInput, format: Literal["markdown", 
     return render_grade_report(report, format)
 
 @mcp.tool(annotations=READ_ONLY)
-def product_signal_rule_catalog(scored_only: bool = False) -> list[dict]:
+def product_signal_rule_catalog(scored_only: bool = False) -> dict:
     """Return only official H.A.R.D.-grounded public-signal rules. Portfolio/client work is excluded by construction."""
-    return rule_catalog(scored_only=scored_only)
+    return {
+        "rules": rule_catalog(scored_only=scored_only),
+        "source_boundary": "H.A.R.D. public research page and its official library only.",
+        "portfolio_sources_included": False,
+    }
 
 @mcp.tool(annotations=READ_ONLY)
 def evaluate_product_signal_observation(observation: RuleObservation) -> dict:
