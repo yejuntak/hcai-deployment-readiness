@@ -20,6 +20,7 @@ def choice():
             "proposed_alternatives": [{"description": "Persist encrypted draft server-side"}],
             "rationale": "Local draft retention avoids coupling recovery to the unavailable server",
             "rationale_provenance": "new", "impacts_and_tradeoffs": ["Device loss requires separate recovery"],
+            "assumptions": ["Stable request identity prevents duplicate submission after timeout"],
             "affected_check_ids": ["R1", "RC1"],
             "engineering_deepening_required": True,
             "deepening_rationale": "Draft persistence and timeout recovery depend on state, truth and retry assumptions.",
