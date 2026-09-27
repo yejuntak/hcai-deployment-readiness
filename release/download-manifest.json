@@ -1,45 +1,49 @@
 {
-  "protocol_version": "0.2-preview.3",
+  "protocol_version": "0.3-preview.1",
   "status": "public_preview",
   "identity": {
     "name": "H.A.R.D. Protocol",
     "full_name": "Human-centered AI Readiness and Decision Protocol",
-    "display_version": "0.2",
+    "display_version": "0.3",
     "release_label": "Public Preview",
-    "distribution_id": "hard-0.2-preview-3"
+    "distribution_id": "hard-0.3-preview-1"
   },
   "files": {
-    "HARD-Protocol-0.2-preview.3.zip": {
-      "sha256": "d4684632ecd4a7f480042c8a3708386d680d180fb3a9b29aee5566f48083ea1e",
-      "bytes": 801767
+    "HARD-Protocol-0.3-preview.1.zip": {
+      "sha256": "c29e2fc2c348ee545229fc7a422e18bde790ac8741952a73053c7e2978b1999a",
+      "bytes": 926762
     },
-    "ai-ready-0.2.0-rc.9.zip": {
-      "sha256": "a08fe04d9c75c48a2bdecd68b03cb49df7326faf2108cdd274f52c829513ca16",
-      "bytes": 107671
+    "ai-ready-0.3.0-rc.1.zip": {
+      "sha256": "3ded6bdeb685b616784b701282c5f4465eebc581ea3e072e3f8ad73311a4a7fe",
+      "bytes": 123952
     },
-    "hcai_readiness_mcp-0.2.0rc9-py3-none-any.whl": {
-      "sha256": "7fe1b6791f688727ba0ee43859696c69f4b01fc4491596ad92a3545dc8386188",
-      "bytes": 55798
+    "hcai_readiness_mcp-0.3.0rc1-py3-none-any.whl": {
+      "sha256": "9d06bfcabfbffdd02257b45466a9570e995641f79c997c1c960f44384c89369b",
+      "bytes": 59810
     },
-    "HARD-Artifact-Review-0.2-preview.3.pdf": {
-      "sha256": "115619ebfd1a2b17d968ed9d235c56059e90075ce5fb5f204fb273e83e6397c7",
-      "bytes": 12029
+    "HARD-QUICK-6-0.3-preview.1.pdf": {
+      "sha256": "0f2919c4a9585785b559d59382976a0aab10faee24c47334f895cb9ed7ffab7f",
+      "bytes": 7289
     },
-    "HARD-Protocol-0.2-preview.3.pdf": {
-      "sha256": "090a59ee720058d7ecf1d3c8e7817ee774c979fbdeb3c90f8df44caab7583f06",
-      "bytes": 17388
+    "HARD-Artifact-Review-0.3-preview.1.pdf": {
+      "sha256": "1faf870217e4aabb117ffc8ffca0707e260d6ead5787120a2ccc5a5473222e94",
+      "bytes": 13966
     },
-    "HARD-QUICK-6-0.2-preview.3.pdf": {
-      "sha256": "32c2f5e067bf1b9e881f8808cf63e497f1f182952b49e4c6a27f21030712357f",
-      "bytes": 7291
+    "HARD-Full-Profile-0.3-preview.1.pdf": {
+      "sha256": "5755320f303048735b1712ec069233c8f8ad781365f92cb2f7085fef18dd5628",
+      "bytes": 22393
     },
-    "HARD-Full-Profile-0.2-preview.3.pdf": {
-      "sha256": "b22f9b88d6ce9a2e02de76354a640c9d8abd025ad9fed47a0a2525e85c78cd48",
-      "bytes": 21726
+    "HARD-Engineering-Reasoning-0.3-preview.1.pdf": {
+      "sha256": "4bf400d47deec2d51be67d0152593666b808f9aaa08be189ea7e5ffc2c094791",
+      "bytes": 13816
     },
-    "HARD-External-Pilot-Packet-0.2-preview.3.pdf": {
-      "sha256": "6ef35ceaa8fa87847ff7246481997375e5ede9040857bb7c3a7ce224742e680c",
-      "bytes": 4216
+    "HARD-Protocol-0.3-preview.1.pdf": {
+      "sha256": "4a100719fc3b2d3c47df750c563ffd124c870a9b0203b80924797078cf6d0357",
+      "bytes": 18184
+    },
+    "HARD-External-Pilot-Packet-0.3-preview.1.pdf": {
+      "sha256": "c50198046699a6b9f647bd0bc002441a8bcb72ed126d516a4035ddbfb6217ee8",
+      "bytes": 5093
     }
   }
 }
