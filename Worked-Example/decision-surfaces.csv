@@ -1,0 +1,5 @@
+choice_id,surface_id,surface_kind,question,current_model,status,consequence_if_wrong,evidence_needed,evidence_location,revisit_trigger,reason
+C01,DS01,truth,Which record or identifier is authoritative for one logical submission?,The submission token identifies one logical request across retry.,supported,,,artifact.html#send,,
+C01,DS02,state,What state exists after a timeout before the service outcome is known?,The request remains unresolved until the service outcome is reconciled.,supported,,,artifact.html#send,,
+C01,DS03,time_ordering,What happens when retry overlaps a delayed first response?,The same logical request identity is reused so later responses cannot create a second logical submission.,supported,,,artifact.html#send,,
+C01,DS04,assumption,Does the service actually enforce the stable request identity?,The synthetic reference assumes the service enforces one logical request per token.,supported,Duplicate service requests can be created if the assumption is false.,Run an implementation-level duplicate retry test before any live use.,artifact.html#send,Any service contract or retry implementation change,
