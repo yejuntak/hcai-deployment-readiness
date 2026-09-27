@@ -40,3 +40,25 @@ def test_benchmark_rejects_dashboard_and_fake_proof_patterns():
     assert "fake benchmark/social proof" in benchmark
     assert "requires an LLM to render the report" in benchmark
     assert "what changed?" in benchmark
+
+
+def test_visual_benchmark_keeps_cracked_resume_like_compression_without_assets():
+    page = (ROOT / "docs/product-signal-prototype.html").read_text()
+    assert 'class="sky"' in page
+    assert 'Georgia,"Times New Roman",serif' in page
+    assert 'class="specimen"' in page
+    assert 'class="scan"' in page
+    assert 'background:#f3f3ef' not in page
+    assert 'class="lenses"' not in page
+    assert "Cracked Resume" not in page
+    assert "sky.webp" not in page
+
+
+def test_report_reveal_stays_editorial_not_dashboard_like():
+    page = (ROOT / "docs/product-signal-prototype.html").read_text()
+    grade_at = page.index('class="grade"')
+    fix_at = page.index('class="fix"')
+    signals_at = page.index('class="signal-list"')
+    assert grade_at < fix_at < signals_at
+    assert "Why 78?" in page
+    assert "border-top:1px solid #111" in page
