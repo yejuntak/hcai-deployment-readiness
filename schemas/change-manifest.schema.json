@@ -9,7 +9,7 @@
   ],
   "properties": {
     "protocol_version": {
-      "const": "0.2-preview.3"
+      "const": "0.3-preview.1"
     },
     "status": {
       "const": "candidate_unvalidated"
