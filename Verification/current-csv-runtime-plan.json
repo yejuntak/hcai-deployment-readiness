@@ -1,0 +1,935 @@
+{
+  "csv_contract_version": "2.0.0",
+  "session_id": "RP-01",
+  "artifact_population": "runtime_ai",
+  "evaluator_kind": "synthetic",
+  "mode": "artifact_review",
+  "stage": "specification_handoff",
+  "disposition": "Hold for remediation",
+  "requirements": {
+    "verified": 3,
+    "failed": 2,
+    "unassessed": 0,
+    "denominator": 5,
+    "coverage": 0.6,
+    "excluded_or_deferred": 1,
+    "by_evidence_stage": {
+      "specified": {
+        "pass": 3,
+        "fail": 2,
+        "unassessed": 0,
+        "not_applicable": 0
+      },
+      "walkthrough": {
+        "pass": 3,
+        "fail": 2,
+        "unassessed": 0,
+        "not_applicable": 0
+      },
+      "implemented": {
+        "pass": 0,
+        "fail": 0,
+        "unassessed": 5,
+        "not_applicable": 0
+      },
+      "runtime_tested": {
+        "pass": 0,
+        "fail": 0,
+        "unassessed": 5,
+        "not_applicable": 0
+      }
+    }
+  },
+  "recovery": {
+    "verified": 1,
+    "failed": 1,
+    "unassessed": 1,
+    "denominator": 3,
+    "coverage": 0.3333333333333333,
+    "excluded_or_deferred": 0,
+    "by_evidence_stage": {
+      "specified": {
+        "pass": 1,
+        "fail": 1,
+        "unassessed": 1,
+        "not_applicable": 0
+      },
+      "walkthrough": {
+        "pass": 1,
+        "fail": 1,
+        "unassessed": 1,
+        "not_applicable": 0
+      },
+      "implemented": {
+        "pass": 0,
+        "fail": 0,
+        "unassessed": 3,
+        "not_applicable": 0
+      },
+      "runtime_tested": {
+        "pass": 0,
+        "fail": 0,
+        "unassessed": 3,
+        "not_applicable": 0
+      }
+    }
+  },
+  "critical_open": 0,
+  "reference_recall": null,
+  "expected_recall_gap_pp": null,
+  "omission_recognition": null,
+  "false_ready_batch_rate": null,
+  "warnings": [
+    "Reference-recall metrics are unavailable: inspect per-metric mode, role, exposure, ordering and reference-key reasons.",
+    "All observations and evaluator metrics in this example are stipulated synthetic values, not human participant results."
+  ],
+  "claim_limit": "Record validation and synthetic/descriptive arithmetic only; no evidence authentication, empirical effectiveness, or deployment authorization.",
+  "stage_review": {
+    "versions": {
+      "protocol": "0.3-preview.1",
+      "mcp": "0.3.0rc1",
+      "skill": "0.3.0-rc.1",
+      "contract": "0.3.0-rc.1"
+    },
+    "run_id": "RP-01",
+    "artifact_version": "RP-01-plan-v1",
+    "criterion_version": "RP-01-scope-v1",
+    "artifact_population": "runtime_ai",
+    "artifact_kind": "specification",
+    "stage": "specification_handoff",
+    "mode": "artifact_review",
+    "evaluator_kind": "synthetic",
+    "criteria_timing": "prospective",
+    "required_evidence_levels": [
+      "specified",
+      "walkthrough"
+    ],
+    "criterion_status": "nonready",
+    "disposition": "Hold for remediation",
+    "requirements": {
+      "total": 5,
+      "verified": 3,
+      "failed": 2,
+      "unassessed": 0,
+      "coverage_percent": 60.0,
+      "evidence_levels": {
+        "specified": {
+          "total": 5,
+          "pass": 3,
+          "fail": 2,
+          "unassessed": 0,
+          "not_applicable": 0,
+          "coverage_percent": 60.0
+        },
+        "walkthrough": {
+          "total": 5,
+          "pass": 3,
+          "fail": 2,
+          "unassessed": 0,
+          "not_applicable": 0,
+          "coverage_percent": 60.0
+        },
+        "implemented": {
+          "total": 5,
+          "pass": 0,
+          "fail": 0,
+          "unassessed": 5,
+          "not_applicable": 0,
+          "coverage_percent": 0.0
+        },
+        "runtime_tested": {
+          "total": 5,
+          "pass": 0,
+          "fail": 0,
+          "unassessed": 5,
+          "not_applicable": 0,
+          "coverage_percent": 0.0
+        }
+      },
+      "excluded_ids": [
+        "P06"
+      ]
+    },
+    "recovery": {
+      "total": 3,
+      "verified": 1,
+      "failed": 1,
+      "unassessed": 1,
+      "coverage_percent": 33.333333,
+      "evidence_levels": {
+        "specified": {
+          "total": 3,
+          "pass": 1,
+          "fail": 1,
+          "unassessed": 1,
+          "not_applicable": 0,
+          "coverage_percent": 33.333333
+        },
+        "walkthrough": {
+          "total": 3,
+          "pass": 1,
+          "fail": 1,
+          "unassessed": 1,
+          "not_applicable": 0,
+          "coverage_percent": 33.333333
+        },
+        "implemented": {
+          "total": 3,
+          "pass": 0,
+          "fail": 0,
+          "unassessed": 3,
+          "not_applicable": 0,
+          "coverage_percent": 0.0
+        },
+        "runtime_tested": {
+          "total": 3,
+          "pass": 0,
+          "fail": 0,
+          "unassessed": 3,
+          "not_applicable": 0,
+          "coverage_percent": 0.0
+        }
+      },
+      "excluded_ids": []
+    },
+    "unresolved_critical_ids": [],
+    "unresolved_major_ids": [
+      "PF02"
+    ],
+    "choice_issues": {
+      "PC01": [
+        "verification_evidence_locations_missing",
+        "current_choice_justification_missing",
+        "human_decision_pending",
+        "decision_surface_PDS02_unassessed",
+        "decision_surface_PDS03_unassessed",
+        "decision_surface_PDS04_unassessed",
+        "challenge_PCH01_unassessed"
+      ]
+    },
+    "choices_requiring_revision": [],
+    "deepening_required_ids": [
+      "PC01"
+    ],
+    "deepening_failure_ids": [],
+    "finding_scope_or_adjudication_gaps": [
+      "PF01"
+    ],
+    "evidence_gaps": [],
+    "evaluator_metrics": {
+      "reference_set_recall_percent": null,
+      "expected_recall_gap_pp": null,
+      "requirements_omission_recognition_percent": null
+    },
+    "metric_ineligibility_reasons": {
+      "reference_set_recall_percent": [
+        "independent_evaluation_not_selected",
+        "reference_not_prospectively_frozen",
+        "reference_not_independent_of_findings",
+        "findings_not_locked_before_reference",
+        "role_independence_unknown",
+        "adjudicator_independence_unknown",
+        "adjudicated_reference_counts_not_supplied"
+      ],
+      "expected_recall_gap_pp": [
+        "independent_evaluation_not_selected",
+        "reference_not_prospectively_frozen",
+        "reference_not_independent_of_findings",
+        "findings_not_locked_before_reference",
+        "role_independence_unknown",
+        "adjudicator_independence_unknown",
+        "expectation_not_locked_before_reference",
+        "adjudicated_reference_counts_not_supplied"
+      ],
+      "requirements_omission_recognition_percent": [
+        "independent_evaluation_not_selected",
+        "reference_not_prospectively_frozen",
+        "reference_not_independent_of_findings",
+        "findings_not_locked_before_reference",
+        "role_independence_unknown",
+        "adjudicator_independence_unknown",
+        "omission_subset_not_frozen",
+        "adjudicated_reference_counts_not_supplied"
+      ]
+    },
+    "choices": [
+      {
+        "id": "PC01",
+        "purpose": "Help support workers draft without delegating authority to send.",
+        "criteria": [
+          "Current-task fit",
+          "control over consequential action",
+          "failure recovery",
+          "effort and cost."
+        ],
+        "observed_choice": "Runtime model draft followed by human review.",
+        "observed_evidence_locations": [
+          "artifact.md#a1-purpose-and-boundary"
+        ],
+        "historical_alternatives": [],
+        "proposed_alternatives": [
+          {
+            "description": "Fixed response templates",
+            "evidence_locations": []
+          },
+          {
+            "description": "retrieval-only suggestions",
+            "evidence_locations": []
+          },
+          {
+            "description": "manual drafting.",
+            "evidence_locations": []
+          }
+        ],
+        "alternatives_review": null,
+        "rationale": null,
+        "rationale_provenance": "unknown",
+        "rationale_evidence_locations": [],
+        "impacts_and_tradeoffs": [
+          "Misleading output may be accepted",
+          "latency and review effort may exceed the saved drafting time."
+        ],
+        "assumptions": [
+          "Human review can detect relevant misleading content",
+          "task benefit is not yet measured."
+        ],
+        "affected_check_ids": [
+          "P02",
+          "P05",
+          "PS03"
+        ],
+        "engineering_deepening_required": true,
+        "deepening_rationale": "The draft choice depends on a user-data dependency authority boundary and an untested human-review assumption.",
+        "deepening_triggers": [
+          "unreliable_or_async_dependency",
+          "material_scale_or_cost_assumption"
+        ],
+        "required_surface_kinds": [
+          "boundary",
+          "contract",
+          "failure_recovery",
+          "assumption"
+        ],
+        "decision_surfaces": [
+          {
+            "id": "PDS01",
+            "kind": "boundary",
+            "question": "Where does model drafting end and human authority begin?",
+            "current_model": "The model drafts and a support worker decides whether anything is sent.",
+            "status": "supported",
+            "evidence_locations": [
+              "artifact.md#a1-purpose-and-boundary"
+            ],
+            "consequence_if_wrong": null,
+            "evidence_needed": null,
+            "revisit_trigger": null,
+            "reason": null
+          },
+          {
+            "id": "PDS02",
+            "kind": "contract",
+            "question": "What must the user-data dependency return or fail with?",
+            "current_model": null,
+            "status": "unassessed",
+            "evidence_locations": [],
+            "consequence_if_wrong": null,
+            "evidence_needed": "Specify timeout unavailable and stale-data behavior.",
+            "revisit_trigger": null,
+            "reason": null
+          },
+          {
+            "id": "PDS03",
+            "kind": "failure_recovery",
+            "question": "What happens when the user-data dependency is unavailable?",
+            "current_model": null,
+            "status": "unassessed",
+            "evidence_locations": [],
+            "consequence_if_wrong": null,
+            "evidence_needed": "Walk a dependency outage and define the recoverable user state.",
+            "revisit_trigger": null,
+            "reason": null
+          },
+          {
+            "id": "PDS04",
+            "kind": "assumption",
+            "question": "Can human review reliably catch materially misleading draft content?",
+            "current_model": null,
+            "status": "unassessed",
+            "evidence_locations": [],
+            "consequence_if_wrong": "Materially misleading text may be accepted as correct.",
+            "evidence_needed": "Collect bounded representative review evidence before relying on the assumption.",
+            "revisit_trigger": "Any change to intended use reviewer role or model behavior",
+            "reason": null
+          }
+        ],
+        "challenge_scenarios": [
+          {
+            "id": "PCH01",
+            "condition": "The user-data service is unavailable while a draft is requested.",
+            "claim_at_risk": "The workflow remains understandable and recoverable without delegating send authority.",
+            "expected_behavior_or_invariant": "The worker receives an explicit recoverable state and no unsupported draft is treated as verified.",
+            "consequence_if_mishandled": "Misleading output or blocked work without a recovery path.",
+            "affected_check_ids": [
+              "P02",
+              "P05",
+              "PS03"
+            ],
+            "status": "unassessed",
+            "evidence_locations": [],
+            "next_evidence": "Run and retain a specification walkthrough of the outage path."
+          }
+        ],
+        "next_coherent_slice": "Walk one draft through dependency outage human review correction and a recorded final disposition before implementation.",
+        "human_decision": "pending",
+        "human_decision_owner": "Synthetic product owner",
+        "human_decision_evidence_locations": [],
+        "verification_evidence_locations": [],
+        "follow_up": "Record choice criteria; compare alternatives; specify failure behavior; assign a validation plan.",
+        "follow_up_owner": "Synthetic product owner"
+      }
+    ],
+    "inputs": {
+      "versions": {
+        "protocol": "0.3-preview.1",
+        "mcp": "0.3.0rc1",
+        "skill": "0.3.0-rc.1",
+        "contract": "0.3.0-rc.1"
+      },
+      "run_id": "RP-01",
+      "artifact_version": "RP-01-plan-v1",
+      "criterion_version": "RP-01-scope-v1",
+      "artifact_population": "runtime_ai",
+      "artifact_kind": "specification",
+      "stage": "specification_handoff",
+      "mode": "artifact_review",
+      "evaluator_kind": "synthetic",
+      "criteria_timing": "prospective",
+      "requirements": [
+        {
+          "id": "P01",
+          "acceptance_check": "Retrieve only the authorized selected ticket.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.md#a2-identity-and-source"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#p01"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No implementation exists."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Future runtime-AI behavior has not been tested."
+          }
+        },
+        {
+          "id": "P02",
+          "acceptance_check": "Keep sending under human control.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.md#a1-purpose-and-boundary"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#p02"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No implementation exists."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Future runtime-AI behavior has not been tested."
+          }
+        },
+        {
+          "id": "P03",
+          "acceptance_check": "Return to the unchanged ticket on rejection.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.md#a3-review-and-rejection"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#p03"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No implementation exists."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Future runtime-AI behavior has not been tested."
+          }
+        },
+        {
+          "id": "P04",
+          "acceptance_check": "Specify ticket-service timeout and failure behavior.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "fail",
+            "evidence_locations": [
+              "artifact.md#a4-planned-validation"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "fail",
+            "evidence_locations": [
+              "walkthrough.md#p04"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No implementation exists."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Future runtime-AI behavior has not been tested."
+          }
+        },
+        {
+          "id": "P05",
+          "acceptance_check": "Specify how suspected misleading draft output is reported and held.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "fail",
+            "evidence_locations": [
+              "artifact.md#a4-planned-validation"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "fail",
+            "evidence_locations": [
+              "walkthrough.md#p05"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No implementation exists."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Future runtime-AI behavior has not been tested."
+          }
+        },
+        {
+          "id": "P06",
+          "acceptance_check": "Compute sentiment analytics over historical tickets.",
+          "scope": "deferred",
+          "exclusion_reason": "Phase 3 only; no dependency or present claim.",
+          "current_dependency": false,
+          "specified": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Explicitly deferred from the frozen present scope."
+          },
+          "walkthrough": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Outside the present scope."
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No implementation exists."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Future runtime-AI behavior has not been tested."
+          }
+        }
+      ],
+      "recovery": [
+        {
+          "id": "PS01",
+          "acceptance_check": "Worker rejects generated draft.: Return to unchanged ticket; no sending.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.md#a3-review-and-rejection"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#ps01"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No implementation exists."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No runtime test exists."
+          }
+        },
+        {
+          "id": "PS02",
+          "acceptance_check": "ticket-service timeout.: Bound the timeout; preserve ticket selection; safe retry or stop.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "fail",
+            "evidence_locations": [
+              "artifact.md#a4-planned-validation"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "fail",
+            "evidence_locations": [
+              "walkthrough.md#ps02"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No implementation exists."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No runtime test exists."
+          }
+        },
+        {
+          "id": "PS03",
+          "acceptance_check": "Model generation fails.: Explain failure; keep ticket unchanged; offer retry or manual draft.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Not assessed in this illustrative pass."
+          },
+          "walkthrough": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Not assessed in this illustrative pass."
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No implementation exists."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No runtime test exists."
+          }
+        }
+      ],
+      "zero_recovery_reason": null,
+      "important_choice_ids": [
+        "PC01"
+      ],
+      "choices": [
+        {
+          "id": "PC01",
+          "purpose": "Help support workers draft without delegating authority to send.",
+          "criteria": [
+            "Current-task fit",
+            "control over consequential action",
+            "failure recovery",
+            "effort and cost."
+          ],
+          "observed_choice": "Runtime model draft followed by human review.",
+          "observed_evidence_locations": [
+            "artifact.md#a1-purpose-and-boundary"
+          ],
+          "historical_alternatives": [],
+          "proposed_alternatives": [
+            {
+              "description": "Fixed response templates",
+              "evidence_locations": []
+            },
+            {
+              "description": "retrieval-only suggestions",
+              "evidence_locations": []
+            },
+            {
+              "description": "manual drafting.",
+              "evidence_locations": []
+            }
+          ],
+          "alternatives_review": null,
+          "rationale": null,
+          "rationale_provenance": "unknown",
+          "rationale_evidence_locations": [],
+          "impacts_and_tradeoffs": [
+            "Misleading output may be accepted",
+            "latency and review effort may exceed the saved drafting time."
+          ],
+          "assumptions": [
+            "Human review can detect relevant misleading content",
+            "task benefit is not yet measured."
+          ],
+          "affected_check_ids": [
+            "P02",
+            "P05",
+            "PS03"
+          ],
+          "engineering_deepening_required": true,
+          "deepening_rationale": "The draft choice depends on a user-data dependency authority boundary and an untested human-review assumption.",
+          "deepening_triggers": [
+            "unreliable_or_async_dependency",
+            "material_scale_or_cost_assumption"
+          ],
+          "required_surface_kinds": [
+            "boundary",
+            "contract",
+            "failure_recovery",
+            "assumption"
+          ],
+          "decision_surfaces": [
+            {
+              "id": "PDS01",
+              "kind": "boundary",
+              "question": "Where does model drafting end and human authority begin?",
+              "current_model": "The model drafts and a support worker decides whether anything is sent.",
+              "status": "supported",
+              "evidence_locations": [
+                "artifact.md#a1-purpose-and-boundary"
+              ],
+              "consequence_if_wrong": null,
+              "evidence_needed": null,
+              "revisit_trigger": null,
+              "reason": null
+            },
+            {
+              "id": "PDS02",
+              "kind": "contract",
+              "question": "What must the user-data dependency return or fail with?",
+              "current_model": null,
+              "status": "unassessed",
+              "evidence_locations": [],
+              "consequence_if_wrong": null,
+              "evidence_needed": "Specify timeout unavailable and stale-data behavior.",
+              "revisit_trigger": null,
+              "reason": null
+            },
+            {
+              "id": "PDS03",
+              "kind": "failure_recovery",
+              "question": "What happens when the user-data dependency is unavailable?",
+              "current_model": null,
+              "status": "unassessed",
+              "evidence_locations": [],
+              "consequence_if_wrong": null,
+              "evidence_needed": "Walk a dependency outage and define the recoverable user state.",
+              "revisit_trigger": null,
+              "reason": null
+            },
+            {
+              "id": "PDS04",
+              "kind": "assumption",
+              "question": "Can human review reliably catch materially misleading draft content?",
+              "current_model": null,
+              "status": "unassessed",
+              "evidence_locations": [],
+              "consequence_if_wrong": "Materially misleading text may be accepted as correct.",
+              "evidence_needed": "Collect bounded representative review evidence before relying on the assumption.",
+              "revisit_trigger": "Any change to intended use reviewer role or model behavior",
+              "reason": null
+            }
+          ],
+          "challenge_scenarios": [
+            {
+              "id": "PCH01",
+              "condition": "The user-data service is unavailable while a draft is requested.",
+              "claim_at_risk": "The workflow remains understandable and recoverable without delegating send authority.",
+              "expected_behavior_or_invariant": "The worker receives an explicit recoverable state and no unsupported draft is treated as verified.",
+              "consequence_if_mishandled": "Misleading output or blocked work without a recovery path.",
+              "affected_check_ids": [
+                "P02",
+                "P05",
+                "PS03"
+              ],
+              "status": "unassessed",
+              "evidence_locations": [],
+              "next_evidence": "Run and retain a specification walkthrough of the outage path."
+            }
+          ],
+          "next_coherent_slice": "Walk one draft through dependency outage human review correction and a recorded final disposition before implementation.",
+          "human_decision": "pending",
+          "human_decision_owner": "Synthetic product owner",
+          "human_decision_evidence_locations": [],
+          "verification_evidence_locations": [],
+          "follow_up": "Record choice criteria; compare alternatives; specify failure behavior; assign a validation plan.",
+          "follow_up_owner": "Synthetic product owner"
+        }
+      ],
+      "findings": [
+        {
+          "id": "PF01",
+          "description": "No disclaimer language is specified.",
+          "acceptance": "unresolved",
+          "scope": "unclear",
+          "current_dependency": false,
+          "scope_reason": "Request scope and consequence evidence; do not count an unconfirmed concern as Critical.",
+          "proposed_severity": "critical",
+          "adjudicated_severity": "undetermined",
+          "criterion_or_novel_risk": "Insufficient basis for the proposed critical rating. No health claim or clinical function is in this synthetic artifact.",
+          "failure_mechanism": null,
+          "consequence": "Not established for the proposed disclaimer finding.",
+          "evidence_locations": [
+            "artifact.md#a1-purpose-and-boundary"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        },
+        {
+          "id": "PF02",
+          "description": "No timeout or recovery response state.",
+          "acceptance": "novel_accepted",
+          "scope": "current",
+          "current_dependency": false,
+          "scope_reason": "Supported against current P04; no frozen research reference set exists.",
+          "proposed_severity": "major",
+          "adjudicated_severity": "major",
+          "criterion_or_novel_risk": "The current workflow depends on this external call and cannot be handed off with its failure behavior unspecified.",
+          "failure_mechanism": "No timeout or recovery response state.",
+          "consequence": "Worker is blocked or may act on an unclear generation state.",
+          "evidence_locations": [
+            "artifact.md#a4-planned-validation"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        },
+        {
+          "id": "PF03",
+          "description": "Sentiment analytics is absent.",
+          "acceptance": "unsupported",
+          "scope": "deferred",
+          "current_dependency": false,
+          "scope_reason": "Keep the deferred item visible; do not count it as a current defect.",
+          "proposed_severity": "major",
+          "adjudicated_severity": "undetermined",
+          "criterion_or_novel_risk": "No current requirement failure established.",
+          "failure_mechanism": null,
+          "consequence": "No present dependency identified.",
+          "evidence_locations": [
+            "artifact.md#a5-deferred-work"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        }
+      ],
+      "evaluator_validity": {
+        "reference_frozen_before_evaluation": null,
+        "reference_independent_of_findings": null,
+        "evaluator_authored_artifact": null,
+        "evaluator_authored_reference": null,
+        "evaluator_is_adjudicator": null,
+        "matches_independently_confirmed": null,
+        "findings_locked_before_reference": null,
+        "expected_recall_locked_before_reference": null,
+        "omission_subset_frozen": null,
+        "criterion_independently_established": null
+      },
+      "judgment_locked_before_reference": false
+    },
+    "warnings": [
+      "Not an observed human evaluation; keep this evaluator population separate."
+    ],
+    "interpretation": "Descriptive evidence review for the declared stage. Four evidence levels remain independent; unassessed in-scope items remain in denominators. New rationale is a present-day proposal, never proof of historical reasoning. The result does not authorize release or demonstrate protocol effectiveness."
+  },
+  "metric_ineligibility_reasons": {
+    "reference_set_recall_percent": [
+      "independent_evaluation_not_selected",
+      "reference_not_prospectively_frozen",
+      "reference_not_independent_of_findings",
+      "findings_not_locked_before_reference",
+      "role_independence_unknown",
+      "adjudicator_independence_unknown"
+    ],
+    "expected_recall_gap_pp": [
+      "independent_evaluation_not_selected",
+      "reference_not_prospectively_frozen",
+      "reference_not_independent_of_findings",
+      "findings_not_locked_before_reference",
+      "role_independence_unknown",
+      "adjudicator_independence_unknown",
+      "expectation_not_locked_before_reference"
+    ],
+    "requirements_omission_recognition_percent": [
+      "independent_evaluation_not_selected",
+      "reference_not_prospectively_frozen",
+      "reference_not_independent_of_findings",
+      "findings_not_locked_before_reference",
+      "role_independence_unknown",
+      "adjudicator_independence_unknown",
+      "omission_subset_not_frozen"
+    ],
+    "false_ready_acceptance_percent": [
+      "independent_evaluation_not_selected",
+      "reference_not_prospectively_frozen",
+      "reference_not_independent_of_findings",
+      "role_independence_unknown",
+      "adjudicator_independence_unknown",
+      "judgment_not_locked_before_reference",
+      "criterion_not_independently_established"
+    ]
+  },
+  "batch_nonready_missing_judgments": 0
+}

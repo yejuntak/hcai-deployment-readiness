@@ -1,0 +1,12 @@
+{
+  "status": "REMAIN_CANDIDATE",
+  "eligible_pilot_ids": [],
+  "blockers": [
+    "Passing current regression report required",
+    "At least one recorded bounded external end-user/advisor use with feedback required"
+  ],
+  "automatic_promotion": false,
+  "note": "Author must verify actual use, permission and current tests. One pilot is a release prerequisite, not controlled validation.",
+  "recorded_at": "2026-09-27T02:36:00.959851+00:00",
+  "actual_pilot_records": 0
+}

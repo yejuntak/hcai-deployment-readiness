@@ -1,0 +1,1200 @@
+{
+  "csv_contract_version": "2.0.0",
+  "session_id": "EX-1",
+  "artifact_population": "ai_generated",
+  "evaluator_kind": "synthetic",
+  "mode": "independent_evaluation",
+  "stage": "specification_handoff",
+  "disposition": "Hold for remediation",
+  "requirements": {
+    "verified": 7,
+    "failed": 3,
+    "unassessed": 0,
+    "denominator": 10,
+    "coverage": 0.7,
+    "excluded_or_deferred": 0,
+    "by_evidence_stage": {
+      "specified": {
+        "pass": 7,
+        "fail": 3,
+        "unassessed": 0,
+        "not_applicable": 0
+      },
+      "walkthrough": {
+        "pass": 7,
+        "fail": 3,
+        "unassessed": 0,
+        "not_applicable": 0
+      },
+      "implemented": {
+        "pass": 0,
+        "fail": 0,
+        "unassessed": 10,
+        "not_applicable": 0
+      },
+      "runtime_tested": {
+        "pass": 0,
+        "fail": 0,
+        "unassessed": 10,
+        "not_applicable": 0
+      }
+    }
+  },
+  "recovery": {
+    "verified": 3,
+    "failed": 1,
+    "unassessed": 2,
+    "denominator": 6,
+    "coverage": 0.5,
+    "excluded_or_deferred": 0,
+    "by_evidence_stage": {
+      "specified": {
+        "pass": 4,
+        "fail": 1,
+        "unassessed": 1,
+        "not_applicable": 0
+      },
+      "walkthrough": {
+        "pass": 3,
+        "fail": 1,
+        "unassessed": 2,
+        "not_applicable": 0
+      },
+      "implemented": {
+        "pass": 0,
+        "fail": 0,
+        "unassessed": 6,
+        "not_applicable": 0
+      },
+      "runtime_tested": {
+        "pass": 0,
+        "fail": 0,
+        "unassessed": 6,
+        "not_applicable": 0
+      }
+    }
+  },
+  "critical_open": 1,
+  "reference_recall": 0.625,
+  "expected_recall_gap_pp": 17.500000000000004,
+  "omission_recognition": 0.3333333333333333,
+  "false_ready_batch_rate": 0.75,
+  "warnings": [
+    "All observations and evaluator metrics in this example are stipulated synthetic values, not human participant results."
+  ],
+  "claim_limit": "Record validation and synthetic/descriptive arithmetic only; no evidence authentication, empirical effectiveness, or deployment authorization.",
+  "stage_review": {
+    "versions": {
+      "protocol": "0.3-preview.1",
+      "mcp": "0.3.0rc1",
+      "skill": "0.3.0-rc.1",
+      "contract": "0.3.0-rc.1"
+    },
+    "run_id": "EX-1",
+    "artifact_version": "SR-01",
+    "criterion_version": "Handoff-v0.1",
+    "artifact_population": "ai_generated",
+    "artifact_kind": "specification",
+    "stage": "specification_handoff",
+    "mode": "independent_evaluation",
+    "evaluator_kind": "synthetic",
+    "criteria_timing": "prospective",
+    "required_evidence_levels": [
+      "specified",
+      "walkthrough"
+    ],
+    "criterion_status": "nonready",
+    "disposition": "Hold for remediation",
+    "requirements": {
+      "total": 10,
+      "verified": 7,
+      "failed": 3,
+      "unassessed": 0,
+      "coverage_percent": 70.0,
+      "evidence_levels": {
+        "specified": {
+          "total": 10,
+          "pass": 7,
+          "fail": 3,
+          "unassessed": 0,
+          "not_applicable": 0,
+          "coverage_percent": 70.0
+        },
+        "walkthrough": {
+          "total": 10,
+          "pass": 7,
+          "fail": 3,
+          "unassessed": 0,
+          "not_applicable": 0,
+          "coverage_percent": 70.0
+        },
+        "implemented": {
+          "total": 10,
+          "pass": 0,
+          "fail": 0,
+          "unassessed": 10,
+          "not_applicable": 0,
+          "coverage_percent": 0.0
+        },
+        "runtime_tested": {
+          "total": 10,
+          "pass": 0,
+          "fail": 0,
+          "unassessed": 10,
+          "not_applicable": 0,
+          "coverage_percent": 0.0
+        }
+      },
+      "excluded_ids": []
+    },
+    "recovery": {
+      "total": 6,
+      "verified": 3,
+      "failed": 1,
+      "unassessed": 2,
+      "coverage_percent": 50.0,
+      "evidence_levels": {
+        "specified": {
+          "total": 6,
+          "pass": 4,
+          "fail": 1,
+          "unassessed": 1,
+          "not_applicable": 0,
+          "coverage_percent": 66.666667
+        },
+        "walkthrough": {
+          "total": 6,
+          "pass": 3,
+          "fail": 1,
+          "unassessed": 2,
+          "not_applicable": 0,
+          "coverage_percent": 50.0
+        },
+        "implemented": {
+          "total": 6,
+          "pass": 0,
+          "fail": 0,
+          "unassessed": 6,
+          "not_applicable": 0,
+          "coverage_percent": 0.0
+        },
+        "runtime_tested": {
+          "total": 6,
+          "pass": 0,
+          "fail": 0,
+          "unassessed": 6,
+          "not_applicable": 0,
+          "coverage_percent": 0.0
+        }
+      },
+      "excluded_ids": []
+    },
+    "unresolved_critical_ids": [
+      "reference-D08"
+    ],
+    "unresolved_major_ids": [
+      "F04",
+      "reference-D03"
+    ],
+    "choice_issues": {
+      "C01": [
+        "verification_evidence_locations_missing",
+        "current_choice_justification_missing",
+        "human_decision_pending"
+      ]
+    },
+    "choices_requiring_revision": [],
+    "deepening_required_ids": [
+      "C01"
+    ],
+    "deepening_failure_ids": [],
+    "finding_scope_or_adjudication_gaps": [],
+    "evidence_gaps": [],
+    "evaluator_metrics": {
+      "reference_set_recall_percent": null,
+      "expected_recall_gap_pp": null,
+      "requirements_omission_recognition_percent": null
+    },
+    "metric_ineligibility_reasons": {
+      "reference_set_recall_percent": [
+        "adjudicated_reference_counts_not_supplied"
+      ],
+      "expected_recall_gap_pp": [
+        "adjudicated_reference_counts_not_supplied"
+      ],
+      "requirements_omission_recognition_percent": [
+        "adjudicated_reference_counts_not_supplied"
+      ]
+    },
+    "choices": [
+      {
+        "id": "C01",
+        "purpose": "Prevent duplicate service requests.",
+        "criteria": [
+          "Current-task fit",
+          "control over consequential action",
+          "failure recovery",
+          "effort and cost."
+        ],
+        "observed_choice": "Submission token.",
+        "observed_evidence_locations": [
+          "artifact.html#send"
+        ],
+        "historical_alternatives": [],
+        "proposed_alternatives": [
+          {
+            "description": "Disable button while pending",
+            "evidence_locations": []
+          },
+          {
+            "description": "idempotent server key",
+            "evidence_locations": []
+          },
+          {
+            "description": "explicit retry reconciliation.",
+            "evidence_locations": []
+          }
+        ],
+        "alternatives_review": null,
+        "rationale": null,
+        "rationale_provenance": "unknown",
+        "rationale_evidence_locations": [],
+        "impacts_and_tradeoffs": [
+          "Retries may create duplicates if token is changed",
+          "pending feedback remains unresolved."
+        ],
+        "assumptions": [
+          "Token identity remains stable across retry and the service enforces it."
+        ],
+        "affected_check_ids": [
+          "R08",
+          "S05"
+        ],
+        "engineering_deepening_required": true,
+        "deepening_rationale": "The choice changes service state and depends on request identity retry ordering and recovery.",
+        "deepening_triggers": [
+          "persistent_state_mutation",
+          "repeat_or_concurrent_operation",
+          "unreliable_or_async_dependency"
+        ],
+        "required_surface_kinds": [
+          "truth",
+          "state",
+          "time_ordering",
+          "assumption"
+        ],
+        "decision_surfaces": [
+          {
+            "id": "DS01",
+            "kind": "truth",
+            "question": "Which record or identifier is authoritative for one logical submission?",
+            "current_model": "The submission token identifies one logical request across retry.",
+            "status": "supported",
+            "evidence_locations": [
+              "artifact.html#send"
+            ],
+            "consequence_if_wrong": null,
+            "evidence_needed": null,
+            "revisit_trigger": null,
+            "reason": null
+          },
+          {
+            "id": "DS02",
+            "kind": "state",
+            "question": "What state exists after a timeout before the service outcome is known?",
+            "current_model": "The request remains unresolved until the service outcome is reconciled.",
+            "status": "supported",
+            "evidence_locations": [
+              "artifact.html#send"
+            ],
+            "consequence_if_wrong": null,
+            "evidence_needed": null,
+            "revisit_trigger": null,
+            "reason": null
+          },
+          {
+            "id": "DS03",
+            "kind": "time_ordering",
+            "question": "What happens when retry overlaps a delayed first response?",
+            "current_model": "The same logical request identity is reused so later responses cannot create a second logical submission.",
+            "status": "supported",
+            "evidence_locations": [
+              "artifact.html#send"
+            ],
+            "consequence_if_wrong": null,
+            "evidence_needed": null,
+            "revisit_trigger": null,
+            "reason": null
+          },
+          {
+            "id": "DS04",
+            "kind": "assumption",
+            "question": "Does the service actually enforce the stable request identity?",
+            "current_model": "The synthetic reference assumes the service enforces one logical request per token.",
+            "status": "supported",
+            "evidence_locations": [
+              "artifact.html#send"
+            ],
+            "consequence_if_wrong": "Duplicate service requests can be created if the assumption is false.",
+            "evidence_needed": "Run an implementation-level duplicate retry test before any live use.",
+            "revisit_trigger": "Any service contract or retry implementation change",
+            "reason": null
+          }
+        ],
+        "challenge_scenarios": [
+          {
+            "id": "CH01",
+            "condition": "The first service response is delayed and the same logical request is retried.",
+            "claim_at_risk": "One logical request cannot create duplicate service work.",
+            "expected_behavior_or_invariant": "Repeated attempts with the same request identity are reconciled as one logical submission.",
+            "consequence_if_mishandled": "Duplicate service work or duplicate external effects.",
+            "affected_check_ids": [
+              "R08",
+              "S05"
+            ],
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#send"
+            ],
+            "next_evidence": null
+          }
+        ],
+        "next_coherent_slice": "Prove one request through timeout retry reconciliation and observable deduplication before broader build.",
+        "human_decision": "pending",
+        "human_decision_owner": "Synthetic engineering owner",
+        "human_decision_evidence_locations": [],
+        "verification_evidence_locations": [],
+        "follow_up": "Choose and document token lifecycle and recovery behavior; record the test.",
+        "follow_up_owner": "Synthetic engineering owner"
+      }
+    ],
+    "inputs": {
+      "versions": {
+        "protocol": "0.3-preview.1",
+        "mcp": "0.3.0rc1",
+        "skill": "0.3.0-rc.1",
+        "contract": "0.3.0-rc.1"
+      },
+      "run_id": "EX-1",
+      "artifact_version": "SR-01",
+      "criterion_version": "Handoff-v0.1",
+      "artifact_population": "ai_generated",
+      "artifact_kind": "specification",
+      "stage": "specification_handoff",
+      "mode": "independent_evaluation",
+      "evaluator_kind": "synthetic",
+      "criteria_timing": "prospective",
+      "requirements": [
+        {
+          "id": "R01",
+          "acceptance_check": "Choose service type",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#details"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#r01"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "R02",
+          "acceptance_check": "Preserve details when navigating",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#details"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#r02"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "R03",
+          "acceptance_check": "Identify requester",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#details"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#r03"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "R04",
+          "acceptance_check": "Show field validation",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#validation"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#r04"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "R05",
+          "acceptance_check": "Specify pending state",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "fail",
+            "evidence_locations": [
+              "artifact.html#boundary"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "fail",
+            "evidence_locations": [
+              "walkthrough.md#r05"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "R06",
+          "acceptance_check": "Show unique success reference",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#response"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#r06"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "R07",
+          "acceptance_check": "Recover from network failure",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "fail",
+            "evidence_locations": [
+              "artifact.html#boundary"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "fail",
+            "evidence_locations": [
+              "walkthrough.md#r07"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "R08",
+          "acceptance_check": "Prevent duplicate submission",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#send"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#r08"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "R09",
+          "acceptance_check": "Allow cancellation before submission",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#send"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#r09"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "R10",
+          "acceptance_check": "Confirm consequential access change",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "fail",
+            "evidence_locations": [
+              "artifact.html#send"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "fail",
+            "evidence_locations": [
+              "walkthrough.md#r10"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        }
+      ],
+      "recovery": [
+        {
+          "id": "S01",
+          "acceptance_check": "Empty required field: Empty required field; retain data unless cancellation authorizes discard.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#validation"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#s01"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "S02",
+          "acceptance_check": "Invalid requester: Invalid requester; retain data unless cancellation authorizes discard.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#validation"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#s02"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "S03",
+          "acceptance_check": "Network timeout: Network timeout; retain data unless cancellation authorizes discard.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "fail",
+            "evidence_locations": [
+              "artifact.html#boundary"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "fail",
+            "evidence_locations": [
+              "walkthrough.md#s03"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "S04",
+          "acceptance_check": "Server rejection: Server rejection; retain data unless cancellation authorizes discard.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#response"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "pass",
+            "evidence_locations": [
+              "walkthrough.md#s04"
+            ],
+            "reason": null
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "S05",
+          "acceptance_check": "Repeated click feedback and input preservation: Repeated click feedback and input preservation; retain data unless cancellation authorizes discard.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "pass",
+            "evidence_locations": [
+              "artifact.html#send"
+            ],
+            "reason": null
+          },
+          "walkthrough": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "The supplied specification does not establish this complete scenario."
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        },
+        {
+          "id": "S06",
+          "acceptance_check": "Cancellation during pending submission: Cancellation during pending submission; retain data unless cancellation authorizes discard.",
+          "scope": "current",
+          "exclusion_reason": null,
+          "current_dependency": false,
+          "specified": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Not described in the supplied specification."
+          },
+          "walkthrough": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "The supplied specification does not establish this complete scenario."
+          },
+          "implemented": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "Specification only; no code supplied."
+          },
+          "runtime_tested": {
+            "status": "unassessed",
+            "evidence_locations": [],
+            "reason": "No running system or runtime test supplied."
+          }
+        }
+      ],
+      "zero_recovery_reason": null,
+      "important_choice_ids": [
+        "C01"
+      ],
+      "choices": [
+        {
+          "id": "C01",
+          "purpose": "Prevent duplicate service requests.",
+          "criteria": [
+            "Current-task fit",
+            "control over consequential action",
+            "failure recovery",
+            "effort and cost."
+          ],
+          "observed_choice": "Submission token.",
+          "observed_evidence_locations": [
+            "artifact.html#send"
+          ],
+          "historical_alternatives": [],
+          "proposed_alternatives": [
+            {
+              "description": "Disable button while pending",
+              "evidence_locations": []
+            },
+            {
+              "description": "idempotent server key",
+              "evidence_locations": []
+            },
+            {
+              "description": "explicit retry reconciliation.",
+              "evidence_locations": []
+            }
+          ],
+          "alternatives_review": null,
+          "rationale": null,
+          "rationale_provenance": "unknown",
+          "rationale_evidence_locations": [],
+          "impacts_and_tradeoffs": [
+            "Retries may create duplicates if token is changed",
+            "pending feedback remains unresolved."
+          ],
+          "assumptions": [
+            "Token identity remains stable across retry and the service enforces it."
+          ],
+          "affected_check_ids": [
+            "R08",
+            "S05"
+          ],
+          "engineering_deepening_required": true,
+          "deepening_rationale": "The choice changes service state and depends on request identity retry ordering and recovery.",
+          "deepening_triggers": [
+            "persistent_state_mutation",
+            "repeat_or_concurrent_operation",
+            "unreliable_or_async_dependency"
+          ],
+          "required_surface_kinds": [
+            "truth",
+            "state",
+            "time_ordering",
+            "assumption"
+          ],
+          "decision_surfaces": [
+            {
+              "id": "DS01",
+              "kind": "truth",
+              "question": "Which record or identifier is authoritative for one logical submission?",
+              "current_model": "The submission token identifies one logical request across retry.",
+              "status": "supported",
+              "evidence_locations": [
+                "artifact.html#send"
+              ],
+              "consequence_if_wrong": null,
+              "evidence_needed": null,
+              "revisit_trigger": null,
+              "reason": null
+            },
+            {
+              "id": "DS02",
+              "kind": "state",
+              "question": "What state exists after a timeout before the service outcome is known?",
+              "current_model": "The request remains unresolved until the service outcome is reconciled.",
+              "status": "supported",
+              "evidence_locations": [
+                "artifact.html#send"
+              ],
+              "consequence_if_wrong": null,
+              "evidence_needed": null,
+              "revisit_trigger": null,
+              "reason": null
+            },
+            {
+              "id": "DS03",
+              "kind": "time_ordering",
+              "question": "What happens when retry overlaps a delayed first response?",
+              "current_model": "The same logical request identity is reused so later responses cannot create a second logical submission.",
+              "status": "supported",
+              "evidence_locations": [
+                "artifact.html#send"
+              ],
+              "consequence_if_wrong": null,
+              "evidence_needed": null,
+              "revisit_trigger": null,
+              "reason": null
+            },
+            {
+              "id": "DS04",
+              "kind": "assumption",
+              "question": "Does the service actually enforce the stable request identity?",
+              "current_model": "The synthetic reference assumes the service enforces one logical request per token.",
+              "status": "supported",
+              "evidence_locations": [
+                "artifact.html#send"
+              ],
+              "consequence_if_wrong": "Duplicate service requests can be created if the assumption is false.",
+              "evidence_needed": "Run an implementation-level duplicate retry test before any live use.",
+              "revisit_trigger": "Any service contract or retry implementation change",
+              "reason": null
+            }
+          ],
+          "challenge_scenarios": [
+            {
+              "id": "CH01",
+              "condition": "The first service response is delayed and the same logical request is retried.",
+              "claim_at_risk": "One logical request cannot create duplicate service work.",
+              "expected_behavior_or_invariant": "Repeated attempts with the same request identity are reconciled as one logical submission.",
+              "consequence_if_mishandled": "Duplicate service work or duplicate external effects.",
+              "affected_check_ids": [
+                "R08",
+                "S05"
+              ],
+              "status": "pass",
+              "evidence_locations": [
+                "artifact.html#send"
+              ],
+              "next_evidence": null
+            }
+          ],
+          "next_coherent_slice": "Prove one request through timeout retry reconciliation and observable deduplication before broader build.",
+          "human_decision": "pending",
+          "human_decision_owner": "Synthetic engineering owner",
+          "human_decision_evidence_locations": [],
+          "verification_evidence_locations": [],
+          "follow_up": "Choose and document token lifecycle and recovery behavior; record the test.",
+          "follow_up_owner": "Synthetic engineering owner"
+        }
+      ],
+      "findings": [
+        {
+          "id": "F01",
+          "description": "Ambiguous Go navigation label",
+          "acceptance": "matched_reference",
+          "scope": "current",
+          "current_dependency": false,
+          "scope_reason": "Identify the return/navigation label as ambiguous.",
+          "proposed_severity": "minor",
+          "adjudicated_severity": "minor",
+          "criterion_or_novel_risk": "Stipulated instructional reference rule; requires independent review for research.",
+          "failure_mechanism": "Ambiguous Go navigation label",
+          "consequence": "Potential task confusion or blocked recovery in the fictional request flow.",
+          "evidence_locations": [
+            "artifact.html#details"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        },
+        {
+          "id": "F02",
+          "description": "Unclear validation wording",
+          "acceptance": "matched_reference",
+          "scope": "current",
+          "current_dependency": false,
+          "scope_reason": "Identify the nonspecific field-error wording.",
+          "proposed_severity": "minor",
+          "adjudicated_severity": "minor",
+          "criterion_or_novel_risk": "Stipulated instructional reference rule; requires independent review for research.",
+          "failure_mechanism": "Unclear validation wording",
+          "consequence": "Potential task confusion or blocked recovery in the fictional request flow.",
+          "evidence_locations": [
+            "artifact.html#validation"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        },
+        {
+          "id": "F03",
+          "description": "Inconsistent reference formatting",
+          "acceptance": "matched_reference",
+          "scope": "current",
+          "current_dependency": false,
+          "scope_reason": "Identify formatting inconsistency, not absence of a unique ID.",
+          "proposed_severity": "minor",
+          "adjudicated_severity": "minor",
+          "criterion_or_novel_risk": "Stipulated instructional reference rule; requires independent review for research.",
+          "failure_mechanism": "Inconsistent reference formatting",
+          "consequence": "Potential task confusion or blocked recovery in the fictional request flow.",
+          "evidence_locations": [
+            "artifact.html#response"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        },
+        {
+          "id": "F04",
+          "description": "Omitted network recovery",
+          "acceptance": "matched_reference",
+          "scope": "current",
+          "current_dependency": false,
+          "scope_reason": "Identify missing retry/preserved-data behavior after timeout.",
+          "proposed_severity": "major",
+          "adjudicated_severity": "major",
+          "criterion_or_novel_risk": "Stipulated instructional reference rule; requires independent review for research.",
+          "failure_mechanism": "Omitted network recovery",
+          "consequence": "Potential task confusion or blocked recovery in the fictional request flow.",
+          "evidence_locations": [
+            "artifact.html#boundary"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        },
+        {
+          "id": "F05",
+          "description": "Ambiguous cancellation label",
+          "acceptance": "matched_reference",
+          "scope": "current",
+          "current_dependency": false,
+          "scope_reason": "Identify unclear Leave label before submission.",
+          "proposed_severity": "minor",
+          "adjudicated_severity": "minor",
+          "criterion_or_novel_risk": "Stipulated instructional reference rule; requires independent review for research.",
+          "failure_mechanism": "Ambiguous cancellation label",
+          "consequence": "Potential task confusion or blocked recovery in the fictional request flow.",
+          "evidence_locations": [
+            "artifact.html#send"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        },
+        {
+          "id": "reference-D03",
+          "description": "Missing pending-state behavior",
+          "acceptance": "matched_reference",
+          "scope": "current",
+          "current_dependency": false,
+          "scope_reason": null,
+          "proposed_severity": "major",
+          "adjudicated_severity": "major",
+          "criterion_or_novel_risk": "Frozen R05 acceptance check and match rule.",
+          "failure_mechanism": "Missing pending-state behavior",
+          "consequence": "Current request task may be confusing or blocked.",
+          "evidence_locations": [
+            "artifact.html#boundary"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        },
+        {
+          "id": "reference-D06",
+          "description": "Unclear duplicate-protection explanation",
+          "acceptance": "matched_reference",
+          "scope": "current",
+          "current_dependency": false,
+          "scope_reason": null,
+          "proposed_severity": "minor",
+          "adjudicated_severity": "minor",
+          "criterion_or_novel_risk": "Frozen R08 acceptance check and match rule.",
+          "failure_mechanism": "Unclear duplicate-protection explanation",
+          "consequence": "Current request task may be confusing or blocked.",
+          "evidence_locations": [
+            "artifact.html#send"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        },
+        {
+          "id": "reference-D08",
+          "description": "Omitted confirmation",
+          "acceptance": "matched_reference",
+          "scope": "current",
+          "current_dependency": false,
+          "scope_reason": null,
+          "proposed_severity": "critical",
+          "adjudicated_severity": "critical",
+          "criterion_or_novel_risk": "Frozen R10 acceptance check and match rule.",
+          "failure_mechanism": "Omitted confirmation",
+          "consequence": "A worker may send an unintended consequential access-change request without confirmation.",
+          "evidence_locations": [
+            "artifact.html#send"
+          ],
+          "resolution": "open",
+          "remediation_evidence_locations": []
+        }
+      ],
+      "evaluator_validity": {
+        "reference_frozen_before_evaluation": true,
+        "reference_independent_of_findings": true,
+        "evaluator_authored_artifact": false,
+        "evaluator_authored_reference": false,
+        "evaluator_is_adjudicator": false,
+        "matches_independently_confirmed": true,
+        "findings_locked_before_reference": true,
+        "expected_recall_locked_before_reference": true,
+        "omission_subset_frozen": true,
+        "criterion_independently_established": true
+      },
+      "judgment_locked_before_reference": true
+    },
+    "warnings": [
+      "Not an observed human evaluation; keep this evaluator population separate.",
+      "Use the corrected diagnostic session with independent reference counts for evaluator measures; selecting a mode does not establish eligibility."
+    ],
+    "interpretation": "Descriptive evidence review for the declared stage. Four evidence levels remain independent; unassessed in-scope items remain in denominators. New rationale is a present-day proposal, never proof of historical reasoning. The result does not authorize release or demonstrate protocol effectiveness."
+  },
+  "metric_ineligibility_reasons": {
+    "reference_set_recall_percent": [],
+    "expected_recall_gap_pp": [],
+    "requirements_omission_recognition_percent": [],
+    "false_ready_acceptance_percent": []
+  },
+  "batch_nonready_missing_judgments": 0
+}
