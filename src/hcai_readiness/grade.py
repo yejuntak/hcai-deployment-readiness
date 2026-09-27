@@ -357,16 +357,17 @@ def calculate_report_grade(report: ReportGradeInput) -> dict:
 
     deductions.sort(key=lambda row: (-row["points"], row["title"]))
     signal_priority = deductions[0] if deductions else None
-    if report.hard_priority is not None:
+    hard_priority = None if report.hard_priority is None else HardPriority.model_validate(report.hard_priority)
+    if hard_priority is not None:
         primary_action = {
             "source": "hard",
-            "id": report.hard_priority.id,
-            "title": report.hard_priority.title,
-            "summary": report.hard_priority.summary,
+            "id": hard_priority.id,
+            "title": hard_priority.title,
+            "summary": hard_priority.summary,
             "points": None,
-            "evidence_locations": report.hard_priority.evidence_locations,
-            "next_evidence": report.hard_priority.next_evidence,
-            "developer_trace": None if report.hard_priority.developer_trace is None else report.hard_priority.developer_trace.model_dump(),
+            "evidence_locations": hard_priority.evidence_locations,
+            "next_evidence": hard_priority.next_evidence,
+            "developer_trace": None if hard_priority.developer_trace is None else hard_priority.developer_trace.model_dump(),
         }
     elif signal_priority is not None:
         primary_action = {
