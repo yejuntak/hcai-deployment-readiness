@@ -1,5 +1,5 @@
 {
-  "csv_contract_version": "2.0.0",
+  "csv_contract_version": "2.1.0",
   "session_id": "RP-01",
   "artifact_population": "runtime_ai",
   "evaluator_kind": "synthetic",
@@ -201,9 +201,9 @@
         "verification_evidence_locations_missing",
         "current_choice_justification_missing",
         "human_decision_pending",
+        "assumption_PA01_unassessed",
         "decision_surface_PDS02_unassessed",
         "decision_surface_PDS03_unassessed",
-        "decision_surface_PDS04_unassessed",
         "challenge_PCH01_unassessed"
       ]
     },
@@ -290,8 +290,15 @@
           "latency and review effort may exceed the saved drafting time."
         ],
         "assumptions": [
-          "Human review can detect relevant misleading content",
-          "task benefit is not yet measured."
+          {
+            "id": "PA01",
+            "statement": "Human review can detect relevant misleading content and the task benefit exceeds review burden.",
+            "status": "unassessed",
+            "consequence_if_false": "Materially misleading content may be accepted or review effort may erase the intended benefit.",
+            "evidence_needed": "Collect bounded representative review evidence and measured review effort before relying on the assumption.",
+            "evidence_locations": [],
+            "revisit_trigger": "Any change to intended use reviewer role model behavior or review workflow"
+          }
         ],
         "affected_check_ids": [
           "P02",
@@ -307,8 +314,7 @@
         "required_surface_kinds": [
           "boundary",
           "contract",
-          "failure_recovery",
-          "assumption"
+          "failure_recovery"
         ],
         "decision_surfaces": [
           {
@@ -348,18 +354,6 @@
             "evidence_needed": "Walk a dependency outage and define the recoverable user state.",
             "revisit_trigger": null,
             "reason": null
-          },
-          {
-            "id": "PDS04",
-            "kind": "assumption",
-            "question": "Can human review reliably catch materially misleading draft content?",
-            "current_model": null,
-            "status": "unassessed",
-            "evidence_locations": [],
-            "consequence_if_wrong": "Materially misleading text may be accepted as correct.",
-            "evidence_needed": "Collect bounded representative review evidence before relying on the assumption.",
-            "revisit_trigger": "Any change to intended use reviewer role or model behavior",
-            "reason": null
           }
         ],
         "challenge_scenarios": [
@@ -375,6 +369,7 @@
               "PS03"
             ],
             "status": "unassessed",
+            "evidence_level": null,
             "evidence_locations": [],
             "next_evidence": "Run and retain a specification walkthrough of the outage path."
           }
@@ -721,8 +716,15 @@
             "latency and review effort may exceed the saved drafting time."
           ],
           "assumptions": [
-            "Human review can detect relevant misleading content",
-            "task benefit is not yet measured."
+            {
+              "id": "PA01",
+              "statement": "Human review can detect relevant misleading content and the task benefit exceeds review burden.",
+              "status": "unassessed",
+              "consequence_if_false": "Materially misleading content may be accepted or review effort may erase the intended benefit.",
+              "evidence_needed": "Collect bounded representative review evidence and measured review effort before relying on the assumption.",
+              "evidence_locations": [],
+              "revisit_trigger": "Any change to intended use reviewer role model behavior or review workflow"
+            }
           ],
           "affected_check_ids": [
             "P02",
@@ -738,8 +740,7 @@
           "required_surface_kinds": [
             "boundary",
             "contract",
-            "failure_recovery",
-            "assumption"
+            "failure_recovery"
           ],
           "decision_surfaces": [
             {
@@ -779,18 +780,6 @@
               "evidence_needed": "Walk a dependency outage and define the recoverable user state.",
               "revisit_trigger": null,
               "reason": null
-            },
-            {
-              "id": "PDS04",
-              "kind": "assumption",
-              "question": "Can human review reliably catch materially misleading draft content?",
-              "current_model": null,
-              "status": "unassessed",
-              "evidence_locations": [],
-              "consequence_if_wrong": "Materially misleading text may be accepted as correct.",
-              "evidence_needed": "Collect bounded representative review evidence before relying on the assumption.",
-              "revisit_trigger": "Any change to intended use reviewer role or model behavior",
-              "reason": null
             }
           ],
           "challenge_scenarios": [
@@ -806,6 +795,7 @@
                 "PS03"
               ],
               "status": "unassessed",
+              "evidence_level": null,
               "evidence_locations": [],
               "next_evidence": "Run and retain a specification walkthrough of the outage path."
             }
