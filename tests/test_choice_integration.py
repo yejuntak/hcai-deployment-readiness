@@ -111,9 +111,21 @@ def test_engineering_deepening_maps_model_gaps_to_g3_and_challenges_to_g4():
     assert result["stop_at_gate"] == "G3_STATES_RECOVERY"
     data = case()
     data["choice_ledger"][0]["challenge_scenarios"][0].update(
-        status="unassessed", evidence_locations=[], next_evidence="Run a new bounded walkthrough")
+        status="unassessed", evidence_level=None, evidence_locations=[], next_evidence="Run a new bounded walkthrough")
     result = evaluate(data)
     assert result["stop_at_gate"] == "G4_TRACEABILITY"
+
+
+def test_assumption_lifecycle_maps_unknown_to_g3_and_conflict_to_revise():
+    data = case()
+    data["choice_ledger"][0]["assumptions"][0].update(status="unassessed", evidence_locations=[])
+    result = evaluate(data)
+    assert result["stop_at_gate"] == "G3_STATES_RECOVERY"
+    data = case()
+    data["choice_ledger"][0]["assumptions"][0]["status"] = "conflicted"
+    result = evaluate(data)
+    assert result["stop_at_gate"] == "G3_STATES_RECOVERY"
+    assert result["decision"] == "REVISE"
 
 
 def test_decision_surface_change_invalidates_exact_revision_validation():
