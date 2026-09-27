@@ -1,10 +1,10 @@
 # H.A.R.D. Protocol: MCP and Skill
 
-H.A.R.D. Protocol 0.2 · Public Preview
+H.A.R.D. Protocol 0.3 · Public Preview
 
 Human-centered AI Readiness and Decision Protocol
 
-Exact protocol 0.2-preview.3; MCP 0.2.0rc9; Skill/contract 0.2.0-rc.9. The ArtifactReview versions object requires exact protocol, mcp, skill and contract values. Package names, hcai-readiness commands and the ai-ready invocation remain supported. Use the exact versions returned by the installed tools; old records are not silently migrated.
+Exact protocol 0.3-preview.1; MCP 0.3.0rc1; Skill/contract 0.3.0-rc.1. The ArtifactReview versions object requires exact protocol, mcp, skill and contract values. Package names, hcai-readiness commands and the ai-ready invocation remain supported. Use the exact versions returned by the installed tools; old records are not silently migrated.
 
 ## Install locally
 
@@ -51,7 +51,9 @@ Every current requirement and recovery row has specified, walkthrough, implement
 
 Specification/prototype stage requires specified plus walkthrough evidence. Implementation review adds implemented evidence; runtime review adds execution evidence. The result exposes every level separately. Aggregate diagnostic counts have criterion_scope supplied_aggregate_checks and stage_handoff_eligibility null; satisfying them does not establish stage handoff without choice and four-level records. A plan can be inspected without code, with useful findings even when its walkthrough is incomplete.
 
-ChoiceRecord captures purpose, criteria, observed choice/evidence, historical and newly proposed alternatives, rationale provenance, tradeoffs, verification, human decision and follow-up. Use documented/reported only with historical source evidence. New is a present rationale, not reconstructed private reasoning. Important choices need actual human acceptance or revision evidence; an agent cannot supply human confirmation on its own.
+ChoiceRecord captures purpose, criteria, observed choice/evidence, historical and newly proposed alternatives, rationale provenance, assumptions, tradeoffs, verification, human decision and follow-up. Every important choice also records whether engineering deepening applies and why. Use documented/reported only with historical source evidence. New is a present rationale, not reconstructed private reasoning. Important choices need actual human acceptance or revision evidence; an agent cannot supply human confirmation on its own.
+
+When engineering_deepening_required is true, record one or more triggers, required_surface_kinds, decision_surfaces, challenge_scenarios and next_coherent_slice. Decision surfaces use truth, ownership, state, boundary, contract, failure_recovery, time_ordering or assumption. Supported/conflicted surfaces require retained evidence; unassessed surfaces name the next evidence; not-applicable surfaces need a reason. A consequential assumption also names consequence-if-wrong, evidence needed and a revisit trigger. An assessed challenge needs retained evidence. These records externalize a review model; they do not recover hidden reasoning.
 
 Findings preserve recognition, current applicability, proposed and adjudicated severity, evidence and resolution. Critical needs a supported failure mechanism and consequence. Future work and absent disclaimer text do not automatically establish current critical defects.
 
@@ -74,7 +76,7 @@ Replace example metadata with actual metadata. Repository examples are synthetic
 
 The diagnostic tools retain the historical metric definitions while correcting role/lock eligibility and population handling in this implementation. A current diagnostic result must identify that amended method/version. Existing archived rc.3 inputs and outputs remain historical evidence; do not relabel them.
 
-Independent metrics require a prospectively frozen reference independent of findings, an evaluator who did not author the artifact or reference, and locks before reference access. Self-adjudicated matches require independent confirmation. Expected-recall gap additionally requires an actual locked expectation; omission recognition requires a frozen omission subset. False-ready acceptance requires an independently established criterion and locked judgment. See the [eligibility table](../protocol/0.2-preview.3/INDEPENDENT-EVALUATION.md).
+Independent metrics require a prospectively frozen reference independent of findings, an evaluator who did not author the artifact or reference, and locks before reference access. Self-adjudicated matches require independent confirmation. Expected-recall gap additionally requires an actual locked expectation; omission recognition requires a frozen omission subset. False-ready acceptance requires an independently established criterion and locked judgment. See the [eligibility table](../protocol/0.3-preview.1/INDEPENDENT-EVALUATION.md).
 
 Batch metrics stratify by criterion version, evaluator kind and artifact_population. Preserve stage, mode and remaining eligibility distinctions before comparing results. Agent or synthetic results cannot be presented as observed independent human results. Unknown is not neither.
 
@@ -84,4 +86,4 @@ Use `validate_pilot_run` only for an actual bounded engineering use record with 
 
 The software rejects malformed or contradictory records and checks arithmetic, references and encoded rules. A structurally valid file can still contain false or inadequate evidence. Human evidence-quality review and real owner authorization remain separate. Do not combine artifact coverage, evaluator metrics, review burden, projected operating benefit and actual performance into a readiness percentage.
 
-Regenerate bundled copies with scripts/build_candidate_assets.py and test MCP/Skill parity. Tests cover implementation behavior, not empirical effectiveness. See [claims and governance](claims-and-governance.md) and [preview.3 migration](migration-preview-3.md).
+Regenerate bundled copies with scripts/build_candidate_assets.py and test MCP/Skill parity. Tests cover implementation behavior, not empirical effectiveness. See [engineering reasoning](../protocol/0.3-preview.1/ENGINEERING-REASONING.md), [claims and governance](claims-and-governance.md) and [0.2 to 0.3 migration](migration-0.2-to-0.3.md).
