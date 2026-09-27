@@ -46,6 +46,12 @@ These are constructed examples, not measured results.
 
 The original choice may be right in each example. Asynchronous work, more prompts or additional automation are not universal improvements. An appropriate review preserves what is justified and exposes where an accountable decision is still missing.
 
+## Assumptions are reviewable claims
+
+Do not leave a consequential assumption buried in a rationale paragraph. Record it separately with a stable ID, its current statement, status, consequence if false, evidence needed, retained evidence when assessed and the trigger that should reopen it. Use supported, conflicted or unassessed. Supported means the retained evidence supports the assumption within the declared scope. It does not turn the assumption into a permanent fact.
+
+A conflicted assumption is a real contradiction in the supplied record, not a request for an AI to invent a more persuasive explanation. An unassessed assumption stays visible until the relevant evidence exists.
+
 ## Engineering decision surfaces
 
 Do not make every review a software architecture exercise. First record whether engineering deepening is required and why. Deepening is warranted when an important choice depends on consequential state mutation, an external or irreversible side effect, privileged or tenant boundaries, an unreliable/asynchronous dependency, repeat or concurrent execution, material money/data loss, a scale/cost assumption, a current promise that depends on deferred work, an ambiguous source of truth or another comparable condition.
@@ -61,13 +67,12 @@ When deepening applies, record only the surfaces needed to understand the choice
 | Contract | What must cross that boundary, and what does success or failure mean? |
 | Failure/recovery | What partial or contradictory state can remain after failure, and how is it repaired? |
 | Time/ordering | What if requests repeat, race, arrive late or stop halfway? |
-| Assumption | What must be true for the choice to remain reasonable, what happens if it is false, and what evidence would change the decision? |
 
 A surface may be supported, conflicted, unassessed or not applicable with a reason. Supported means the supplied evidence supports the current model within scope. It does not establish universal correctness. Conflicted means retained evidence contradicts the current model and is a blocker until the choice, evidence or scope is resolved transparently.
 
 ### Challenge before acceptance
 
-For a deepened choice, name at least one bounded challenge condition. Ask: **What would have to be true for this decision to be wrong?** Record the claim at risk, expected behavior or invariant, consequence if mishandled and the evidence needed. A plausible AI explanation is not challenge evidence.
+For a deepened choice, name at least one bounded challenge condition. Ask: **What would have to be true for this decision to be wrong?** Record the claim at risk, expected behavior or invariant, consequence if mishandled and the evidence needed. When a challenge is actually assessed, record whether the retained evidence is a walkthrough, implemented check or runtime test. A plausible AI explanation is not challenge evidence.
 
 Examples include a duplicated request, delayed first response, stale cache, partial write, dependency outage, cancellation racing completion, conflicting authority or a load assumption being exceeded. Only use cases that are material to the actual choice and risk.
 
