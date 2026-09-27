@@ -113,33 +113,39 @@ h1{
 .method-link{position:absolute;right:24px;top:21px;z-index:3;font-size:10px;text-decoration:none;color:rgba(0,0,0,.62)}
 .scrollcue{position:absolute;bottom:12px;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:rgba(0,0,0,.45)}
 
-.report-shell{background:#f3f3ef;padding:96px 24px 110px}
+.report-shell{
+  position:relative;overflow:hidden;padding:100px 24px 120px;
+  background:
+    radial-gradient(ellipse at 10% 4%,rgba(255,255,255,.94) 0 8%,rgba(255,255,255,.44) 16%,rgba(255,255,255,0) 31%),
+    radial-gradient(ellipse at 90% 6%,rgba(255,255,255,.95) 0 9%,rgba(255,255,255,.42) 18%,rgba(255,255,255,0) 32%),
+    linear-gradient(180deg,#b8def8 0%,#e6f4fd 26%,#f8fcff 58%,#fff 100%);
+}
 .report-wrap{max-width:1040px;margin:auto}
 .demo-label{display:flex;align-items:center;justify-content:space-between;margin:0 2px 17px;font-size:10px;text-transform:uppercase;letter-spacing:.11em;color:#6e6d67}
-.report{background:#fbfbf8;border:1px solid #d9d8d1;border-radius:24px;padding:36px}
-.report-hero{display:grid;grid-template-columns:250px 1fr;gap:42px;align-items:end}
-.grade{font-size:126px;line-height:.77;letter-spacing:-.085em;font-weight:780}
-.score{font-size:28px;font-weight:700;margin-top:21px}
+.report{background:rgba(255,255,255,.97);border:1px solid rgba(0,0,0,.10);border-radius:14px;padding:54px 58px 48px;box-shadow:0 28px 80px rgba(62,86,116,.18)}
+.report-hero{text-align:center;max-width:660px;margin:0 auto}
+.grade{font:500 150px/.72 Georgia,"Times New Roman",serif;letter-spacing:-.08em}
+.score{font:500 30px/1.1 Georgia,"Times New Roman",serif;margin-top:25px}
 .grade-caption{font-size:11px;color:#6e6d67;margin-top:7px}
-.company{font-size:11px;font-weight:760;letter-spacing:.09em;text-transform:uppercase;margin-bottom:14px}
-.report h2{font:500 clamp(30px,4vw,48px)/1.04 Georgia,serif;letter-spacing:-.045em;margin:0;max-width:15ch}
-.posture{display:inline-flex;align-items:center;gap:10px;margin-top:22px;border:1px dashed #74736d;border-radius:9px;padding:10px 12px;font-size:12px}
+.company{font-size:10px;font-weight:760;letter-spacing:.13em;text-transform:uppercase;margin-bottom:24px}
+.report h2{font:500 clamp(31px,4vw,48px)/1.02 Georgia,serif;letter-spacing:-.04em;margin:32px auto 0;max-width:17ch}
+.posture{display:inline-flex;align-items:center;gap:10px;margin-top:22px;border-top:1px solid #111;border-bottom:1px solid #111;padding:9px 0;font-size:12px}
 .posture strong{font-size:10px;letter-spacing:.09em}
-.metrics{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;color:#6e6d67;font-size:11px}
-.signal-list{margin-top:34px;border-top:1px solid #dddcd5}
+.metrics{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:14px;color:#6e6d67;font-size:11px}
+.signal-list{margin-top:42px;border-top:1px solid #111}
 .signal-row{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;border-bottom:1px solid #dddcd5;padding:16px 0}
 .signal-copy strong{display:block;font-size:14px}.signal-copy span{display:block;font-size:11px;color:#777;margin-top:4px}.signal-number{font-size:26px;font-weight:730;letter-spacing:-.03em}
-.fix{margin-top:20px;border:1px solid #111;border-radius:19px;padding:27px}
+.fix{margin-top:48px;border-top:1px solid #111;border-bottom:1px solid #111;padding:30px 0}
 .fix-head{display:grid;grid-template-columns:1fr auto;gap:28px}.eyebrow{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:#777}
 .fix h3{font:500 29px/1.05 Georgia,serif;letter-spacing:-.04em;margin:11px 0 9px;max-width:22ch}.fix p{font-size:13px;line-height:1.55;max-width:66ch;margin:0}.points{font-size:39px;font-weight:760;letter-spacing:-.05em}
 .trace{border-top:1px solid #dddcd5;margin-top:24px;padding-top:22px}.trace-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:12px}.trace-item{border-top:1px solid #e2e1db;padding:14px 0}.trace-item strong{display:block;font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:#777}.trace-item p{margin:6px 0 0;font-size:12px}.prove{margin-top:11px;background:#111;color:#fff;border-radius:11px;padding:16px}.prove span{display:block;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#c8c7c0;margin-bottom:6px}.prove strong{font-size:14px;line-height:1.4}
-.unknowns{margin-top:18px;background:#e9e8e2;border-radius:18px;padding:25px}.unknowns h3{font:500 25px/1.1 Georgia,serif;letter-spacing:-.03em;margin:8px 0}.unknowns>p{margin:0;color:#666;font-size:12px}.unknown-list{margin-top:17px}.unknown-row{display:grid;grid-template-columns:1fr 1.2fr;gap:25px;padding:13px 0;border-top:1px solid #d0cfc7}.unknown-row strong{font-size:12px}.unknown-row span{font-size:11px;color:#6c6b66}
+.unknowns{margin-top:40px;border-top:1px solid #111;padding:28px 0 0}.unknowns h3{font:500 25px/1.1 Georgia,serif;letter-spacing:-.03em;margin:8px 0}.unknowns>p{margin:0;color:#666;font-size:12px}.unknown-list{margin-top:17px}.unknown-row{display:grid;grid-template-columns:1fr 1.2fr;gap:25px;padding:13px 0;border-top:1px solid #d0cfc7}.unknown-row strong{font-size:12px}.unknown-row span{font-size:11px;color:#6c6b66}
 .report-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:9px;padding:11px 14px;text-decoration:none;font-size:11px;font-weight:700;border:1px solid #111}.btn.primary{background:#111;color:#fff}
 .boundary{font-size:10px;line-height:1.55;color:#777;margin:16px 3px 0;max-width:92ch}
 @media(max-width:760px){
   .sky{padding-top:58px}.method-link{top:14px;right:15px}.specimen{margin-bottom:30px}
   h1{font-size:43px}.sub{font-size:14px}.scan{flex-direction:column;align-items:stretch}.scan button{border-left:0;border-top:1px solid #ddd}
-  .report-shell{padding:58px 14px}.report{padding:22px}.report-hero{grid-template-columns:1fr}.grade{font-size:92px}.report h2{font-size:33px}
+  .report-shell{padding:58px 14px 80px}.report{padding:34px 22px}.grade{font-size:112px}.report h2{font-size:33px}
   .fix-head,.trace-grid,.unknown-row{grid-template-columns:1fr}.points{font-size:28px}
 }
 </style>
@@ -164,25 +170,12 @@ h1{
     <h1 id="hero-title">Your product looks done.<br>Is it?</h1>
     <p class="sub">We review it like a real product and engineering team would: the decisions, failure paths, and evidence hiding underneath the polish.</p>
 
-    <div class="lenses" aria-label="Review lenses">
-      <span class="lens">UX</span>
-      <span class="lens">A11Y</span>
-      <span class="lens">ACT</span>
-      <span class="lens">DATA</span>
-      <span class="lens">AI</span>
-    </div>
-
     <div class="cta-wrap">
       <form class="scan" action="#sample-report">
         <input aria-label="Public product URL" placeholder="https://yourproduct.com">
         <button type="submit">Grade my product</button>
       </form>
       <p class="micro">public-surface review · no signup required</p>
-    </div>
-
-    <div class="proof">
-      <strong>One grade. One thing to fix first.</strong>
-      Then open the decisions underneath it with H.A.R.D.
     </div>
     <div class="scrollcue">sample report ↓</div>
   </div>
@@ -206,14 +199,6 @@ h1{
         </div>
       </div>
 
-      <div class="signal-list">
-        <div class="signal-row"><div class="signal-copy"><strong>Accessibility</strong><span>71% coverage · 21% confidence</span></div><div class="signal-number">90</div></div>
-        <div class="signal-row"><div class="signal-copy"><strong>Action & Recovery</strong><span>67% coverage · 37% confidence</span></div><div class="signal-number">63</div></div>
-        <div class="signal-row"><div class="signal-copy"><strong>Privacy & Data Boundary</strong><span>71% coverage · 32% confidence</span></div><div class="signal-number">80</div></div>
-        <div class="signal-row"><div class="signal-copy"><strong>AI Transparency & Claims</strong><span>71% coverage · 29% confidence</span></div><div class="signal-number">80</div></div>
-        <div class="signal-row"><div class="signal-copy"><strong>Public Evidence & Documentation</strong><span>71% coverage · 29% confidence</span></div><div class="signal-number">80</div></div>
-      </div>
-
       <section class="fix">
         <div class="fix-head">
           <div>
@@ -234,6 +219,14 @@ h1{
           <div class="prove"><span>Prove next</span><strong>Execute the same refund request twice against the exact implementation and retain the transaction, idempotency, and final-state evidence.</strong></div>
         </div>
       </section>
+
+      <div class="signal-list"><h3 style="font:500 26px/1 Georgia,serif;margin:0 0 10px">Why 78?</h3>
+        <div class="signal-row"><div class="signal-copy"><strong>Accessibility</strong><span>71% coverage · 21% confidence</span></div><div class="signal-number">90</div></div>
+        <div class="signal-row"><div class="signal-copy"><strong>Action & Recovery</strong><span>67% coverage · 37% confidence</span></div><div class="signal-number">63</div></div>
+        <div class="signal-row"><div class="signal-copy"><strong>Privacy & Data Boundary</strong><span>71% coverage · 32% confidence</span></div><div class="signal-number">80</div></div>
+        <div class="signal-row"><div class="signal-copy"><strong>AI Transparency & Claims</strong><span>71% coverage · 29% confidence</span></div><div class="signal-number">80</div></div>
+        <div class="signal-row"><div class="signal-copy"><strong>Public Evidence & Documentation</strong><span>71% coverage · 29% confidence</span></div><div class="signal-number">80</div></div>
+      </div>
 
       <section class="unknowns">
         <div class="eyebrow">Verify next</div>
