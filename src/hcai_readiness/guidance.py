@@ -21,7 +21,7 @@ GUIDES = {
     "G3_STATES_RECOVERY": {
         "title": "Model system truth, state and recovery", "question": "What must remain true as this workflow changes state, and what happens when that model is wrong or incomplete?",
         "owner": "workflow designer and operator", "fields": ["workflow.states", "workflow.state_review", "workflow.dependencies", "workflow.dependency_review", "workflow.action_boundaries", "workflow.human_control_review"],
-        "action": "Walk normal, edge and recovery paths. For choices that require engineering deepening, externalize the relevant source of truth, ownership, state, boundary, contract, failure, time/ordering and assumption surfaces. Record only what supplied evidence supports. Challenge repeated, concurrent, partial and dependency-failure behavior when consequence makes it material.",
+        "action": "Walk normal, edge and recovery paths. For choices that require engineering deepening, externalize the relevant source of truth, ownership, state, boundary, contract, failure and time/ordering surfaces, plus the consequential assumptions the choice depends on. Record only what supplied evidence supports. Challenge repeated, concurrent, partial and dependency-failure behavior when consequence makes it material.",
         "example": "Illustration only: a missing field is shown to the advisor; cancelling returns to saved intake without data loss.",
         "do_not": "Do not infer an error path, source of truth or architecture from a polished result. Do not turn a newly generated explanation into historical rationale."},
     "G4_TRACEABILITY": {
