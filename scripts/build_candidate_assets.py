@@ -32,7 +32,7 @@ def generated():
         output[f"skills/ai-ready/references/{name}"] = (protocol_dir / name).read_bytes()
     for name in ("assessment", "pilot-run", "study-review", "artifact-review", "diagnostic-session", "diagnostic-judgment"):
         output[f"skills/ai-ready/references/{name}.schema.json"] = output[f"schemas/{name}.schema.json"]
-    for name in ("__init__.py", "artifact_review.py", "assessment.py", "versions.py", "contracts.py", "engine.py", "cli.py", "grade.py", "guidance.py", "reporting.py", "criteria.json"):
+    for name in ("__init__.py", "artifact_review.py", "assessment.py", "versions.py", "contracts.py", "engine.py", "cli.py", "grade.py", "public_rules.py", "guidance.py", "reporting.py", "criteria.json"):
         output[f"skills/ai-ready/scripts/hcai_readiness/{name}"] = (ROOT / "src/hcai_readiness" / name).read_bytes()
     output["skills/ai-ready/references/research-boundary.md"] = (ROOT / "docs/research-boundary.md").read_bytes()
     output["skills/ai-ready/references/claims-and-governance.md"] = (ROOT / "docs/claims-and-governance.md").read_bytes()
