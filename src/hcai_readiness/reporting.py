@@ -104,6 +104,22 @@ def render_report(a, format="markdown"):
         paragraph('Rationale evidence: '+('; '.join(choice.rationale_evidence_locations) or 'No historical rationale evidence recorded'))
         paragraph('Impacts and tradeoffs: '+('; '.join(choice.impacts_and_tradeoffs) or 'Not recorded'))
         paragraph('Affected requirements: '+(', '.join(choice.affected_check_ids) or 'Global choice context'))
+        paragraph('Engineering deepening: '+('required' if choice.engineering_deepening_required else 'not required')+'; basis: '+choice.deepening_rationale)
+        if choice.deepening_triggers:
+            paragraph('Deepening triggers: '+', '.join(choice.deepening_triggers))
+        if choice.required_surface_kinds:
+            paragraph('Required decision surfaces: '+', '.join(choice.required_surface_kinds))
+        if choice.decision_surfaces:
+            table(['Decision surface', 'Current model and status', 'Evidence / next evidence'],
+                  [[surface.kind+' / '+surface.id, display(surface.current_model)+' / '+surface.status,
+                    '; '.join(surface.evidence_locations) or display(surface.evidence_needed)]
+                   for surface in choice.decision_surfaces])
+        if choice.challenge_scenarios:
+            table(['Challenge', 'Condition and invariant', 'Result / evidence'],
+                  [[challenge.id, challenge.condition+' | '+challenge.expected_behavior_or_invariant,
+                    challenge.status+' | '+('; '.join(challenge.evidence_locations) or display(challenge.next_evidence))]
+                   for challenge in choice.challenge_scenarios])
+        paragraph('Next coherent slice: '+display(choice.next_coherent_slice))
         paragraph('Human disposition: '+choice.human_decision+'; accountable owner: '+display(choice.human_decision_owner))
         paragraph('Human disposition evidence: '+('; '.join(choice.human_decision_evidence_locations) or 'Not recorded'))
         paragraph('Verification evidence: '+('; '.join(choice.verification_evidence_locations) or 'Not recorded'))
