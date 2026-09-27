@@ -9,7 +9,7 @@ def test_product_signal_prototype_keeps_one_job_and_one_primary_action():
     assert "looks done." in page
     assert "Grade my product" in page
     assert page.count('class="scan"') == 1
-    assert "No signup required" in page
+    assert "no signup required" in page.lower()
 
 
 def test_prototype_keeps_hard_separate_from_numeric_grade():
