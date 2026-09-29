@@ -1,0 +1,76 @@
+name: Research simulator v0.1.0 qualification
+on:
+  push:
+    branches: [research/no-key-native-smoke-20260928]
+    paths: [.github/workflows/research-simulator-v010.yml]
+permissions:
+  contents: read
+concurrency:
+  group: research-simulator-v010
+  cancel-in-progress: false
+jobs:
+  qualify:
+    if: github.repository_visibility == 'public' && github.repository == 'yejuntak/hcai-deployment-readiness'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      HF_HUB_DISABLE_IMPLICIT_TOKEN: '1'
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      DO_NOT_TRACK: '1'
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Get hash-locked runtime, model and source
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          mkdir -p code evidence bin
+          for f in simulator.py qualify.py; do
+            curl -fsSL --max-time 90 "https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/e81c862d63d38492ee5228c148cf6ca3563313ca/research/simulator_v010/$f" -o "code/$f"
+          done
+          echo 'bc7a1ab49a70bfdc22870ba6c9ae6f50c2f4697592cb52e364c36e357288e0b7  code/simulator.py' | sha256sum --check -
+          echo '67883ef7a45565c4569aadbec638eff8a8ff2ecfeb303e527b72397703692bbe  code/qualify.py' | sha256sum --check -
+          curl -fsSL --max-time 90 https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/f6c61a2137c482e85c6562cf28afd9f72f320738/protocol/0.3-preview.1/PROTOCOL.md -o PROTOCOL.md
+          echo '5d40c01356e82981de5a88d4e3c5119f5468be263064488e644e8da19a024260  PROTOCOL.md' | sha256sum --check -
+          curl -fsSL --max-time 180 https://github.com/ggml-org/llama.cpp/releases/download/b11146/llama-b11146-bin-ubuntu-x64.tar.gz -o llama.tar.gz
+          echo 'c150306eb16b5ab696f76a8bdf810c35fd98a24e82158742e6fa28f420ff8410  llama.tar.gz' | sha256sum --check -
+          tar -xzf llama.tar.gz -C bin
+          curl -fsSL --max-time 300 https://huggingface.co/unsloth/Qwen3-4B-Instruct-2507-GGUF/resolve/a06e946bb6b655725eafa393f4a9745d460374c9/Qwen3-4B-Instruct-2507-Q4_K_M.gguf -o model.gguf
+          echo '3605803b982cb64aead44f6c1b2ae36e3acdb41d8e46c8a94c6533bc4c67e597  model.gguf' | sha256sum --check -
+          git init -q native
+          git -C native remote add origin https://github.com/MatrAIx-ai/MatrAIx-Persona-8B.git
+          git -C native fetch --depth 1 origin 3633d8dab149a9482a71b024418a49ae828cc941
+          git -C native checkout --detach FETCH_HEAD
+          python -m pip install --quiet --no-cache-dir ./native 'jsonschema==4.26.0'
+          python -m pip freeze > evidence/pip-freeze.txt
+          cp code/*.py PROTOCOL.md evidence/
+          find bin -type f -exec sha256sum {} \; > evidence/runtime-files.sha256
+          sha256sum model.gguf > evidence/model.sha256
+      - name: Run bounded qualification and retain all failures
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          SERVER=$(find "$RUNNER_TEMP/bin" -type f -name llama-server | head -1)
+          export LD_LIBRARY_PATH="$(dirname "$SERVER"):${LD_LIBRARY_PATH:-}"
+          "$SERVER" --model model.gguf --alias research-sim-4b-q4 --host 127.0.0.1 --port 8765 --ctx-size 8192 --parallel 1 --threads 4 --threads-batch 4 --no-context-shift > evidence/server.log 2>&1 &
+          PID=$!
+          trap 'kill "$PID" 2>/dev/null || true' EXIT
+          for i in $(seq 1 90); do
+            curl -fsS http://127.0.0.1:8765/health >/dev/null && break
+            kill -0 "$PID" || { cat evidence/server.log; exit 1; }
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:8765/props > evidence/server-props.json
+          python code/qualify.py --protocol PROTOCOL.md --native native --out evidence/qualification | tee evidence/qualification.log
+      - name: Retain bounded raw evidence, no model weights
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: research-simulator-v010-qualification
+          path: ${{ runner.temp }}/evidence
+          retention-days: 1
+          if-no-files-found: error
