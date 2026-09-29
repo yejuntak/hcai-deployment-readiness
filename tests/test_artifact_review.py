@@ -280,3 +280,12 @@ def test_accepted_open_major_finding_cannot_be_overridden_by_positive_matrix():
     assert result["requirements"]["verified"] == 1
     assert result["disposition"] == "Hold for remediation"
     assert result["unresolved_major_ids"] == ["F1"]
+
+def test_disabling_deepening_cannot_erase_existing_failed_challenge():
+    data = fixture()
+    data["choices"][0]["challenge_scenarios"][0]["status"] = "fail"
+    data["choices"][0]["engineering_deepening_required"] = False
+    result = review_artifact(ArtifactReview(**data))
+    assert result["disposition"] == "Hold for remediation"
+    assert "challenge_CH1_failed" in result["choice_issues"]["C1"]
+
