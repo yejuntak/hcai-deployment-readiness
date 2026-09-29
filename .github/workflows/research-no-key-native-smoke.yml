@@ -1,0 +1,141 @@
+name: Research no-key native connectivity
+
+on:
+  push:
+    branches: [research/no-key-native-smoke-20260928]
+    paths: [.github/workflows/research-no-key-native-smoke.yml]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: research-no-key-native-connectivity
+  cancel-in-progress: false
+
+jobs:
+  native-connectivity:
+    if: github.repository_visibility == 'public' && github.repository == 'yejuntak/hcai-deployment-readiness'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      HF_HUB_DISABLE_IMPLICIT_TOKEN: '1'
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      DO_NOT_TRACK: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      MKL_NUM_THREADS: '4'
+      PYTHONUNBUFFERED: '1'
+      NATIVE_PIN: 3633d8dab149a9482a71b024418a49ae828cc941
+    steps:
+      - name: Set up isolated Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch pinned native source without credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          export NATIVE="$RUNNER_TEMP/matraix-native"
+          mkdir -p "$NATIVE"
+          git -C "$NATIVE" init -q
+          git -C "$NATIVE" remote add origin https://github.com/MatrAIx-ai/MatrAIx-Persona-8B.git
+          git -C "$NATIVE" fetch --depth 1 origin "$NATIVE_PIN"
+          git -C "$NATIVE" checkout --detach FETCH_HEAD
+          test "$(git -C "$NATIVE" rev-parse HEAD)" = "$NATIVE_PIN"
+          echo "NATIVE=$NATIVE" >> "$GITHUB_ENV"
+      - name: Install CPU runtime and native dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m pip install --no-cache-dir 'torch==2.8.0' --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --no-cache-dir 'transformers==4.56.2' "$NATIVE"
+          python -m pip freeze
+      - name: Execute exactly two neutral native calls and retain raw logs
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os, sys, json, hashlib, time, platform, importlib, subprocess, traceback
+          from pathlib import Path
+          from datetime import datetime, timezone
+          import torch, transformers, yaml
+          from huggingface_hub import HfApi, snapshot_download
+          from transformers import AutoTokenizer, AutoModelForCausalLM
+          def now(): return datetime.now(timezone.utc).isoformat()
+          def digest(b): return hashlib.sha256(b).hexdigest()
+          def emit(kind, value):
+              print('HARD_REAL_EXECUTION_JSON ' + json.dumps({'kind':kind,'recorded_at':now(),'data':value}, ensure_ascii=False, allow_nan=False), flush=True)
+          root=Path(os.environ['NATIVE']).resolve()
+          pin=os.environ['NATIVE_PIN']
+          assert subprocess.check_output(['git','-C',str(root),'rev-parse','HEAD'],text=True).strip()==pin
+          sys.path.insert(0,str(root/'src'))
+          from matraix.launch_env import required_pythonpath_entries
+          for p in reversed(required_pythonpath_entries(root)): sys.path.insert(0,p)
+          os.chdir(root)
+          from backend.service.survey_types import SurveyEvalConfig
+          from playground.inprocess.survey_eval import InprocessSurveyEvalRunner
+          from playground.survey_task_content import load_survey_task_content_for_task_path
+          from playground.types import Persona
+          native_module=importlib.import_module('playground.inprocess.survey_eval')
+          module_path=root/'packages/playground/src/playground/inprocess/survey_eval.py'
+          assert Path(native_module.__file__).resolve()==module_path
+          module_bytes=module_path.read_bytes()
+          module_blob=hashlib.sha1(b'blob '+str(len(module_bytes)).encode()+b'\0'+module_bytes).hexdigest()
+          assert module_blob=='0d71d61798c4eafeb4d9a0610583aefa6ef96fb1', module_blob
+          persona_path=root/'persona/datasets/matraix-persona-dev-sample/persona_0042.yaml'
+          p=yaml.safe_load(persona_path.read_text())
+          persona=Persona(id=str(p['persona_id']),name=str(p['display_name']),source=str(p['source']))
+          model_id='Qwen/Qwen3-0.6B'
+          model_info=HfApi(token=False).model_info(model_id)
+          model_revision=model_info.sha
+          assert len(model_revision)==40
+          emit('PRE_INFERENCE_LOCK',{'native_commit':pin,'native_module_blob':module_blob,'persona_sha256':digest(persona_path.read_bytes()),'model_id':model_id,'model_revision':model_revision,'engine':'transformers CPU, injected native client','torch':torch.__version__,'transformers':transformers.__version__,'python':platform.python_version(),'max_new_tokens':192,'do_sample':False,'enable_thinking':False,'max_calls':2,'paid_provider_calls':0,'human_participants':0,'scope':'CONNECTIVITY_ONLY_NOT_RESEARCH','github_run_id':os.environ.get('GITHUB_RUN_ID'),'github_sha':os.environ.get('GITHUB_SHA')})
+          model_dir=Path(snapshot_download(model_id,revision=model_revision,token=False,allow_patterns=['*.json','*.safetensors','*.jinja','*.txt','LICENSE','merges.txt','vocab.json']))
+          weights={f.name:digest(f.read_bytes()) for f in model_dir.glob('*.safetensors')}
+          tokenizer=AutoTokenizer.from_pretrained(str(model_dir),local_files_only=True,trust_remote_code=False)
+          model=AutoModelForCausalLM.from_pretrained(str(model_dir),local_files_only=True,trust_remote_code=False,torch_dtype=torch.float32,attn_implementation='eager').eval()
+          torch.set_num_threads(4)
+          torch.set_num_interop_threads(1)
+          emit('MODEL_LOADED',{'weight_sha256':weights,'device':str(model.device),'parameters':sum(v.numel() for v in model.parameters()),'tokenizer_files':{f.name:digest(f.read_bytes()) for f in model_dir.iterdir() if f.is_file() and f.suffix in ('.json','.jinja','.txt')}})
+          contexts=['A box contains a blue circle and a yellow triangle. Describe one visible shape in a short sentence.\n','A notice says the library opens at 09:00 and closes at 17:00. Restate one time from this notice in a short sentence.\n']
+          total_calls=0
+          class ActualCPUClient:
+              def __init__(self, trial): self.trial=trial; self.calls=0; self.raw=None
+              def complete_json(self, system, user):
+                  global total_calls
+                  if self.calls or total_calls>=2: raise RuntimeError('NO_AUTOMATIC_RETRY')
+                  self.calls+=1; total_calls+=1
+                  messages=[{'role':'system','content':system},{'role':'user','content':user}]
+                  rendered=tokenizer.apply_chat_template(messages,tokenize=False,add_generation_prompt=True,enable_thinking=False)
+                  inputs=tokenizer(rendered,return_tensors='pt')
+                  n=inputs['input_ids'].shape[1]
+                  if n>4096: raise RuntimeError('CONNECTIVITY_INPUT_BUDGET')
+                  emit('RAW_REQUEST',{'trial':self.trial,'messages':messages,'rendered_prompt_sha256':digest(rendered.encode()),'input_tokens':n})
+                  started=now(); t=time.monotonic()
+                  with torch.inference_mode():
+                      output=model.generate(**inputs,max_new_tokens=192,do_sample=False,pad_token_id=tokenizer.eos_token_id)
+                  ids=output[0,n:].tolist(); text=tokenizer.decode(ids,skip_special_tokens=True)
+                  emit('RAW_MODEL_RESPONSE',{'trial':self.trial,'started_at':started,'elapsed_seconds':time.monotonic()-t,'generated_token_ids':ids,'raw_text':text,'origin':'ACTUAL_LOCAL_MODEL_GENERATION','native_fake_client':False})
+                  raw=json.loads(text)
+                  if not isinstance(raw,dict) or not isinstance(raw.get('answers'),list): raise RuntimeError('RAW_INVALID_ENVELOPE')
+                  matches=[a for a in raw['answers'] if isinstance(a,dict) and a.get('questionId')=='neutral_answer']
+                  if len(matches)!=1 or not isinstance(matches[0].get('value'),str) or not matches[0]['value'].strip(): raise RuntimeError('RAW_MISSING_OR_INVALID_ANSWER')
+                  self.raw=raw
+                  return raw
+          for i,context in enumerate(contexts,1):
+              task=root/'application/tasks'/f'hard-neutral-{i:02d}-connectivity'
+              (task/'input').mkdir(parents=True,exist_ok=False)
+              instrument={'askConfidence':False,'askRationale':False,'id':f'hard_neutral_{i:02d}_connectivity_v1','questions':[{'construct':'connection_check_only','id':'neutral_answer','prompt':'Reply with one short sentence about the notice.','required':True,'type':'free_text'}],'schemaVersion':'1.0','title':'Neutral connection check'}
+              (task/'task.toml').write_text(f'version = "1.0"\n[task]\nname = "neutral-{i:02d}"\n[metadata]\ntype = "survey"\n[agent]\ntimeout_sec = 120.0\n[environment]\ndefinition = "application/shared-survey-form"\n')
+              (task/'instruction.md').write_text('Read the short notice. Answer the one question briefly. This is a connectivity check, not a scored research task.\n')
+              (task/'input/context.md').write_text(context)
+              (task/'input/questionnaire.yaml').write_text(json.dumps(instrument,sort_keys=True,separators=(',',':')))
+              os.environ['MATRIX_SURVEY_TASK_PATH']=str(task)
+              content=load_survey_task_content_for_task_path(str(task),repo_root=root)
+              if content is None or content.instrument is None: raise RuntimeError('NATIVE_INSTRUMENT_LOAD_FAILED')
+              client=ActualCPUClient(i)
+              result=InprocessSurveyEvalRunner()(persona,content.instrument,config=SurveyEvalConfig(persona_model='local/Qwen3-0.6B'),created_at=now(),persona_yaml_path=str(persona_path),job_dir=None,client=client)
+              assert client.calls==1
+              derived=result.to_dict()
+              emit('NATIVE_DERIVED_RESULT',{'trial':i,'result':derived,'raw_answer_values':client.raw['answers'],'trajectory_is_derived_not_observed_behavior':True})
+          emit('TERMINAL',{'status':'TWO_REAL_NATIVE_NEUTRAL_CALLS_RECORDED','actual_model_generate_calls':total_calls,'native_runner_calls':2,'human_participants':0,'paid_model_api_calls':0,'research_sessions':0,'human_equivalence':'NOT_ESTABLISHED','stage04c_modified':False,'stage04c_imported':False,'note':'Connectivity only. No semantic pass threshold, no hidden research keys, no credentials, no model artifacts or caches uploaded.'})
+          PY
