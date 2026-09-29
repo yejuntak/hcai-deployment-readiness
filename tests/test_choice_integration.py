@@ -207,3 +207,13 @@ def test_report_exposes_provenance_evidence_and_choice_gaps_safely():
     assert "Rationale provenance: new" in report
     assert "human_decision_pending" in report
     assert "&lt;script&gt;" in report and "<script>" not in report
+
+def test_engineering_deepening_toggle_cannot_erase_existing_failed_challenge():
+    data = case()
+    data["choice_ledger"][0]["challenge_scenarios"][0]["status"] = "fail"
+    data["choice_ledger"][0]["engineering_deepening_required"] = False
+    result = evaluate(data)
+    assert result["decision"] == "REVISE"
+    assert result["stop_at_gate"] in ("G3_STATES_RECOVERY", "G4_TRACEABILITY")
+    assert any("bounded challenge disconfirmed" in reason for gate in result["gates"] for reason in gate["reasons"])
+
