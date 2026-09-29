@@ -1,0 +1,26 @@
+name: Research actor-only pilot bundle integrity
+on:
+  push:
+    branches: [research/no-key-native-smoke-20260928]
+    paths: [.github/workflows/research-pilot-bundle-integrity.yml]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Verify actor-only bundle bytes and contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          curl -fsSL --max-time 60 https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/13682d7d2ee1b859c1c719be810421d80ed541cf/research/simulator_v017/pilot_actor_bundle.tgz.b64 -o bundle.b64
+          base64 -d bundle.b64 > actor.tgz
+          echo '30015e51392d3a775b6b79aec5c6bc9f55a523b9e0866120e6bc8422a06158ca  actor.tgz' | sha256sum --check -
+          mkdir x && tar -xzf actor.tgz -C x
+          test "$(find x -maxdepth 1 -type f -printf '%f\n' | sort | tr '\n' ' ')" = "pilot_actor_inputs.json pilot_plan.json "
+          test "$(sha256sum x/pilot_plan.json | cut -d' ' -f1)" = "90bda8d93763b2de76449c8efc13119db6f7bde11cc94e5228d2e6d73272ecaf"
+          test "$(sha256sum x/pilot_actor_inputs.json | cut -d' ' -f1)" = "6d0ee9f701e4197556a61c3bd05a763cfc030508f200e07a51a0d27316752c02"
+          ! grep -R -E '"expected"|evaluator|answer_key|reference_key' x
+          echo ACTOR_ONLY_BUNDLE_VERIFIED
