@@ -1,0 +1,35 @@
+name: Research negative-evidence binding
+
+on:
+  push:
+    branches: [research/negative-evidence-binding-20260929]
+    paths:
+      - 'src/hcai_readiness/**'
+      - 'skills/ai-ready/scripts/hcai_readiness/**'
+      - 'tests/**'
+      - '.github/workflows/research-negative-evidence-binding.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: research-negative-evidence-binding-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@v4
+      - name: Install locked dev environment
+        run: uv sync --group dev
+      - name: Verify canonical mirrors are synchronized
+        run: uv run python scripts/build_candidate_assets.py --check
+      - name: Run complete repository regression suite
+        run: uv run pytest -q
