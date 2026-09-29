@@ -1,0 +1,41 @@
+name: Research frozen persona binding v2 verification
+on:
+  push:
+    branches: [research/no-key-native-smoke-20260928]
+    paths: [.github/workflows/research-persona-binding-v017-v2.yml]
+permissions:
+  contents: read
+jobs:
+  verify:
+    if: github.repository_visibility == 'public' && github.repository == 'yejuntak/hcai-deployment-readiness'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Fetch pinned native source and v2 verification script
+        shell: bash
+        run: |
+          set -euo pipefail
+          NATIVE="$RUNNER_TEMP/native"
+          mkdir -p "$NATIVE" "$RUNNER_TEMP/evidence"
+          git -C "$NATIVE" init -q
+          git -C "$NATIVE" remote add origin https://github.com/MatrAIx-ai/MatrAIx-Persona-8B.git
+          git -C "$NATIVE" fetch --depth 1 origin 3633d8dab149a9482a71b024418a49ae828cc941
+          git -C "$NATIVE" checkout --detach FETCH_HEAD
+          test "$(git -C "$NATIVE" rev-parse HEAD)" = "3633d8dab149a9482a71b024418a49ae828cc941"
+          python -m pip install --quiet --no-cache-dir "$NATIVE"
+          curl -fsSL --max-time 60 https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/bbe12c3de3583f0987a23967e9b69efa80efd344/research/simulator_v017/verify_personas_v2.py -o "$RUNNER_TEMP/verify_personas_v2.py"
+          echo "NATIVE=$NATIVE" >> "$GITHUB_ENV"
+          echo "OUT=$RUNNER_TEMP/evidence/persona-binding-v2-verification.json" >> "$GITHUB_ENV"
+      - name: Verify exact bytes and native rendering
+        shell: bash
+        run: python "$RUNNER_TEMP/verify_personas_v2.py"
+      - name: Preserve v2 verification receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: research-persona-binding-v017-v2
+          path: ${{ runner.temp }}/evidence
+          retention-days: 1
+          if-no-files-found: error
