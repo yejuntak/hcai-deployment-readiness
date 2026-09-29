@@ -1,0 +1,69 @@
+{
+  "bindings": [
+    {
+      "fallback": false,
+      "file": "persona_0162.yaml",
+      "persona_id": "0162",
+      "rendered_bytes": 22484,
+      "rendered_sha256": "24889fea49cc7e9c45670ee6a5c35bf9742075e7ce85863595badb3e13e3adab",
+      "sha256": "b0fe41c35355091592b13ed3228b480b39e66bff15424bd1d4d4ba8fb88137d0",
+      "slot": "P01"
+    },
+    {
+      "fallback": false,
+      "file": "persona_0054.yaml",
+      "persona_id": "0054",
+      "rendered_bytes": 655,
+      "rendered_sha256": "e7a9514d9d5c811300111abd68c3255f166491cdf0d14669dd63163469025fbb",
+      "sha256": "7d64b99e18ea33b31d629aa4d60c7a274ec6c5b2d78ce3035057701fa2119cad",
+      "slot": "P02"
+    },
+    {
+      "fallback": false,
+      "file": "persona_0177.yaml",
+      "persona_id": "0177",
+      "rendered_bytes": 21880,
+      "rendered_sha256": "32d13e73b50c472747ba4b4b79deedb1393daa1671ef07485ed80830573f0e4f",
+      "sha256": "1591feea9a3c16e0ba1d4e27d8dd0f48c5b40580bcaf33dfd3c2e1df70e06503",
+      "slot": "P03"
+    },
+    {
+      "fallback": false,
+      "file": "persona_0163.yaml",
+      "persona_id": "0163",
+      "rendered_bytes": 21805,
+      "rendered_sha256": "74e1e07659f284a7e1f4fec093779a0b2f87d12e614e65d8316a7a8bf74f185e",
+      "sha256": "bac86a27c50b7233995606d870bcca085f3353c4ad548648e4078728eee78a82",
+      "slot": "P04"
+    },
+    {
+      "fallback": false,
+      "file": "persona_0158.yaml",
+      "persona_id": "0158",
+      "rendered_bytes": 23026,
+      "rendered_sha256": "ff4542e298ceee0125f4d0a40361d48dfd33aac46df22066c85ec4f7b239b2c5",
+      "sha256": "d157d6245671a4ab390032cac86ed684c2a5be9512c972b368da31ce260ba54c",
+      "slot": "P05"
+    },
+    {
+      "fallback": false,
+      "file": "persona_0094.yaml",
+      "persona_id": "0094",
+      "rendered_bytes": 5814,
+      "rendered_sha256": "da622d729654ee91392d47d7aa563cf5b4cf8eb787a41d3ea81a3939159b9409",
+      "sha256": "ca8253939b5b6dcaa26af24986a0a47c0ca3c8341534ed6a1a4d036ec9ce32ae",
+      "slot": "P06"
+    }
+  ],
+  "human_equivalence": "NOT_ESTABLISHED",
+  "human_participants": 0,
+  "model_calls": 0,
+  "native_commit": "3633d8dab149a9482a71b024418a49ae828cc941",
+  "representativeness": "NOT_ESTABLISHED",
+  "schema_version": "hard-persona-binding/2.0",
+  "selection_method": "deterministic maximin categorical distance over declared non-sensitive behavioral/cognitive fields",
+  "selection_outcome_blinded": true,
+  "selection_workflow_run": 36568697079,
+  "verification_workflow_run": 36570699740,
+  "artifact_digest": "sha256:c61521bdbaa1a23b40214d34d1271e9f021dedee20f2e39e18fe6417c0df2737"
+}
