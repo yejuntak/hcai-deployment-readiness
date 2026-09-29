@@ -1,0 +1,78 @@
+{
+  "schema_version": "hard-formal-extension/2.0",
+  "status": "PREDECLARED_AWAITING_V017_QUALIFICATION_AND_PERSONA_V2_VERIFICATION",
+  "amendment_reason": "Replace the earlier eligibility-filtered six-persona binding for future execution with an outcome-blinded maximin binding over declared non-sensitive behavioral/cognitive dimensions. Historical binding remains unchanged.",
+  "amendment_timing": {
+    "v017_workflow_run": 36567693516,
+    "v017_outcomes_complete_at_amendment": false,
+    "persona_selection_workflow_run": 36568697079,
+    "qualification_results_used_for_persona_selection": false
+  },
+  "parent": {
+    "plan_id": "HARD-P04-MULTIAXIS-001",
+    "study_id": "2f238eba6ee0eaf3b9e845956cbe1859",
+    "plan_sha256": "b4afba74ac98fbe97a08cd915c03e741d60e42a5cbeb420ed3841d738b86ecbe",
+    "schedule_sha256": "779157f0373507ccd0cdc434859386f77e23ee5cfd19a59df6627fb447ecb095",
+    "cases_sha256": "28a648bcf90a679484379356cb975eea5131452fc8051beac57e9a85813d09ea",
+    "keys_sha256": "637ae35cf9353d4c73e41abeb04a6dce4e9bfb7ad32285de1bbac9b746cf318b",
+    "lineages_sha256": "e80a28ccfed5c4d05d9f592537984e1783456f4e697c6219ecf0f5cd773acdfe",
+    "conditions_sha256": "c306ab124b2232d92df9c39d777a0f2f9ae347df4d160a9be78f8ce16ae68bb8"
+  },
+  "unchanged_materials": {
+    "arm_A_sha256": "5d40c01356e82981de5a88d4e3c5119f5468be263064488e644e8da19a024260",
+    "arm_B_sha256": "32757344f7152fabe3a6e638e889a7e8c22ff8fad5630e262aae9f8e3c255829",
+    "common_instruction_sha256": "b9b7f5ad998a0fa8566c3c95deffdc8a18a59c1561718d3c1471094a3c62462c",
+    "response_schema_sha256": "5687b1e53e68259d5f06c891f99115e20ab3bde12cfdf4a0917e57b5dd4a6c61"
+  },
+  "pilot": {
+    "plan_sha256": "90bda8d93763b2de76449c8efc13119db6f7bde11cc94e5228d2e6d73272ecaf",
+    "actor_inputs_sha256": "6d0ee9f701e4197556a61c3bd05a763cfc030508f200e07a51a0d27316752c02",
+    "evaluator_keys_sha256": "fb02c8345eeffc787ee5d9c90b382679b654c1eb2e699427379b8a1de60c5774",
+    "sessions": 24,
+    "purpose": "pipeline/integrity qualification only; A/B semantic effect is not a pilot promotion criterion"
+  },
+  "personas": {
+    "binding_path": "research/simulator_v017/persona_binding_v2.json",
+    "selection_workflow_run": 36568697079,
+    "verification_workflow_run": 36570699740,
+    "slots": {
+      "P01": "0162",
+      "P02": "0054",
+      "P03": "0177",
+      "P04": "0163",
+      "P05": "0158",
+      "P06": "0094"
+    },
+    "representativeness": "NOT_ESTABLISHED"
+  },
+  "behavior_profiles": {
+    "definitions_source": "research/simulator_v010/simulator.py",
+    "profiles": [
+      "full",
+      "front_scan",
+      "interrupted",
+      "record_dropout",
+      "late_recall",
+      "retry_prone"
+    ],
+    "mapping_rule": "Within a paired A/B comparison, persona, behavioral profile, replicate, case and seed are identical; only protocol section order differs.",
+    "probability_claim": "Stress assumptions, not fitted human probabilities.",
+    "timing_claim": "Synthetic navigation steps are not human time."
+  },
+  "gates": {
+    "model_qualification": "exactly 16/16 frozen operational qualification cases pass; no partial credit",
+    "persona_verification": "all six exact persona files load and render natively without fallback",
+    "pilot": "24/24 terminal sessions accounted for; exact actor/material/persona identities; zero hidden retries; zero answer repair; no evaluator-key leakage; runtime feasibility established",
+    "formal_launch": "pilot integrity gate PASS; semantic pilot A/B result ignored for launch decision"
+  },
+  "formal": {
+    "planned_sessions": 576,
+    "pair_count": 288,
+    "retries": 0,
+    "answer_repair": false,
+    "hidden_fallback": false,
+    "evidence_class": "SIMULATION_ONLY",
+    "human_equivalence": "NOT_ESTABLISHED",
+    "automatic_HARD_release_change": false
+  }
+}
