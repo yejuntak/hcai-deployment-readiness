@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: research-no-key-native-connectivity
@@ -43,9 +44,9 @@ jobs:
           git -C "$NATIVE" checkout --detach FETCH_HEAD
           test "$(git -C "$NATIVE" rev-parse HEAD)" = "$NATIVE_PIN"
           echo "NATIVE=$NATIVE" >> "$GITHUB_ENV"
-          curl -fsSL --max-time 60 https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/669ef763e864ae60d5e25d9d68e99fc610c8c3b0/research/connectivity/native_cpu_v2.py -o "$RUNNER_TEMP/native_cpu_v2.py"
-          sha256sum "$RUNNER_TEMP/native_cpu_v2.py"
-          python -m py_compile "$RUNNER_TEMP/native_cpu_v2.py"
+          curl -fsSL --max-time 60 https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/91a6031e1d7398c5e816a7d05bcedbc6f1d47a00/research/connectivity/native_cpu_v3.py -o "$RUNNER_TEMP/native_cpu_v3.py"
+          sha256sum "$RUNNER_TEMP/native_cpu_v3.py"
+          python -m py_compile "$RUNNER_TEMP/native_cpu_v3.py"
       - name: Install CPU runtime and native dependencies
         shell: bash
         run: |
@@ -53,6 +54,8 @@ jobs:
           python -m pip install --no-cache-dir 'torch==2.8.0' --index-url https://download.pytorch.org/whl/cpu
           python -m pip install --no-cache-dir 'transformers==4.56.2' "$NATIVE"
           python -m pip freeze
-      - name: Execute bounded v2 native calls without answer repair or retries
+      - name: Replay retained raw output and generate only missing neutral answer
         shell: bash
-        run: python "$RUNNER_TEMP/native_cpu_v2.py"
+        env:
+          GH_LOG_READ_TOKEN: ${{ github.token }}
+        run: python "$RUNNER_TEMP/native_cpu_v3.py"
