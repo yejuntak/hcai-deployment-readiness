@@ -274,21 +274,29 @@ def assess(a: Assessment) -> dict:
     g.check(w.human_control_review, "human_control_review")
     for key in a.important_choice_ids:
         choice = choices.get(key)
-        if choice is None or not choice.engineering_deepening_required:
+        if choice is None:
+            continue
+        # A scope/deepening toggle can stop demanding additional unknowns, but
+        # cannot erase adverse evidence that is already in the record.
+        for assumption in choice.assumptions:
+            g.fail(assumption.status == "conflicted", f"{key}/{assumption.id}: supplied evidence conflicts with the assumption")
+        active_surfaces = [row for row in choice.decision_surfaces if row.status != "not_applicable"]
+        for row in active_surfaces:
+            g.fail(row.status == "conflicted", f"{key}/{row.id}: supplied evidence conflicts with the current {row.kind} model")
+        for challenge in choice.challenge_scenarios:
+            g.fail(challenge.status == "fail", f"{key}/{challenge.id}: bounded challenge disconfirmed the expected behavior or invariant")
+        if not choice.engineering_deepening_required:
             continue
         g.require(bool(choice.deepening_triggers), f"{key}: record why system-model deepening is required")
         g.require(bool(choice.required_surface_kinds), f"{key}: identify the decision surfaces that must be understood")
         g.require(bool(choice.assumptions), f"{key}: identify the consequential assumptions the choice depends on")
         for assumption in choice.assumptions:
             g.require(assumption.status != "unassessed", f"{key}/{assumption.id}: consequential assumption remains unassessed")
-            g.fail(assumption.status == "conflicted", f"{key}/{assumption.id}: supplied evidence conflicts with the assumption")
-        active_surfaces = [row for row in choice.decision_surfaces if row.status != "not_applicable"]
         for kind in choice.required_surface_kinds:
             rows = [row for row in active_surfaces if row.kind == kind]
             g.require(bool(rows), f"{key}: required decision surface {kind} is missing")
             for row in rows:
                 g.require(row.status != "unassessed", f"{key}/{row.id}: decision surface {kind} is unassessed")
-                g.fail(row.status == "conflicted", f"{key}/{row.id}: supplied evidence conflicts with the current {kind} model")
         g.require(bool(choice.challenge_scenarios), f"{key}: define at least one bounded condition that could disconfirm the choice")
     gates.append(g.result())
 
@@ -297,10 +305,14 @@ def assess(a: Assessment) -> dict:
         if key in choices:
             choice = choices[key]
             g.require(bool(choice.verification_evidence_locations), f"{key}: consequential choice needs verification evidence for this revision")
+            # Failed bounded challenges remain blocking evidence even if a later
+            # edit disables additional deepening. Only the requirement to finish
+            # an *unassessed* challenge is conditional on deepening.
+            for challenge in choice.challenge_scenarios:
+                g.fail(challenge.status == "fail", f"{key}/{challenge.id}: bounded challenge disconfirmed the expected behavior or invariant")
             if choice.engineering_deepening_required:
                 for challenge in choice.challenge_scenarios:
                     g.require(challenge.status != "unassessed", f"{key}/{challenge.id}: challenge remains unassessed")
-                    g.fail(challenge.status == "fail", f"{key}/{challenge.id}: bounded challenge disconfirmed the expected behavior or invariant")
                     if challenge.status == "pass":
                         g.require(bool(challenge.evidence_locations), f"{key}/{challenge.id}: passing challenge needs retained evidence")
                         g.require(challenge.evidence_level is not None, f"{key}/{challenge.id}: passing challenge needs an explicit evidence level")
