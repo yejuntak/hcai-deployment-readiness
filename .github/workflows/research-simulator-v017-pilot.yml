@@ -1,0 +1,213 @@
+name: Research simulator v0.1.7 gated pipeline pilot
+on:
+  push:
+    branches: [research/no-key-native-smoke-20260928]
+    paths: [.github/workflows/research-simulator-v017-pilot.yml]
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: research-simulator-v017-pilot
+  cancel-in-progress: false
+
+env:
+  QUAL_RUN: '36567693516'
+  PERSONA_RUN: '36570699740'
+  HF_HUB_DISABLE_IMPLICIT_TOKEN: '1'
+  HF_HUB_DISABLE_TELEMETRY: '1'
+  DO_NOT_TRACK: '1'
+  PYTHONUNBUFFERED: '1'
+
+jobs:
+  promotion_gate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 70
+    outputs:
+      eligible: ${{ steps.gate.outputs.eligible }}
+    steps:
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Wait for fixed qualification collection to close
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 120); do
+            status=$(gh api "repos/$REPO/actions/runs/$QUAL_RUN" --jq .status)
+            echo "qualification_status=$status"
+            [ "$status" = completed ] && break
+            sleep 30
+          done
+          status=$(gh api "repos/$REPO/actions/runs/$QUAL_RUN" --jq .status)
+          [ "$status" = completed ] || { echo "QUALIFICATION_NOT_CLOSED"; exit 1; }
+      - name: Download qualification and persona receipts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/gate/qualification" "$RUNNER_TEMP/gate/persona" "$RUNNER_TEMP/gate/out"
+          download_run () {
+            local run="$1" dest="$2"
+            gh api "repos/$REPO/actions/runs/$run/artifacts" --jq '.artifacts[] | [.id,.name] | @tsv' > "$RUNNER_TEMP/artifacts-$run.tsv"
+            while IFS=$'\t' read -r id name; do
+              [ -n "$id" ] || continue
+              mkdir -p "$dest/$name"
+              curl -fsSL -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+                "https://api.github.com/repos/$REPO/actions/artifacts/$id/zip" -o "$RUNNER_TEMP/a-$id.zip"
+              unzip -q "$RUNNER_TEMP/a-$id.zip" -d "$dest/$name"
+            done < "$RUNNER_TEMP/artifacts-$run.tsv"
+          }
+          download_run "$QUAL_RUN" "$RUNNER_TEMP/gate/qualification"
+          download_run "$PERSONA_RUN" "$RUNNER_TEMP/gate/persona"
+          find "$RUNNER_TEMP/gate" -maxdepth 4 -type f -print | sort
+          curl -fsSL --max-time 60 "https://raw.githubusercontent.com/$REPO/$GITHUB_SHA/research/simulator_v017/promotion_gate.py" -o "$RUNNER_TEMP/gate/promotion_gate.py"
+      - name: Evaluate immutable promotion gate
+        id: gate
+        shell: bash
+        run: |
+          set +e
+          persona=$(find "$RUNNER_TEMP/gate/persona" -name persona-binding-v2-verification.json -type f | head -1)
+          python "$RUNNER_TEMP/gate/promotion_gate.py" \
+            --qualification-root "$RUNNER_TEMP/gate/qualification" \
+            --persona-receipt "$persona" \
+            --out "$RUNNER_TEMP/gate/out/promotion.json"
+          rc=$?
+          cat "$RUNNER_TEMP/gate/out/promotion.json"
+          if [ "$rc" = 0 ]; then echo "eligible=true" >> "$GITHUB_OUTPUT"; else echo "eligible=false" >> "$GITHUB_OUTPUT"; fi
+          exit 0
+      - name: Preserve promotion receipt
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: research-simulator-v017-promotion-gate
+          path: ${{ runner.temp }}/gate/out
+          retention-days: 2
+          if-no-files-found: error
+
+  pilot:
+    needs: promotion_gate
+    if: needs.promotion_gate.outputs.eligible == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 110
+    env:
+      SHARD: ${{ matrix.shard }}
+    steps:
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Build exact actor/runtime environment
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          mkdir -p code bin native evidence
+          for f in simulator.py qualify.py; do
+            curl -fsSL --max-time 90 "https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/e81c862d63d38492ee5228c148cf6ca3563313ca/research/simulator_v010/$f" -o "code/$f"
+          done
+          curl -fsSL --max-time 90 https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/85738b4d7b503ca11cc2f03678fd9733adefb8ba/research/simulator_v011/apply_limits.py -o code/apply_limits.py
+          for f in apply_semantics.py qualification.py; do
+            curl -fsSL --max-time 90 "https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/8afcaa9cbb4efb4b86ae395d1e1175bf68eab9ec/research/simulator_v013/$f" -o "code/$f"
+          done
+          for f in apply_runtime.py pilot_runner.py pilot_actor_bundle.tgz.b64; do
+            curl -fsSL --max-time 90 "https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$GITHUB_SHA/research/simulator_v017/$f" -o "code/$f"
+          done
+          (cd code && python apply_limits.py && python apply_semantics.py && python apply_runtime.py)
+          python -m py_compile code/simulator.py code/pilot_runner.py
+          base64 -d code/pilot_actor_bundle.tgz.b64 > actor.tgz
+          tar -xzf actor.tgz
+          echo '6d0ee9f701e4197556a61c3bd05a763cfc030508f200e07a51a0d27316752c02  pilot_actor_inputs.json' | sha256sum --check -
+          echo '90bda8d93763b2de76449c8efc13119db6f7bde11cc94e5228d2e6d73272ecaf  pilot_plan.json' | sha256sum --check -
+          curl -fsSL --max-time 90 https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/f6c61a2137c482e85c6562cf28afd9f72f320738/protocol/0.3-preview.1/PROTOCOL.md -o PROTOCOL.md
+          echo '5d40c01356e82981de5a88d4e3c5119f5468be263064488e644e8da19a024260  PROTOCOL.md' | sha256sum --check -
+          git -C native init -q
+          git -C native remote add origin https://github.com/MatrAIx-ai/MatrAIx-Persona-8B.git
+          git -C native fetch --depth 1 origin 3633d8dab149a9482a71b024418a49ae828cc941
+          git -C native checkout --detach FETCH_HEAD
+          test "$(git -C native rev-parse HEAD)" = 3633d8dab149a9482a71b024418a49ae828cc941
+          python -m pip install --quiet --no-cache-dir native 'jsonschema==4.26.0'
+          curl -fsSL --max-time 180 https://github.com/ggml-org/llama.cpp/releases/download/b11146/llama-b11146-bin-ubuntu-x64.tar.gz -o llama.tar.gz
+          echo 'c150306eb16b5ab696f76a8bdf810c35fd98a24e82158742e6fa28f420ff8410  llama.tar.gz' | sha256sum --check -
+          tar -xzf llama.tar.gz -C bin
+          curl -fsSL --max-time 1200 https://huggingface.co/Qwen/Qwen3-14B-GGUF/resolve/530227a7d994db8eca5ab5ced2fb692b614357fd/Qwen3-14B-Q4_K_M.gguf -o model.gguf
+          echo '500a8806e85ee9c83f3ae08420295592451379b4f8cf2d0f41c15dffeb6b81f0  model.gguf' | sha256sum --check -
+          sha256sum model.gguf > evidence/model.sha256
+          cp code/*.py pilot_actor_inputs.json pilot_plan.json PROTOCOL.md evidence/
+          python -m pip freeze > evidence/pip-freeze.txt
+      - name: Execute exactly six paired-pilot sessions in this shard
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          SERVER=$(find "$RUNNER_TEMP/bin" -type f -name llama-server | head -1)
+          export LD_LIBRARY_PATH="$(dirname "$SERVER"):${LD_LIBRARY_PATH:-}"
+          "$SERVER" --model model.gguf --alias research-sim-qwen3-14b-q4 --host 127.0.0.1 --port 8765 --ctx-size 8192 --parallel 1 --threads 4 --threads-batch 4 --no-context-shift > evidence/server.log 2>&1 &
+          PID=$!
+          trap 'kill "$PID" 2>/dev/null || true' EXIT
+          for i in $(seq 1 180); do
+            curl -fsS http://127.0.0.1:8765/health >/dev/null && break
+            kill -0 "$PID" || { cat evidence/server.log; exit 1; }
+            sleep 1
+          done
+          curl -fsS http://127.0.0.1:8765/props > evidence/server-props.json
+          smoke=""
+          [ "$SHARD" = 1 ] && smoke="--smoke"
+          (cd code && python pilot_runner.py \
+            --actor ../pilot_actor_inputs.json --plan ../pilot_plan.json \
+            --protocol ../PROTOCOL.md --native ../native --shard "$SHARD" \
+            --out ../evidence/pilot $smoke) | tee evidence/pilot.log
+      - name: Preserve full raw pilot evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: research-pilot-v017-${{ matrix.shard }}
+          path: ${{ runner.temp }}/evidence
+          retention-days: 2
+          if-no-files-found: error
+
+  pilot_gate:
+    needs: [promotion_gate, pilot]
+    if: needs.promotion_gate.outputs.eligible == 'true' && always() && needs.pilot.result == 'success'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          pattern: research-pilot-v017-*
+          path: ${{ runner.temp }}/results
+      - name: Rehydrate actor-only frozen bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/gate"
+          curl -fsSL --max-time 90 "https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$GITHUB_SHA/research/simulator_v017/pilot_actor_bundle.tgz.b64" -o "$RUNNER_TEMP/gate/actor.b64"
+          base64 -d "$RUNNER_TEMP/gate/actor.b64" > "$RUNNER_TEMP/gate/actor.tgz"
+          tar -xzf "$RUNNER_TEMP/gate/actor.tgz" -C "$RUNNER_TEMP/gate"
+          curl -fsSL --max-time 90 "https://raw.githubusercontent.com/$GITHUB_REPOSITORY/$GITHUB_SHA/research/simulator_v017/pilot_gate.py" -o "$RUNNER_TEMP/gate/pilot_gate.py"
+      - name: Evaluate pipeline-only pilot gate
+        shell: bash
+        run: |
+          python "$RUNNER_TEMP/gate/pilot_gate.py" \
+            --actor "$RUNNER_TEMP/gate/pilot_actor_inputs.json" \
+            --results "$RUNNER_TEMP/results"/* \
+            --out "$RUNNER_TEMP/gate/pilot-gate.json"
+      - name: Preserve pilot gate
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: research-pilot-v017-gate
+          path: ${{ runner.temp }}/gate/pilot-gate.json
+          retention-days: 2
+          if-no-files-found: error
