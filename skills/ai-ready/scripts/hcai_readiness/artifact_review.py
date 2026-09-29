@@ -265,21 +265,27 @@ def choice_gaps(choice: ChoiceRecord) -> list[str]:
             gaps.append("assumption_" + assumption.id + "_unassessed")
         elif assumption.status == "conflicted":
             gaps.append("assumption_" + assumption.id + "_conflicted")
+    # Negative evidence remains consequential even if a later edit says
+    # additional engineering deepening is no longer required. The flag controls
+    # which *missing/unassessed* model surfaces are mandatory; it must not erase
+    # already observed conflicts or failed bounded challenges.
+    active = [row for row in choice.decision_surfaces if row.status != "not_applicable"]
+    for row in active:
+        if row.status == "conflicted":
+            gaps.append("decision_surface_" + row.id + "_conflicted")
+    for row in choice.challenge_scenarios:
+        if row.status == "fail":
+            gaps.append("challenge_" + row.id + "_failed")
     if choice.engineering_deepening_required:
-        active = [row for row in choice.decision_surfaces if row.status != "not_applicable"]
         for kind in choice.required_surface_kinds:
             if not any(row.kind == kind for row in active):
                 gaps.append("decision_surface_" + kind + "_missing")
         for row in active:
             if row.status == "unassessed":
                 gaps.append("decision_surface_" + row.id + "_unassessed")
-            elif row.status == "conflicted":
-                gaps.append("decision_surface_" + row.id + "_conflicted")
         for row in choice.challenge_scenarios:
             if row.status == "unassessed":
                 gaps.append("challenge_" + row.id + "_unassessed")
-            elif row.status == "fail":
-                gaps.append("challenge_" + row.id + "_failed")
         if not choice.next_coherent_slice:
             gaps.append("next_coherent_slice_missing")
     return gaps
