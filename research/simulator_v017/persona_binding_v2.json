@@ -1,0 +1,61 @@
+{
+  "schema_version": "hard-persona-binding-plan/2.0",
+  "status": "PREDECLARED_AWAITING_NATIVE_RENDER_VERIFICATION",
+  "source_repo": "MatrAIx-ai/MatrAIx-Persona-8B",
+  "source_commit": "3633d8dab149a9482a71b024418a49ae828cc941",
+  "source_dataset": "persona/datasets/matraix-persona-dev-sample",
+  "selection_workflow_run": 36568697079,
+  "selection_seed": 20260928,
+  "selection_method": "deterministic maximin categorical distance over non-sensitive behavioral/cognitive dimensions",
+  "selection_outcome_blinded": true,
+  "excluded_sensitive_fields": [
+    "political_lean",
+    "religiosity",
+    "gender_identity",
+    "cultural_background",
+    "neurotype",
+    "health_mental_health",
+    "health_chronic_condition"
+  ],
+  "slots": [
+    {
+      "slot": "P01",
+      "persona_id": "0162",
+      "sha256": "b0fe41c35355091592b13ed3228b480b39e66bff15424bd1d4d4ba8fb88137d0"
+    },
+    {
+      "slot": "P02",
+      "persona_id": "0054",
+      "sha256": "7d64b99e18ea33b31d629aa4d60c7a274ec6c5b2d78ce3035057701fa2119cad"
+    },
+    {
+      "slot": "P03",
+      "persona_id": "0177",
+      "sha256": "1591feea9a3c16e0ba1d4e27d8dd0f48c5b40580bcaf33dfd3c2e1df70e06503"
+    },
+    {
+      "slot": "P04",
+      "persona_id": "0163",
+      "sha256": "bac86a27c50b7233995606d870bcca085f3353c4ad548648e4078728eee78a82"
+    },
+    {
+      "slot": "P05",
+      "persona_id": "0158",
+      "sha256": "d157d6245671a4ab390032cac86ed684c2a5be9512c972b368da31ce260ba54c"
+    },
+    {
+      "slot": "P06",
+      "persona_id": "0094",
+      "sha256": "ca8253939b5b6dcaa26af24986a0a47c0ca3c8341534ed6a1a4d036ec9ce32ae"
+    }
+  ],
+  "pairwise_distance": {
+    "min": 0.8,
+    "mean": 0.8844444444444445,
+    "max": 1
+  },
+  "representativeness": "NOT_ESTABLISHED",
+  "human_equivalence": "NOT_ESTABLISHED",
+  "supersedes_for_future_execution_only": "research/simulator_v017/persona_binding.json",
+  "historical_binding_preserved": true
+}
