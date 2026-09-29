@@ -1,0 +1,397 @@
+{
+  "subject": "Northstar AI",
+  "product": "Autonomous customer support agent",
+  "reviewed_surface": "Synthetic public product surface, documentation, privacy page, and demo flow. Illustration only.",
+  "hard": {
+    "route": "artifact_review",
+    "disposition": "insufficient_evidence",
+    "evidence_ceiling": "walkthrough",
+    "blocker_ids": [],
+    "summary": "Synthetic stage-bounded review. Authority and recovery decisions need stronger evidence before a broader commitment."
+  },
+  "auxiliary_scores": [
+    {
+      "label": "SEO",
+      "score": 88,
+      "note": "Synthetic illustration; excluded from the Product Signal Grade."
+    },
+    {
+      "label": "AEO",
+      "score": 63,
+      "note": "Synthetic illustration; excluded from the Product Signal Grade."
+    }
+  ],
+  "findings": [
+    {
+      "id": "A11",
+      "module": "accessibility",
+      "title": "Keyboard path reaches primary support actions",
+      "status": "pass",
+      "evidence_level": "public_observation",
+      "weight": 1,
+      "summary": "Primary support controls were operable in the synthetic observed path.",
+      "evidence_locations": [
+        "synthetic://demo/accessibility/keyboard-1"
+      ]
+    },
+    {
+      "id": "A12",
+      "module": "accessibility",
+      "title": "Form labels are programmatically associated",
+      "status": "pass",
+      "evidence_level": "public_observation",
+      "weight": 1,
+      "summary": "Synthetic form labels were associated with their controls.",
+      "evidence_locations": [
+        "synthetic://demo/accessibility/forms-1"
+      ]
+    },
+    {
+      "id": "A13",
+      "module": "accessibility",
+      "title": "Focus order follows the visible workflow",
+      "status": "pass",
+      "evidence_level": "public_observation",
+      "weight": 1,
+      "summary": "Synthetic focus order followed the visible task sequence.",
+      "evidence_locations": [
+        "synthetic://demo/accessibility/focus-1"
+      ]
+    },
+    {
+      "id": "A14",
+      "module": "accessibility",
+      "title": "Visible error text does not rely on color alone",
+      "status": "pass",
+      "evidence_level": "public_observation",
+      "weight": 1,
+      "summary": "Synthetic validation errors included text.",
+      "evidence_locations": [
+        "synthetic://demo/accessibility/errors-1"
+      ]
+    },
+    {
+      "id": "A15",
+      "module": "accessibility",
+      "title": "Assistive-technology verification is not shown",
+      "status": "warning",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "The synthetic public materials do not show a retained assistive-technology test record.",
+      "evidence_locations": [
+        "synthetic://demo/accessibility/public-statement"
+      ],
+      "next_evidence": "Provide a retained screen-reader and keyboard walkthrough for the exact release."
+    },
+    {
+      "id": "A16",
+      "module": "accessibility",
+      "title": "Cognitive accessibility testing is unknown",
+      "status": "unknown",
+      "evidence_level": "unknown",
+      "weight": 2,
+      "summary": "No conclusion is drawn from the public surface.",
+      "evidence_locations": [],
+      "next_evidence": "Provide the applicable cognitive-accessibility review scope and retained evidence."
+    },
+    {
+      "id": "R11",
+      "module": "action_recovery",
+      "title": "Refund authority is bounded by amount",
+      "status": "pass",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "The synthetic product documentation states a bounded refund amount.",
+      "evidence_locations": [
+        "synthetic://docs/refund-authority"
+      ]
+    },
+    {
+      "id": "R12",
+      "module": "action_recovery",
+      "title": "Human escalation exists for unsupported requests",
+      "status": "pass",
+      "evidence_level": "walkthrough",
+      "weight": 1,
+      "summary": "The synthetic walkthrough showed escalation to a human agent.",
+      "evidence_locations": [
+        "synthetic://walkthrough/escalation"
+      ]
+    },
+    {
+      "id": "R13",
+      "module": "action_recovery",
+      "title": "Partial refund failure recovery is described but not executed",
+      "status": "warning",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "A recovery path is described, but no implementation/runtime evidence is supplied.",
+      "evidence_locations": [
+        "synthetic://docs/refund-recovery"
+      ],
+      "next_evidence": "Execute a bounded partial-failure scenario and retain the exact result."
+    },
+    {
+      "id": "R14",
+      "module": "action_recovery",
+      "title": "Duplicate refund protection is not demonstrated",
+      "status": "critical",
+      "evidence_level": "walkthrough",
+      "weight": 1,
+      "summary": "The synthetic walkthrough did not demonstrate idempotent handling when the same refund request is repeated.",
+      "evidence_locations": [
+        "synthetic://walkthrough/refund-repeat"
+      ],
+      "next_evidence": "Demonstrate duplicate-request handling against the exact implementation.",
+      "developer_trace": {
+        "observed": "The reviewed flow allows the automated agent to initiate a refund.",
+        "decision_underneath": "An automated component is allowed to create an external financial side effect.",
+        "must_be_true": "One authorized refund request must map to one transaction even when the request is retried, duplicated, or interrupted.",
+        "if_wrong": "A repeated or partially retried request can create a duplicate refund or contradictory order/payment state.",
+        "prove_next": "Execute the same refund request twice against the exact implementation and retain the transaction, idempotency, and final-state evidence."
+      }
+    },
+    {
+      "id": "R15",
+      "module": "action_recovery",
+      "title": "Dependency timeout behavior is unknown",
+      "status": "unknown",
+      "evidence_level": "unknown",
+      "weight": 2,
+      "summary": "No conclusion is drawn because the public surface does not expose timeout behavior.",
+      "evidence_locations": [],
+      "next_evidence": "Provide the timeout/retry contract and a retained failure-path check."
+    },
+    {
+      "id": "P11",
+      "module": "privacy_data",
+      "title": "Privacy policy identifies customer-support data classes",
+      "status": "pass",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Synthetic policy identifies the principal support-data classes.",
+      "evidence_locations": [
+        "synthetic://privacy/data-classes"
+      ]
+    },
+    {
+      "id": "P12",
+      "module": "privacy_data",
+      "title": "Deletion request path is documented",
+      "status": "pass",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Synthetic documentation includes a user deletion-request path.",
+      "evidence_locations": [
+        "synthetic://privacy/deletion"
+      ]
+    },
+    {
+      "id": "P13",
+      "module": "privacy_data",
+      "title": "Subprocessor list is public",
+      "status": "pass",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Synthetic public documentation lists subprocessors.",
+      "evidence_locations": [
+        "synthetic://privacy/subprocessors"
+      ]
+    },
+    {
+      "id": "P14",
+      "module": "privacy_data",
+      "title": "Retention period is broad",
+      "status": "warning",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Synthetic public wording names retention criteria but not product-specific periods.",
+      "evidence_locations": [
+        "synthetic://privacy/retention"
+      ]
+    },
+    {
+      "id": "P15",
+      "module": "privacy_data",
+      "title": "Training-use boundary needs a clearer product-level statement",
+      "status": "warning",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "The synthetic statement is company-wide and not clearly scoped to this product flow.",
+      "evidence_locations": [
+        "synthetic://privacy/model-use"
+      ]
+    },
+    {
+      "id": "P16",
+      "module": "privacy_data",
+      "title": "Deletion propagation to downstream systems is unknown",
+      "status": "unknown",
+      "evidence_level": "unknown",
+      "weight": 2,
+      "summary": "No conclusion is drawn from public material alone.",
+      "evidence_locations": [],
+      "next_evidence": "Provide the deletion propagation map and retained verification."
+    },
+    {
+      "id": "T11",
+      "module": "ai_transparency",
+      "title": "The product identifies when a user is interacting with AI",
+      "status": "pass",
+      "evidence_level": "public_observation",
+      "weight": 1,
+      "summary": "The synthetic interface identifies the automated agent.",
+      "evidence_locations": [
+        "synthetic://demo/ai-label"
+      ]
+    },
+    {
+      "id": "T12",
+      "module": "ai_transparency",
+      "title": "Human handoff conditions are described",
+      "status": "pass",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Synthetic help documentation describes handoff conditions.",
+      "evidence_locations": [
+        "synthetic://docs/handoff"
+      ]
+    },
+    {
+      "id": "T13",
+      "module": "ai_transparency",
+      "title": "Action capability claims are bounded",
+      "status": "pass",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Synthetic marketing copy does not claim unrestricted autonomy.",
+      "evidence_locations": [
+        "synthetic://product/capabilities"
+      ]
+    },
+    {
+      "id": "T14",
+      "module": "ai_transparency",
+      "title": "Accuracy claim lacks a public measurement basis",
+      "status": "warning",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "A synthetic percentage claim is shown without enough public context to interpret it.",
+      "evidence_locations": [
+        "synthetic://product/accuracy-claim"
+      ],
+      "next_evidence": "Provide metric definition, population, date, and measurement method."
+    },
+    {
+      "id": "T15",
+      "module": "ai_transparency",
+      "title": "Model/version disclosure is incomplete",
+      "status": "warning",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Synthetic documentation names a provider but not the evaluated model/version.",
+      "evidence_locations": [
+        "synthetic://docs/model"
+      ]
+    },
+    {
+      "id": "T16",
+      "module": "ai_transparency",
+      "title": "Post-release claim monitoring is unknown",
+      "status": "unknown",
+      "evidence_level": "unknown",
+      "weight": 2,
+      "summary": "No monitoring process is observable from the synthetic public materials.",
+      "evidence_locations": [],
+      "next_evidence": "Provide the owner, monitoring trigger, and retained claim-review evidence."
+    },
+    {
+      "id": "E11",
+      "module": "public_evidence",
+      "title": "Product documentation is versioned",
+      "status": "pass",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Synthetic documentation shows release/version identity.",
+      "evidence_locations": [
+        "synthetic://docs/version"
+      ]
+    },
+    {
+      "id": "E12",
+      "module": "public_evidence",
+      "title": "Status information is publicly available",
+      "status": "pass",
+      "evidence_level": "public_observation",
+      "weight": 1,
+      "summary": "Synthetic public status information is available.",
+      "evidence_locations": [
+        "synthetic://status"
+      ]
+    },
+    {
+      "id": "E13",
+      "module": "public_evidence",
+      "title": "Known limitations are stated",
+      "status": "pass",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Synthetic docs include a limitations section.",
+      "evidence_locations": [
+        "synthetic://docs/limits"
+      ]
+    },
+    {
+      "id": "E14",
+      "module": "public_evidence",
+      "title": "Recovery documentation is fragmented",
+      "status": "warning",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Recovery information is split across synthetic help pages.",
+      "evidence_locations": [
+        "synthetic://docs/recovery-a",
+        "synthetic://docs/recovery-b"
+      ]
+    },
+    {
+      "id": "E15",
+      "module": "public_evidence",
+      "title": "Change history does not identify evidence-affecting changes",
+      "status": "warning",
+      "evidence_level": "documented",
+      "weight": 1,
+      "summary": "Synthetic release notes do not distinguish changes that invalidate prior checks.",
+      "evidence_locations": [
+        "synthetic://docs/changelog"
+      ]
+    },
+    {
+      "id": "E16",
+      "module": "public_evidence",
+      "title": "Runtime evidence package is unknown",
+      "status": "unknown",
+      "evidence_level": "unknown",
+      "weight": 2,
+      "summary": "No runtime evidence package is available in the synthetic public surface.",
+      "evidence_locations": [],
+      "next_evidence": "Provide retained runtime checks for the exact release and scope."
+    }
+  ],
+  "hard_priority": {
+    "id": "HARD-R14",
+    "title": "Duplicate refund protection is not demonstrated",
+    "summary": "The H.A.R.D. review treats duplicate-refund behavior as the first consequential decision to resolve. A strong public-surface grade cannot offset the missing proof.",
+    "evidence_locations": [
+      "synthetic://walkthrough/refund-repeat"
+    ],
+    "next_evidence": "Execute the same refund request twice against the exact implementation and retain the transaction, idempotency, and final-state evidence.",
+    "developer_trace": {
+      "observed": "The reviewed flow allows the automated agent to initiate a refund.",
+      "decision_underneath": "An automated component is allowed to create an external financial side effect.",
+      "must_be_true": "One authorized refund request must map to one transaction even when the request is retried, duplicated, or interrupted.",
+      "if_wrong": "A repeated or partially retried request can create a duplicate refund or contradictory order/payment state.",
+      "prove_next": "Execute the same refund request twice against the exact implementation and retain the transaction, idempotency, and final-state evidence."
+    }
+  }
+}

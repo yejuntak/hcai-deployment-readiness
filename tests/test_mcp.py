@@ -20,7 +20,9 @@ async def roundtrip():
             assert names=={"artifact_review_template", "assess_artifact_review", "assessment_template","assess_legacy_session","summarize_legacy_batch",
                            "assess_engineering_commitment", "validate_pilot_run", "export_public_feedback",
                            "new_review_record", "review_next_step", "get_gate_guide", "assessment_report",
-                           "get_review_criterion", "validate_study_review", "get_validation_targets"}
+                           "get_review_criterion", "validate_study_review", "get_validation_targets",
+                           "product_signal_grade_template", "calculate_product_signal_grade", "product_signal_report",
+                           "product_signal_rule_catalog", "evaluate_product_signal_observation"}
             artifact_schema=await client.call_tool("artifact_review_template",{})
             assert not artifact_schema.isError
             from test_artifact_review import fixture as artifact_fixture
@@ -75,6 +77,22 @@ async def roundtrip():
             assert not payload['evidence_verified']
             catalog=await client.read_resource("hcai://criteria")
             assert "HCAI-4.5" in catalog.contents[0].text
+            public_rules=await client.call_tool("product_signal_rule_catalog",{"scored_only":False})
+            assert not public_rules.isError
+            public_payload=json.loads(public_rules.content[0].text)
+            assert public_payload["portfolio_sources_included"] is False
+            assert any(row["id"]=="ACT-REPEAT-02" for row in public_payload["rules"])
+            observed=await client.call_tool("evaluate_product_signal_observation",{"observation":{
+                "rule_id":"ACT-REPEAT-02",
+                "status":"unknown",
+                "evidence_level":"unknown",
+                "next_evidence":"Provide a repeat/retry check"
+            }})
+            assert not observed.isError
+            observed_payload=json.loads(observed.content[0].text)
+            assert observed_payload["finding"]["status"]=="unknown"
+            rule_resource=await client.read_resource("hcai://public-signal-rules")
+            assert "portfolio" not in rule_resource.contents[0].text.lower()
             from test_experience import study
             study_result=await client.call_tool("validate_study_review",{"review":study()})
             assert not study_result.isError and json.loads(study_result.content[0].text)["decision"] is None
