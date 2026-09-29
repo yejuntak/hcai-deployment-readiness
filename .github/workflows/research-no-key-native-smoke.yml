@@ -17,14 +17,11 @@ jobs:
   native-connectivity:
     if: github.repository_visibility == 'public' && github.repository == 'yejuntak/hcai-deployment-readiness'
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 10
     env:
       HF_HUB_DISABLE_IMPLICIT_TOKEN: '1'
       HF_HUB_DISABLE_TELEMETRY: '1'
       DO_NOT_TRACK: '1'
-      TOKENIZERS_PARALLELISM: 'false'
-      OMP_NUM_THREADS: '4'
-      MKL_NUM_THREADS: '4'
       PYTHONUNBUFFERED: '1'
       NATIVE_PIN: 3633d8dab149a9482a71b024418a49ae828cc941
     steps:
@@ -32,7 +29,7 @@ jobs:
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.12'
-      - name: Fetch pinned public native source and test client
+      - name: Fetch pinned public native source and replay client
         shell: bash
         run: |
           set -euo pipefail
@@ -44,18 +41,17 @@ jobs:
           git -C "$NATIVE" checkout --detach FETCH_HEAD
           test "$(git -C "$NATIVE" rev-parse HEAD)" = "$NATIVE_PIN"
           echo "NATIVE=$NATIVE" >> "$GITHUB_ENV"
-          curl -fsSL --max-time 60 https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/91a6031e1d7398c5e816a7d05bcedbc6f1d47a00/research/connectivity/native_cpu_v3.py -o "$RUNNER_TEMP/native_cpu_v3.py"
-          sha256sum "$RUNNER_TEMP/native_cpu_v3.py"
-          python -m py_compile "$RUNNER_TEMP/native_cpu_v3.py"
-      - name: Install CPU runtime and native dependencies
+          curl -fsSL --max-time 60 https://raw.githubusercontent.com/yejuntak/hcai-deployment-readiness/8101873590dba1e7613c36049e9e50415ab6bd66/research/connectivity/native_replay_v1.py -o "$RUNNER_TEMP/native_replay_v1.py"
+          echo "6032365bd6e4d010087ed7ad531de97209021400c9056a25951cbc562cb403f8  $RUNNER_TEMP/native_replay_v1.py" | sha256sum --check -
+          python -m py_compile "$RUNNER_TEMP/native_replay_v1.py"
+      - name: Install native runtime only; no model weights or inference engine
         shell: bash
         run: |
           set -euo pipefail
-          python -m pip install --no-cache-dir 'torch==2.8.0' --index-url https://download.pytorch.org/whl/cpu
-          python -m pip install --no-cache-dir 'transformers==4.56.2' "$NATIVE"
+          python -m pip install --no-cache-dir "$NATIVE"
           python -m pip freeze
-      - name: Replay retained raw output and generate only missing neutral answer
+      - name: Replay two retained real outputs; do not generate new responses
         shell: bash
         env:
           GH_LOG_READ_TOKEN: ${{ github.token }}
-        run: python "$RUNNER_TEMP/native_cpu_v3.py"
+        run: python "$RUNNER_TEMP/native_replay_v1.py"
