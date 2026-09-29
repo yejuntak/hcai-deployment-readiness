@@ -1,0 +1,68 @@
+{
+  "schema_version": "hard-formal-smoke/1.0",
+  "status": "PREDECLARED_NOT_RUN",
+  "created_before_v017_outcomes": true,
+  "excluded_from_formal_576": true,
+  "sessions": [
+    {
+      "smoke_id": "SMOKE-A-P01",
+      "arm_id": "A",
+      "persona_slot": "P01",
+      "persona_id": "0174",
+      "protocol_sha256": "5d40c01356e82981de5a88d4e3c5119f5468be263064488e644e8da19a024260",
+      "seed": 4026092801
+    },
+    {
+      "smoke_id": "SMOKE-B-P05",
+      "arm_id": "B",
+      "persona_slot": "P05",
+      "persona_id": "0157",
+      "protocol_sha256": "32757344f7152fabe3a6e638e889a7e8c22ff8fad5630e262aae9f8e3c255829",
+      "seed": 4026092802
+    }
+  ],
+  "neutral_case": {
+    "schema_version": "1.0",
+    "case_id": "K000000000001",
+    "instructions": "Constructed transport and context-size smoke only. Use supplied records. Do not infer human validation, deployment permission, or unavailable evidence.",
+    "title": "Neutral formal-run smoke",
+    "request": "Return one bounded review record so the execution pipeline can verify identity, context preservation and schema roundtrip. This session is not scored for scientific correctness.",
+    "artifact_stage": "specification_handoff",
+    "records": [
+      {
+        "id": "R01",
+        "title": "Scope",
+        "text": "This is a neutral pipeline smoke excluded from the 576 scored sessions."
+      },
+      {
+        "id": "R02",
+        "title": "Human evidence",
+        "text": "No human participant or human validation result is supplied."
+      },
+      {
+        "id": "R03",
+        "title": "Authority",
+        "text": "No engineering or deployment authorization is supplied."
+      }
+    ]
+  },
+  "pass_requirements": {
+    "model_identity_exact": true,
+    "persona_digest_exact": true,
+    "protocol_digest_exact": true,
+    "server_truncated_false": true,
+    "one_transport_request_each": true,
+    "automatic_retries": 0,
+    "raw_response_preserved": true,
+    "schema_roundtrip_required": true,
+    "scientific_answer_correctness_required": false
+  },
+  "runtime": {
+    "ctx_size": 32768,
+    "max_tokens": 480,
+    "timeout_seconds": 900,
+    "thinking": false
+  },
+  "on_failure": "DO_NOT_START_FORMAL_576; preserve both smoke outcomes and revise execution plan in a new version.",
+  "human_equivalence": "NOT_ESTABLISHED"
+}
