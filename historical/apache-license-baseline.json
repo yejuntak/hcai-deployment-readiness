@@ -237,7 +237,6 @@
     "release/ai-ready-0.2.0-rc.8.zip": "60d637c1602a55dad2bf41c73b7aa5140c7a3c234690d8246e959a4aac3d83c9",
     "release/ai-ready-0.2.0-rc.9.zip": "a08fe04d9c75c48a2bdecd68b03cb49df7326faf2108cdd274f52c829513ca16",
     "release/ai-ready-0.3.0-rc.1.zip": "a3cab22714f19bac22c3635431caf09de53b9f92749770b4e043c58b10fa516e",
-    "release/download-manifest.json": "bf561e0d18880e77d8d235116db22f5e9c84f13e6d236ae45fbb074abf0162d9",
     "release/hcai_readiness_mcp-0.2.0rc1-py3-none-any.whl": "d809b0607590d2ce3856dc888221d8efcbda473181a545d439de64adabadb49c",
     "release/hcai_readiness_mcp-0.2.0rc2-py3-none-any.whl": "2891d5a3ec78c2f4b3a464af3e0fb5d2a2f263f5e9daf936d34a6eb17bb8f355",
     "release/hcai_readiness_mcp-0.2.0rc3-py3-none-any.whl": "d1f0c00c3448685206ee7c7b3c12a818cce3c12e45d0fbe3d1d5a6eda43250a0",
@@ -247,12 +246,16 @@
     "release/hcai_readiness_mcp-0.2.0rc7-py3-none-any.whl": "229d968e5dbf3385f79ad0fee5a6dd3e6fd037372422956a0dcd40a5918428c1",
     "release/hcai_readiness_mcp-0.2.0rc8-py3-none-any.whl": "b318e7ebbd922f8417bf7f8204cfcff92cab038c313be8bf35fd6606679b5967",
     "release/hcai_readiness_mcp-0.2.0rc9-py3-none-any.whl": "7fe1b6791f688727ba0ee43859696c69f4b01fc4491596ad92a3545dc8386188",
-    "release/hcai_readiness_mcp-0.3.0rc1-py3-none-any.whl": "073fad2560886f8fd05eb9d59059b9540edbc4c65af93676dd7c89b768199fed"
+    "release/hcai_readiness_mcp-0.3.0rc1-py3-none-any.whl": "073fad2560886f8fd05eb9d59059b9540edbc4c65af93676dd7c89b768199fed",
+    "historical/0.3-preview.1-download-manifest.json": "bf561e0d18880e77d8d235116db22f5e9c84f13e6d236ae45fbb074abf0162d9"
   },
   "historical_tags": {
     "agent-tools-v0.1.0": "fcc2999c5c6083ec55e67da41d694771f95c2269",
     "skill-v0.1.1": "c34b2908ef732ba0bd817735a5376ce95562d566",
     "v0.1-rc.1": "a8b1fb6a4f01670295c1f237054c78b5d5096485",
     "v0.1-rc.2": "69f9c208e8a686d619865b1c0218e8e2ac275e36"
+  },
+  "preserved_from": {
+    "historical/0.3-preview.1-download-manifest.json": "release/download-manifest.json"
   }
 }
