@@ -47,7 +47,7 @@ def footer(canvas, doc):
     canvas.setFillColor(colors.HexColor("#506179"))
     canvas.setFont("Helvetica", 8)
     canvas.drawString(44, 26, f"{public_title()} | {RELEASE_LABEL} | {PROTOCOL_VERSION} | Scope applies; no deployment approval")
-    canvas.drawString(44, 15, f"MCP {MCP_VERSION} | Skill/contract {SKILL_VERSION}")
+    canvas.drawString(44, 15, f"MCP {MCP_VERSION} | Skill/contract {SKILL_VERSION} | Copyright 2026 Yejun Tak | Apache-2.0")
     canvas.drawRightString(568, 26, str(doc.page))
 
 

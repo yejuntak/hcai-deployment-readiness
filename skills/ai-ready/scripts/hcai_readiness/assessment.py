@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Yejun Tak
 """Current corrected diagnostics; the frozen rc.3 implementation remains historical.
 
 Legacy-shaped counts support descriptive diagnostics only. Missing role/order facts

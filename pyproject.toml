@@ -4,11 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hcai-readiness-mcp"
-version = "0.3.0rc1"
+version = "0.3.0rc2"
 description = "Local MCP tools for H.A.R.D. Protocol 0.3 Public Preview, a human-owned decision and evidence review for AI-assisted work"
 readme = "docs/agent-tools.md"
 requires-python = ">=3.11"
-license = "MIT AND CC-BY-4.0"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
 authors = [{name = "Yejun Tak"}]
 dependencies = ["mcp>=1.12,<2", "pydantic>=2.11,<3"]
 

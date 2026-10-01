@@ -1,8 +1,8 @@
-# Migration: H.A.R.D. 0.2-preview.3 to 0.3-preview.1
+# Migration: H.A.R.D. 0.2-preview.3 to 0.3-preview.2
 
 H.A.R.D. Protocol 0.3 · Public Preview
 
-Exact current versions: protocol 0.3-preview.1; MCP 0.3.0rc1; Skill/contract 0.3.0-rc.1.
+Exact current versions: protocol 0.3-preview.2; MCP 0.3.0rc2; Skill/contract 0.3.0-rc.2.
 
 ## Why this is a 0.3 preview
 
@@ -67,4 +67,4 @@ Existing command names, MCP tool names and the `ai-ready` invocation remain supp
 
 This migration supplies software-tested structure for reasoning-decompression records. It does not establish that decision compression occurs at a measured rate, that H.A.R.D. reproduces expert cognition, or that the new lens improves software outcomes.
 
-Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.
+Execution versions: protocol 0.3-preview.2 · MCP 0.3.0rc2 · Skill/contract 0.3.0-rc.2.

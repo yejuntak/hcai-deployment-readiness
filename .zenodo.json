@@ -6,10 +6,10 @@
       "name": "Tak, Yejun"
     }
   ],
-  "description": "Human-centered AI Readiness and Decision Protocol. H.A.R.D. Protocol 0.3 is a Public Preview for reopening consequential decisions in AI-assisted artifacts before bounded engineering commitment. Exact versions: protocol 0.3-preview.1, MCP 0.3.0rc1 and Skill/contract 0.3.0-rc.1. This preview adds explicit engineering-deepening triage, reviewable system surfaces, first-class consequential assumption lifecycles, bounded challenge scenarios with explicit evidence levels, and a smallest coherent next software slice while retaining six gates and fifteen criterion IDs. Decision compression and implementation outrunning understanding are motivating models, not established causal effects. The protocol cannot authorize deployment and has not undergone controlled empirical validation. Original software is MIT-licensed; protocol and Skill text use CC BY 4.0. Development was AI-assisted. No new DOI is assigned here; the referenced DOI identifies historical rc.3 only.",
-  "version": "0.3.0rc1",
+  "description": "Human-centered AI Readiness and Decision Protocol. H.A.R.D. Protocol 0.3 is a Public Preview for reopening consequential decisions in AI-assisted artifacts before bounded engineering commitment. Exact versions: protocol 0.3-preview.2, MCP 0.3.0rc2 and Skill/contract 0.3.0-rc.2. This preview adds explicit engineering-deepening triage, reviewable system surfaces, first-class consequential assumption lifecycles, bounded challenge scenarios with explicit evidence levels, and a smallest coherent next software slice while retaining six gates and fifteen criterion IDs. Decision compression and implementation outrunning understanding are motivating models, not established causal effects. The protocol cannot authorize deployment and has not undergone controlled empirical validation. Original software, protocol/Skill text, documentation and synthetic data are Apache-2.0-licensed. Third-party material retains its own terms; historical releases retain their recorded bytes and prior grants. Development was AI-assisted. No new DOI is assigned here; the referenced DOI identifies historical rc.3 only.",
+  "version": "0.3.0rc2",
   "access_right": "open",
-  "license": "cc-by-4.0",
+  "license": "apache-2.0",
   "keywords": [
     "human-AI interaction",
     "prototype evaluation",

@@ -1,13 +1,15 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Yejun Tak
 """Public identity and exact execution versions. Historical DOI belongs only to rc.3."""
 PROTOCOL_NAME = "H.A.R.D. Protocol"
 PROTOCOL_FULL_NAME = "Human-centered AI Readiness and Decision Protocol"
 DISPLAY_VERSION = "0.3"
 RELEASE_LABEL = "Public Preview"
-DISTRIBUTION_ID = "hard-0.3-preview-1"
-PROTOCOL_VERSION = "0.3-preview.1"
-MCP_VERSION = "0.3.0rc1"
-SKILL_VERSION = "0.3.0-rc.1"
-CONTRACT_VERSION = "0.3.0-rc.1"
+DISTRIBUTION_ID = "hard-0.3-preview-2"
+PROTOCOL_VERSION = "0.3-preview.2"
+MCP_VERSION = "0.3.0rc2"
+SKILL_VERSION = "0.3.0-rc.2"
+CONTRACT_VERSION = "0.3.0-rc.2"
 
 
 def public_title():

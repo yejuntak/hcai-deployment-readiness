@@ -1,3 +1,7 @@
+# Prospective 0.3-preview.2 license correction
+
+Align original code, text and metadata with the owner-confirmed Apache-2.0 license. Preserve NOTICE and third-party rights. Advance MCP to 0.3.0rc2 and Skill/contract to 0.3.0-rc.2 without decision-rule changes. Existing releases remain frozen; publication is pending. See docs/licensing.md.
+
 # 0.3-preview.1 / 0.3.0rc1 / 0.3.0-rc.1
 
 - Make decision compression the explicit motivating model: AI-assisted creation can produce implementation before responsible people have externalized the consequential system model. This is a conceptual rationale, not a measured causal claim.

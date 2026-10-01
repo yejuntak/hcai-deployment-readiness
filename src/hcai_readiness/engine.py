@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Yejun Tak
 """One deterministic engine for MCP, CLI and the portable agent Skill."""
 import hashlib
 import json

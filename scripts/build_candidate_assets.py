@@ -36,6 +36,9 @@ def generated():
         output[f"skills/ai-ready/scripts/hcai_readiness/{name}"] = (ROOT / "src/hcai_readiness" / name).read_bytes()
     output["skills/ai-ready/references/research-boundary.md"] = (ROOT / "docs/research-boundary.md").read_bytes()
     output["skills/ai-ready/references/claims-and-governance.md"] = (ROOT / "docs/claims-and-governance.md").read_bytes()
+    for name in ('LICENSE', 'NOTICE'):
+        output[f'skills/ai-ready/references/{name}'] = (ROOT / name).read_bytes()
+    output['skills/ai-ready/references/licensing.md'] = (ROOT / 'docs/licensing.md').read_text().replace('(../LICENSE)', '(LICENSE)').replace('(../NOTICE)', '(NOTICE)').encode()
     catalog = criteria_catalog()
     criterion_text = ['# H.A.R.D. Protocol review criteria', '', public_title()+' · '+RELEASE_LABEL, '', identity()['full_name'], '', 'Exact protocol '+versions()['protocol']+'; preview criteria, not certification.', '',
                       'Use these criteria to review the evidence before an engineering commitment. The software checks record structure and the six gates; a human reviewer must judge the evidence itself. The protocol does not produce an aggregate conformance score.', '']

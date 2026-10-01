@@ -2,9 +2,16 @@
 
 Last updated: September 26, 2026. Current: **H.A.R.D. Protocol 0.3** · **Public Preview**.
 
-Human-centered AI Readiness and Decision Protocol. Exact protocol 0.3-preview.1; MCP 0.3.0rc1; Skill/contract 0.3.0-rc.1.
+Human-centered AI Readiness and Decision Protocol. Exact protocol 0.3-preview.2; MCP 0.3.0rc2; Skill/contract 0.3.0-rc.2.
 
 This is a record of changes, not a validation claim. Historical versions remain available. Formative reported use does not establish a conformant independent evaluation, adoption, endorsement or performance improvement.
+
+## Prospective Apache-2.0 correction: 0.3-preview.2
+
+Original code, text and metadata now consistently use Apache-2.0. MCP is
+0.3.0rc2 and Skill/contract is 0.3.0-rc.2; decision rules are unchanged.
+Old archives and DOI bytes remain intact. New downloads await authorized
+publication. See [licensing scope](licensing.md).
 
 ## September 26, 2026: decision decompression and engineering reasoning deepening
 

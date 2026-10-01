@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Yejun Tak
 """Read-only stdio MCP interface; no file writes, network calls or hidden keys."""
 from importlib.resources import files
 from typing import Literal

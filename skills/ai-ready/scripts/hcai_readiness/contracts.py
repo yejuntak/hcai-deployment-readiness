@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Yejun Tak
 """Candidate contracts. Unknown evidence remains nullable; invalid data never passes."""
 from typing import Annotated, Literal
 from pydantic import BaseModel, ConfigDict, Field, model_validator

@@ -4,7 +4,7 @@ H.A.R.D. Protocol 0.3 · Public Preview
 
 Human-centered AI Readiness and Decision Protocol.
 
-Exact protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1. Preview rules, not certification.
+Exact protocol 0.3-preview.2 · MCP 0.3.0rc2 · Skill/contract 0.3.0-rc.2. Preview rules, not certification.
 
 ## Which requirements govern the review?
 
@@ -65,4 +65,4 @@ The author currently maintains the project. It has no independent standards body
 
 See [0.2 to 0.3 migration](migration-0.2-to-0.3.md) for the reasoning-deepening contract and CSV changes. Preview.3 remains frozen history. Historical archives remain immutable; corrected current templates and diagnostics do not claim identical historical behavior.
 
-Licensing remains as stated in the repository: original text CC BY 4.0, engine code MIT, third-party material subject to its own terms. This document does not grant rights to private practitioner correspondence.
+Original code, text and synthetic data are licensed Apache-2.0; third-party material remains subject to its own terms. See LICENSE, NOTICE and docs/licensing.md for the prospective correction and preserved historical releases. This document does not grant rights to private practitioner correspondence.

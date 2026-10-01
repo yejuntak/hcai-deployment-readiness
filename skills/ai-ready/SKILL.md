@@ -8,7 +8,7 @@ description: Apply H.A.R.D. Protocol to inspect consequential decisions inside A
 Human-centered AI Readiness and Decision Protocol  
 H.A.R.D. Protocol 0.3 · Public Preview
 
-Exact protocol 0.3-preview.1 · Skill/contract 0.3.0-rc.1 · MCP 0.3.0rc1. Preserve the `ai-ready` invocation and existing command names. This author-defined method has not been empirically validated.
+Exact protocol 0.3-preview.2 · Skill/contract 0.3.0-rc.2 · MCP 0.3.0rc2. Preserve the `ai-ready` invocation and existing command names. This author-defined method has not been empirically validated.
 
 Use plain language, no em dashes or en dashes. Preserve supplied evidence and quotations as received. Do not claim authority from an unrelated standard.
 
@@ -111,4 +111,4 @@ Never invent sources, executions, observations, timings, cost, permissions, inde
 
 Keep working reports private by default. Public feedback must omit private identities and quotes unless separately authorized. Practitioner agent-mediated feedback informs usability and consistency fixes; it is not independent performance validation, adoption or endorsement. Do not verify unseen attachments by relying on a correspondent's summary. Read [claims and governance](references/claims-and-governance.md) before interpreting or sharing results.
 
-Keep every historical release and run unchanged. New versions do not retroactively validate old evidence. This Skill does not authorize contacting people, sending messages, publishing records or deploying systems. Original text CC BY 4.0; engine MIT; see references/LICENSE.
+Keep every historical release and run unchanged. New versions do not retroactively validate old evidence. This Skill does not authorize contacting people, sending messages, publishing records or deploying systems. Original code and text: Apache-2.0; see references/LICENSE and references/NOTICE. Third-party material retains its own terms.

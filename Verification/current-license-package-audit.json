@@ -1,0 +1,30 @@
+{
+  "result": "passed",
+  "source_base_commit": "f6c61a2137c482e85c6562cf28afd9f72f320738",
+  "versions": {
+    "protocol": "0.3-preview.2",
+    "mcp": "0.3.0rc2",
+    "skill": "0.3.0-rc.2",
+    "contract": "0.3.0-rc.2"
+  },
+  "license": "Apache-2.0",
+  "preserved_files": 246,
+  "preserved_tags": {
+    "agent-tools-v0.1.0": "fcc2999c5c6083ec55e67da41d694771f95c2269",
+    "skill-v0.1.1": "c34b2908ef732ba0bd817735a5376ce95562d566",
+    "v0.1-rc.1": "a8b1fb6a4f01670295c1f237054c78b5d5096485",
+    "v0.1-rc.2": "69f9c208e8a686d619865b1c0218e8e2ac275e36"
+  },
+  "new_assets_verified": 9,
+  "checks": [
+    "all sidecar hashes and byte counts",
+    "all source-ZIP SHA256SUMS entries",
+    "embedded root, Skill and wheel license/NOTICE parity",
+    "wheel version and SPDX license expression",
+    "no bundled third-party dependencies",
+    "decision module AST parity except version constants",
+    "historical byte and tag preservation"
+  ],
+  "publication": "pending_authorization",
+  "final_release_status": "REMAIN_CANDIDATE"
+}
