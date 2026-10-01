@@ -16,7 +16,7 @@ def candidates():
     folders = (f"protocol/{versions()['protocol']}", 'src', 'skills', 'schemas', 'examples', 'evidence', 'docs', 'tests',
                'output/pdf', 'scripts', 'Templates', 'Worked-Example')
     files = [ROOT / n for n in ('README.md', 'CHANGELOG.md', 'LICENSE', 'CITATION.cff', 'versions.json', 'identity.json',
-                               'pyproject.toml', 'uv.lock', 'index.html', f'Pilot-Kit/{DISTRIBUTION_ID}-external-packet.md',
+                               'pyproject.toml', '.zenodo.json', 'NOTICE', 'uv.lock', 'index.html', f'Pilot-Kit/{DISTRIBUTION_ID}-external-packet.md',
                                'Source/verify_example.py', 'Source/README.md', 'Verification/current-test-results.json',
                                'Verification/current-release-readiness.json')]
     for folder in folders:
@@ -46,6 +46,12 @@ def main():
     for name, expected in report['input_file_sha256'].items():
         if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected:
             raise SystemExit(f'Test report is stale for {name}; rerun verification')
+    # Frozen distributions must never be overwritten by a current build.
+    baseline = json.loads((ROOT / 'historical/apache-license-baseline.json').read_text())
+    destinations = [RELEASE / ZIP_NAME, RELEASE / f'ai-ready-{SKILL_VERSION}.zip',
+                    RELEASE / f'hcai_readiness_mcp-{MCP_VERSION}-py3-none-any.whl']
+    if any(str(path.relative_to(ROOT)) in baseline['files'] for path in destinations):
+        raise SystemExit('Refusing to overwrite a frozen distribution; advance versions first')
     RELEASE.mkdir(exist_ok=True)
     wheel = ROOT / f'dist/hcai_readiness_mcp-{MCP_VERSION}-py3-none-any.whl'
     if not wheel.exists():
@@ -57,6 +63,12 @@ def main():
                 continue
             if archive.read('hcai_readiness/' + path.name) != path.read_bytes():
                 raise SystemExit(f'Stale wheel: {path.name}')
+        metadata = archive.read(f'hcai_readiness_mcp-{MCP_VERSION}.dist-info/METADATA').decode()
+        if 'License-Expression: Apache-2.0\n' not in metadata:
+            raise SystemExit('Wheel must declare Apache-2.0')
+        for name in ('LICENSE', 'NOTICE'):
+            if archive.read(f'hcai_readiness_mcp-{MCP_VERSION}.dist-info/licenses/{name}') != (ROOT / name).read_bytes():
+                raise SystemExit(f'Stale wheel license file: {name}')
     shutil.copyfile(wheel, RELEASE / wheel.name)
     skill_files = [p for p in (ROOT / 'skills/ai-ready').rglob('*') if p.is_file() and '__pycache__' not in p.parts]
     skill_zip = RELEASE / f'ai-ready-{SKILL_VERSION}.zip'
@@ -68,7 +80,8 @@ def main():
     zip_files(RELEASE / ZIP_NAME, files + [ROOT / 'SHA256SUMS', RELEASE / wheel.name, skill_zip], ROOT,
               prefix=ZIP_NAME.removesuffix('.zip')+'/')
     published = [RELEASE / ZIP_NAME, skill_zip, RELEASE / wheel.name, *(ROOT / 'output/pdf').glob(f"HARD-*{versions()['protocol']}.pdf")]
-    manifest = {'protocol_version': versions()['protocol'], 'status': 'public_preview', 'identity': identity(), 'files': {
+    manifest = {'protocol_version': versions()['protocol'], 'status': 'prospective_public_preview', 'license': 'Apache-2.0', 'versions': versions(),
+                'source_base_commit': baseline['source_commit'], 'publication': 'pending_authorization', 'identity': identity(), 'files': {
         p.name: {'sha256': hashlib.sha256(p.read_bytes()).hexdigest(), 'bytes': p.stat().st_size} for p in published}}
     (RELEASE / 'download-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     if args.site_root:

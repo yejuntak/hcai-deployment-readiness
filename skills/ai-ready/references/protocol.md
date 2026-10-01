@@ -95,4 +95,4 @@ All historical version directories remain frozen. This Public Preview adds expli
 
 Read the [scenarios](SCENARIOS.md), [claims and governance](../../docs/claims-and-governance.md), [agent tools](../../docs/agent-tools.md) and [update log](https://www.takyejun.com/research/ai-readiness/updates).
 
-Execution versions: protocol 0.3-preview.1 · MCP 0.3.0rc1 · Skill/contract 0.3.0-rc.1.
+Execution versions: protocol 0.3-preview.2 · MCP 0.3.0rc2 · Skill/contract 0.3.0-rc.2.

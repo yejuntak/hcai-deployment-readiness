@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Yejun Tak
 """Deterministic questions and decision cards for a guided review. These do not generate evidence."""
 import json
 from importlib.resources import files

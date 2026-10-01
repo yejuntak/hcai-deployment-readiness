@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Yejun Tak
 """Permission-aware exports and release prerequisites, not a publication mechanism."""
 from .contracts import FeedbackEntry, PilotRun
 from .versions import versions

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Yejun Tak
 """Local assessment CLI. Reads one JSON input and prints one validated result."""
 import argparse
 import json

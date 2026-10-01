@@ -1,7 +1,31 @@
 {
-  "protocol_version": "0.3-preview.1",
+  "protocol_version": "0.3-preview.2",
   "status": "candidate_unvalidated",
   "changes": [
+    {
+      "id": "C35",
+      "observed_problem": "Root Apache-2.0 license contradicted active MIT/CC BY metadata and packages.",
+      "source_theme_ids": [],
+      "change": "Align original current materials with owner-confirmed Apache-2.0; preserve attribution, historical bytes and prior grants; prepare a separately versioned prospective distribution. Decision logic is unchanged.",
+      "requirements": [
+        "VERSION_PARITY",
+        "CLAIM_BOUNDARY"
+      ],
+      "files": [
+        "LICENSE",
+        "NOTICE",
+        "docs/licensing.md",
+        "historical/apache-license-baseline.json",
+        "scripts/package_candidate.py",
+        "tests/test_licensing.py"
+      ],
+      "acceptance_tests": [
+        "test_license_metadata_and_skill_notices_agree",
+        "test_preserved_license_baseline_bytes",
+        "test_packager_refuses_frozen_version_before_writes"
+      ],
+      "validation_status": "software_tests_only"
+    },
     {
       "id": "C33",
       "observed_problem": "The 0.2 choice review exposed purpose, alternatives and rationale but did not formally represent the system model that experienced software reviewers use to judge consequential generated implementation.",

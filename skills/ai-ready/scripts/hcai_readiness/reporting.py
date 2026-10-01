@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Yejun Tak
 """Offline decision report with semantic headings and tables. Supplied content is escaped, never executed."""
 import html
 from .engine import assess, requirement_digest

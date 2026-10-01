@@ -28,6 +28,9 @@ def main():
         for path in sorted((ROOT / directory).rglob('*')):
             if path.is_file() and '__pycache__' not in path.parts and path.suffix != '.pyc':
                 inputs[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
+    for name in ('README.md', 'CHANGELOG.md', 'LICENSE', 'NOTICE', 'CITATION.cff',
+                 '.zenodo.json', 'pyproject.toml', 'uv.lock', 'versions.json', 'identity.json'):
+        inputs[name] = hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
     report = {'recorded_at': datetime.now(timezone.utc).isoformat(), 'versions': versions(), 'command': 'python -m pytest -q --junitxml Verification/current-junit.xml',
               'exit_code': result.returncode, **totals, 'input_file_sha256': inputs,
               'interpretation': 'Software regression evidence only. No human pilot, adoption, endorsement or controlled empirical validation.'}

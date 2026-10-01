@@ -4,7 +4,7 @@ H.A.R.D. Protocol 0.3 · Public Preview
 
 Human-centered AI Readiness and Decision Protocol
 
-Exact protocol 0.3-preview.1; MCP 0.3.0rc1; Skill/contract 0.3.0-rc.1. The ArtifactReview versions object requires exact protocol, mcp, skill and contract values. Package names, hcai-readiness commands and the ai-ready invocation remain supported. Use the exact versions returned by the installed tools; old records are not silently migrated.
+Exact protocol 0.3-preview.2; MCP 0.3.0rc2; Skill/contract 0.3.0-rc.2. The ArtifactReview versions object requires exact protocol, mcp, skill and contract values. Package names, hcai-readiness commands and the ai-ready invocation remain supported. Use the exact versions returned by the installed tools; old records are not silently migrated.
 
 ## Install locally
 
@@ -76,7 +76,7 @@ Replace example metadata with actual metadata. Repository examples are synthetic
 
 The diagnostic tools retain the historical metric definitions while correcting role/lock eligibility and population handling in this implementation. A current diagnostic result must identify that amended method/version. Existing archived rc.3 inputs and outputs remain historical evidence; do not relabel them.
 
-Independent metrics require a prospectively frozen reference independent of findings, an evaluator who did not author the artifact or reference, and locks before reference access. Self-adjudicated matches require independent confirmation. Expected-recall gap additionally requires an actual locked expectation; omission recognition requires a frozen omission subset. False-ready acceptance requires an independently established criterion and locked judgment. See the [eligibility table](../protocol/0.3-preview.1/INDEPENDENT-EVALUATION.md).
+Independent metrics require a prospectively frozen reference independent of findings, an evaluator who did not author the artifact or reference, and locks before reference access. Self-adjudicated matches require independent confirmation. Expected-recall gap additionally requires an actual locked expectation; omission recognition requires a frozen omission subset. False-ready acceptance requires an independently established criterion and locked judgment. See the [eligibility table](../protocol/0.3-preview.2/INDEPENDENT-EVALUATION.md).
 
 Batch metrics stratify by criterion version, evaluator kind and artifact_population. Preserve stage, mode and remaining eligibility distinctions before comparing results. Agent or synthetic results cannot be presented as observed independent human results. Unknown is not neither.
 
@@ -86,4 +86,4 @@ Use `validate_pilot_run` only for an actual bounded engineering use record with 
 
 The software rejects malformed or contradictory records and checks arithmetic, references and encoded rules. A structurally valid file can still contain false or inadequate evidence. Human evidence-quality review and real owner authorization remain separate. Do not combine artifact coverage, evaluator metrics, review burden, projected operating benefit and actual performance into a readiness percentage.
 
-Regenerate bundled copies with scripts/build_candidate_assets.py and test MCP/Skill parity. Tests cover implementation behavior, not empirical effectiveness. See [engineering reasoning](../protocol/0.3-preview.1/ENGINEERING-REASONING.md), [claims and governance](claims-and-governance.md) and [0.2 to 0.3 migration](migration-0.2-to-0.3.md).
+Regenerate bundled copies with scripts/build_candidate_assets.py and test MCP/Skill parity. Tests cover implementation behavior, not empirical effectiveness. See [engineering reasoning](../protocol/0.3-preview.2/ENGINEERING-REASONING.md), [claims and governance](claims-and-governance.md) and [0.2 to 0.3 migration](migration-0.2-to-0.3.md).

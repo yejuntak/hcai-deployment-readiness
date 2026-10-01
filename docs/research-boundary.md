@@ -1,6 +1,6 @@
 # Research question and practical use
 
-H.A.R.D. Protocol 0.3 · Public Preview · Exact protocol 0.3-preview.1
+H.A.R.D. Protocol 0.3 · Public Preview · Exact protocol 0.3-preview.2
 
 The proposed study examines how visual fidelity affects human review of AI-generated interface prototypes. Requirements, content, behavior and embedded defects are held constant, as is AI authorship. The protocol serves a separate practical purpose: inspecting choices and evidence in an artifact, and, through QUICK6/FULL, reviewing evidence before a team funds engineering. It is neither the experimental treatment nor evidence that the hypothesized effect exists.
 
@@ -25,7 +25,7 @@ The practical protocol starts from a finished-looking artifact and works backwar
 
 **In practice**, a solo practitioner or small team can use artifact_review at a declared specification, prototype, implementation or runtime-review stage. It produces a bounded evidence record and next action, without requiring financial measurements or independent research roles. QUICK6/FULL separately retain the six gates for a bounded engineering recommendation. Neither route establishes runtime performance from specification completeness.
 
-**For optional independent evaluation**, apply the [metric eligibility rules](../protocol/0.3-preview.1/INDEPENDENT-EVALUATION.md). Role overlap does not eliminate useful artifact findings, but it can make evaluator-performance measures N/A. Agent, human and assisted-human populations remain distinct, as do AI-generated, runtime AI, both and neither artifact populations. Stratification is necessary but does not itself establish a sound study design.
+**For optional independent evaluation**, apply the [metric eligibility rules](../protocol/0.3-preview.2/INDEPENDENT-EVALUATION.md). Role overlap does not eliminate useful artifact findings, but it can make evaluator-performance measures N/A. Agent, human and assisted-human populations remain distinct, as do AI-generated, runtime AI, both and neither artifact populations. Stratification is necessary but does not itself establish a sound study design.
 
 The rationale draws on a proposed common pattern of expert work: interpret purpose, define criteria, compare alternatives, choose in context and verify the result. This is a design premise, not a demonstrated theory of expertise across domains. A newly generated reason is not evidence of the creator's historical reasoning, and no private chain-of-thought reconstruction is claimed. Designers, developers and small-business advisors are intended users; usability and benefit remain unvalidated.
 
@@ -37,7 +37,7 @@ The optional `study-review` schema stores one defect/no-defect judgment or abste
 
 A practitioner reported agent-mediated use and identified template/example schema friction, an omitted population axis and difficulty applying independent-reviewer metrics with overlapping roles. Such feedback informs usability and implementation consistency. It does not establish performance improvement, protocol compliance, adoption or endorsement.
 
-The underlying private artifact, CSVs and execution attachments were not independently examined for this release. Reported findings, numerical results and severity are not treated as verified. Public documentation uses separate constructed examples and omits private names and quotes. A missing disclosure is not automatically critical; deferred scope is not automatically a current defect. See the [finding-recognition rules](../protocol/0.3-preview.1/ARTIFACT-REVIEW.md).
+The underlying private artifact, CSVs and execution attachments were not independently examined for this release. Reported findings, numerical results and severity are not treated as verified. Public documentation uses separate constructed examples and omits private names and quotes. A missing disclosure is not automatically critical; deferred scope is not automatically a current defect. See the [finding-recognition rules](../protocol/0.3-preview.2/ARTIFACT-REVIEW.md).
 
 ## Decisions still needed before a study
 

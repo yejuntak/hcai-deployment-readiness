@@ -1,4 +1,4 @@
-Current distribution: H.A.R.D. Protocol 0.3-preview.1 Public Preview. The historical editorial record below remains dated to 0.2; see [current migration](migration-0.2-to-0.3.md) for the current reasoning-deepening contract and checks.
+Current distribution: H.A.R.D. Protocol 0.3-preview.2 Public Preview. The historical editorial record below remains dated to 0.2; see [current migration](migration-0.2-to-0.3.md) for the current reasoning-deepening contract and checks.
 
 # Editorial review and H.A.R.D. Protocol naming transition
 

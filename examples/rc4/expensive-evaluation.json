@@ -2,10 +2,10 @@
   "run_id": "SYNTHETIC-EXPENSIVE-EVALUATION",
   "recorded_at": "2026-09-24T12:00:00-05:00",
   "versions": {
-    "protocol": "0.3-preview.1",
-    "mcp": "0.3.0rc1",
-    "skill": "0.3.0-rc.1",
-    "contract": "0.3.0-rc.1"
+    "protocol": "0.3-preview.2",
+    "mcp": "0.3.0rc2",
+    "skill": "0.3.0-rc.2",
+    "contract": "0.3.0-rc.2"
   },
   "evaluator_kind": "synthetic",
   "requested_profile": "FULL",

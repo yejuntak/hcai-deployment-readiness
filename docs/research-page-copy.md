@@ -1,6 +1,6 @@
 # H.A.R.D. Protocol 0.3: current page content contract
 
-Public identity: **H.A.R.D. Protocol 0.3**. Separate state: **Public Preview**. Full name: Human-centered AI Readiness and Decision Protocol. Exact protocol 0.3-preview.1, MCP 0.3.0rc1, Skill/contract 0.3.0-rc.1 belong in technical details.
+Public identity: **H.A.R.D. Protocol 0.3**. Separate state: **Public Preview**. Full name: Human-centered AI Readiness and Decision Protocol. Exact protocol 0.3-preview.2, MCP 0.3.0rc2, Skill/contract 0.3.0-rc.2 belong in technical details.
 
 The page should explain the method before installation: a completed AI-created result can contain decisions the user has not examined. H.A.R.D. starts from those decisions and connects purpose, criteria, alternatives, reasons, tradeoffs, evidence and remaining human judgment. The outcome may preserve the original choice. It must not promise recovery of a model's unrecorded internal reasoning.
 
@@ -18,7 +18,7 @@ Targeted deepening describes inspecting a weak choice more closely. Do not displ
 
 The current protocol set includes START-HERE, PROTOCOL, ARTIFACT-REVIEW, DECISION-REVIEW, INDEPENDENT-EVALUATION, QUICK-6, FULL-PROFILE, CRITERIA, WORKSHEET and SCENARIOS. Publish consistent readable pages, source Markdown, schemas, examples and Skill/MCP instructions from this version. Keep template/example columns aligned and four-level evidence visible in completed examples.
 
-The canonical site source is docs/research-content.gohtml. The build combines shared metadata and criteria into reader-facing views. Do not hand-edit generated criterion copies. Current reading path: /static/research/ai-readiness/hard-0.3-preview-1/. Existing versioned reading paths remain historical and unchanged. Public updates remain /research/ai-readiness/updates.
+The canonical site source is docs/research-content.gohtml. The build combines shared metadata and criteria into reader-facing views. Do not hand-edit generated criterion copies. Current reading path: /static/research/ai-readiness/hard-0.3-preview-2/. Existing versioned reading paths remain historical and unchanged. Public updates remain /research/ai-readiness/updates.
 
 ## Evidence and disclosure boundaries
 
